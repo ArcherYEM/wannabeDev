@@ -14,8 +14,8 @@
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="username" value="admin"/>
-        <property name="password" value="wannabeDeb0244"/>
-        <property name="url" value="jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g0553367393cd26_wannabedev_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))" />
+        <property name="password" value="wannabeDev0224"/>
+        <property name="url" value="jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g0553367393cd26_wannabedev_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))?TNS_ADMIN=E:/study/개인공부/wannabe/Wallet_wannabeDev" />
     </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
