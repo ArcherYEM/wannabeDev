@@ -1,0 +1,7 @@
+wannabe:
+  datasource:
+    url: jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g0553367393cd26_wannabedev_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))?TNS_ADMIN=
+    username: admin
+    password: wannabeDev0224
+    driver-class: oracle.jdbc.driver.OracleDriver
+    wallet-path: C:/Wallet_wannabeDev

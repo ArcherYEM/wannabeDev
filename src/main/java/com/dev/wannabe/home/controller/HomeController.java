@@ -1,6 +1,6 @@
-package com.dev.wannabe.controller;
+package com.dev.wannabe.home.controller;
 
-import com.dev.wannabe.mapper.TestMapper;
+import com.dev.wannabe.home.mapper.TestMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
