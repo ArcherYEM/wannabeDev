@@ -17,6 +17,7 @@
         <mybatis.version>3.5.13</mybatis.version>
         <mybatis-spring.version>2.1.1</mybatis-spring.version>
         <jackson.version>2.15.2</jackson.version>
+        <hikariCP.version>5.1.0</hikariCP.version>
 
         <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -75,6 +76,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- 커넥션 풀 관리 -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikariCP.version}</version>
+        </dependency>
+
         <!-- Oracle JDBC Driver -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
@@ -83,9 +91,19 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-            <version>2.9.0</version>
+            <groupId>com.oracle.database.security</groupId>
+            <artifactId>oraclepki</artifactId>
+            <version>19.3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.database.security</groupId>
+            <artifactId>osdt_core</artifactId>
+            <version>19.3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.database.security</groupId>
+            <artifactId>osdt_cert</artifactId>
+            <version>19.3.0.0</version>
         </dependency>
 
         <!-- MyBatis -->
@@ -120,6 +138,13 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.4.11</version>
+        </dependency>
+
+        <!-- YAML file management -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.29</version>
         </dependency>
 
         <!-- JUnit 5 (for Testing) -->
