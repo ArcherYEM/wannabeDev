@@ -1,4 +1,4 @@
-package com.dev.wannabe.mapper;
+package com.dev.wannabe.home.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
