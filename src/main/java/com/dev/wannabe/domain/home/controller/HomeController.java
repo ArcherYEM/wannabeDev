@@ -13,6 +13,6 @@ public class HomeController {
     @RequestMapping("/home")
     public String home(){
         
-        return "home";
+        return "/WEB-INF/home.html";
     }
 }
