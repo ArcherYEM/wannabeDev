@@ -1,0 +1,125 @@
+@charset "utf-8";
+
+/*메인비쥬얼 s*/
+#wrap{background:#A4A5A4; width:100%; height:100%; padding:50px; box-sizing:border-box;}
+#mainWrap{background:#ADCFDC; border-radius:10px; width:1280px; padding:10px; box-sizing:border-box; margin: 0 auto;}
+#mainBorder{border:2px dotted #fff; border-radius:10px; padding:5px; box-sizing:border-box;}
+#mainWrapBackground{position:relative; background:#F2F2F2; border-radius:10px; box-sizing:border-box; padding:50px 10px 10px 10px;}
+#mainWrapBackground::after{content:""; clear:both; display:block;}
+/*메인비쥬얼 e*/
+
+/*메인비쥬얼 레프트 s*/
+#leftContainer{width:20%; float:left;}
+
+#leftContainer #todayWrap{}
+#leftContainer #todayWrap .todayUl{text-align:center;}
+#leftContainer #todayWrap .todayUl li{display:inline-block;}
+#leftContainer #todayWrap .todayUl .today{font-size:12px;}
+#leftContainer #todayWrap .todayUl .today span{color:#FFAE02; font-weight:bold; font-size:12px;}
+#leftContainer #todayWrap .todayUl .total{font-size:12px;}
+#leftContainer #todayWrap .todayUl .total span{color:#333; font-weight:bold; font-size:12px;}
+
+#leftContainer #leftWrap{border:1px solid #C2C2C2; border-radius:10px; box-sizing:border-box; background:#fff; margin-top:10px; height:500px;}
+
+#leftContainer #leftWrap #leftTop{padding:10px; box-sizing:border-box;}
+#leftContainer #leftWrap #leftTop .mainImg{text-align:center;}
+#leftContainer #leftWrap #leftTop .mainImg img{width:223px; height:223px;}
+#leftContainer #leftWrap #leftTop .introText{text-align:center; }
+#leftContainer #leftWrap #leftTop .introText p{text-align:center; height:150px; padding:10px; box-sizing:border-box;}
+
+#leftContainer #leftWrap #leftBottom{padding: 0 20px; box-sizing:border-box;}
+#leftContainer #leftWrap #leftBottom #historyWrap{border-bottom:1px solid #ccc; margin-bottom:5px;}
+#leftContainer #leftWrap #leftBottom #historyWrap ul{overflow:hidden;}
+#leftContainer #leftWrap #leftBottom #historyWrap ul li{float:left;}
+#leftContainer #leftWrap #leftBottom #historyWrap ul li.arrowSpan span{display:inline-block;}
+#leftContainer #leftWrap #leftBottom #historyWrap ul li.arrowSpan span:first-child{margin-right:-6px;}
+#leftContainer #leftWrap #leftBottom #historyWrap ul li:last-child{float:right;}
+#leftContainer #leftWrap #leftBottom #historyWrap ul li span{font-size:12px;}
+
+#leftContainer #leftWrap #leftBottom #nameWrap{margin-bottom:5px;}
+#leftContainer #leftWrap #leftBottom #nameWrap .name{font-size:14px; font-weight:bold; color:#1C97CC}
+#leftContainer #leftWrap #leftBottom #nameWrap .nameSymbol{display:inline-block; width:15px; height:15px; line-height:15px; text-align:center; border:1px solid #bbb; border-radius:5px;}
+
+#leftContainer #leftWrap #leftBottom #padoWrap{}
+#leftContainer #leftWrap #leftBottom #padoWrap select{width:100%; font-size:14px; height:25px;}
+/*메인비쥬얼 레프트 e*/
+
+
+
+/*메인비쥬얼 라이트 s*/
+#rightContainer{width:79%; float:right; margin-left:1%; position:relative;}
+#rightContainer #gnb{position:absolute; top:55px; right:-61px; z-index:10}
+#rightContainer #gnb ul{}
+#rightContainer #gnb ul li{border:1px solid #075271; color:#fff; width:60px; height:30px; margin-bottom:5px; text-align:center; line-height:30px; background:#228CB3; border-radius: 0px 5px 5px 0px;}	
+#rightContainer #gnb ul li.on{border:1px solid #617680; color:#333; background:#fff; border-left:0;}
+#rightContainer #gnb ul li a{display:block;}
+#rightContainer #rightTopWrap{}
+#rightContainer #rightTopWrap .rightTopMain{overflow:hidden;}
+#rightContainer #rightTopWrap .rightTopMain > li.mainTitle{font-size:16px; font-weight:bold;}
+#rightContainer #rightTopWrap .rightTopMain > li{float:left;}
+#rightContainer #rightTopWrap .rightTopMain > li:last-child{float:right;}
+#rightContainer #rightTopWrap .rightTopMain > li > ul{overflow:hidden}
+#rightContainer #rightTopWrap .rightTopMain > li > ul > li{float:left;}
+#rightContainer #rightTopWrap .rightTopMain > li > ul > li button{color:#F7A902;  font-size:12px; font-weight:bold;}
+#rightContainer #rightTopWrap .rightTopMain > li > ul > li button i{color:#F7A902;  font-size:12px; font-weight:bold;}
+#rightWrapBox{ position:relative; z-index:9; padding-right:20px;background:#fff; border:1px solid #C2C2C2; border-radius:10px; box-sizing:border-box; padding-top:15px; margin-top:5px;}
+#rightWrap{box-sizing:border-box; background:#fff; height:481px; border-radius:10px; padding:0px 30px 15px 30px; overflow-y:auto;}
+
+#rightWrap .rightMainWrap{}
+#rightWrap .rightMainWrap .rightMainTop{overflow:hidden;}
+#rightWrap .rightMainWrap .rightMainTop > p{font-size:14px; font-weight:bold}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft{float:left; width:49%; height:96px;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul{}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li{overflow:hidden; margin-bottom:2px; border-bottom:1px dotted #ccc; height:21px; line-height:21px;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li p{}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li p.title{float:left;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li p.title a{font-size:12px;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li p.time{float:right; font-size:12px;}
+
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopRight{float:right; width:49%;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul{overflow:hidden;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li{float:left; width:50%; border-top:1px dotted #ccc; border-bottom:1px dotted #ccc; box-sizing:border-box; padding:4.4px 0;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li a{font-size:14px;}
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li span{color:#1613F2; font-size:12px; display:inline-block; margin-left:5px;}
+
+#rightWrap .rightMainWrap .rightMain{}
+
+#rightWrap .rightMainWrap .rightMain ul{overflow:hidden; margin-top:10px;}
+#rightWrap .rightMainWrap .rightMain ul li{fLoat:left; cursor:pointer; font-size:12px;}
+#rightWrap .rightMainWrap .rightMain ul li.on{color:#1C97CC; font-weight:bold;}
+#rightWrap .rightMainWrap .rightMain ul li:after{content:"|"; display:inline-block; margin:0 5px; color:#333; font-weight:normal;}
+#rightWrap .rightMainWrap .rightMain ul li:last-child:after{display:none}
+
+#rightWrap .rightMainWrap .rightMain .miniRoom{width:100%; height:200px; border:1px solid #ddd; margin-top:10px; position:relative; box-sizing:border-box}
+#rightWrap .rightMainWrap .rightMain .miniRoom .human{position:absolute; top:50%; left:46%; width:50px;}
+#rightWrap .rightMainWrap .rightMain .miniRoom .talk{position:absolute; top:10%; left:50%; transform: translateX(-50%); display:inline-block; padding:20px 30px; border-radius:20px; background:#333; color:#fff}
+#rightWrap .rightMainWrap .rightMain .miniRoom .talk:after{content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 0; border: 20px solid transparent; border-top-color: #333; border-bottom: 0; border-left: 0; margin-left: -10px;  margin-bottom: -20px;}
+
+#rightWrap .rightMainWrap .rightMainBottom{}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay{background:#eee; width:100%; padding:10px 0; border:1px solid #ccc; box-sizing:border-box; margin:10px 0;}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay table{}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody{}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody tr{}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody tr td{vertical-align:middle; text-align:center;}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody tr td input{width:100%; height:26px;}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody tr td p{text-align:center;}
+#rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody tr td button{height:26px; width:50px; color:#333; border:1px solid #bbb; box-sizing:border-box; background:#fff;}
+
+#rightWrap .rightMainWrap .rightMainBottom .commentList{}
+#rightWrap .rightMainWrap .rightMainBottom .commentList li{}
+#rightWrap .rightMainWrap .rightMainBottom .commentList li span.comment{}
+#rightWrap .rightMainWrap .rightMainBottom .commentList li span.star{}
+#rightWrap .rightMainWrap .rightMainBottom .commentList li span.star span.nickName{cursor:pointer;}
+#rightWrap .rightMainWrap .rightMainBottom .commentList li span.star span.todayDate{color:#ccc}
+
+/*메인비쥬얼 라이트 e*/
+
+
+
+/*메인 스프링 s*/
+#spring{}
+#spring ul{}
+#spring ul li{position:relative; z-index:99; width:30px; height:10px; border-radius:5px; border:1px solid #ccc; background: linear-gradient(to right, #ddd, #fff); margin-bottom:20px;}
+.spring1{position:absolute; top:190px; left:245px;}
+.spring2{position:absolute; top:400px; left:245px;}
+/*메인 스프링 e*/
