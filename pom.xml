@@ -18,6 +18,7 @@
         <mybatis-spring.version>2.1.1</mybatis-spring.version>
         <jackson.version>2.15.2</jackson.version>
         <hikariCP.version>5.1.0</hikariCP.version>
+        <thymeleaf-core.version>3.0.15.RELEASE</thymeleaf-core.version>
 
         <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -144,7 +145,28 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.29</version>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- Thymeleaf Core -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf-core.version}</version>
+        </dependency>
+
+        <!-- Thymeleaf-Spring Integration -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
+            <version>${thymeleaf-core.version}</version>
+        </dependency>
+
+        <!-- Thymeleaf Layout Dialect -->
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>3.2.0</version>
         </dependency>
 
         <!-- JUnit 5 (for Testing) -->

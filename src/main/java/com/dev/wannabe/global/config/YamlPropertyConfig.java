@@ -1,4 +1,4 @@
-package com.dev.wannabe.config;
+package com.dev.wannabe.global.config;
 
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
