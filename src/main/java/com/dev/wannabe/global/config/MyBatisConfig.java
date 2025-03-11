@@ -1,13 +1,11 @@
-package com.dev.wannabe.config;
+package com.dev.wannabe.global.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.AllArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,8 +46,8 @@ public class MyBatisConfig {
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(5);
         config.setValidationTimeout(5000);
+        config.setIdleTimeout(60000);
         config.setIdleTimeout(200000);
-        config.setMaxLifetime(240000);
         config.setAutoCommit(false);
 
         return new HikariDataSource(config);
