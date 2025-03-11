@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>샘플 게시판</title>
+</head>
+<style>
+    .active {
+        font-weight: bold;
+    }
+</style>
+<script>
+    const move_page = (page = 1, size = 4) => {
+
+        const getInputValue = (id) => document.getElementById(id)?.value.trim();
+
+        const inputIdArr = ["input_id", "input_title", "input_content"];
+        const searchCondition = ["id", "title", "content"];
+
+        const params = new URLSearchParams();
+
+        params.append("page", page);
+        params.append("size", size);
+
+        // 입력값 추가
+        inputIdArr.forEach((id, index) => {
+            const value = getInputValue(id);
+            if (value) params.append(searchCondition[index], value);
+        });
+
+        location.href = `/sample/paging?${params.toString()}`;
+    };
+</script>
+
+<body>
+    <h1>게시판 목록</h1>
+    <input type="hidden"
+           id="input_pageNum"
+           th:value="${sampleBoardPage.getTotalPages() > 1} ? ${sampleBoardPage.getNumber()} : 1" />
+    <input type="hidden"
+           id="input_pageSize"
+           th:value="${sampleBoardPage.getTotalPages() > 1} ? ${sampleBoardPage.getPageSize()} : 12" />
+    <input style="width: 150px"
+           type="text"
+           id="input_id"
+           placeholder="id search condition"
+           th:value="${#request.getParameter('id')}" />
+    <input style="width: 150px; margin-left: 20px;"
+           type="text"
+           id="input_title"
+           placeholder="id title condition"
+           th:value="${#request.getParameter('title')}" />
+    <input style="width: 150px; margin: 20px;"
+           type="text"
+           id="input_content"
+           placeholder="id content condition"
+           th:value="${#request.getParameter('content')}" />
+    <button style="width: 100px; margin: 20px;"
+            onclick="move_page();">검색</button>
+
+    <!-- 게시글 테이블 -->
+    <table border="1px" style="width: 70%;">
+        <thead>
+        <tr>
+            <th style="width: 20%">글ID</th>
+            <th style="width: 30%">제목</th>
+            <th style="width: 50%">내용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sampleBoard : ${sampleBoardPage.getPagingContents()}">
+            <td th:text="${sampleBoard.id}"></td>
+            <td th:text="${sampleBoard.title}"></td>
+            <td th:text="${sampleBoard.content}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <div style="width: 70%" th:if="${sampleBoardPage.getTotalPages() > 1}">
+        <th:block th:each="i : ${#numbers.sequence(1, sampleBoardPage.getTotalPages())}">
+            <a th:if="${i != sampleBoardPage.getNumber()}"
+               href="javascript:void(0);"
+               th:attr="onclick=|move_page(${i}, ${sampleBoardPage.getPageSize()})|"
+               th:text="${i}"
+               th:styleappend="'margin-left:10px'"></a>
+            <span th:if="${i == sampleBoardPage.getNumber()}"
+               th:text="${i}"
+               th:classappend="'active'"
+               th:styleappend="'margin-left:10px'"></span>
+        </th:block>
+    </div>
+
+    <!-- 요약 정보 -->
+    <div style="width: 70%">
+        총 <span th:text="${sampleBoardPage.getTotalPages()}"></span>페이지 중
+        현재 <span th:text="${sampleBoardPage.getNumber()}"></span>페이지
+    </div>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.sample.mapper.SampleMapper">
+
+    <select id="findAllSampleBoard" resultType="com.dev.wannabe.domain.sample.model.SampleModel">
+        <include refid="common.sql.paging.start"/>
+        SELECT
+              ID
+            , TITLE
+            , CONTENT
+        FROM
+            (SELECT
+                1 AS ID
+                 , '제목 1' AS TITLE
+                 , '내용 1' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                2 AS ID
+                 , '제목 2' AS TITLE
+                 , '내용 2' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                4 AS ID
+                 , '제목 4' AS TITLE
+                 , '내용 4' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                5 AS ID
+                 , '제목 5' AS TITLE
+                 , '내용 6' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                10 AS ID
+                 , '제목 10' AS TITLE
+                 , '내용 10' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                10 AS ID
+                 , '제목 10' AS TITLE
+                 , '내용 10' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                11 AS ID
+                 , '제목 11' AS TITLE
+                 , '내용 11' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                19 AS ID
+                 , '제목 19' AS TITLE
+                 , '내용 19' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                20 AS ID
+                 , '제목 20' AS TITLE
+                 , '내용 20' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                21 AS ID
+                 , '제목 21' AS TITLE
+                 , '내용 21' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                25 AS ID
+                 , '제목 25' AS TITLE
+                 , '내용 25' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                29 AS ID
+                 , '제목 29' AS TITLE
+                 , '내용 29' AS CONTENT
+            FROM
+                DUAL
+            UNION ALL
+            SELECT
+                49 AS ID
+                 , '제목 49' AS TITLE
+                 , '내용 49' AS CONTENT
+            FROM
+                DUAL)
+        WHERE 1=1
+        <if test='condition.id not in {null, ""}'>
+            AND ID = #{condition.id}
+        </if>
+        <if test='condition.title not in {null, ""}'>
+            AND TITLE LIKE '%' || #{condition.title} || '%'
+        </if>
+        <if test='condition.content not in {null, ""}'>
+            AND CONTENT LIKE '%' || #{condition.content} || '%'
+        </if>
+        <include refid="common.sql.paging.end"/>
+    </select>
+
+    <select id="countSampleBoard" resultType="int">
+        SELECT
+            COUNT(*) AS COUNT
+        FROM
+            (SELECT
+                 1 AS ID
+                  , '제목 1' AS TITLE
+                  , '내용 1' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 2 AS ID
+                  , '제목 2' AS TITLE
+                  , '내용 2' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 4 AS ID
+                  , '제목 4' AS TITLE
+                  , '내용 4' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 5 AS ID
+                  , '제목 5' AS TITLE
+                  , '내용 6' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 10 AS ID
+                  , '제목 10' AS TITLE
+                  , '내용 10' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 10 AS ID
+                  , '제목 10' AS TITLE
+                  , '내용 10' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 11 AS ID
+                  , '제목 11' AS TITLE
+                  , '내용 11' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 19 AS ID
+                  , '제목 19' AS TITLE
+                  , '내용 19' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 20 AS ID
+                  , '제목 20' AS TITLE
+                  , '내용 20' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 21 AS ID
+                  , '제목 21' AS TITLE
+                  , '내용 21' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 25 AS ID
+                  , '제목 25' AS TITLE
+                  , '내용 25' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 29 AS ID
+                  , '제목 29' AS TITLE
+                  , '내용 29' AS CONTENT
+             FROM
+                 DUAL
+             UNION ALL
+             SELECT
+                 49 AS ID
+                  , '제목 49' AS TITLE
+                  , '내용 49' AS CONTENT
+             FROM
+                 DUAL)
+        WHERE 1=1
+        <if test='condition.id and condition.id not in {null, ""}'>
+            AND ID = #{condition.id}
+        </if>
+        <if test='condition.title not in {null, ""}'>
+            AND TITLE LIKE '%' || #{condition.title} || '%'
+        </if>
+        <if test='condition.content not in {null, ""}'>
+            AND CONTENT LIKE '%' || #{condition.content} || '%'
+        </if>
+    </select>
+</mapper>
