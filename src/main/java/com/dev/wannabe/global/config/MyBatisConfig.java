@@ -34,12 +34,18 @@ public class MyBatisConfig {
     @Value("${wannabe.datasource.wallet-path}")
     private String walletPath;
 
+    @Value("${wannabe.datasource.wallet-path-mac}")
+    private String walletPathMac;
+
     @Bean
-    public DataSource dataSource() throws IOException {
+    public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
 
         config.setDriverClassName(driverClass);
-        config.setJdbcUrl(dbUrl+walletPath);
+        /* window */
+        config.setJdbcUrl(dbUrl + walletPath);
+        /* mac */
+//        config.setJdbcUrl(dbUrl + walletPathMac);
         config.setUsername(dbUsername);
         config.setPassword(dbPassword);
 
