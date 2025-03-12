@@ -45,7 +45,7 @@ public class MyBatisConfig {
         /* window */
         config.setJdbcUrl(dbUrl+walletPath);
         /* mac */
-        config.setJdbcUrl(dbUrl+walletPathMac);
+//        config.setJdbcUrl(dbUrl+walletPathMac);
         config.setUsername(dbUsername);
         config.setPassword(dbPassword);
 
