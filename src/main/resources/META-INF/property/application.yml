@@ -5,3 +5,4 @@ wannabe:
     password: wannabeDev0224
     driver-class: oracle.jdbc.driver.OracleDriver
     wallet-path: C:/Wallet_wannabeDev
+    wallet-path-mac: /Users/sin-inseon/Wallet_wannabeDev
