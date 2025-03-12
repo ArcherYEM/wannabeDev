@@ -36,4 +36,34 @@ public class SampleController {
 
         return "common/sample/samplePagenation";
     }
+
+    @GetMapping("/about-us")
+    public String aboutUs() {
+        return "sample/ABOUTUS";
+    }
+
+    @GetMapping("/no-login-home")
+    public String noLoginHome() {
+        return "sample/onlineMain_noLogin";
+    }
+
+    @GetMapping("/login-home")
+    public String loginHome() {
+        return "sample/onlineMain_yesLogin";
+    }
+
+    @GetMapping("/home-with-modal")
+    public String homeWithModal() {
+        return "sample/메인공지사항모달";
+    }
+
+    @GetMapping("/find-id-pw")
+    public String findIdPw() {
+        return "sample/아이디_비번찾기";
+    }
+
+    @GetMapping("/sign-in")
+    public String signIn() {
+        return "sample/회원가입";
+    }
 }
