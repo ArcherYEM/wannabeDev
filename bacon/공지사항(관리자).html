@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>onlineMain</title>
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/onlineStyle.css">
+	<link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<style>
+	/*ABOUT US 시작*/
+
+	.containerWrap {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 60%;
+		height: 80vh;
+	}
+    /*공지사항 컨테이너*/
+	#board-title {
+		display: flex;
+		justify-content: flex-start;
+		margin-bottom: 15px;
+	}
+   
+	#board-title h1 {
+		font-weight: bold;
+		font-size: xx-large;
+
+	}
+
+	#board-title span {
+		font-weight: bold;
+		font-size: medium;
+	}
+    /*조회 컨테이너*/
+	#select-bar {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 10px;
+	}
+    /*행 출력 갯수 셀렉트*/
+	#select-bar select {
+		border-radius: 5px;
+		height: 30px;
+	}
+    /*조회 조건 셀렉트 모음 컨테이너*/
+	#select-collector {
+		display: flex;
+		justify-content: flex-end;
+		gap: 15px;
+	}
+    
+	#select-collector input {
+		height: 30px;
+	}
+    /*테이블 컨테이너*/
+	#table-container {
+		margin-bottom: 20px;
+	}
+
+	#table-container table {
+		border-top: 2px solid black;
+		border-bottom: 2px solid black;
+	}
+    /*테이블 안 체크 박스 디자인*/
+	#table-container [type="checkbox"] {
+		appearance: none;
+		/* 기본 스타일 제거 */
+		width: 17px;
+		height: 17px;
+		border: 1px solid orange;
+		background-color: white;
+		border-radius: 4px;
+		/* 둥글게 */
+		cursor: pointer;
+	}
+
+	/* 체크된 경우 스타일 */
+	#table-container [type="checkbox"]:checked {
+		background-color: orange;
+		border-color: darkorange;
+		position: relative;
+	}
+
+	/* 체크 표시 만들기 */
+	#table-container [type="checkbox"]:checked::after {
+		content: "✔";
+		/* 체크 표시 */
+		font-size: 14px;
+		color: white;
+		display: block;
+		text-align: center;
+		font-weight: bold;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+    /*테이블 안 뱃지*/
+	#table-container td #bedge{
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+		display: flex;
+		width: 65px;
+		height: 27px;
+		border-radius: 10px;
+        font-size: 11px;
+	}
+
+	#table-container #announcement{
+		color:white;
+		background-color: blue;
+	}
+
+	#table-container tr {
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		height: 35px;
+	}
+
+	#table-container th {
+		background-color: rgba(255, 186, 122, 0.548);
+	}
+
+	#table-container td {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	#bottom-bar {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	#pagination {
+		margin: 0 50px 0 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: gray;
+		gap: 15px;
+	}
+
+	#pagination button {
+		border-radius: 5px;
+		width: 25px;
+		height: 25px;
+		color: black;
+		background-color: white;
+	}
+
+	#pagination button.active {
+		color: white;
+		background-color: orange;
+	}
+
+	#pagination button:hover {
+		color: white;
+		background-color: orange;
+	}
+
+	#pagination #prev-next {
+		width: 60px;
+		height: 30px;
+	}
+
+	#delete-button {
+		color: white;
+		background-color: red;
+		width: 60px;
+		height: 30px;
+	}
+
+	#register-button {
+		color: white;
+		background-color: blue;
+		width: 60px;
+		height: 30px;
+	}
+
+
+	/*ABOUT US 정료*/
+</style>
+
+<body>
+	<div id="wrap">
+		<!--헤더 시작-->
+		<div id="header">
+			<div class="headerLeft">
+				<a href="#" class="logo"><img src="./images/logo.png"></a>
+			</div>
+			<div class="headerRight">
+				<ul>
+					<li><input type="text" name="" id="" placeholder="아이디"></li>
+					<li><input type="password" name="" id="" placeholder="비밀번호"></li>
+					<li><a href="#" class="btn">로그인</a></li>
+					<li><a href="#" class="btn">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--헤더 끝-->
+
+		<!--gnb 시작-->
+		<div id="gnb">
+			<div>
+				<ul>
+					<li><a href="#">내미니홈피</a></li>
+					<li><a href="#">선물가게</a></li>
+					<li><a href="#">장바구니</a></li>
+					<li><a href="#">공지사항</a></li>
+					<li><a href="#">ABOUT US</a></li>
+				</ul>
+			</div>
+		</div>
+		<!--gnb 끝-->
+
+		<!--메인 시작-->
+		<div id="container"> <!--자식 요소 수직 정렬-->
+			<div class="containerWrap">
+				<div id="board-title">
+					<h1>공지사항 <span> |공지관리</span></h1>
+				</div> <!--왼쪽에 붙게-->
+				<div id="select-bar"><!--양 옆에 붙게-->
+					<select name="" id="">
+						<option value="">10개씩 보기</option>
+					</select>
+					<div id="select-collector">
+						<select name="" id="">
+							<option value="">전체(분류)</option>
+						</select>
+						<select name="" id="">
+							<option value="">제목 + 내용</option>
+						</select>
+						<input type="text" placeholder="X" style="text-align: end;">
+					</div>
+				</div>
+				<div id="table-container">
+					<table>
+						<tr>
+							<th style="width: 60px;"><input type="checkbox"></th>
+							<th style="width: 75px;">분류(전체)</th>
+							<th style="width: auto;">제목</th>
+							<th style="width: 140px;">게시일</th>
+							<th style="width: 100px;">작성일</th>
+							<th style="width: 80px;">작성자</th>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">공지</div></td>
+							<td>공지사항입니다.</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">이벤트</div></td>
+							<td>이벤트입니다.</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: goldenrod;">전체 쪽지</div></td>
+							<td>팝업입니다.</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: red;">관리자쪽지</div></td>
+							<td>회원님들께 보내는 전체쪽지 입니다.</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">공지</div></td>
+							<td>관리자님들께 보내는 전체쪽지 입니다.</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">공지</div></td>
+							<td>공지사항입니다</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">공지</div></td>
+							<td>공지사항입니다</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">공지</div></td>
+							<td>공지사항입니다</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">공지</div></td>
+							<td>공지사항입니다</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td><div id="bedge" style="color:white; background-color: blue;">공지</div></td>
+							<td>공지사항입니다</td>
+							<td>yy-mm-dd ~ yy-mm-dd</td>
+							<td>yy-mm-dd</td>
+							<td>작성자</td>
+						</tr>
+					</table>
+				</div>
+				<div id="bottom-bar"><!--space around-->
+					<button id="delete-button">선택 삭제</button>
+					<div id="pagination">
+						<button id="prev-next"> ← 이전</button>
+								<button>1</button>
+								<button>2</button>
+								<button>3</button>
+								...
+								<button>67</button>
+								<button>68</button>
+								<button id="prev-next">이후 →</button>
+					</div>
+					<button id="register-button">등록</button>
+				</div>
+			</div>
+		</div>
+		<!--메인 끝-->
+
+		<!--푸터 시작-->
+		<div id="footer">
+			<div class="footerWrap">
+				<div>
+					<p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
+					<p>Since.2025.2.24~</p>
+				</div>
+			</div>
+		</div>
+		<!--푸터 끝-->
+	</div>
+</body>
+
+</html>
