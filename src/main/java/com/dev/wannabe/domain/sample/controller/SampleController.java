@@ -66,4 +66,9 @@ public class SampleController {
     public String signIn() {
         return "sample/회원가입";
     }
+
+    @GetMapping("/mini-hompi")
+    public String miniHompi() {
+        return "sample/main";
+    }
 }
