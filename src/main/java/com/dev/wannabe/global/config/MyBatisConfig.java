@@ -43,9 +43,9 @@ public class MyBatisConfig {
 
         config.setDriverClassName(driverClass);
         /* window */
-        config.setJdbcUrl(dbUrl+walletPath);
+        config.setJdbcUrl(dbUrl + walletPath);
         /* mac */
-//        config.setJdbcUrl(dbUrl+walletPathMac);
+//        config.setJdbcUrl(dbUrl + walletPathMac);
         config.setUsername(dbUsername);
         config.setPassword(dbPassword);
 
