@@ -18,8 +18,4 @@
         <typeAlias alias="hashMap" type="java.util.HashMap"/>
 	</typeAliases>
 
-	<typeHandlers>
-        <typeHandler handler="org.apache.ibatis.type.ClobTypeHandler" javaType="String" jdbcType="CLOB" />
-    </typeHandlers>
-
 </configuration>
