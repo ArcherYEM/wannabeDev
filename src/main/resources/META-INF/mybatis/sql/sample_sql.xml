@@ -4,11 +4,10 @@
 <mapper namespace="com.dev.wannabe.domain.sample.mapper.SampleMapper">
 
     <select id="findAllSampleBoard" resultType="com.dev.wannabe.domain.sample.model.SampleModel">
-        <include refid="common.sql.paging.start"/>
         SELECT
-              ID
-            , TITLE
-            , CONTENT
+              A.ID
+            , A.TITLE
+            , A.CONTENT
         FROM
             (SELECT
                 1 AS ID
@@ -99,23 +98,23 @@
                  , '제목 49' AS TITLE
                  , '내용 49' AS CONTENT
             FROM
-                DUAL)
+                DUAL) A
         WHERE 1=1
         <if test='condition.id not in {null, ""}'>
-            AND ID = #{condition.id}
+            AND A.ID = #{condition.id}
         </if>
         <if test='condition.title not in {null, ""}'>
-            AND TITLE LIKE '%' || #{condition.title} || '%'
+            AND A.TITLE LIKE concat('%', #{condition.title}, '%')
         </if>
         <if test='condition.content not in {null, ""}'>
-            AND CONTENT LIKE '%' || #{condition.content} || '%'
+            AND A.CONTENT LIKE concat('%', #{condition.content}, '%')
         </if>
-        <include refid="common.sql.paging.end"/>
+        LIMIT ((#{page} - 1) * #{size}), #{size}
     </select>
 
     <select id="countSampleBoard" resultType="int">
         SELECT
-            COUNT(*) AS COUNT
+            COUNT(A.*) AS COUNT
         FROM
             (SELECT
                  1 AS ID
@@ -206,16 +205,16 @@
                   , '제목 49' AS TITLE
                   , '내용 49' AS CONTENT
              FROM
-                 DUAL)
+                 DUAL) A
         WHERE 1=1
-        <if test='condition.id and condition.id not in {null, ""}'>
-            AND ID = #{condition.id}
+        <if test='condition.id not in {null, ""}'>
+            AND A.ID = #{condition.id}
         </if>
         <if test='condition.title not in {null, ""}'>
-            AND TITLE LIKE '%' || #{condition.title} || '%'
+            AND A.TITLE LIKE concat('%', #{condition.title}, '%')
         </if>
         <if test='condition.content not in {null, ""}'>
-            AND CONTENT LIKE '%' || #{condition.content} || '%'
+            AND A.CONTENT LIKE concat('%', #{condition.content}, '%')
         </if>
     </select>
 </mapper>
