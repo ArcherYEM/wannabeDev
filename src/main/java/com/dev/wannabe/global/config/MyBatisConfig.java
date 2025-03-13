@@ -31,28 +31,18 @@ public class MyBatisConfig {
     @Value("${wannabe.datasource.password}")
     private String dbPassword;
 
-    @Value("${wannabe.datasource.wallet-path}")
-    private String walletPath;
-
-    @Value("${wannabe.datasource.wallet-path-mac}")
-    private String walletPathMac;
-
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
 
         config.setDriverClassName(driverClass);
-        /* window */
-        config.setJdbcUrl(dbUrl + walletPath);
-        /* mac */
-//        config.setJdbcUrl(dbUrl + walletPathMac);
+        config.setJdbcUrl(dbUrl);
         config.setUsername(dbUsername);
         config.setPassword(dbPassword);
 
-        config.setMaximumPoolSize(10);
-        config.setMinimumIdle(5);
+        config.setMaximumPoolSize(4);
+        config.setMinimumIdle(2);
         config.setValidationTimeout(5000);
-        config.setIdleTimeout(60000);
         config.setIdleTimeout(200000);
         config.setAutoCommit(false);
 

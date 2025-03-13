@@ -18,7 +18,8 @@ public class SampleService {
     private final SampleMapper sampleMapper;
 
     public CustomPageDTO<SampleModel> samplePage(int page, int size, SampleCriteria condition) {
-        List<SampleModel> boards = sampleMapper.findAllSampleBoard(page, size, condition);
+        int startIdx = (page - 1) * size;
+        List<SampleModel> boards = sampleMapper.findAllSampleBoard(startIdx, size, condition);
         int totalElements = sampleMapper.countSampleBoard(condition);
 
         return new CustomPageDTO(boards, totalElements, page, size);

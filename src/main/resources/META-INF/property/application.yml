@@ -1,8 +1,6 @@
 wannabe:
   datasource:
-    url: jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g0553367393cd26_wannabedev_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))?TNS_ADMIN=
+    url: jdbc:mariadb://129.154.58.25:3324/wannabe_dev?serverTimezone=UTC&characterEncoding=UTF-8
     username: admin
-    password: wannabeDev0224
-    driver-class: oracle.jdbc.driver.OracleDriver
-    wallet-path: C:/Wallet_wannabeDev
-    wallet-path-mac: /Users/sin-inseon/Wallet_wannabeDev
+    password: wannabe0224
+    driver-class: org.mariadb.jdbc.Driver
