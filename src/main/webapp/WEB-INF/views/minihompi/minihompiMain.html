@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>main</title>
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+ </head>
+
+ <body>
+
+ 					<div id="subViewContainer">
+                           <div id ="subViewWrap">
+                                 <div id="subViewTop">
+                                 서브뷰영역
+                                 </div>
+                             </div>
+                     </div>
+
+
+	<div id="wrap">
+		<div id="mainWrap">
+			<div id="mainBorder">
+				<div id="mainWrapBackground">
+					<div id="leftContainer">
+						<div id="todayWrap">
+							<ul class="todayUl">
+								<li class="today">TODAY <span>1</span></li>
+								<li class="total">TOTAL <span>2</span></li>
+							</ul>
+						</div>
+						<div id="leftWrap">
+							<div id="leftTop">
+								<div class="mainImg">
+									<img src="/static/images/main.jpg">
+								</div>
+								<div class="introText">
+									<p>앉아봐라</p>
+								</div>
+							</div>
+							<div id="leftBottom">
+								<div id="historyWrap">
+									<ul>
+										<li>
+											<span class="fcWb">▶</span>
+											<span>HISTORY</span>
+										</li>
+										<li class="arrowSpan">
+											<span class="fcGray">▼</span>
+											<span class="fcGray">▲</span>
+										</li>
+									</ul>
+								</div>
+								<div id="nameWrap">
+									<span class="name">고라파덕</span>
+									<span class="nameSymbol">♂</span> 
+								</div>
+								<div id="padoWrap">
+									<select>
+										<option>파도타기</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="rightContainer">
+						<div id="rightTopWrap">
+							<ul class="rightTopMain">
+								<li class="mainTitle">튜브의 미니홈피</li>
+								<li class="rightLink">
+									<ul>
+										<li>
+											<button type="button">
+												<i class="xi-plus-min"></i> 일촌맺기
+											</button>
+										</li>
+										<li>
+											<button type="button">
+												<i class="xi-plus-min"></i> 팬되기
+											</button>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div id="rightWrapBox">
+							<div id="rightWrap">
+								<div class="rightMainWrap">
+									<div class="rightMainTop">
+										<p class="fcWb">최근게시물</p>
+										<div class="rightMainTopLeft">										
+											<ul>
+												<li>
+													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+													<p class="time">2025-01-01</p>
+												</li>
+												<li>
+													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+													<p class="time">2025-01-01</p>
+												</li>
+												<li>
+													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+													<p class="time">2025-01-01</p>
+												</li>
+												<li>
+													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+													<p class="time">2025-01-01</p>
+												</li>
+											</ul>										
+										</div>
+										<div class="rightMainTopRight">
+											<ul>
+												<li><a onclick="menuMovePage('/mini-hompi/dairy')" style="cursor:pointer;">다이어리</a><span>100/120</span></li>
+												<li><a onclick="menuMovePage('/mini-hompi/jukebox')" style="cursor:pointer;">쥬크박스</a><span>100/120</span></li>
+												<li><a onclick="menuMovePage('/mini-hompi/photo')" style="cursor:pointer;">사진첩</a><span>100/120</span></li>
+												<li><a onclick="menuMovePage('/mini-hompi/board')" style="cursor:pointer;">게시판</a><span>100/120</span></li>
+												<li><a href="#">즐겨찾기</a><span>100/120</span></li>
+												<li><a onclick="menuMovePage('/mini-hompi/visitor')" style="cursor:pointer;">방명록</a><span>999/999</span></li>
+											</ul>
+										</div>
+									</div>
+									<div class="rightMain">
+										<ul>
+											<li>미니라이프</li>
+											<li class="on">미니몰</li>
+											<li>스토리몰</li>
+										</ul>
+										<div class="miniRoom">
+											<div class="talk">
+												미니룸 준비중
+											</div>
+											<img src="/static/images/human.png" class="human"/>
+										</div>
+									</div>
+									<div class="rightMainBottom">
+										<div class="friendSay">
+											<table>
+												<colgroup>
+													<col width="7%">
+													<col width="*">
+													<col width="7%">
+												</colgroup>
+												<tbody>
+													<tr>
+														<td>
+															<p class="fcWb">일촌평</p>
+														</td>
+														<td>
+															<input type="text" placeholder="일촌과 나누고 싶은 이야기를 남겨보세요~!">
+														</td>
+														<td>
+															<button type="button">확인</button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<ul class="commentList">
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+											<li>	
+												<span>·</span>
+												<span class="comment">일촌평이다~</span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="gnb">
+							<ul>
+								<li class="on"><a onclick="menuMoveHomePage('/mini-hompi/main')" style="cursor:pointer;">Home</a></li>
+								<li><a onclick="menuMovePage('/mini-hompi/profile')" style="cursor:pointer;">Profile</a></li>
+								<li><a onclick="menuMovePage('/mini-hompi/dairy')" style="cursor:pointer;">Dairy</a></li>
+								<li><a onclick="menuMovePage('/mini-hompi/jukebox')" style="cursor:pointer;">Jukebox</a></li>
+								<li><a onclick="menuMovePage('/mini-hompi/photo')" style="cursor:pointer;">Photo</a></li>
+								<li><a onclick="menuMovePage('/mini-hompi/board')" style="cursor:pointer;">Board</a></li>
+								<li><a onclick="menuMovePage('/mini-hompi/visitor')" style="cursor:pointer;">Visitor</a></li>
+								<li><a onclick="menuMovePage('/mini-hompi/setting')" style="cursor:pointer;">Setting</a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="spring" class="spring1">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+					<div id="spring" class="spring2">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+<script src="/static/js/minihompiMain.js"></script>
+ </body>
+</html>
+
