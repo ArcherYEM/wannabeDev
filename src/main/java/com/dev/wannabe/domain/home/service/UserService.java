@@ -5,7 +5,11 @@ import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -16,6 +20,8 @@ import java.util.UUID;
 public class UserService {
 
     private final UserMapper userMapper;
+
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public HttpStatus checkDuplicationLoginId(String loginId) {
         if (isExistByLoginId(loginId)) {
@@ -42,7 +48,7 @@ public class UserService {
 
         String userId = UUID.randomUUID().toString();
 
-        UserBasic userBasic = UserBasic.builder()
+        UserBasic rawUserBasic = UserBasic.builder()
                 .userId(userId)
                 .loginId(signupUser.getLoginId())
                 .email(signupUser.getEmail())
@@ -55,17 +61,21 @@ public class UserService {
                 .insertUserId(userId)
                 .build();
 
-        if (isExistByLoginId(userBasic.getLoginId())) {
+        if (isExistByLoginId(rawUserBasic.getLoginId())) {
             return HttpStatus.BAD_REQUEST;
         }
-        if (isExistByEmail(userBasic.getEmail())) {
+        if (isExistByEmail(rawUserBasic.getEmail())) {
             return HttpStatus.BAD_REQUEST;
         }
-        if (isExistByPhoneNo(userBasic.getPhoneNo())) {
+        if (isExistByPhoneNo(rawUserBasic.getPhoneNo())) {
             return HttpStatus.BAD_REQUEST;
         }
 
-        userMapper.saveUserBasic(userBasic);
+        UserBasic encodedUser = rawUserBasic.toBuilder()
+                .password(passwordEncoder.encode(signupUser.getPassword()))
+                .build();
+
+        userMapper.saveUserBasic(encodedUser);
         return HttpStatus.OK;
     }
 
