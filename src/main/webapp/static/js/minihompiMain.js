@@ -11,7 +11,8 @@ function openPop() {
 
 window.openPop = openPop;
 
-function menuMovePage(url) {
+function menuMovePage(e, url) {
+    console.log(e.currentTarget);
     $.ajax({
         type: "GET",
         url: url,
@@ -24,11 +25,19 @@ function menuMovePage(url) {
             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
         }
     });
+
+    var btns = document.querySelectorAll("li");
+    btns.forEach(function (btn, i) {
+        if (e.currentTarget == btn) {
+            btn.classList.add("on");
+        } else {
+            btn.classList.remove("on");
+        }
+    });
+    console.log(e.currentTarget);
 }
 
-window.acyncMovePage = acyncMovePage;
-
-function menuMoveHomePage(url) {
+function menuMoveHomePage(e, url) {
     $.ajax({
         type: "GET",
         url: url,
@@ -41,5 +50,15 @@ function menuMoveHomePage(url) {
             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
         }
     });
+
+    var btns = document.querySelectorAll("li");
+    btns.forEach(function (btn, i) {
+        if (e.currentTarget == btn) {
+            btn.classList.add("on");
+        } else {
+            btn.classList.remove("on");
+        }
+    });
+    console.log(e.currentTarget);
 }
 

@@ -43,21 +43,10 @@
 								</div>
 							</div>
 							<div id="leftBottom">
-								<div id="historyWrap">
-									<ul>
-										<li>
-											<span class="fcWb">▶</span>
-											<span>HISTORY</span>
-										</li>
-										<li class="arrowSpan">
-											<span class="fcGray">▼</span>
-											<span class="fcGray">▲</span>
-										</li>
-									</ul>
-								</div>
 								<div id="nameWrap">
 									<span class="name">고라파덕</span>
-									<span class="nameSymbol">♂</span> 
+									<span class="nameSymbol">♂</span>
+									<span class="nameEmail">paduck.korea.co.kr</span>
 								</div>
 								<div id="padoWrap">
 									<select>
@@ -75,12 +64,12 @@
 									<ul>
 										<li>
 											<button type="button">
-												<i class="xi-plus-min"></i> 일촌맺기
+												<i class="xi-plus-min"></i> 수정
 											</button>
 										</li>
 										<li>
 											<button type="button">
-												<i class="xi-plus-min"></i> 팬되기
+												<i class="xi-plus-min"></i> https://www.wannabe.com/mini-hompi/main
 											</button>
 										</li>
 									</ul>
@@ -115,19 +104,15 @@
 										<div class="rightMainTopRight">
 											<ul>
 												<li><a onclick="menuMovePage('/mini-hompi/dairy')" style="cursor:pointer;">다이어리</a><span>100/120</span></li>
-												<li><a onclick="menuMovePage('/mini-hompi/jukebox')" style="cursor:pointer;">쥬크박스</a><span>100/120</span></li>
 												<li><a onclick="menuMovePage('/mini-hompi/photo')" style="cursor:pointer;">사진첩</a><span>100/120</span></li>
 												<li><a onclick="menuMovePage('/mini-hompi/board')" style="cursor:pointer;">게시판</a><span>100/120</span></li>
-												<li><a href="#">즐겨찾기</a><span>100/120</span></li>
 												<li><a onclick="menuMovePage('/mini-hompi/visitor')" style="cursor:pointer;">방명록</a><span>999/999</span></li>
 											</ul>
 										</div>
 									</div>
 									<div class="rightMain">
 										<ul>
-											<li>미니라이프</li>
-											<li class="on">미니몰</li>
-											<li>스토리몰</li>
+											<li>Miniroom</li>
 										</ul>
 										<div class="miniRoom">
 											<div class="talk">
@@ -212,14 +197,14 @@
 						</div>
 						<div id="gnb">
 							<ul>
-								<li class="on"><a onclick="menuMoveHomePage('/mini-hompi/main')" style="cursor:pointer;">Home</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/profile')" style="cursor:pointer;">Profile</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/dairy')" style="cursor:pointer;">Dairy</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/jukebox')" style="cursor:pointer;">Jukebox</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/photo')" style="cursor:pointer;">Photo</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/board')" style="cursor:pointer;">Board</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/visitor')" style="cursor:pointer;">Visitor</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/setting')" style="cursor:pointer;">Setting</a></li>
+								<li class="on" onclick="menuMoveHomePage(event,'/mini-hompi/main')" style="cursor:pointer;">홈</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/profile')" style="cursor:pointer;">프로필</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/dairy')" style="cursor:pointer;">다이어리</li>
+								<li a onclick="menuMovePage(event,'/mini-hompi/jukebox')" style="cursor:pointer;">쥬크박스</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/photo')" style="cursor:pointer;">사진첩</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/board')" style="cursor:pointer;">게시판</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/visitor')" style="cursor:pointer;">방명록</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/setting')" style="cursor:pointer;">관리</li>
 							</ul>
 						</div>
 					</div>
