@@ -109,12 +109,12 @@
         <if test='condition.content not in {null, ""}'>
             AND A.CONTENT LIKE concat('%', #{condition.content}, '%')
         </if>
-        LIMIT ((#{page} - 1) * #{size}), #{size}
+        LIMIT #{page}, #{size}
     </select>
 
     <select id="countSampleBoard" resultType="int">
         SELECT
-            COUNT(A.*) AS COUNT
+            COUNT(*) AS COUNT
         FROM
             (SELECT
                  1 AS ID
