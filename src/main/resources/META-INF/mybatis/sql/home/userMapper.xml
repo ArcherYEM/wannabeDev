@@ -8,7 +8,7 @@
             USER_ID, LOGIN_ID, EMAIL, PHONE_NO, PASSWORD,
             NAME, GENDER_CODE, BIRTH_DATE, USER_STATUS,
             INSERT_USER_ID
-            )
+        )
         VALUES (
             #{userId},
             #{loginId},
@@ -19,6 +19,35 @@
             #{genderCode},
             #{birthDate},
             #{userStatus},
+            #{insertUserId}
+        )
+    </insert>
+
+    <insert id="saveUserDetail" parameterType="com.dev.wannabe.domain.home.model.vo.UserDetail">
+        INSERT INTO USER_DETAIL (
+            USER_ID, FRIEND_MESSAGE_AVAIL_YN, HOMPI_USE_YN,
+            CONFIRM_YN_1, CONFIRM_YN_2, CONFIRM_YN_3,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{userId},
+            #{friendMessageAvailYN},
+            #{hompiUseYN},
+            #{confirmYN1},
+            #{confirmYN2},
+            #{confirmYN3},
+            #{insertUserId}
+        )
+    </insert>
+
+    <insert id="saveUserRole" parameterType="com.dev.wannabe.domain.home.model.vo.UserRole">
+        INSERT INTO USER_ROLE (
+            ROLE_CD, USER_ID,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{roleCd},
+            #{userId},
             #{insertUserId}
         )
     </insert>

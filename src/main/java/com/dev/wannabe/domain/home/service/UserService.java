@@ -3,6 +3,8 @@ package com.dev.wannabe.domain.home.service;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
+import com.dev.wannabe.domain.home.model.vo.UserDetail;
+import com.dev.wannabe.domain.home.model.vo.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,9 +29,19 @@ public class UserService {
      */
     public HttpStatus signUpUser(SignupUserDTO signupUser) {
 
+        if (isExistByLoginId(signupUser.getLoginId())) {
+            return HttpStatus.BAD_REQUEST;
+        }
+        if (isExistByEmail(signupUser.getEmail())) {
+            return HttpStatus.BAD_REQUEST;
+        }
+        if (isExistByPhoneNo(signupUser.getPhoneNo())) {
+            return HttpStatus.BAD_REQUEST;
+        }
+
         String userId = UUID.randomUUID().toString();
 
-        UserBasic newUser = UserBasic.builder()
+        UserBasic newUserBasic = UserBasic.builder()
                 .userId(userId)
                 .loginId(signupUser.getLoginId())
                 .email(signupUser.getEmail())
@@ -42,17 +54,26 @@ public class UserService {
                 .insertUserId(userId)
                 .build();
 
-        if (isExistByLoginId(newUser.getLoginId())) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        if (isExistByEmail(newUser.getEmail())) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        if (isExistByPhoneNo(newUser.getPhoneNo())) {
-            return HttpStatus.BAD_REQUEST;
-        }
+        UserDetail newUserDetail = UserDetail.builder()
+                .userId(userId)
+                .friendMessageAvailYN(signupUser.getFriendMessageAvailYN())
+                .hompiUseYN(signupUser.getHompiUseYN())
+                .confirmYN1(signupUser.getConfirmYN1())
+                .confirmYN2(signupUser.getConfirmYN2())
+                .confirmYN3(signupUser.getConfirmYN3())
+                .insertUserId(userId)
+                .build();
 
-        userMapper.saveUserBasic(newUser);
+        UserRole newUserRole = UserRole.builder()
+                .roleCd("03")
+                .userId(userId)
+                .insertUserId(userId)
+                .build();
+
+        userMapper.saveUserBasic(newUserBasic);
+        userMapper.saveUserDetail(newUserDetail);
+        userMapper.saveUserRole(newUserRole);
+
         return HttpStatus.OK;
     }
 

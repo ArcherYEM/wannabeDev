@@ -15,7 +15,7 @@ public class UserBasic {
     private String phoneNo; // UNIQUE
     private String password;// 회원 가입 시 입력
     private String name;
-    private String genderCode;
+    private String genderCode; // 성별 코드 M, F
     private String birthDate;
     private String userStatus;
     private String remarks;
