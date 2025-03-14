@@ -13,10 +13,10 @@
 #mainWrap {
     background: #ADCFDC;
     border-radius: 10px;
-    width: 100%;
+    width: calc(100% - 230px);
     padding: 10px;
     box-sizing: border-box;
-    margin: 0 auto;
+    margin: 0;
 }
 
 #mainBorder {
@@ -176,24 +176,99 @@
     height: 25px;
 }
 
+
 /*���κ���� ����Ʈ e*/
+
+/**오른쪽 서브뷰 관련**/
 #subViewContainer {
-    width: 20%;
-    float: left;
+    width: 220px;
+    float: right;
 }
 
 #subViewContainer #subViewWrap {
     border: 1px solid #C2C2C2;
-    border-radius: 10px;
     box-sizing: border-box;
     background: #fff;
-    margin-top: 10px;
-    height: 500px;
+    margin-left: 30px;
+    height: 230px;
 }
 
 #subViewContainer #subViewWrap #subViewTop {
-    padding: 10px;
     box-sizing: border-box;
+}
+
+.btn.purple {
+    box-shadow: 0px 4px 0px #AD83A8;
+}
+
+.btn.purple, .btn-two.purple {
+    background-color: #cb99c5;
+}
+
+.btn.block, .btn-two.block, .btn-gradient.block, .btn-effect.block {
+    width: 100%;
+    text-align: center;
+    height: 30px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+a[class*="btn"] {
+    text-decoration: none;
+}
+
+.btn {
+    position: relative;
+    border: 0;
+    display: inline-block;
+    text-align: center;
+    color: white;
+}
+
+.btn, .btn-two {
+    margin: 9px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #dedede;
+    font-weight: 600;
+    font-size: .8rem;
+}
+
+.progress-bar .progressAt {
+    width: 72%;
+    height: 10px;
+    padding: 0;
+    text-align: center;
+    background-color: #0e69e2;
+    color: #111;
+}
+
+.progress-bar .progressFa {
+    width: 90%;
+    height: 10px;
+    padding: 0;
+    text-align: center;
+    background-color: #efdc20;
+    color: #111;
+}
+
+.progress-bar .progressFr {
+    width: 30%;
+    height: 10px;
+    padding: 0;
+    text-align: center;
+    background-color: #f82aff;
+    color: #111;
 }
 
 /*���κ���� ����Ʈ s*/
@@ -534,13 +609,13 @@
 .spring1 {
     position: absolute;
     top: 190px;
-    left: 245px;
+    left: 180px;
 }
 
 .spring2 {
     position: absolute;
     top: 400px;
-    left: 245px;
+    left: 180px;
 }
 
 /*���� ������ e*/
