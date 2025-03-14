@@ -2,6 +2,7 @@ package com.dev.wannabe.domain.home.model.dto;
 
 import lombok.Data;
 
+// 회원가입 시 전송받는 Data
 @Data
 public class SignupUserDTO {
 

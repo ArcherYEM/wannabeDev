@@ -20,40 +20,24 @@ import java.util.UUID;
 public class UserService {
 
     private final UserMapper userMapper;
-
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public HttpStatus checkDuplicationLoginId(String loginId) {
-        if (isExistByLoginId(loginId)) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        return HttpStatus.OK;
-    }
-
-    public HttpStatus checkDuplicationEmail(String email) {
-        if (isExistByEmail(email)) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        return HttpStatus.OK;
-    }
-
-    public HttpStatus checkDuplicationPhone(String phoneNo) {
-        if (isExistByPhoneNo(phoneNo)) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        return HttpStatus.OK;
-    }
-
+    /*
+     * 회원 가입 기능
+     * 중복 검증 후
+     * 중복이면 return 400 bad request
+     * 저장 후 return 200 ok
+     */
     public HttpStatus signUpUser(SignupUserDTO signupUser) {
 
         String userId = UUID.randomUUID().toString();
 
-        UserBasic rawUserBasic = UserBasic.builder()
+        UserBasic newUser = UserBasic.builder()
                 .userId(userId)
                 .loginId(signupUser.getLoginId())
                 .email(signupUser.getEmail())
                 .phoneNo(signupUser.getPhoneNo())
-                .password(signupUser.getPassword())
+                .password(passwordEncoder.encode(signupUser.getPassword()))
                 .name(signupUser.getName())
                 .genderCode(signupUser.getGenderCode())
                 .birthDate(signupUser.getBirthDate())
@@ -61,21 +45,53 @@ public class UserService {
                 .insertUserId(userId)
                 .build();
 
-        if (isExistByLoginId(rawUserBasic.getLoginId())) {
+        if (isExistByLoginId(newUser.getLoginId())) {
             return HttpStatus.BAD_REQUEST;
         }
-        if (isExistByEmail(rawUserBasic.getEmail())) {
+        if (isExistByEmail(newUser.getEmail())) {
             return HttpStatus.BAD_REQUEST;
         }
-        if (isExistByPhoneNo(rawUserBasic.getPhoneNo())) {
+        if (isExistByPhoneNo(newUser.getPhoneNo())) {
             return HttpStatus.BAD_REQUEST;
         }
 
-        UserBasic encodedUser = rawUserBasic.toBuilder()
-                .password(passwordEncoder.encode(signupUser.getPassword()))
-                .build();
+        userMapper.saveUserBasic(newUser);
+        return HttpStatus.OK;
+    }
 
-        userMapper.saveUserBasic(encodedUser);
+    /*
+     * Login Id 중복 확인 기능
+     * 중복 아니면 return 200 ok
+     * 중복이면 return 400 bad request
+     */
+    public HttpStatus checkDuplicationLoginId(String loginId) {
+        if (isExistByLoginId(loginId)) {
+            return HttpStatus.BAD_REQUEST;
+        }
+        return HttpStatus.OK;
+    }
+
+    /*
+     * email 중복 확인 기능
+     * 중복 아니면 return 200 ok
+     * 중복이면 return 400 bad request
+     */
+    public HttpStatus checkDuplicationEmail(String email) {
+        if (isExistByEmail(email)) {
+            return HttpStatus.BAD_REQUEST;
+        }
+        return HttpStatus.OK;
+    }
+
+    /*
+     * phone no 중복 확인 기능
+     * 중복 아니면 return 200 ok
+     * 중복이면 return 400 bad request
+     */
+    public HttpStatus checkDuplicationPhone(String phoneNo) {
+        if (isExistByPhoneNo(phoneNo)) {
+            return HttpStatus.BAD_REQUEST;
+        }
         return HttpStatus.OK;
     }
 
