@@ -77,7 +77,7 @@ select {
     -webkit-appearance:none; /* ũ�� ȭ��ǥ ���ֱ� */
     -moz-appearance:none; /* ���̾����� ȭ��ǥ ���ֱ� */
     appearance:none; /* ȭ��ǥ ���ֱ� */
-    background: #fff url('../images/select-arrow-down.png') no-repeat top -8px right 3px;
+    background: #fff url('../images/common/select-arrow-down.png') no-repeat top -8px right 3px;
     height: 20px;
     padding: 0 40px 0 10px;
     box-sizing: border-box;
