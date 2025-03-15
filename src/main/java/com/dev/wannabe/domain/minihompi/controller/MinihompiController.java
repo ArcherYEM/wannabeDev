@@ -52,5 +52,10 @@ public class MinihompiController {
         return "minihompi/minihompiSetting";
     }
 
+    @GetMapping("/newmessage")
+    public String message() {
+        return "minihompi/newMessage";
+    }
+
 
 }
