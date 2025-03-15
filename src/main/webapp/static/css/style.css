@@ -5,7 +5,7 @@
     background: #A4A5A4;
     width: 100%;
     height: 100%;
-    padding: 50px;
+    padding: 30px;
     overflow-x: hidden;
     box-sizing: border-box;
 }
@@ -44,7 +44,7 @@
 
 /*���κ���� ����Ʈ s*/
 #leftContainer {
-    width: 20%;
+    width: 24%;
     float: left;
 }
 
@@ -98,8 +98,8 @@
 }
 
 #leftContainer #leftWrap #leftTop .mainImg img {
-    width: 223px;
-    height: 223px;
+    width: 180px;
+    height: 200px;
 }
 
 #leftContainer #leftWrap #leftTop .introText {
@@ -108,7 +108,7 @@
 
 #leftContainer #leftWrap #leftTop .introText p {
     text-align: center;
-    height: 150px;
+    height: 120px;
     padding: 10px;
     box-sizing: border-box;
 }
@@ -167,6 +167,16 @@
     border-radius: 5px;
 }
 
+#leftContainer #leftWrap #leftBottom #nameWrap .nameEmail {
+    display: inline-block;
+    font-weight: lighter;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+}
+
+
 #leftContainer #leftWrap #leftBottom #padoWrap {
 }
 
@@ -174,6 +184,7 @@
     width: 100%;
     font-size: 14px;
     height: 25px;
+    margin-bottom: 10px;
 }
 
 
@@ -273,7 +284,7 @@ a[class*="btn"] {
 
 /*���κ���� ����Ʈ s*/
 #rightContainer {
-    width: 79%;
+    width: 75%;
     float: right;
     margin-left: 1%;
     position: relative;
@@ -341,15 +352,28 @@ a[class*="btn"] {
 }
 
 #rightContainer #rightTopWrap .rightTopMain > li > ul > li button {
-    color: #F7A902;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: lighter;
+    margin: 1px;
 }
 
-#rightContainer #rightTopWrap .rightTopMain > li > ul > li button i {
-    color: #F7A902;
-    font-size: 12px;
+#mainTitleInput {
+    width: 350px;
+    font-size: 16px;
     font-weight: bold;
+    padding: 2px;
+    border: none;
+    height: 18px;
+    background-color: #f9f9f9;
+    outline: none;
+}
+
+#titleBtn.save-mode {
+    font-size: 12px;
+    font-weight: lighter;
+    background-color: orange;
+    color: white;
+    border: none;
 }
 
 #rightWrapBox {
@@ -396,10 +420,12 @@ a[class*="btn"] {
 
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li {
     overflow: hidden;
+    margin-top: 9.5px;
     margin-bottom: 2px;
     border-bottom: 1px dotted #ccc;
     height: 21px;
     line-height: 21px;
+    padding: 0;
 }
 
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li p {
@@ -410,12 +436,12 @@ a[class*="btn"] {
 }
 
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li p.title a {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul li p.time {
     float: right;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopRight {
@@ -428,9 +454,6 @@ a[class*="btn"] {
 }
 
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li {
-    float: left;
-    width: 50%;
-    border-top: 1px dotted #ccc;
     border-bottom: 1px dotted #ccc;
     box-sizing: border-box;
     padding: 4.4px 0;
@@ -445,6 +468,16 @@ a[class*="btn"] {
     font-size: 12px;
     display: inline-block;
     margin-left: 5px;
+    margin-right: 10px;
+}
+
+.topMenu {
+    float: right;
+}
+
+.count {
+    color: orange !important;
+    margin: 0 !important;
 }
 
 #rightWrap .rightMainWrap .rightMain {
@@ -458,7 +491,9 @@ a[class*="btn"] {
 #rightWrap .rightMainWrap .rightMain ul li {
     fLoat: left;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #1C97CC;
 }
 
 #rightWrap .rightMainWrap .rightMain ul li.on {
@@ -548,8 +583,9 @@ a[class*="btn"] {
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody tr td input {
-    width: 100%;
+    width: 98%;
     height: 26px;
+    float: left;
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .friendSay table tbody tr td p {
@@ -563,6 +599,88 @@ a[class*="btn"] {
     border: 1px solid #bbb;
     box-sizing: border-box;
     background: #fff;
+    float: right;
+}
+
+.newImg {
+    display: inline-block;
+    float: right;
+}
+
+.newImg img {
+    width: 15px;
+    height: 15px;
+}
+
+.deleteImg {
+    display: inline-block;
+    float: right;
+}
+
+.deleteImg img {
+    width: 17px;
+    height: 15px;
+}
+
+.editSet {
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.editImg {
+    display: inline-block;
+    float: left;
+    margin-right: 6px;
+}
+
+.editImg img {
+    width: 15px;
+    height: 15px;
+}
+
+
+#newImgHidden {
+    visibility: hidden;
+}
+
+#mood {
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+#mood select {
+    all: initial;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    text-align: center;
+    width: 80%;
+    font-size: 12px;
+    height: 20px;
+    margin: 0 auto;
+    display: flex;
+
+    color: #444;
+    background-color: #fff;
+
+    border: 1px solid #aaa;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+#mood select:hover {
+    border-color: #888;
+}
+
+#mood select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .commentList {
@@ -609,15 +727,86 @@ a[class*="btn"] {
 .spring1 {
     position: absolute;
     top: 190px;
-    left: 180px;
+    left: 224px;
 }
 
 .spring2 {
     position: absolute;
     top: 400px;
-    left: 180px;
+    left: 224px;
 }
 
-/*���� ������ e*/
+#subVieMain {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+progress {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 10px;
+    border: none;
+    float: right;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #eaeaea;
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+    border-radius: 5px;
+}
+
+#ative::-webkit-progress-value {
+    background-color: red;
+}
+
+#ative::-moz-progress-bar {
+    background-color: red;
+    border-radius: 5px;
+}
+
+#famous::-webkit-progress-value {
+    background-color: green;
+}
+
+#famous::-moz-progress-bar {
+    background-color: green;
+    border-radius: 5px;
+}
+
+#frandly::-webkit-progress-value {
+    background-color: navy;
+}
+
+#frandly::-moz-progress-bar {
+    background-color: navy;
+    border-radius: 5px;
+}
+
+#lovely::-webkit-progress-value {
+    background-color: deeppink;
+}
+
+#lovely::-moz-progress-bar {
+    background-color: deeppink;
+    border-radius: 5px;
+}
+
+#sensertive::-webkit-progress-value {
+    background-color: yellow;
+}
+
+#sensertive::-moz-progress-bar {
+    background-color: yellow;
+    border-radius: 5px;
+}
 
 

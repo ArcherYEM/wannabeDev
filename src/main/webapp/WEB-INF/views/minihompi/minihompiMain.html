@@ -20,6 +20,13 @@
                                      <div id="subViewTop">
                                     <a href="#" class="btn purple block">싸이월드 홈</a>
                                      </div>
+                                     <div id="subVieMain">
+                                        액티브 <progress id="ative" value="30" max="100"></progress><br>
+                                        페이머스 <progress id="famous" value="60" max="100"></progress><br>
+                                        프랜들리 <progress id="frandly" value="90" max="100"></progress><br>
+                                        러블리 <progress id="lovely" value="20" max="100"></progress><br>
+                                        센서티브 <progress id="sensertive" value="40" max="100"></progress><br>
+                                     </div>
                                 </div>
                         </div>
 
@@ -36,33 +43,41 @@
 						<div id="leftWrap">
 							<div id="leftTop">
 								<div class="mainImg">
-									<img src="/images/common/main.jpg">
+									<img src="/static/images/common/main.jpg">
 								</div>
+
+								<div id="mood">
+                                    <select>
+										<option>Today is... 화가 남</option>
+										<option>Today is... 슬픔</option>
+										<option>Today is... 고통받음</option>
+										<option>옵션은 이미지로 꾸미는게 좋아보임...</option>
+									</select>
+                                </div>
 								<div class="introText">
 									<p>앉아봐라</p>
 								</div>
 							</div>
 							<div id="leftBottom">
-								<div id="historyWrap">
-									<ul>
-										<li>
-											<span class="fcWb">▶</span>
-											<span>HISTORY</span>
-										</li>
-										<li class="arrowSpan">
-											<span class="fcGray">▼</span>
-											<span class="fcGray">▲</span>
-										</li>
-									</ul>
-								</div>
+                                <div class="editSet">
+                                    <div class="editImg">
+                                        <img src="/static/images/common/edit.png"></div>
+                                        <a>EDIT</a>
+                                    </div>
+                                    <br>
 								<div id="nameWrap">
 									<span class="name">고라파덕</span>
-									<span class="nameSymbol">♂</span> 
+									<span class="nameSymbol">♂</span>
+									<span class="nameEmail">paduck@korea.co.kr</span>
 								</div>
 								<div id="padoWrap">
 									<select>
-										<option>파도타기</option>
+										<option>상대방 1촌 파도타기</option>
 									</select>
+
+									<select>
+                                    <option>나의 1촌 파도타기</option>
+                                    </select>
 								</div>
 							</div>
 						</div>
@@ -70,17 +85,17 @@
 					<div id="rightContainer">
 						<div id="rightTopWrap">
 							<ul class="rightTopMain">
-								<li class="mainTitle">튜브의 미니홈피</li>
+								<li class="mainTitle">
+								    <span id="mainTitle">튜브의 미니홈피</span>
+                                </li>
 								<li class="rightLink">
-									<ul>
-										<li>
-											<button type="button">
-												<i class="xi-plus-min"></i> 일촌맺기
-											</button>
+									<ul class="rightMenu">
+										<li >
+											<input type="button" value="수정" id="titleBtn">
 										</li>
 										<li>
 											<button type="button">
-												<i class="xi-plus-min"></i> 팬되기
+												https://www.wannabe.com/mini-hompi/main
 											</button>
 										</li>
 									</ul>
@@ -110,30 +125,27 @@
 													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
 													<p class="time">2025-01-01</p>
 												</li>
+
 											</ul>										
 										</div>
 										<div class="rightMainTopRight">
 											<ul>
-												<li><a onclick="menuMovePage('/mini-hompi/dairy')" style="cursor:pointer;">다이어리</a><span>100/120</span></li>
-												<li><a onclick="menuMovePage('/mini-hompi/jukebox')" style="cursor:pointer;">쥬크박스</a><span>100/120</span></li>
-												<li><a onclick="menuMovePage('/mini-hompi/photo')" style="cursor:pointer;">사진첩</a><span>100/120</span></li>
-												<li><a onclick="menuMovePage('/mini-hompi/board')" style="cursor:pointer;">게시판</a><span>100/120</span></li>
-												<li><a href="#">즐겨찾기</a><span>100/120</span></li>
-												<li><a onclick="menuMovePage('/mini-hompi/visitor')" style="cursor:pointer;">방명록</a><span>999/999</span></li>
+												<li><a onclick="menuMovePage('/mini-hompi/dairy')" style="cursor:pointer;">다이어리</a><div class="topMenu"><span><span class="count">1</span>/1,011</span><div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
+												<li><a onclick="menuMovePage('/mini-hompi/photo')" style="cursor:pointer;">사진첩</a><div class="topMenu"><span><span class="count">2</span>/512</span><div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
+												<li><a onclick="menuMovePage('/mini-hompi/board')" style="cursor:pointer;">게시판</a><div class="topMenu"><span><span class="count">2</span>/1,701</span><div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
+												<li><a onclick="menuMovePage('/mini-hompi/visitor')" style="cursor:pointer;">방명록</a><div class="topMenu"><span>0/405</span><div class="newImg" id="newImgHidden"><img src="/static/images/common/new.png"></div></div></li>
 											</ul>
 										</div>
 									</div>
 									<div class="rightMain">
 										<ul>
-											<li>미니라이프</li>
-											<li class="on">미니몰</li>
-											<li>스토리몰</li>
+											<li>Miniroom</li>
 										</ul>
 										<div class="miniRoom">
 											<div class="talk">
 												미니룸 준비중
 											</div>
-											<img src="/images/common/minimi/human.png" class="human"/>
+											<img src="/static/images/common/minimi/human.png" class="human"/>
 										</div>
 									</div>
 									<div class="rightMainBottom">
@@ -163,47 +175,47 @@
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 											<li>	
 												<span>·</span>
 												<span class="comment">일촌평이다~</span>
-												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span></span>
+												<span class="star">(대왕 <span class="nickName fcWb">양응응</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
 											</li>
 										</ul>
 									</div>
@@ -212,14 +224,14 @@
 						</div>
 						<div id="gnb">
 							<ul>
-								<li class="on"><a onclick="menuMoveHomePage('/mini-hompi/main')" style="cursor:pointer;">Home</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/profile')" style="cursor:pointer;">Profile</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/dairy')" style="cursor:pointer;">Dairy</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/jukebox')" style="cursor:pointer;">Jukebox</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/photo')" style="cursor:pointer;">Photo</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/board')" style="cursor:pointer;">Board</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/visitor')" style="cursor:pointer;">Visitor</a></li>
-								<li><a onclick="menuMovePage('/mini-hompi/setting')" style="cursor:pointer;">Setting</a></li>
+								<li class="on" onclick="menuMoveHomePage(event,'/mini-hompi/main')" style="cursor:pointer;">홈</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/profile')" style="cursor:pointer;">프로필</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/dairy')" style="cursor:pointer;">다이어리</li>
+								<li a onclick="menuMovePage(event,'/mini-hompi/jukebox')" style="cursor:pointer;">쥬크박스</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/photo')" style="cursor:pointer;">사진첩</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/board')" style="cursor:pointer;">게시판</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/visitor')" style="cursor:pointer;">방명록</li>
+								<li onclick="menuMovePage(event,'/mini-hompi/setting')" style="cursor:pointer;">관리</li>
 							</ul>
 						</div>
 					</div>
