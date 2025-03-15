@@ -28,6 +28,9 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+# community Ver smart tomcat
+.smarttomcat/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
