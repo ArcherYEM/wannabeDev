@@ -713,6 +713,7 @@ a[class*="btn"] {
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .commentList li {
+    list-style: none;
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .commentList li span.comment {

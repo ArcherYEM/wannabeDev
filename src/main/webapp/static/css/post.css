@@ -1,0 +1,149 @@
+@charset "utf-8";
+
+.post-container {
+    width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ABABAB;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background-color: #EDEDED;
+
+}
+
+.post-header h2 {
+    font-size: 18px;
+    margin: 0;
+    line-height: 25px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}
+
+.post-register {
+    text-align: right;
+}
+
+.post-register .register-btn {
+    width: 60px;
+    background-color: orange;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    height: 25px;
+}
+
+.post-info {
+    margin-top: 10px;
+}
+
+.post-info span {
+    font-size: 14px;
+    color: #666;
+}
+
+.post-content img {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.post-content p {
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.post-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.post-actions button {
+    width: 60px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    height: 25px;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    height: 25px;
+}
+
+.edit-btn {
+    background-color: gray;
+    color: white;
+    border-radius: 5px;
+    height: 25px;
+}
+
+.comment-section {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.comment-section input[type="text"] {
+    width: 403px;
+    padding: 5px;
+    height: 25px;
+    margin-left: 15px;
+}
+
+.comment-section button {
+    width: 60px;
+    height: 25px;
+    background-color: #3700FF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 40px;
+}
+
+.comments-list {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.comments-list p {
+    font-size: 14px;
+    color: #333;
+}
+
+.comments-list span {
+    font-size: 12px;
+    color: #999;
+}
+
+.comments-list .commentUser {
+    color: #1C97CC;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.star-rating {
+    color: orange; /* 별 색상 */
+    font-size: 16px; /* 별 크기 */
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.post-bottom {
+    padding: 0 10px;
+}
