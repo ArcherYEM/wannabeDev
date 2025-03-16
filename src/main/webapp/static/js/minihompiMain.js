@@ -91,7 +91,66 @@ $(document).ready(function () {
     });
 
 
-    //메인에서 이름 누르면 나오는 드롭박스
+    /** 함수 등록 **/
+    function movePage(url) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "html",
+            success: function (data) {
+                $("#rightWrap .rightMainWrap").children().remove();
+                $("#rightWrap .rightMainWrap").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+            }
+        });
+    }
+
+
+    function moveHomePageCgColor(e, url) {
+        console.log(e.currentTarget);
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "html",
+            success: function (data) {
+                $("#rightWrap .rightMainWrap").children().remove();
+                $("#rightWrap .rightMainWrap").html(data);
+            },
+            error: function (xhr, status, error) {
+                alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+            }
+        });
+
+        var btns = document.querySelectorAll("li");
+        btns.forEach(function (btn, i) {
+            if (e.currentTarget == btn) {
+                btn.classList.add("on");
+            } else {
+                btn.classList.remove("on");
+            }
+        });
+        console.log(e.currentTarget);
+    }
+
+
+    function moveHomePage(e, url) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "html",
+            success: function (data) {
+                $("#rightWrap .rightMainWrap").children().remove();
+                $("body").html(data)
+            },
+            error: function (xhr, status, error) {
+                alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+            }
+        });
+    }
+
+//메인에서 이름 누르면 나오는 드롭박스
     $dropbtn.on("click", function (e) {
         e.preventDefault();
         $droupdown.toggleClass("active");
@@ -136,66 +195,7 @@ $(document).ready(function () {
 });
 
 
-/** 함수 등록 **/
-function movePage(url) {
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: "html",
-        success: function (data) {
-            $("#rightWrap .rightMainWrap").children().remove();
-            $("#rightWrap .rightMainWrap").html(data);
-        },
-        error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-        }
-    });
-}
-
-
-function moveHomePageCgColor(e, url) {
-    console.log(e.currentTarget);
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: "html",
-        success: function (data) {
-            $("#rightWrap .rightMainWrap").children().remove();
-            $("#rightWrap .rightMainWrap").html(data);
-        },
-        error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-        }
-    });
-
-    var btns = document.querySelectorAll("li");
-    btns.forEach(function (btn, i) {
-        if (e.currentTarget == btn) {
-            btn.classList.add("on");
-        } else {
-            btn.classList.remove("on");
-        }
-    });
-    console.log(e.currentTarget);
-}
-
-
-function moveHomePage(e, url) {
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: "html",
-        success: function (data) {
-            $("#rightWrap .rightMainWrap").children().remove();
-            $("body").html(data)
-        },
-        error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-        }
-    });
-}
-
-
+/** 미니홈피 팝업창 설정 **/
 function openPop() {
     var popupW = 1280;
     var popupH = 720;

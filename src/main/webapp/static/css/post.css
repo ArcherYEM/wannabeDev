@@ -3,7 +3,7 @@
 .post-container {
     width: 600px;
     margin: 20px auto;
-    border: 1px solid #ddd;
+    border: 1px solid #C2C2C2;
     background-color: #fff;
 }
 
@@ -40,6 +40,7 @@
     border-radius: 5px;
     margin-bottom: 5px;
     height: 25px;
+    margin-right: 20px;
 }
 
 .post-info {
@@ -93,18 +94,30 @@
 }
 
 .comment-section {
-    margin-top: 20px;
     font-size: 14px;
 }
 
+.comment-section:after {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+.comment-section #comment-name {
+    float: left;
+    width: 15%;
+}
+
 .comment-section input[type="text"] {
-    width: 403px;
+    width: 65%;
+    float: left;
     padding: 5px;
     height: 25px;
     margin-left: 15px;
 }
 
 .comment-section button {
+    float: right;
     width: 60px;
     height: 25px;
     background-color: #3700FF;
@@ -112,13 +125,9 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    margin-left: 40px;
+    margin-right: 10px;
 }
 
-.comments-list {
-    margin-top: 10px;
-    font-size: 14px;
-}
 
 .comments-list p {
     font-size: 14px;
@@ -146,4 +155,31 @@
 
 .post-bottom {
     padding: 0 10px;
+}
+
+.day-container {
+    width: 600px;
+    margin: 20px auto;
+    border: 1px solid #C2C2C2;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+table #day {
+    width: 100%;
+    border: none;
+}
+
+th, td {
+    border: none;
+    padding: 2px;
+    text-align: center;
+}
+
+td[data-day="sat"] {
+    color: blue;
+}
+
+td[data-day="sun"] {
+    color: red;
 }
