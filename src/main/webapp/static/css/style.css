@@ -8,6 +8,8 @@
     padding: 30px;
     overflow-x: hidden;
     box-sizing: border-box;
+    display: flex;
+    column-gap: 10px;
 }
 
 #mainWrap {
@@ -17,6 +19,7 @@
     padding: 10px;
     box-sizing: border-box;
     margin: 0;
+
 }
 
 #mainBorder {
@@ -152,6 +155,8 @@
 }
 
 #leftContainer #leftWrap #leftBottom #nameWrap .name {
+    display: inline-block;
+    vertical-align: middle;
     font-size: 14px;
     font-weight: bold;
     color: #1C97CC;
@@ -164,22 +169,21 @@
     position: absolute;
     width: 10%;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid #595959;
     border-bottom: none;
     z-index: 1;
 }
 
 #leftContainer #leftWrap #leftBottom #nameWrap #name-droupdown a {
-    color: black;
     text-decoration: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #595959;
     display: block;
     padding-left: 5px;
     font-size: 14px;
 }
 
 #leftContainer #leftWrap #leftBottom #nameWrap #name-droupdown a:hover {
-    background-color: black;
+    background-color: #595959;
     color: white;
 }
 
@@ -195,11 +199,13 @@
 
 #leftContainer #leftWrap #leftBottom #nameWrap .nameEmail {
     display: inline-block;
+    vertical-align: middle;
     font-weight: lighter;
     width: 15px;
     height: 15px;
     line-height: 15px;
     text-align: center;
+    margin-top: -3px;
 }
 
 
@@ -207,6 +213,8 @@
 }
 
 #leftContainer #leftWrap #leftBottom #padoWrap select {
+    display: inline-block;
+    vertical-align: middle;
     width: 100%;
     font-size: 14px;
     height: 25px;
@@ -441,6 +449,11 @@ a[class*="btn"] {
     height: 96px;
 }
 
+.rightMenu li {
+    color: #595959;
+    padding: 0 5px 0 5px;
+}
+
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopLeft ul {
 }
 
@@ -543,7 +556,6 @@ a[class*="btn"] {
     width: 100%;
     height: 200px;
     border: 1px solid #ddd;
-    margin-top: 10px;
     position: relative;
     box-sizing: border-box
 }
@@ -585,7 +597,7 @@ a[class*="btn"] {
 #rightWrap .rightMainWrap .rightMainBottom {
 }
 
-#rightWrap .rightMainWrap .rightMainBottom .friendSay {
+.friendSay {
     background: #eee;
     width: 100%;
     padding: 10px 0;
@@ -628,6 +640,7 @@ a[class*="btn"] {
     float: right;
 }
 
+/** 정렬 수정  **/
 .newImg {
     display: inline-block;
     float: right;
@@ -641,6 +654,7 @@ a[class*="btn"] {
 .deleteImg {
     display: inline-block;
     float: right;
+    margin-right: 8px;
 }
 
 .deleteImg img {
@@ -712,8 +726,8 @@ a[class*="btn"] {
 #rightWrap .rightMainWrap .rightMainBottom .commentList {
 }
 
-#rightWrap .rightMainWrap .rightMainBottom .commentList li {
-    list-style: none;
+.commentList li {
+    margin: 8px 0;
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .commentList li span.comment {
