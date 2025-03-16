@@ -1,0 +1,82 @@
+#subViewBgm{
+    margin-left: 30px;
+    margin-top: 3px;
+    background-color: #D9D9D9;
+    height: 55px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#bgmTitleWrap{
+    background-color: #595959;
+    height: 21px;
+    width: 170px;
+    margin-top: 8px;
+}
+
+#bgmTitleWrap, #bgmPlayerWrap{
+    display: flex;
+    align-items: center;
+}
+
+#subViewBgm button{
+    background: none;
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+#resumeBtn{
+    margin-left: 5px;
+}
+
+#resumeBtn img{
+    width: 20px;
+    margin-right:8px;
+}
+
+#bgmTitle{
+    margin-left: 8px;
+}
+
+#bgmPlayerWrap{
+    width: 170px;
+    height: 15px;
+    column-gap: 5px;
+}
+
+#bgmPlayerWrap img{
+    box-sizing: content-box;
+    width: auto;
+    height: 13px;
+}
+
+#pauseBtn{
+    margin-left: 5px;
+}
+
+#volumeSlider{
+    width: 50px;
+}
+
+#trackListWrap{
+    height: 300px;
+    background-color: #fff;
+    display: none;
+    margin-left: 30px;
+    text-align: center;
+}
+
+#trackListWrap h1{
+    padding-top: 5px;
+}
+
+.customHr{
+    border: 0;
+    border-top: 1px solid #000;
+    display: block;
+}

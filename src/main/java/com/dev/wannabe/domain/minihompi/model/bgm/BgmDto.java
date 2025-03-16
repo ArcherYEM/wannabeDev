@@ -1,3 +1,4 @@
+/*
 package com.dev.wannabe.domain.minihompi.model.bgm;
 
 import lombok.*;
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BgmDto {
 
-    private MultipartFile bgmFileAttachId; // 노래 파일
-    private MultipartFile imageFileAttachId; // 이미지 파일
+    private Long bgmFileAttachId; // 노래 파일
+    private Long imageFileAttachId; // 이미지 파일
     private String bgmName;
     private String artist;
     private String lyrics; // 가사
@@ -25,3 +26,4 @@ public class BgmDto {
     private LocalDateTime updateDt;
 
 }
+*/
