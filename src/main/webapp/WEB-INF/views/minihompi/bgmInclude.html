@@ -1,4 +1,4 @@
-
+<div xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="bgmFragment">
 <div id="subViewBgm">
     <div id="bgmTitleWrap">
@@ -9,7 +9,7 @@
     </div>
     <div id="bgmPlayerWrap">
         <audio id="bgmPlayer">
-            <source src="/static/audio/검-뒤에서.mp3" type="audio/mp3">
+            <source type="audio/mp3">
         </audio>
         <button id="pauseBtn">
             <img src="/static/images/common/minimi/playBtn.png">
@@ -17,24 +17,25 @@
         <button id="stopBtn">
             <img src="/static/images/common/minimi/stopBtn.png">
         </button>
-        <button>
+        <button id="prevBtn">
             <img src="/static/images/common/minimi/prevBtn.png">
         </button>
-        <button>
+        <button id="nextBtn">
             <img src="/static/images/common/minimi/nextBtn.png">
         </button>
         <button id="volumeBtn">
             <img src="/static/images/common/minimi/volume.png">
         </button>
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
-        <button id="listBtn">
-            <img src="/static/images/common/minimi/listBtn.png">
-        </button>
+        <div id="trackContainer">
+            <button id="lyricsBtn">Lyrics</button>
+            <button id="listBtn">List</button>
+        </div>
     </div>
 </div>
 <div id="trackListWrap">
-    <h1>노래 리스트</h1><hr class="customHr">
+    <h1></h1>
 </div>
 </div>
-
+</div>
 

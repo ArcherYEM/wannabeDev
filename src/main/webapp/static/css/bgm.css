@@ -40,7 +40,8 @@
 }
 
 #bgmTitle{
-    margin-left: 8px;
+    color: white;
+    font-size: 9px;
 }
 
 #bgmPlayerWrap{
@@ -52,7 +53,7 @@
 #bgmPlayerWrap img{
     box-sizing: content-box;
     width: auto;
-    height: 13px;
+    height: 8px;
 }
 
 #pauseBtn{
@@ -61,6 +62,22 @@
 
 #volumeSlider{
     width: 50px;
+}
+
+#trackContainer{
+    margin-bottom: 5px;
+    display: contents;
+}
+
+#trackContainer button{
+    width: 23px;
+    height: 10px;
+    background-color: #595959;
+    border-radius: 3px;
+    color: #fff;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: bold;
 }
 
 #trackListWrap{
@@ -75,8 +92,12 @@
     padding-top: 5px;
 }
 
-.customHr{
-    border: 0;
+#trackListWrap hr{
     border-top: 1px solid #000;
     display: block;
 }
+
+#trackListWrap p{
+    text-align: left;
+}
+

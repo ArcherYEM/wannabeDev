@@ -71,4 +71,9 @@ public class SampleController {
     public String miniHompi() {
         return "sample/main";
     }
+
+    @GetMapping("/main-page")
+    public String mainPage() {
+        return "home/main";
+    }
 }
