@@ -465,7 +465,7 @@ CREATE TABLE HOMPI_CONFIG (
                               INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                               UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
                               UPDATE_DT DATETIME COMMENT '변경일시',
-                              PRIMARY KEY (HOMPI_ID)
+                              PRIMARY KEY (HOMPI_ID, HOMPI_CONFIG_CODE)
 ) COMMENT='홈피 설정';
 /**
 * ==============================================END==============================================

@@ -19,6 +19,8 @@
         <jackson.version>2.15.2</jackson.version>
         <hikariCP.version>5.1.0</hikariCP.version>
         <thymeleaf-core.version>3.0.15.RELEASE</thymeleaf-core.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <log4j2.version>2.23.1</log4j2.version>
 
         <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -112,17 +114,32 @@
             <version>${jackson.version}</version>
         </dependency>
 
-        <!-- SLF4J and Logback for logging -->
+        <!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.9</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
+        <!-- Log4j2 SLF4J 2.x 바인딩 -->
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.4.11</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- Log4j2 코어 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- log4jdbc 코어 -->
+        <dependency>
+            <groupId>org.bgee.log4jdbc-log4j2</groupId>
+            <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+            <version>1.16</version>
         </dependency>
 
         <!-- YAML file management -->
