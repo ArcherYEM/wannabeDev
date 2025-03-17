@@ -8,27 +8,30 @@ $(document).ready(function(){
       audio.play();
       $(this).attr('src','/static/images/common/minimi/pauseBtn.png');
       startRotation();
+      playCheckBgm();
     } else {
       audio.pause();
       $('#recordImg').stop(true, true);
       $(this).attr('src','/static/images/common/minimi/playBtn.png');
     }
   });
-
+  //노래 재생 끝날 시 다음 bgmList 다음 index 노래 실행
   $('#bgmPlayer')[0].addEventListener('ended',function(){
     bgmIndex++;
     if(bgmIndex >= bgmList.length){
         bgmIndex = 0;
     }
     playSong(bgmIndex);
+    playCheckBgm();
   });
 
   $('#prevBtn').on('click',function(){
     bgmIndex--;
-    if(bgmIndex <= 0){
-        bgmIndex = bgmList.length;
+    if(bgmIndex < 0){
+        bgmIndex = bgmList.length - 1;
     }
     playSong(bgmIndex);
+    playCheckBgm();
   });
 
   $('#nextBtn').on('click',function(){
@@ -37,6 +40,7 @@ $(document).ready(function(){
         bgmIndex = 0;
     }
     playSong(bgmIndex);
+    playCheckBgm();
   });
 
   $('#stopBtn img').on('click', function(){
@@ -73,16 +77,23 @@ $(document).ready(function(){
     var clickBtn = this;
     $(clickBtn).toggleClass('access');
     $('#trackContainer button').not(clickBtn).removeClass('access');
-
     if($(clickBtn).hasClass('access')){
         var code;
         if($(clickBtn).attr('id') === "lyricsBtn"){
             code = "<h1>노래 가사</h1>";
         } else if($(clickBtn).attr('id') === "listBtn"){
-            code = "<h1>노래 리스트</h1>";
-        }
+            code = "<h1>노래 리스트</h1><hr>";
+            if(fileNames.length !== 0){
+            fileNames.forEach(function(title, index){
+                code += "<p>" + title+ "</p>";
+            });
+          }else{
+            code += "현재 등록된 노래가 없습니다!"
+          }
+       }
         $('#trackListWrap').fadeIn(0);
-        $('#trackListWrap h1').html(code);
+        $('#trackListWrap').html(code);
+        playCheckBgm();
     } else {
         $('#trackListWrap').fadeOut(0);
     }
@@ -110,11 +121,11 @@ function playSong(index){
     var endIndex = bgmValue.lastIndexOf(".mp3");
     $('#bgmTitle').text(bgmValue.substring(startIndex, endIndex));
 }
-    /*var fileNames = bgmList.map(function(path){
+    var fileNames = bgmList.map(function(path){
         var startIndex = path.lastIndexOf("/") + 1;
         var endIndex = path.lastIndexOf(".mp3");
         return path.substring(startIndex, endIndex);
-    });*/
+    });
 
 // 노래 재생시 recordImg 회전
 function startRotation(){
@@ -131,4 +142,10 @@ function startRotation(){
       }
     }
   });
+}
+
+function playCheckBgm(){
+    var nowPlayBgm = $('#trackListWrap p')[bgmIndex];
+    $('#trackListWrap p').not(nowPlayBgm).css("color","#333");
+    $(nowPlayBgm).css('color',"#FF8000");
 }
