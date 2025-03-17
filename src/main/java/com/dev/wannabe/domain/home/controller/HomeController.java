@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class HomeController {
 
-    @RequestMapping("/home")
+    @RequestMapping("/")
     public String home(){
-        
+
         return "/WEB-INF/home.html";
     }
 }

@@ -80,9 +80,12 @@
     padding-top: 5px;
 }
 
-.customHr{
-    border: 0;
+#trackListWrap hr{
     border-top: 1px solid #000;
     display: block;
+}
+
+#trackListWrap p{
+    text-align: left;
 }
 
