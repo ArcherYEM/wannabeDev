@@ -71,8 +71,6 @@ public class LoginService {
 
     private boolean authenticate(LoginDataDTO loginData) {
         String storedPassword = loginMapper.findPasswordByLoginId(loginData.getLoginId());
-        log.info("비밀번호 {} {}", loginData.getLoginId(), storedPassword);
-        log.info("비밀 {} ", passwordEncoder.matches(loginData.getPassword(), storedPassword));
         return passwordEncoder.matches(loginData.getPassword(), storedPassword);
     }
 

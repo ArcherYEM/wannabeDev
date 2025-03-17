@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 public class UserRole {
 
     private String roleCd; // 권한 코드 01: ADMIN, 02: MANAGER, 03: USER
-    private String userId;
+    private long userId;
     private String remarks;
-    private String insertUserId;
+    private long insertUserId;
     private LocalDateTime insertDt;
-    private String updateUserId;
+    private long updateUserId;
     private LocalDateTime updateDt;
 
     public UserRole updateRole(String roleCd) {

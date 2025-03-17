@@ -2,18 +2,18 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
-import com.dev.wannabe.domain.home.model.vo.UserBasic;
-import com.dev.wannabe.domain.home.model.vo.UserDetail;
-import com.dev.wannabe.domain.home.model.vo.UserRole;
+import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
+import com.dev.wannabe.domain.home.model.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -31,22 +31,23 @@ public class UserService {
      * 저장 후 return 200 ok
      */
     public HttpStatus signUpUser(SignupUserDTO signupUser) {
+        long userId;
+        long hompiId;
+
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        try{
-            if (isExistByLoginId(signupUser.getLoginId())) {
+        try {
+            if (isUserExist(signupUser.getLoginId())) {
                 return HttpStatus.BAD_REQUEST;
             }
-            if (isExistByEmail(signupUser.getEmail())) {
+            if (isUserExist(signupUser.getEmail())) {
                 return HttpStatus.BAD_REQUEST;
             }
-            if (isExistByPhoneNo(signupUser.getPhoneNo())) {
+            if (isUserExist(signupUser.getPhoneNo())) {
                 return HttpStatus.BAD_REQUEST;
             }
 
-            String userId = UUID.randomUUID().toString();
 
             UserBasic newUserBasic = UserBasic.builder()
-                    .userId(userId)
                     .loginId(signupUser.getLoginId())
                     .email(signupUser.getEmail())
                     .phoneNo(signupUser.getPhoneNo())
@@ -55,8 +56,18 @@ public class UserService {
                     .genderCode(signupUser.getGenderCode())
                     .birthDate(signupUser.getBirthDate())
                     .userStatus("N")
-                    .insertUserId(userId)
                     .build();
+
+            userMapper.saveUserBasic(newUserBasic);
+
+            sqlSession.commit();
+
+            Optional<Long> userIdData = userMapper.findUserIdByEmail(signupUser.getEmail());
+            if (userIdData.isPresent()) {
+                userId = userIdData.get();
+            } else {
+                throw new Exception();
+            }
 
             UserDetail newUserDetail = UserDetail.builder()
                     .userId(userId)
@@ -74,11 +85,35 @@ public class UserService {
                     .insertUserId(userId)
                     .build();
 
-            userMapper.saveUserBasic(newUserBasic);
+            FriendMessage friendMessage = FriendMessage.builder()
+                    .userId(userId)
+                    .friendUserId(0)
+                    .message("가입을 축하합니다")
+                    .insertUserId(0)
+                    .build();
+
             userMapper.saveUserDetail(newUserDetail);
             userMapper.saveUserRole(newUserRole);
+            userMapper.saveFriendMessage(friendMessage);
 
             sqlSession.commit();
+
+            Hompi newHompi = Hompi.builder()
+                    .hompiUrl("test")
+                    .hompiTitle("testTitle")
+                    .ownerUserId(userId)
+                    .insertUserId(userId)
+                    .build();
+
+
+            sqlSession.commit();
+
+
+            //hompiId
+
+
+
+
             sqlSession.close();
             return HttpStatus.OK;
         } catch (Exception e) {
@@ -95,7 +130,7 @@ public class UserService {
      * 중복이면 return 400 bad request
      */
     public HttpStatus checkDuplicationLoginId(String loginId) {
-        if (isExistByLoginId(loginId)) {
+        if (isUserExist(loginId)) {
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.OK;
@@ -107,7 +142,7 @@ public class UserService {
      * 중복이면 return 400 bad request
      */
     public HttpStatus checkDuplicationEmail(String email) {
-        if (isExistByEmail(email)) {
+        if (isUserExist(email)) {
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.OK;
@@ -119,22 +154,14 @@ public class UserService {
      * 중복이면 return 400 bad request
      */
     public HttpStatus checkDuplicationPhone(String phoneNo) {
-        if (isExistByPhoneNo(phoneNo)) {
+        if (isUserExist(phoneNo)) {
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.OK;
     }
 
-    private boolean isExistByLoginId(String loginId) {
-        return userMapper.isExistByLoginId(loginId) > 0;
-    }
-
-    private boolean isExistByEmail(String email) {
-        return userMapper.isExistByEmail(email) > 0;
-    }
-
-    private boolean isExistByPhoneNo(String phoneNo) {
-        return userMapper.isExistByPhoneNo(phoneNo) > 0;
+    private boolean isUserExist(String checkValue) {
+        return userMapper.isUserExist(checkValue) > 0;
     }
 
 
