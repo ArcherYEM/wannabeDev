@@ -13,7 +13,7 @@
     <properties>
         <java.version>11</java.version>
         <spring.version>5.3.29</spring.version>
-        <servlet.version>5.0.0</servlet.version>
+        <servlet.version>4.0.1</servlet.version>
         <mybatis.version>3.5.13</mybatis.version>
         <mybatis-spring.version>2.1.1</mybatis-spring.version>
         <jackson.version>2.15.2</jackson.version>
@@ -71,8 +71,8 @@
 
         <!-- Servlet API -->
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>

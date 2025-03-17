@@ -19,37 +19,42 @@ public class MinihompiController {
 
     @GetMapping("/profile")
     public String Profile() {
-        return "minihompi/minihompiProfile";
+        return "minihompi/profile/minihompiProfile";
     }
 
     @GetMapping("/dairy")
     public String Dairy() {
-        return "minihompi/minihompiDairy";
+        return "minihompi/dairy/minihompiDairy";
     }
 
     @GetMapping("/jukebox")
     public String Jukebox() {
-        return "minihompi/minihompiJukebox";
+        return "minihompi/jukebox/minihompiJukebox";
     }
 
     @GetMapping("/photo")
     public String Photo() {
-        return "minihompi/minihompiPhoto";
+        return "minihompi/photo/minihompiPhoto";
     }
 
     @GetMapping("/board")
     public String Board() {
-        return "minihompi/minihompiBoard";
+        return "minihompi/board/minihompiBoard";
     }
 
     @GetMapping("/visitor")
     public String Visitor() {
-        return "minihompi/minihompiVisitor";
+        return "minihompi/visitor/minihompiVisitor";
     }
 
     @GetMapping("/setting")
     public String Setting() {
-        return "minihompi/minihompiSetting";
+        return "minihompi/setting/minihompiSetting";
+    }
+
+    @GetMapping("/newmessage")
+    public String message() {
+        return "minihompi/newMessage";
     }
 
 
