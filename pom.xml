@@ -114,6 +114,14 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!-- google guava dependency -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1.1-jre</version>
+        </dependency>
+
+
         <!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>

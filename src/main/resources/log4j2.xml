@@ -67,6 +67,11 @@
 			<AppenderRef ref="console" />
 		</Logger>
 
+		<!-- LOG "com.dev.wannabe" at DEBUG level -->
+		<Logger name="com.dev.wannabe.global.aop.interceptor.LoggingInterceptor" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
 		<Root level="INFO">
 			<AppenderRef ref="console" />
 		</Root>
