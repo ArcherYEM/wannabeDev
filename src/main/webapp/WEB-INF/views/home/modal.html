@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/modal.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <label>
+            <input class="checkbox" type="checkbox"> 개인정보 수집 및 이용 동의
+        </label>
+        <a href="#" onclick="modal('dialog')">내용보기</a>
+    </div>
+    <!-- 모달 창 -->
+    <div id="dialog" class="dialog">
+        <div class="tb">
+            <div class="inner" style="max-width:800px;">
+                <div class="top">
+                    <div class="img">
+                        <a href="#">
+                            <img class="close" src="/static/images/common/close.png">
+                        </a>
+                    </div>
+                    <div class="title">개인정보 수집 및 이용동의</div>
+                </div>
+                <div class="ct">
+                    <div class="text">
+                        1. 개인정보의 수집항목 및 수집방법<br>
+                        워너비(WANNABE 사이트에서는 기본적인 회원 서비스 제공을 위한 필수정보로 본인인증정보와 가입정보로 구분하여 다음의 정보를 수집하고 있습니다.<br><br>
+                        &nbsp;  가. 수집하는 개인정보의 항목<br>
+                        &nbsp; &nbsp;  * 수집하는 필수 항목<br>
+                        &nbsp; &nbsp; &nbsp; - 본인증정보: 이름,이메일,본인 인증<br>
+                        &nbsp; &nbsp; &nbsp; - IP주소, 서비스 이용기록, 방문기록 등<br>
+                        <br>
+                        &nbsp; 나. 개인정보 수집 방법<br>
+                        &nbsp; &nbsp; 홈페이지 회원가입을 통한 수집<br>
+                        <br>
+                        2. 개인정보의 수집이용 목적 및 보유/이용기간<br>
+                        워너비(WANNABE) 사이트에서는 정보주체의 회원 가입일로부터 서비스를 제공하는 기간 동안에 한하여 워너비 서비스를 이용하기
+                        위한 최소한의 개인정보를 보유 및 이용하게 됩니다. 회원가입 등을 통해 개인정보의 수집 이용,
+                        제공 등에 대해 동의하신 내용은 언제든지 철회하실 수 있습니다.<br>
+                        <br>
+                        <br>
+                        <label class="check">
+                            <input class="checkbox" type="checkbox" > 개인정보 수집 및 이용 동의
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 모달 열기
+        function modal(id){
+            $("#" + id).fadeIn();  // 전달받은 id 값을 가진 요소를 fadeIn()으로 표시
+        }
+
+        // 모달 닫기 (닫기 버튼 클릭)
+        $(document).on("click", ".close", function(e) {
+            e.preventDefault();
+            closeModal();
+        });
+
+        // 모달 배경 클릭 시 닫기
+        $(document).on("click", ".dialog", function() {
+            closeModal(); // 모달을 닫음
+        });
+
+        // 모달 닫기 함수
+        function closeModal() {
+            $(".dialog").fadeOut();  // 모달 닫기
+            $(".modal-overlay").fadeOut();  // 배경 닫기
+        }
+
+        // 모달 내부 내용 클릭 시 클릭 이벤트 전파 방지
+        $(document).on("click", ".tb", function(e) {
+            e.stopPropagation(); // 클릭 이벤트 전파 방지
+        });
+
+        // 모달창과 checkbox 연동
+        $(".checkbox").on("change",function(){
+            $(".checkbox").prop("checked",$(this).prop("checked"));
+        })
+    </script>
+</body>
+</html>
