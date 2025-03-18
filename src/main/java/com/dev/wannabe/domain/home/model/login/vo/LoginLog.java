@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.home.model.dto.login;
+package com.dev.wannabe.domain.home.model.login.vo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder(toBuilder = true)
-public class LoginLogDTO {
+public class LoginLog {
 
     private Long logId;
     private String accessIp;

@@ -9,7 +9,7 @@
         WHERE LOGIN_ID = #{loginId}
     </select>
 
-    <insert id="saveLoginLog" parameterType="LoginLogDTO">
+    <insert id="saveLoginLog" parameterType="LoginLog">
         INSERT INTO LOGIN_LOG (
             ACCESS_IP, USER_ID,
             INSERT_USER_ID

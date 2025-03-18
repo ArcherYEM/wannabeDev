@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.home.model.dto.user;
+package com.dev.wannabe.domain.home.model.user.dto;
 
 import lombok.Data;
 

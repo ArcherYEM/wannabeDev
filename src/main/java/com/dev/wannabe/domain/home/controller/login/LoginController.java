@@ -1,6 +1,6 @@
 package com.dev.wannabe.domain.home.controller.login;
 
-import com.dev.wannabe.domain.home.model.dto.login.LoginDataDTO;
+import com.dev.wannabe.domain.home.model.login.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.service.login.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

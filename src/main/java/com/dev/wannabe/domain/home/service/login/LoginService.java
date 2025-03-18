@@ -2,8 +2,8 @@ package com.dev.wannabe.domain.home.service.login;
 
 import com.dev.wannabe.domain.home.mapper.login.LoginMapper;
 import com.dev.wannabe.domain.home.mapper.user.UserMapper;
-import com.dev.wannabe.domain.home.model.dto.login.LoginDataDTO;
-import com.dev.wannabe.domain.home.model.dto.login.LoginLogDTO;
+import com.dev.wannabe.domain.home.model.login.dto.LoginDataDTO;
+import com.dev.wannabe.domain.home.model.login.vo.LoginLog;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class LoginService {
             log.info("login 성공 user ID {}", userId);
             log.info("클라이언트 IP: {}", accessIp);
 
-            LoginLogDTO loginLog = LoginLogDTO.builder()
+            LoginLog loginLog = LoginLog.builder()
                     .accessIp(accessIp)
                     .userId(userId)
                     .insertUserId(userId)
@@ -70,7 +70,7 @@ public class LoginService {
 
             Long userId = (Long) session.getAttribute("userId");
 
-            LoginLogDTO loginLog = LoginLogDTO.builder()
+            LoginLog loginLog = LoginLog.builder()
                     .accessIp(session.getAttribute("accessIp").toString())
                     .userId(userId)
                     .logoutDt(LocalDateTime.now())
