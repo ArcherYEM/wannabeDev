@@ -1,3 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    list-style: none;
+    /* a태그 */
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 링크의 색상 제거 */
+    box-sizing: border-box;
+}
+
 /*기본색 s*/
 :root {
     --color-basic: #FF8000;
@@ -5,8 +16,8 @@
     --color-green: #00a336d9 ;
     --color-blue: #3700ffc7 ;
     --color-gray: #595959;
-}
 
+}
 
 #header{
     overflow:hidden;
@@ -18,7 +29,6 @@
     max-width:1280px;
     margin:0 auto;
 }
-
 #header .headerLeft{
     float:left;
 }
@@ -27,42 +37,27 @@
     width:150px;
     display:inline-block;
 }
-#header .headerLeft a.logo img{
-    width:100%;
-}
 
-#header .headerRight{
-    float:right;
-}
-
-#header .headerRight ul{
-    text-align:right;
-}
-
-#header .headerRight ul li{
-    Display:inline-block;
-    margin-right:10px;
-}
-#header .headerRight ul li.name{
-    font-weight:bold;
-}
-#header .headerRight ul li:last-child{
-    margin-right:0;
-}
+#header .headerLeft a.logo img{width:100%;}
+#header .headerRight{float:right; }
+#header .headerRight ul{text-align:right;}
+#header .headerRight ul li{Display:inline-block; margin-right:10px;}
+#header .headerRight ul li.name{font-weight:bold;}
+#header .headerRight ul li:last-child{margin-right:0;}
 #header .headerRight ul li input{
     width:200px;
     height:30px;
     border-radius:5px;
-    border:1px solid var(--color-basic)
-}
-
+    border:1px solid var(--color-basic)}
 
 #gnb{
     width:100%;
     height:50px;
-    border:1px solid var(--color-basic);
+/*    border:1px solid var(--color-basic);*/
     border-left:0;
     border-right:0;
+/*    overflow:hidden;*/
+/*    max-width:1280px;*/
 }
 
 #gnb div{
@@ -76,15 +71,11 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    background-color:var(--color-basic);
 }
-
-#gnb div ul li{
-    flex:auto;
-}
-
+#gnb div ul li{flex:auto;}
 #gnb div ul li a{
-    color:#333;
+    background-color:var(--color-basic);
+    color:white;
     font-weight:bold;
     width:100%;
     display:block;
@@ -93,8 +84,10 @@
     line-height:45px;
     font-size:16px;
     transition:all,.5s;
-    color: white;
 }
 
-/*#gnb div ul li:hover{background-color:white;}*/
-#gnb div ul li a:hover{color:black;}
+#gnb div ul li a:hover{
+/*    color:var(--color-basic);*/
+/*    background-color:white;*/
+    color:black;
+}

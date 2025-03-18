@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<header th:fragment="header">
-
-
+<th:block th:fragment="header">
+    <header>
         <!--헤더 시작-->
         <div id="header">
             <div class="headerLeft">
@@ -33,6 +32,8 @@
             </div>
         </div>
         <!--gnb 끝-->
-    <link rel="stylesheet" href="/static/css/header.css">
-</header>
+
+        <link rel="stylesheet" href="/static/css/header.css">
+    </header>
+</th:block>
 </html>
