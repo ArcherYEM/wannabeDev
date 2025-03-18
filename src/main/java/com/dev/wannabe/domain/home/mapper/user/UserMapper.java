@@ -19,13 +19,8 @@ public interface UserMapper {
     // USER_ROLE 저장
     void saveUserRole(UserRole userRole);
 
-    // FRIEND_MESSAGE 저장
-    void saveFriendMessage(FriendMessage friendMessage);
-
     int isUserExist(UserExistDTO userExist);
 
     Long findUserIdByLoginId(String loginId);
-
-    Long findHompiIdByUserId(Long userId);
 
 }
