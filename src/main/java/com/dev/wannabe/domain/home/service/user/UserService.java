@@ -104,15 +104,13 @@ public class UserService {
      * 중복 아니면 return 200 ok
      * 중복이면 return 400 bad request
      */
-    public HttpStatus checkDuplicationLoginId(String loginId) {
+    public Boolean checkDuplicationLoginId(String loginId) {
         UserExistDTO userExist = UserExistDTO.builder()
                 .loginId(loginId)
                 .build();
 
-        if (isUserExist(userExist)) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        return HttpStatus.OK;
+        if (isUserExist(userExist)) { return false; }
+        return true;
     }
 
     /*
@@ -120,15 +118,13 @@ public class UserService {
      * 중복 아니면 return 200 ok
      * 중복이면 return 400 bad request
      */
-    public HttpStatus checkDuplicationEmail(String email){
+    public Boolean checkDuplicationEmail(String email){
         UserExistDTO userExist = UserExistDTO.builder()
                 .email(email)
                 .build();
 
-        if (isUserExist(userExist)) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        return HttpStatus.OK;
+        if (isUserExist(userExist)) { return false; }
+        return true;
     }
 
     /*
@@ -136,20 +132,16 @@ public class UserService {
      * 중복 아니면 return 200 ok
      * 중복이면 return 400 bad request
      */
-    public HttpStatus checkDuplicationPhone(String phoneNo) {
+    public Boolean checkDuplicationPhone(String phoneNo) {
         UserExistDTO userExist = UserExistDTO.builder()
                 .phoneNo(phoneNo)
                 .build();
 
-        if (isUserExist(userExist)) {
-            return HttpStatus.BAD_REQUEST;
-        }
-        return HttpStatus.OK;
+        if (isUserExist(userExist)) { return false; }
+        return true;
     }
 
-    private boolean isUserExist(UserExistDTO userExist) {
+    private Boolean isUserExist(UserExistDTO userExist) {
         return userMapper.isUserExist(userExist) > 0;
     }
-
-
 }
