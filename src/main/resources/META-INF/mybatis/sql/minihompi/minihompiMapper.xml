@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.minihompi.MiniHompiMapper">
+
+    <select id="findMyHompi" parameterType="map"
+            resultType="com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal">
+        SELECT hp.HOMPI_ID, hp.HOMPI_URL, hp.HOMPI_TITLE, hds.TODAY_CNT, hp.TOTAL_CNT
+        FROM HOMPI hp
+        INNER JOIN HOMPI_DAILY_STATS hds ON hp.HOMPI_ID = hds.HOMPI_ID
+        WHERE 1 = 1
+        AND hds.DAY_STATS_DATE = CURDATE()
+        <if test="hompiId == userId">
+            AND hp.HOMPI_ID = #{hompiId}
+            AND hp.OWNER_USER_ID = #{userId}
+        </if>
+        <if test="userId == null or userId != hompiId ">
+            AND hp.HOMPI_ID = #{hompiId}
+
+        </if>
+
+    </select>
+
+</mapper>
