@@ -4,6 +4,8 @@ import com.dev.wannabe.domain.home.mapper.login.LoginMapper;
 import com.dev.wannabe.domain.home.mapper.user.UserMapper;
 import com.dev.wannabe.domain.home.model.login.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.login.vo.LoginLog;
+import com.dev.wannabe.domain.home.model.user.dto.UserDataDTO;
+import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,21 +41,20 @@ public class LoginService {
             }
 
             Long userId = userMapper.findUserIdByLoginId(loginData.getLoginId());
-
             String accessIp = getAccessIp(request);
-
-            HttpSession session = request.getSession(true);
-            session.setAttribute("userId", userId);
-            session.setAttribute("accessIp", accessIp);
-
-            log.info("login 성공 user ID {}", userId);
-            log.info("클라이언트 IP: {}", accessIp);
 
             LoginLog loginLog = LoginLog.builder()
                     .accessIp(accessIp)
                     .userId(userId)
                     .insertUserId(userId)
                     .build();
+
+            HttpSession session = request.getSession(true);
+            session.setAttribute("userData", createUserData(loginLog));
+            session.setMaxInactiveInterval(60 * 60); // 단위 : 초
+
+            log.info("login 성공 user ID {}", userId);
+            log.info("클라이언트 IP: {}", accessIp);
 
             loginMapper.saveLoginLog(loginLog);
             return true;
@@ -97,5 +98,24 @@ public class LoginService {
     private String getAccessIp(HttpServletRequest request) {
         String ip = request.getRemoteAddr();
         return ip.split(",")[0];
+    }
+
+    private SessionUserDTO createUserData(LoginLog loginLog) {
+
+        UserDataDTO userData = userMapper.findUserDataByUserId(loginLog.getUserId());
+
+        return SessionUserDTO.builder()
+                .accessIp(loginLog.getAccessIp())
+                .userId(loginLog.getUserId())
+                .email(userData.getEmail())
+                .phoneNo(userData.getPhoneNo())
+                .name(userData.getName())
+                .genderCode(userData.getGenderCode())
+                .birthDate(userData.getBirthDate())
+                .hompiId(0L)
+                .hompiURL("localhost:8080")
+                .hompiTitle("test")
+                .miniroomId(0L)
+                .build();
     }
 }
