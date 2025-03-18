@@ -18,7 +18,7 @@ public interface UserMapper {
     // USER_ROLE 저장
     void saveUserRole(UserRole userRole);
 
-    int isUserExist(UserExistDTO userExist);
+    Integer isUserExist(UserExistDTO userExist);
 
     Long findUserIdByLoginId(String loginId);
 

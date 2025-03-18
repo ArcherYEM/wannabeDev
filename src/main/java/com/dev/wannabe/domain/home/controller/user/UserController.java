@@ -22,7 +22,10 @@ public class UserController {
      */
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody SignupUserDTO signupUser) {
-        return ResponseEntity.status(userManageService.signUpUser(signupUser)).build();
+        if (userManageService.signUpUser(signupUser)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     /*

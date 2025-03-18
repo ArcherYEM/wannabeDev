@@ -25,7 +25,7 @@ public class LoginService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public boolean login(LoginDataDTO loginData) {
+    public Boolean login(LoginDataDTO loginData) {
         try {
             HttpServletRequest request = SessionUtil.getRequest();
 
@@ -64,7 +64,7 @@ public class LoginService {
     }
 
     @Transactional
-    public boolean logout() {
+    public Boolean logout() {
         try {
             HttpSession session = SessionUtil.getSession();
 
@@ -89,7 +89,7 @@ public class LoginService {
         }
     }
 
-    private boolean authenticate(LoginDataDTO loginData) {
+    private Boolean authenticate(LoginDataDTO loginData) {
         String storedPassword = loginMapper.findPasswordByLoginId(loginData.getLoginId());
         return passwordEncoder.matches(loginData.getPassword(), storedPassword);
     }
