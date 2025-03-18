@@ -1,8 +1,9 @@
 $(document).ready(function(){
-    $("#loginBtn").click(function(){
+    $(".loginBtn").click(function(){
 
-        const loginId = $("#loginId").val().trim();
-        const password = $("#password").val().trim();
+        const loginId = $("input[name='userId']").val().trim();
+        const password = $("input[name='password']").val().trim();
+
 
         $.ajax({
             type: "POST",
@@ -21,7 +22,7 @@ $(document).ready(function(){
         });
     });
 
-    $("#logoutBtn").click(function () {
+    $(".logoutBtn").click(function () {
         $.ajax({
             type: "POST",
             url: "/api/user/logout",
@@ -33,7 +34,6 @@ $(document).ready(function(){
                 alert("로그아웃 실패");
                 console.error(error);
             }
-
         });
     });
 });
