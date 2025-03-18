@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.home.model.dto;
+package com.dev.wannabe.domain.home.model.dto.login;
 
 import lombok.Builder;
 import lombok.Getter;

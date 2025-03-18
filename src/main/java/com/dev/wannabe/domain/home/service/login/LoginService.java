@@ -1,9 +1,9 @@
-package com.dev.wannabe.domain.home.service;
+package com.dev.wannabe.domain.home.service.login;
 
-import com.dev.wannabe.domain.home.mapper.LoginMapper;
-import com.dev.wannabe.domain.home.mapper.UserMapper;
-import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
-import com.dev.wannabe.domain.home.model.dto.LoginLogDTO;
+import com.dev.wannabe.domain.home.mapper.login.LoginMapper;
+import com.dev.wannabe.domain.home.mapper.user.UserMapper;
+import com.dev.wannabe.domain.home.model.dto.login.LoginDataDTO;
+import com.dev.wannabe.domain.home.model.dto.login.LoginLogDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

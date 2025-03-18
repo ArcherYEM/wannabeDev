@@ -1,7 +1,6 @@
-package com.dev.wannabe.domain.home.mapper;
+package com.dev.wannabe.domain.home.mapper.login;
 
-import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
-import com.dev.wannabe.domain.home.model.dto.LoginLogDTO;
+import com.dev.wannabe.domain.home.model.dto.login.LoginLogDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

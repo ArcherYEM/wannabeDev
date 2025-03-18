@@ -1,8 +1,6 @@
-package com.dev.wannabe.domain.home.model.dto;
+package com.dev.wannabe.domain.home.model.dto.user;
 
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 // 회원가입 시 전송받는 Data
 @Data

@@ -1,18 +1,14 @@
-package com.dev.wannabe.domain.home.service;
+package com.dev.wannabe.domain.home.service.user;
 
-import com.dev.wannabe.domain.home.mapper.UserMapper;
-import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
-import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
-import com.dev.wannabe.domain.home.model.vo.*;
+import com.dev.wannabe.domain.home.mapper.user.UserMapper;
+import com.dev.wannabe.domain.home.model.dto.user.*;
+import com.dev.wannabe.domain.home.model.vo.user.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -30,10 +26,15 @@ public class UserService {
      */
     @Transactional
     public HttpStatus signUpUser(SignupUserDTO signupUser) {
-        long userId;
-        long hompiId;
+        Long userId;
+        Long hompiId;
 
         try {
+            /*
+             * loginId, email, phoneNo 중복 체크
+             * 중복되면 예외 처리 발생
+             * 이후 400 Bad Request 반환
+             */
             UserExistDTO userExist = UserExistDTO.builder()
                     .loginId(signupUser.getLoginId())
                     .email(signupUser.getEmail())
@@ -41,9 +42,13 @@ public class UserService {
                     .build();
 
             if (isUserExist(userExist)) {
-                return HttpStatus.BAD_REQUEST;
+                throw new Exception();
             }
 
+            /*
+             * User Basic 생성
+             * 이후 User Basic 에서 User Id 추출
+             */
             UserBasic newUserBasic = UserBasic.builder()
                     .loginId(signupUser.getLoginId())
                     .email(signupUser.getEmail())
@@ -57,13 +62,17 @@ public class UserService {
 
             userMapper.saveUserBasic(newUserBasic);
 
-            Optional<Long> userIdData = userMapper.findUserIdByLoginId(signupUser.getLoginId());
-            if (userIdData.isPresent()) {
-                userId = userIdData.get();
-            } else {
-                throw new Exception();
-            }
+            /*
+             * User Basic 에서 User Id 추출
+             * Optional 을 통해 User Id가 없으면 예외 처리 발생
+             * 이후 400 Bad Request 반환
+             */
+            userId = userMapper.findUserIdByLoginId(signupUser.getLoginId());
 
+            /*
+             * User Detail, User Role 테이블 생성 및 저장
+             * 회원 가입 축하용 Friend Message 생성 및 저장
+             */
             UserDetail newUserDetail = UserDetail.builder()
                     .userId(userId)
                     .friendMessageAvailYN(signupUser.getFriendMessageAvailYN())
@@ -80,25 +89,8 @@ public class UserService {
                     .insertUserId(userId)
                     .build();
 
-            FriendMessage friendMessage = FriendMessage.builder()
-                    .userId(userId)
-                    .friendUserId(0)
-                    .message("가입을 축하합니다")
-                    .insertUserId(0)
-                    .build();
-
             userMapper.saveUserDetail(newUserDetail);
             userMapper.saveUserRole(newUserRole);
-            userMapper.saveFriendMessage(friendMessage);
-
-            Hompi newHompi = Hompi.builder()
-                    .hompiUrl("test")
-                    .hompiTitle("testTitle")
-                    .ownerUserId(userId)
-                    .insertUserId(userId)
-                    .build();
-            //hompiId
-
 
             return HttpStatus.OK;
         } catch (Exception e) {

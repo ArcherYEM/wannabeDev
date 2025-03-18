@@ -18,22 +18,16 @@
         <typeAlias alias="hashMap" type="java.util.HashMap"/>
 
 		<!--> VO <-->
-		<typeAlias alias="UserBasic" type="com.dev.wannabe.domain.home.model.vo.UserBasic"/>
-		<typeAlias alias="UserDetail" type="com.dev.wannabe.domain.home.model.vo.UserDetail"/>
-		<typeAlias alias="UserRole" type="com.dev.wannabe.domain.home.model.vo.UserRole"/>
-		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.home.model.vo.FriendMessage"/>
-		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.home.model.vo.Hompi"/>
-		<typeAlias alias="HompiMenu" type="com.dev.wannabe.domain.home.model.vo.HompiMenu"/>
-		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.home.model.vo.HompiConfig"/>
-		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.home.model.vo.HompiDailyStats"/>
-		<typeAlias alias="MinimiBasic" type="com.dev.wannabe.domain.home.model.vo.MinimiBasic"/>
-		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
+		<typeAlias alias="UserBasic" type="com.dev.wannabe.domain.home.model.vo.user.UserBasic"/>
+		<typeAlias alias="UserDetail" type="com.dev.wannabe.domain.home.model.vo.user.UserDetail"/>
+		<typeAlias alias="UserRole" type="com.dev.wannabe.domain.home.model.vo.user.UserRole"/>
+		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.login.LoginLog"/>
 
 		<!--> DTO <-->
-		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
-		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
-		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
-		<typeAlias alias="LoginLogDTO" type="com.dev.wannabe.domain.home.model.dto.LoginLogDTO"/>
+		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.user.SignupUserDTO"/>
+		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.user.UserExistDTO"/>
+		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.login.LoginDataDTO"/>
+		<typeAlias alias="LoginLogDTO" type="com.dev.wannabe.domain.home.model.dto.login.LoginLogDTO"/>
 
 	</typeAliases>
 

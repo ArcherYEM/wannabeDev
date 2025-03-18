@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.home.model.vo;
+package com.dev.wannabe.domain.home.model.vo.user;
 
 import lombok.Builder;
 import lombok.Getter;
