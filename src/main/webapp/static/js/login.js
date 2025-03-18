@@ -20,4 +20,20 @@ $(document).ready(function(){
 
         });
     });
+
+    $("#logoutBtn").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/api/user/logout",
+            success:function(response){
+                alert("로그아웃 성공")
+                location.href = "/home";
+            },
+            error: function(error){
+                alert("로그아웃 실패");
+                console.error(error);
+            }
+
+        });
+    });
 });
