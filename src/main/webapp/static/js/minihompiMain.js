@@ -1,22 +1,5 @@
-$(document).on("click", "#moveHome", function (e) {
-    e.preventDefault();
-    $.ajax({
-        type: "GET",
-        url: "/mini-hompi/hompiMain",
-        dataType: "html",
-        success: function (data) {
-            $("#mainWrapBackground").children().remove();
-            $("#mainWrapBackground").html(data);
-        },
-        error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-        }
-    });
-});
 /** 이벤트 리스너 등록 **/
 $(document).ready(function () {
-
-    const $popuoMain = $("#popupMain");
 
     const $menu_diary = $("#menu_diary");
     const $menu_photo = $("#menu_photo");
@@ -32,7 +15,6 @@ $(document).ready(function () {
     const $moveVisitor = $("#moveVisitor");
     const $moveSetting = $("#moveSetting");
 
-    const hompMain_url = "/mini-hompi/hompiMain"
     const homp_url = "/mini-hompi/main";
     const prolfile_url = "/mini-hompi/profile";
     const jukebox_url = "/mini-hompi/jukebox";
@@ -47,62 +29,67 @@ $(document).ready(function () {
     const $dropbtn = $droupdown.find(".name");
 
 
-    //오른쪽 사이드 메뉴 이동(색깔 변경)
-
+    //오른쪽 사이드 메뉴 이동
+    $moveHome.on("click", function (e) {
+        e.preventDefault();
+        moveHomePage(e, homp_url);
+    });
 
     $moveProfile.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, prolfile_url, "moveProfile");
+        moveHomePageCgColor(e, prolfile_url);
     });
 
     $moveDairy.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, dairy_url, "moveDairy");
+        moveHomePageCgColor(e, dairy_url);
     });
     $moveJukebox.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, jukebox_url, "moveJukebox");
+        moveHomePageCgColor(e, jukebox_url);
     });
 
     $moveSetting.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, setting_url, "moveSetting");
+        moveHomePageCgColor(e, setting_url);
     });
 
     $movePhoto.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, photo_url, "movePhoto");
+        moveHomePageCgColor(e, photo_url);
     });
     $moveBoard.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, board_url, "moveBoard");
+        moveHomePageCgColor(e, board_url);
     });
 
     $moveVisitor.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, visitor_url, "moveVisitor");
+        moveHomePageCgColor(e, visitor_url);
     });
+
 
     //메인화면에 있는 이동
     $menu_diary.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, dairy_url, "moveDairy");
+        movePage(dairy_url);
     });
 
     $menu_photo.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, photo_url, "movePhoto");
+        movePage(photo_url);
     });
 
     $menu_board.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, board_url, "moveBoard");
+        movePage(board_url);
     });
 
     $menu_visitor.on("click", function (e) {
         e.preventDefault();
-        moveHomePageCgColor(e, visitor_url, "moveVisitor");
+        movePage(visitor_url);
     });
+
 
     /** 함수 등록 **/
     function movePage(url) {
@@ -120,7 +107,8 @@ $(document).ready(function () {
         });
     }
 
-    function moveHomePageCgColor(e, url, menuName) {
+
+    function moveHomePageCgColor(e, url) {
         console.log(e.currentTarget);
         $.ajax({
             type: "GET",
@@ -137,13 +125,29 @@ $(document).ready(function () {
 
         var btns = document.querySelectorAll("li");
         btns.forEach(function (btn, i) {
-            if (menuName === btn.id) {
+            if (e.currentTarget == btn) {
                 btn.classList.add("on");
             } else {
                 btn.classList.remove("on");
             }
         });
         console.log(e.currentTarget);
+    }
+
+
+    function moveHomePage(e, url) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "html",
+            success: function (data) {
+                $("#rightWrap .rightMainWrap").children().remove();
+                $("body").html(data)
+            },
+            error: function (xhr, status, error) {
+                alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+            }
+        });
     }
 
 //메인에서 이름 누르면 나오는 드롭박스
@@ -190,6 +194,7 @@ $(document).ready(function () {
 
 });
 
+
 /** 미니홈피 팝업창 설정 **/
 function openPop() {
     var popupW = 1280;
@@ -197,10 +202,11 @@ function openPop() {
     var left = Math.ceil((window.screen.width - popupW) / 2);
     var top = Math.ceil((window.screen.height - popupH) / 2);
 
-    window.open('/mini-hompi/main',
+    var popup = window.open('/mini-hompi/main',
         'mini-hompi',
         'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }
+
 
 /** 쪽지 팝업창 설정 **/
 function onpneMessage() {
