@@ -1,8 +1,11 @@
 package com.dev.wannabe.domain.home.service.user;
 
 import com.dev.wannabe.domain.home.mapper.user.UserMapper;
-import com.dev.wannabe.domain.home.model.dto.user.*;
-import com.dev.wannabe.domain.home.model.vo.user.*;
+import com.dev.wannabe.domain.home.model.user.dto.SignupUserDTO;
+import com.dev.wannabe.domain.home.model.user.dto.UserExistDTO;
+import com.dev.wannabe.domain.home.model.user.vo.UserBasic;
+import com.dev.wannabe.domain.home.model.user.vo.UserDetail;
+import com.dev.wannabe.domain.home.model.user.vo.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -108,8 +111,11 @@ public class UserService {
                 .loginId(loginId)
                 .build();
 
-        if (isUserExist(userExist)) { return false; }
-        return true;
+        if (isUserExist(userExist)) {
+            log.info("User LoginId Exist {}", loginId);
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -122,8 +128,11 @@ public class UserService {
                 .email(email)
                 .build();
 
-        if (isUserExist(userExist)) { return false; }
-        return true;
+        if (isUserExist(userExist)) {
+            log.info("User Email Exist {}", email);
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -136,8 +145,11 @@ public class UserService {
                 .phoneNo(phoneNo)
                 .build();
 
-        if (isUserExist(userExist)) { return false; }
-        return true;
+        if (isUserExist(userExist)) {
+            log.info("User PhoneNo Exist {}", phoneNo);
+            return true;
+        }
+        return false;
     }
 
     private Boolean isUserExist(UserExistDTO userExist) {

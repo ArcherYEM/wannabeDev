@@ -1,10 +1,9 @@
 package com.dev.wannabe.domain.home.mapper.user;
 
-import com.dev.wannabe.domain.home.model.dto.user.UserExistDTO;
-import com.dev.wannabe.domain.home.model.vo.*;
-import com.dev.wannabe.domain.home.model.vo.user.UserBasic;
-import com.dev.wannabe.domain.home.model.vo.user.UserDetail;
-import com.dev.wannabe.domain.home.model.vo.user.UserRole;
+import com.dev.wannabe.domain.home.model.user.dto.UserExistDTO;
+import com.dev.wannabe.domain.home.model.user.vo.UserBasic;
+import com.dev.wannabe.domain.home.model.user.vo.UserDetail;
+import com.dev.wannabe.domain.home.model.user.vo.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
