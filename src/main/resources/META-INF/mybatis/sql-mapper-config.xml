@@ -33,6 +33,7 @@
 		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
 		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
 		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
+		<typeAlias alias="LoginLogDTO" type="com.dev.wannabe.domain.home.model.dto.LoginLogDTO"/>
 
 	</typeAliases>
 

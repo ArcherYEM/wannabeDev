@@ -23,6 +23,8 @@ public interface UserMapper {
 
     int isUserExist(UserExistDTO userExist);
 
-    Optional<Long> findUserIdByLoginId(String loginId);
+    Long findUserIdByLoginId(String loginId);
+
+    Long findHompiIdByUserId(Long userId);
 
 }

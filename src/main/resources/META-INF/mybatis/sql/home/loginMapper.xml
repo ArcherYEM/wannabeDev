@@ -9,5 +9,20 @@
         WHERE LOGIN_ID = #{loginId}
     </select>
 
+    <insert id="saveLoginLog" parameterType="LoginLogDTO">
+        INSERT INTO LOGIN_LOG (
+            ACCESS_IP, USER_ID,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{accessIp},
+            #{userId},
+            #{insertUserId}
+        )
+        ON DUPLICATE KEY UPDATE
+            LOGOUT_DT = #{logoutDt},
+            UPDATE_USER_ID = #{updateUserId}
+    </insert>
+
 
 </mapper>

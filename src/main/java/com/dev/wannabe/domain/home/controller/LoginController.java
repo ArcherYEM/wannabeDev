@@ -16,14 +16,33 @@ public class LoginController {
 
     private final LoginService loginService;
 
+    /*
+     * 입력 : userId와 password 값
+     * 로그인 성공 시 200 Ok 반환
+     * 로그인 실패 시 400 Bad Request 반환
+     */
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody LoginDataDTO loginData) {
-        return ResponseEntity.status(loginService.login(loginData)).build();
+        // Session add : loginId, accessIp
+        if (loginService.login(loginData)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
+    /*
+     * 로그아웃 성공 시 200 Ok 반환
+     * 로그아웃 실패 시 400 Bad Request 반환
+     */
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
-        return ResponseEntity.status(loginService.logout()).build();
+
+        if (loginService.logout()) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
