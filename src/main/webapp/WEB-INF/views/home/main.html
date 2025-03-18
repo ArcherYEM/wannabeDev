@@ -11,11 +11,11 @@
 </head>
 <body>
 <script>
-  $(document).ready(function(){
-    $(".signupBtn").click(function() {
-      location.href="/signup";
+    $(document).ready(function(){
+        $(".signupBtn").click(function() {
+            location.href="/signup";
+        });
     });
-  });
 </script>
 <div id="wrap">
 
@@ -23,19 +23,19 @@
     <th:block th:include="/common/layout/fragments/header :: header"></th:block>
     <!--헤더 끝-->
 
-  <!--gnb 시작-->
-  <div id="gnb">
-    <div>
-      <ul>
-        <li><a href="#">내미니홈피</a></li>
-        <li><a href="#">선물가게</a></li>
-        <li><a href="#">장바구니</a></li>
-        <li><a href="#">공지사항</a></li>
-        <li><a href="#">ABOUT US</a></li>
-      </ul>
+    <!--gnb 시작-->
+    <div id="gnb">
+        <div>
+            <ul>
+                <li><a href="#">내미니홈피</a></li>
+                <li><a href="#">선물가게</a></li>
+                <li><a href="#">장바구니</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">ABOUT US</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <!--gnb 끝-->
+    <!--gnb 끝-->
 
     <!--메인 시작-->
     <div id="container">
@@ -256,27 +256,25 @@
     </div>
     <!--메인 끝-->
 
-  <!--푸터 시작-->
-  <div id="footer">
-    <div class="footerWrap">
-      <div>
-        <p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
-        <p>Since.2025.2.24~</p>
-      </div>
+    <!--푸터 시작-->
+    <div id="footer">
+        <div class="footerWrap">
+            <div>
+                <p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
+                <p>Since.2025.2.24~</p>
+            </div>
+        </div>
     </div>
-  </div>
-  <!--푸터 끝-->
+    <!--푸터 끝-->
 </div>
 
 <div class="modalBg"></div>
 <div class="modal">
-  <a href="#" class="close"><img src="/static/images/common/close.png"></a>
-  <p class="title">개인정보 수집 및 이용동의</p>
-  <div>
-
-  </div>
+    <a href="#" class="close"><img src="/static/images/common/close.png"></a>
+    <p class="title">개인정보 수집 및 이용동의</p>
+    <div>
+    </div>
 </div>
-<script src="/static/js/login.js"></script>
 </body>
 </html>
 
