@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("#loginBtn").click(function(){
-
+    $("#loginBtn").click(function(e){
+        e.preventDefault();
         const loginId = $("#loginId").val().trim();
         const password = $("#password").val().trim();
 
@@ -11,7 +11,8 @@ $(document).ready(function(){
             data: JSON.stringify({loginId,password}),
             success:function(response){
                 alert("로그인 성공")
-                location.href = "/home";
+/*                $(".mainTopLeft").children().remove();*/
+
             },
             error: function(error){
                 alert("로그인 실패");
