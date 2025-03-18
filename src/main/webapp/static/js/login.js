@@ -1,17 +1,21 @@
 $(document).ready(function(){
     $("#loginBtn").click(function(){
-        const username = $("username").val();
-        const password = $("password").val();
+
+        const loginId = $("#loginId").val().trim();
+        const password = $("#password").val().trim();
 
         $.ajax({
             type: "POST",
-            url: "/login",
+            url: "/api/user/login",
             contentType: "application/json",
-            data: Json.stringify({username,password}),
+            data: JSON.stringify({loginId,password}),
             success:function(response){
-
-            }error: function(error){
-                alert:("로그인 실패");
+                alert("로그인 성공")
+                location.href = "/home";
+            },
+            error: function(error){
+                alert("로그인 실패");
+                console.error(error);
             }
 
         });
