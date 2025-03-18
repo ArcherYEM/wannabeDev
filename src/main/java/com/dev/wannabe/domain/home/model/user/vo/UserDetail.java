@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.home.model.vo;
+package com.dev.wannabe.domain.home.model.user.vo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,16 +9,16 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 public class UserDetail {
 
-    private long userId;
+    private Long userId;
     private String friendMessageAvailYN;
     private String hompiUseYN; // 홈피 사용 여부
     private String confirmYN1; // 수집 동의 여부 1
     private String confirmYN2; // 수집 동의 여부 2
     private String confirmYN3; // 수집 동의 여부 3
     private String remarks;
-    private long insertUserId;
+    private Long insertUserId;
     private LocalDateTime insertDt;
-    private long updateUserId;
+    private Long updateUserId;
     private LocalDateTime updateDt;
 
 }

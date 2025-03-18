@@ -1,0 +1,31 @@
+<div xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="noLoginFragment">
+<div class="loginWrap noLogin">
+    <div class="loginWrapTop">
+        <div class="loginInputWrap">
+            <ul>
+                <li><input type="text" name="loginId" id="loginId"></li>
+                <li><input type="password" name="password" id="password"></li>
+            </ul>
+        </div>
+        <div class="loginBtnWrap">
+            <a href="#" id="loginBtn" class="btn">로그인</a>
+        </div>
+    </div>
+    <div class="loginWrapBot">
+        <ul>
+            <li><a href="#" class="btn">회원가입</a></li>
+            <li><a href="#" class="btn">ID찾기 / 비밀번호찾기</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+    <div th:fragment="noLoginHeader">
+        <ul>
+            <li><input type="text" name="loginId" id="" placeholder="아이디"></li>
+            <li><input type="password" name="password" id="" placeholder="비밀번호"></li>
+            <li><a href="#" class="btn">로그인</a></li>
+            <li><a href="#" class="btn">회원가입</a></li>
+        </ul>
+    </div>
+</div>
