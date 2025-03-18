@@ -214,7 +214,7 @@
                 								<li id="movePhoto" style="cursor:pointer;">사진첩</li>
                 								<li id="moveBoard" style="cursor:pointer;">게시판</li>
                 								<li id="moveVisitor"  style="cursor:pointer;">방명록</li>
-                								<li id="moveSetting"  style="cursor:pointer;">관리</li>
+                								<li id="moveSetting"  style="cursor:pointer;" th:if="${myHompi == 2}">관리</li>
                 							</ul>
                 						</div>
                 					</div>
@@ -236,8 +236,6 @@
     						</ul>
 
 
-
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- CDN 라이브러리 끝 -->
 
@@ -245,7 +243,4 @@
 <script type="module" src="/static/js/common.js"></script>
 <!-- 푸터 인클루드 끝 부분 -->
 
-
-
-<script src="/static/js/minihompiMain.js"></script>
-<
+<script type="module" src="/static/js/minihompiMain.js"></script>

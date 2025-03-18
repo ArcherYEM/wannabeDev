@@ -197,7 +197,9 @@ function openPop() {
     var left = Math.ceil((window.screen.width - popupW) / 2);
     var top = Math.ceil((window.screen.height - popupH) / 2);
 
-    window.open('/mini-hompi/main',
+    const hompiId = 1;
+
+    window.open(`/mini-hompi/main/${hompiId}`,
         'mini-hompi',
         'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }

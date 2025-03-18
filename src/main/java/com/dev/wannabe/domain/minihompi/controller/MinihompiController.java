@@ -1,6 +1,6 @@
 package com.dev.wannabe.domain.minihompi.controller;
 
-import com.dev.wannabe.domain.minihompi.model.minihompi.MinihompiDto;
+import com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal;
 import com.dev.wannabe.domain.minihompi.service.minihompiService.MinihompiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,16 +29,29 @@ public class MinihompiController {
     }
 
     @GetMapping("/main/{hompiId}")
-    public String getUserMain(@PathVariable("") String ownerUserId, Model model) {
-        Map<String, String> map = new HashMap<>();
-        map.put("loginId", loginId);
-        map.put("ownerUserId", ownerUserId);
-        MinihompiDto findMiniHompi = MinihompiService.findMiniHompi(map);
-        //홈피url을 이용해서 미니 홈피로 이동함 , 세션으로부터 로그인 id, 홈피url 맵에 삽입
-        //로그인 id는 null일 경우가 있음. 컨트롤러-> 서비스->매퍼로 맵을 던짐
-        //서비스 if문 써서 같으면 내 미니홈피 myHome y/n 리턴시켜서 ajax에서 해당요소 디스플레이 설정
-        //다르면 다른 사람 미니홈피(투데이 증가 로직 시작)
-        //select 결과가 없을 경우에는 공사판 페이지가 뜬다.....
+    public String miniHompipopup(@PathVariable("hompiId") Long hompiId, Model model, HttpSession session) {
+        //Integer userId = (Long) session.getAttribute("userId");
+        String myHompi = "";
+        Integer userId = 1;
+
+
+        if (hompiId.equals(userId)) { //내 미니홈피
+            myHompi = "0";
+        } else if (userId == null) { //비로그인
+            myHompi = "1";
+        } else { //남의 미니홈피
+            myHompi = "2";
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("hompiId", hompiId);
+        MiniHompiTotal findMiniHompi = minihompiService.findMiniHompi(map);
+
+        model.addAttribute("findMiniHompi", findMiniHompi);
+        model.addAttribute("myHompi", myHompi);
+        model.addAttribute("hompiId", hompiId);
+        System.out.println("myHompi:" + myHompi);
 
         return "minihompi/minihompiWrap";
     }
