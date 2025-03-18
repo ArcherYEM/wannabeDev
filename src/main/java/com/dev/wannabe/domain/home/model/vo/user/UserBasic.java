@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 public class UserBasic {
 
-    private long userId;  // UUID, PK
+    private Long userId;  // UUID, PK
     private String loginId; // UNIQUE, 회원 가입 시 입력
     private String email;   // UNIQUE
     private String phoneNo; // UNIQUE
@@ -19,9 +19,9 @@ public class UserBasic {
     private String birthDate;
     private String userStatus;
     private String remarks;
-    private long insertUserId;
+    private Long insertUserId;
     private LocalDateTime insertDt;
-    private long updateUserId;
+    private Long updateUserId;
     private LocalDateTime updateDt;
 
 }
