@@ -1,0 +1,56 @@
+<div xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="loginFragment">
+<div class="loginWrap yesLogin">
+  <div class="yesLoginDiv1">
+    <div>홍길동</div>
+    <div>
+      <ul>
+        <li><a class="btn small">내정보수정</a></li>
+        <li><a class="btn small nobtn">로그아웃</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="yesLoginDiv2">
+    <div><img src="/static/images/common/minimi/exNewItemImage2.png"/></div>
+    <div>
+      <ul>
+        <li>
+          <span class="title">일촌ON</span>
+          <span class="text">11</span>
+        </li>
+        <li>
+          <span class="title">쪽지</span>
+          <span class="text">30</span>
+        </li>
+        <li>
+          <span class="title">오늘 방문자</span>
+          <span class="text">113</span>
+        </li>
+        <li>
+          <span class="title">새 게시물</span>
+          <span class="text">2</span>
+        </li>
+        <li>
+          <span class="title">일촌신청</span>
+          <span class="text">4</span>
+        </li>
+        <li>
+          <span class="title">보유도토리</span>
+          <span class="text"><img src="/static/images/common/dotori.png"> <span class="text">720</span> <a class="btn small di">충전</a></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <a class="btn">내 미니홈피 바로가기</a>
+</div>
+</div>
+  <div th:fragment="loginHeader">
+    <ul>
+      <li>(접속IP : 127.0.0.1)</li>
+      <li class="name">홍길동</li>
+      <li><a><img src="/static/images/common/homeIcon.png"></a></li>
+      <li><a href="#"><img src="/static/images/common/option.png"></a></li>
+      <li><a href="#" class="btn nobtn">로그아웃</a></li>
+    </ul>
+  </div>
+</div>
