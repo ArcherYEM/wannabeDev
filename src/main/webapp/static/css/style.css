@@ -10,6 +10,7 @@
     box-sizing: border-box;
     display: flex;
     column-gap: 10px;
+    cursor: default;
 }
 
 #mainWrap {
@@ -19,6 +20,7 @@
     padding: 10px;
     box-sizing: border-box;
     margin: 0;
+    height: 640px;
 
 }
 
@@ -59,6 +61,7 @@
 }
 
 #leftContainer #todayWrap .todayUl li {
+    cursor: default;
     display: inline-block;
 }
 
@@ -201,11 +204,10 @@
     display: inline-block;
     vertical-align: middle;
     font-weight: lighter;
-    width: 15px;
     height: 15px;
     line-height: 15px;
-    text-align: center;
-    margin-top: -3px;
+    float: right;
+
 }
 
 
@@ -235,7 +237,7 @@
     box-sizing: border-box;
     background: #fff;
     margin-left: 30px;
-    height: 230px;
+    height: 140px;
 }
 
 #subViewContainer #subViewWrap #subViewTop {
@@ -404,10 +406,12 @@ a[class*="btn"] {
 
 #titleBtn.save-mode {
     font-size: 12px;
-    font-weight: lighter;
     background-color: orange;
     color: white;
     border: none;
+    height: 22px;
+    padding: 0 10px;
+    outline: 1px dotted #111;
 }
 
 #rightWrapBox {
@@ -502,6 +506,10 @@ a[class*="btn"] {
     font-size: 14px;
 }
 
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li a:hover {
+    color: orange;
+}
+
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li span {
     color: #1613F2;
     font-size: 12px;
@@ -529,7 +537,6 @@ a[class*="btn"] {
 
 #rightWrap .rightMainWrap .rightMain ul li {
     fLoat: left;
-    cursor: pointer;
     font-size: 14px;
     font-weight: bold;
     color: #1C97CC;
@@ -666,13 +673,21 @@ a[class*="btn"] {
     float: right;
     font-weight: bold;
     cursor: pointer;
+}
+
+.editSet a {
+    color: #595959;
+}
+
+.editSet a:hover {
+    color: orange;
 
 }
 
 .editImg {
     display: inline-block;
     float: left;
-    margin-right: 6px;
+    margin-top: -1px;
 }
 
 .editImg img {
