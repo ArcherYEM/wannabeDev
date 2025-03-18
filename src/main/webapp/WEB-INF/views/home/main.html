@@ -23,20 +23,6 @@
     <th:block th:include="/common/layout/fragments/header :: header"></th:block>
     <!--헤더 끝-->
 
-    <!--gnb 시작-->
-    <div id="gnb">
-        <div>
-            <ul>
-                <li><a href="#">내미니홈피</a></li>
-                <li><a href="#">선물가게</a></li>
-                <li><a href="#">장바구니</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">ABOUT US</a></li>
-            </ul>
-        </div>
-    </div>
-    <!--gnb 끝-->
-
     <!--메인 시작-->
     <div id="container">
         <div class="containerWrap">
@@ -257,14 +243,7 @@
     <!--메인 끝-->
 
     <!--푸터 시작-->
-    <div id="footer">
-        <div class="footerWrap">
-            <div>
-                <p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
-                <p>Since.2025.2.24~</p>
-            </div>
-        </div>
-    </div>
+    <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
     <!--푸터 끝-->
 </div>
 
