@@ -9,6 +9,11 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
 
 <body>
+
+<!--헤더 시작-->
+<th:block th:include="/common/layout/fragments/header :: header"></th:block>
+<!--헤더 끝-->
+
 <div class="mainContainer">
     <div class="giftMenu">
         <nav>
@@ -738,6 +743,11 @@
         </div>
     </div>
 </div>
+
+<!--푸터 시작-->
+<th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
+<!--푸터 끝-->
+
 </body>
 <script>
 

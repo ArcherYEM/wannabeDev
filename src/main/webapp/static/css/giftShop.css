@@ -153,7 +153,6 @@
     border-radius: 10px;
     padding:10px;
     margin: 0 2px;
-    height:16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +163,6 @@
     border-radius: 10px;
     padding:10px;
     margin: 0 2px;
-    height:16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -177,7 +175,6 @@
     padding:10px;
     margin: 0 5px;
     text-align: center;
-    height: 16px;
     font-size: 13px;
 }
 
@@ -187,7 +184,6 @@
     justify-self: center;
     padding: 10px;
     margin: 0 2px;
-    height:16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -200,7 +196,6 @@
     padding: 10px;
     margin: 0 5px;
     text-align: center;
-    height: 16px;
     font-size: 13px;
 }
 
