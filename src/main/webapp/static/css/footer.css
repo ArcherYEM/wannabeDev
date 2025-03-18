@@ -1,0 +1,27 @@
+#footer{
+    width:100%;
+    border-top:1px solid var(--color-gray);
+    border-bottom:1px solid var(--color-gray);
+    overflow:hidden;
+/*    padding:20px 30px;*/
+    box-sizing:border-box;
+    bottom: 0;
+}
+
+#footer div.footerWrap{
+    max-width:1280px;
+    margin:0 auto;
+}
+
+#footer div.footerWrap p{
+    text-align:center;
+    font-size:14px;
+}
+
+#footer div.footerWrap span{
+    color:var(--color-gray);
+    font-size:18px;
+    font-weight:bold;
+}
+
+#footer div.footerWrap span.basic{color:var(--color-basic);}
