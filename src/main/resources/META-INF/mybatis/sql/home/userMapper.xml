@@ -133,7 +133,7 @@
     </select>
 
 
-    <select id="isUserExist" parameterType="String" resultType="int">
+    <select id="isUserExist" parameterType="UserExistDTO" resultType="int">
         SELECT
             CASE
                 WHEN COUNT(*) > 0 THEN TRUE

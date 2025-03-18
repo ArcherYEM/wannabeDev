@@ -6,12 +6,11 @@ import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
 import com.dev.wannabe.domain.home.model.vo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -22,7 +21,6 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final SqlSessionFactory sqlSessionFactory;
 
     /*
      * 회원 가입 기능
@@ -30,22 +28,21 @@ public class UserService {
      * 중복이면 return 400 bad request
      * 저장 후 return 200 ok
      */
+    @Transactional
     public HttpStatus signUpUser(SignupUserDTO signupUser) {
         long userId;
         long hompiId;
 
-        SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            if (isUserExist(signupUser.getLoginId())) {
-                return HttpStatus.BAD_REQUEST;
-            }
-            if (isUserExist(signupUser.getEmail())) {
-                return HttpStatus.BAD_REQUEST;
-            }
-            if (isUserExist(signupUser.getPhoneNo())) {
-                return HttpStatus.BAD_REQUEST;
-            }
+            UserExistDTO userExist = UserExistDTO.builder()
+                    .loginId(signupUser.getLoginId())
+                    .email(signupUser.getEmail())
+                    .phoneNo(signupUser.getPhoneNo())
+                    .build();
 
+            if (isUserExist(userExist)) {
+                return HttpStatus.BAD_REQUEST;
+            }
 
             UserBasic newUserBasic = UserBasic.builder()
                     .loginId(signupUser.getLoginId())
@@ -59,8 +56,6 @@ public class UserService {
                     .build();
 
             userMapper.saveUserBasic(newUserBasic);
-
-            sqlSession.commit();
 
             Optional<Long> userIdData = userMapper.findUserIdByEmail(signupUser.getEmail());
             if (userIdData.isPresent()) {
@@ -96,29 +91,17 @@ public class UserService {
             userMapper.saveUserRole(newUserRole);
             userMapper.saveFriendMessage(friendMessage);
 
-            sqlSession.commit();
-
             Hompi newHompi = Hompi.builder()
                     .hompiUrl("test")
                     .hompiTitle("testTitle")
                     .ownerUserId(userId)
                     .insertUserId(userId)
                     .build();
-
-
-            sqlSession.commit();
-
-
             //hompiId
 
 
-
-
-            sqlSession.close();
             return HttpStatus.OK;
         } catch (Exception e) {
-            sqlSession.rollback();
-            sqlSession.close();
             return HttpStatus.BAD_REQUEST;
         }
 
@@ -130,7 +113,11 @@ public class UserService {
      * 중복이면 return 400 bad request
      */
     public HttpStatus checkDuplicationLoginId(String loginId) {
-        if (isUserExist(loginId)) {
+        UserExistDTO userExist = UserExistDTO.builder()
+                .loginId(loginId)
+                .build();
+
+        if (isUserExist(userExist)) {
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.OK;
@@ -141,8 +128,12 @@ public class UserService {
      * 중복 아니면 return 200 ok
      * 중복이면 return 400 bad request
      */
-    public HttpStatus checkDuplicationEmail(String email) {
-        if (isUserExist(email)) {
+    public HttpStatus checkDuplicationEmail(String email){
+        UserExistDTO userExist = UserExistDTO.builder()
+                .email(email)
+                .build();
+
+        if (isUserExist(userExist)) {
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.OK;
@@ -154,14 +145,18 @@ public class UserService {
      * 중복이면 return 400 bad request
      */
     public HttpStatus checkDuplicationPhone(String phoneNo) {
-        if (isUserExist(phoneNo)) {
+        UserExistDTO userExist = UserExistDTO.builder()
+                .phoneNo(phoneNo)
+                .build();
+
+        if (isUserExist(userExist)) {
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.OK;
     }
 
-    private boolean isUserExist(String checkValue) {
-        return userMapper.isUserExist(checkValue) > 0;
+    private boolean isUserExist(UserExistDTO userExist) {
+        return userMapper.isUserExist(userExist) > 0;
     }
 
 

@@ -21,7 +21,7 @@ public interface UserMapper {
     // FRIEND_MESSAGE 저장
     void saveFriendMessage(FriendMessage friendMessage);
 
-    int isUserExist(String checkValue);
+    int isUserExist(UserExistDTO userExist);
 
     // email을 기준으로 user id 추출
     Optional<Long> findUserIdByEmail(String email);
