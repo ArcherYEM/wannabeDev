@@ -126,13 +126,6 @@
         WHERE LOGIN_ID = #{loginId}
     </select>
 
-    <select id="findUserIdByEmail" parameterType="String" resultType="long">
-        SELECT USER_ID
-        FROM USER_BASIC
-        WHERE EMAIL = #{email}
-    </select>
-
-
     <select id="isUserExist" parameterType="UserExistDTO" resultType="int">
         SELECT
             CASE

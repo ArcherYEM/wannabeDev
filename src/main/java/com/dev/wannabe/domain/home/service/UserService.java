@@ -57,7 +57,7 @@ public class UserService {
 
             userMapper.saveUserBasic(newUserBasic);
 
-            Optional<Long> userIdData = userMapper.findUserIdByEmail(signupUser.getEmail());
+            Optional<Long> userIdData = userMapper.findUserIdByLoginId(signupUser.getLoginId());
             if (userIdData.isPresent()) {
                 userId = userIdData.get();
             } else {

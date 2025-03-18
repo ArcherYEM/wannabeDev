@@ -23,9 +23,6 @@ public interface UserMapper {
 
     int isUserExist(UserExistDTO userExist);
 
-    // email을 기준으로 user id 추출
-    Optional<Long> findUserIdByEmail(String email);
-
     Optional<Long> findUserIdByLoginId(String loginId);
 
 }
