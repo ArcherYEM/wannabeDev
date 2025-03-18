@@ -27,7 +27,6 @@ public class UserService {
     @Transactional
     public HttpStatus signUpUser(SignupUserDTO signupUser) {
         Long userId;
-        Long hompiId;
 
         try {
             /*
