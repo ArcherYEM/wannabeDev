@@ -1,4 +1,5 @@
-<html lang="ko">
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>onlineMain</title>
@@ -15,12 +16,12 @@
       <a href="#" class="logo"><img src="/static/images/common/logo_full.png"></a>
     </div>
     <div class="headerRight">
-      <ul>
-        <li><input type="text" name="username" id="loginId" placeholder="아이디"></li>
-        <li><input type="password" name="password" id="password" placeholder="비밀번호"></li>
-        <li><a href="#" id="loginBtn" class="btn">로그인</a></li>
-        <li><a href="#" class="btn">회원가입</a></li>
-      </ul>
+      <div th:if="${session.userId} == null">
+          <div th:replace="home/fragment/noLoginInclude :: noLoginHeader"></div>
+      </div>
+      <!--<div th:if="${session.userId} != null">
+        <div th:replace="home/fragment/loginInclude :: loginHeader"></div>
+      </div>-->
     </div>
   </div>
   <!--헤더 끝-->
@@ -45,25 +46,11 @@
       <div class="mainTop">
         <!--login s-->
         <div class="mainTopLeft">
-          <div class="loginWrap noLogin">
-            <div class="loginWrapTop">
-              <div class="loginInputWrap">
-                <ul>
-                  <li><input type="text" name="" id=""></li>
-                  <li><input type="password" name="" id=""></li>
-                </ul>
-              </div>
-              <div class="loginBtnWrap">
-                <a href="#" class="btn">로그인</a>
-              </div>
-            </div>
-            <div class="loginWrapBot">
-              <ul>
-                <li><a href="#" class="btn">회원가입</a></li>
-                <li><a href="#" class="btn">ID찾기 / 비밀번호찾기</a></li>
-
-              </ul>
-            </div>
+          <div th:if="${session.userId} == null">
+            <div th:replace="home/fragment/noLoginInclude :: noLoginFragment"></div>
+          </div>
+          <div th:if="${session.userId != null}">
+            <div th:replace="home/fragment/loginInclude :: loginFragment"></div>
           </div>
         </div>
         <!--login e-->
