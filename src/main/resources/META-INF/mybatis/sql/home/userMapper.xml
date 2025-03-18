@@ -3,7 +3,7 @@
 
 <mapper namespace="com.dev.wannabe.domain.home.mapper.UserMapper">
 
-    <insert id="saveUserBasic" parameterType="com.dev.wannabe.domain.home.model.vo.UserBasic">
+    <insert id="saveUserBasic" parameterType="UserBasic">
         INSERT INTO USER_BASIC (
             USER_ID, LOGIN_ID, EMAIL, PHONE_NO, PASSWORD,
             NAME, GENDER_CODE, BIRTH_DATE, USER_STATUS,
@@ -22,7 +22,7 @@
         )
     </insert>
 
-    <insert id="saveUserDetail" parameterType="com.dev.wannabe.domain.home.model.vo.UserDetail">
+    <insert id="saveUserDetail" parameterType="UserDetail">
         INSERT INTO USER_DETAIL (
             USER_ID, FRIEND_MESSAGE_AVAIL_YN, HOMPI_USE_YN,
             CONFIRM_YN_1, CONFIRM_YN_2, CONFIRM_YN_3,
@@ -38,7 +38,7 @@
         )
     </insert>
 
-    <insert id="saveFriendMessage" parameterType="com.dev.wannabe.domain.home.model.vo.FriendMessage">
+    <insert id="saveFriendMessage" parameterType="FriendMessage">
         INSERT INTO FRIEND_MESSAGE (
             USER_ID, FRIEND_USER_ID, MESSAGE, READ_YN, INSERT_USER_ID
         ) VALUES (
@@ -50,7 +50,7 @@
         )
     </insert>
 
-    <insert id="saveHompi" parameterType="com.dev.wannabe.domain.home.model.vo.Hompi">
+    <insert id="saveHompi" parameterType="Hompi">
         INSERT INTO HOMPI (
             HOMPI_ID, HOMPI_URL, HOMPI_TITLE, OWNER_USER_ID,
             INSERT_USER_ID
@@ -63,7 +63,7 @@
         )
     </insert>
 
-    <insert id="saveHompiConfig" parameterType="com.dev.wannabe.domain.home.model.vo.HompiConfig">
+    <insert id="saveHompiConfig" parameterType="HompiConfig">
         INSERT INTO HOMPI_CONFIG (
             HOMPI_ID, HOMPI_CONFIG_CODE, HOMPI_CONFIG_CONTENT,
             INSERT_USER_ID
@@ -75,7 +75,7 @@
         )
     </insert>
 
-    <insert id="saveHompiDailyStats" parameterType="com.dev.wannabe.domain.home.model.vo.HompiDailyStats">
+    <insert id="saveHompiDailyStats" parameterType="HompiDailyStats">
         INSERT INTO HOMPI_DAILY_STATS (
             DAY_STATS_DATE, HOMPI_ID, TODAY_CNT,
             INSERT_USER_ID
@@ -87,7 +87,7 @@
         )
     </insert>
 
-    <insert id="saveHompiMenu" parameterType="com.dev.wannabe.domain.home.model.vo.HompiMenu">
+    <insert id="saveHompiMenu" parameterType="HompiMenu">
         INSERT INTO HOMPI_MENU (
             HOMPI_MENU_CODE, HOMPI_ID, AVAIL_STATUS,
             INSERT_USER_ID
@@ -99,7 +99,7 @@
         )
     </insert>
 
-    <insert id="saveMinimiBasic" parameterType="com.dev.wannabe.domain.home.model.vo.MinimiBasic">
+    <insert id="saveMinimiBasic" parameterType="MinimiBasic">
         INSERT INTO MINIMI_BASIC (
             MINIMI_ID, PRODUCT_ID, USER_ID,
             FACE_DIRECTION_CODE, X_POSITION, Y_POSITION, Z_POSITION,
@@ -133,7 +133,7 @@
     </select>
 
 
-    <select id="isUserExist" parameterType="com.dev.wannabe.domain.home.model.dto.UserExistDTO" resultType="int">
+    <select id="isUserExist" parameterType="String" resultType="int">
         SELECT
             CASE
                 WHEN COUNT(*) > 0 THEN TRUE
@@ -142,50 +142,18 @@
         FROM USER_BASIC
         WHERE
             1 = 1
-            <if test="loginId not in">
+            <if test="loginId != null">
                 AND LOGIN_ID = #{loginId}
             </if>
-            <if test="email not in">
+            <if test="email != null">
                 AND EMAIL = #{email}
             </if>
-            <if test="phoneNo not in">
+            <if test="phoneNo != null">
                 AND PHONE_NO = #{phoneNo}
             </if>
     </select>
 
-
-    <select id="isExistByLoginId" parameterType="String" resultType="int">
-        SELECT
-            CASE
-                WHEN COUNT(*) > 0 THEN TRUE
-                ELSE FALSE
-            END
-        FROM USER_BASIC
-        WHERE LOGIN_ID = #{loginId}
-    </select>
-
-    <select id="isExistByEmail" parameterType="String" resultType="int">
-        SELECT
-            CASE
-                WHEN COUNT(*) > 0 THEN TRUE
-                ELSE FALSE
-            END
-        FROM USER_BASIC
-        WHERE EMAIL = #{email}
-    </select>
-
-
-    <select id="isExistByPhoneNo" parameterType="String" resultType="int">
-        SELECT
-            CASE
-                WHEN COUNT(*) > 0 THEN TRUE
-                ELSE FALSE
-            END
-        FROM USER_BASIC
-        WHERE PHONE_NO = #{phoneNo}
-    </select>
-
-    <insert id="saveUserRole" parameterType="com.dev.wannabe.domain.home.model.vo.UserRole">
+    <insert id="saveUserRole" parameterType="UserRole">
         INSERT INTO USER_ROLE (
             ROLE_CD, USER_ID,
             INSERT_USER_ID

@@ -4,11 +4,11 @@ package com.dev.wannabe.domain.home.controller;
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
 import com.dev.wannabe.domain.home.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 public class UserController {
@@ -30,8 +30,8 @@ public class UserController {
      *  loginId 검증 성공 시 200 OK
      *  loginId 검증 실패 400 Bad Request 반환
      */
-    @PostMapping("/checkLoginId")
-    public ResponseEntity<Void> checkLoginId(@RequestParam("loginId") String loginId) {
+    @PostMapping("/checkLoginId/{loginId}")
+    public ResponseEntity<Void> checkLoginId(@PathVariable String loginId) {
         return ResponseEntity.status(userManageService.checkDuplicationLoginId(loginId)).build();
     }
 
@@ -40,8 +40,8 @@ public class UserController {
      *  email 검증 성공 시 200 OK
      *  email 검증 실패 400 Bad Request 반환
      */
-    @PostMapping("/checkEmail")
-    public ResponseEntity<Void> checkEmail(@RequestParam("email") String email) {
+    @PostMapping("/checkEmail/{email}")
+    public ResponseEntity<Void> checkEmail(@PathVariable String email) {
         return ResponseEntity.status(userManageService.checkDuplicationEmail(email)).build();
     }
 
@@ -50,8 +50,8 @@ public class UserController {
      *  phoneNo 검증 성공 시 200 OK
      *  phoneNo 검증 실패 400 Bad Request 반환
      */
-    @PostMapping("/checkPhoneNo")
-    public ResponseEntity<Void> checkPhoneNo(@RequestParam("phoneNo") String phoneNo) {
+    @PostMapping("/checkPhoneNo/{phoneNo}")
+    public ResponseEntity<Void> checkPhoneNo(@PathVariable String phoneNo) {
         return ResponseEntity.status(userManageService.checkDuplicationPhone(phoneNo)).build();
     }
 

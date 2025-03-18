@@ -21,31 +21,7 @@ public interface UserMapper {
     // FRIEND_MESSAGE 저장
     void saveFriendMessage(FriendMessage friendMessage);
 
-    // HOMPI 저장
-    void saveHompi(Hompi hompi);
-
-    // HOMPI_CONFIG 저장
-    void saveHompiConfig(HompiConfig hompiConfig);
-
-    // HOMPI_DAILY_STATS
-    void saveHompiDailyStats(HompiDailyStats hompiDailyStats);
-
-    // HOMPI_MENU
-    void saveHompiMenu(HompiMenu hompiMenu);
-
-    // MINIMI_BASIC
-    void saveMinimiBasic(MinimiBasic minimiBasic);
-
-    int isUserExist(UserExistDTO userExist);
-
-    // login id 존재 시 return 1, 아니면 return 0
-    int isExistByLoginId(String loginId);
-
-    // email 존재 시 return 1, 아니면 return 0
-    int isExistByEmail(String email);
-
-    // phone no 존재 시 return 1, 아니면 return 0
-    int isExistByPhoneNo(String phoneNo);
+    int isUserExist(String checkValue);
 
     // email을 기준으로 user id 추출
     Optional<Long> findUserIdByEmail(String email);
