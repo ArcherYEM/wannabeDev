@@ -15,4 +15,9 @@ public class HomeController {
     public String home(){
         return "home/main";
     }
+
+    @RequestMapping("/signup")
+    public String signup(){
+        return "home/signup";
+    }
 }
