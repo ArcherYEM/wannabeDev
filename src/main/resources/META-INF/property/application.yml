@@ -5,6 +5,9 @@ wannabe:
     username: admin
     password: wannabe0224
 
+<<<<<<< Updated upstream
 spring:
   config:
     import: application-apiKey.yml
+=======
+>>>>>>> Stashed changes
