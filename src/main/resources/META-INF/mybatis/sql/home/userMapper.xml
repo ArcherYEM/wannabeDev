@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dev.wannabe.domain.home.mapper.UserMapper">
+<mapper namespace="com.dev.wannabe.domain.home.mapper.user.UserMapper">
 
     <insert id="saveUserBasic" parameterType="UserBasic">
         INSERT INTO USER_BASIC (
-            USER_ID, LOGIN_ID, EMAIL, PHONE_NO, PASSWORD,
+            LOGIN_ID, EMAIL, PHONE_NO, PASSWORD,
             NAME, GENDER_CODE, BIRTH_DATE, USER_STATUS,
             INSERT_USER_ID
         ) VALUES (
-            #{userId},
             #{loginId},
             #{email},
             #{phoneNo},
@@ -20,6 +19,16 @@
             #{userStatus},
             #{insertUserId}
         )
+        ON DUPLICATE KEY UPDATE
+            LOGIN_ID = #{loginId},
+            EMAIL = #{email},
+            PHONE_NO = #{phoneNo},
+            PASSWORD = #{password},
+            NAME = #{name},
+            GENDER_CODE = #{genderCode},
+            BIRTH_DATE = #{birthDate},
+            USER_STATUS = #{userStatus},
+            UPDATE_USER_ID = #{insertUserId}
     </insert>
 
     <insert id="saveUserDetail" parameterType="UserDetail">
@@ -36,88 +45,28 @@
             #{confirmYN3},
             #{insertUserId}
         )
+        ON DUPLICATE KEY UPDATE
+            FRIEND_MESSAGE_AVAIL_YN = #{friendMessageAvailYN},
+            HOMPI_USE_YN = #{hompiUseYN},
+            CONFIRM_YN_1 = #{confirmYN1},
+            CONFIRM_YN_2 = #{confirmYN2},
+            CONFIRM_YN_3 = #{confirmYN3},
+            UPDATE_USER_ID = #{insertUserId}
     </insert>
 
-    <insert id="saveFriendMessage" parameterType="FriendMessage">
-        INSERT INTO FRIEND_MESSAGE (
-            USER_ID, FRIEND_USER_ID, MESSAGE, READ_YN, INSERT_USER_ID
-        ) VALUES (
+    <insert id="saveUserRole" parameterType="UserRole">
+        INSERT INTO USER_ROLE (
+            USER_ID, ROLE_CD,
+            INSERT_USER_ID
+        )
+        VALUES (
             #{userId},
-            #{friendUserId},
-            #{message},
-            #{readYN},
+            #{roleCd},
             #{insertUserId}
         )
-    </insert>
-
-    <insert id="saveHompi" parameterType="Hompi">
-        INSERT INTO HOMPI (
-            HOMPI_ID, HOMPI_URL, HOMPI_TITLE, OWNER_USER_ID,
-            INSERT_USER_ID
-        ) VALUES (
-            #{hompiId},
-            #{hompiUrl}
-            #{hompiTitle}
-            #{ownerUserId},
-            #{insertUserId}
-        )
-    </insert>
-
-    <insert id="saveHompiConfig" parameterType="HompiConfig">
-        INSERT INTO HOMPI_CONFIG (
-            HOMPI_ID, HOMPI_CONFIG_CODE, HOMPI_CONFIG_CONTENT,
-            INSERT_USER_ID
-        ) VALUES (
-            #{hompiId},
-            #{hompiConfigCode},
-            #{hompiConfigContent},
-            #{insertUserId}
-        )
-    </insert>
-
-    <insert id="saveHompiDailyStats" parameterType="HompiDailyStats">
-        INSERT INTO HOMPI_DAILY_STATS (
-            DAY_STATS_DATE, HOMPI_ID, TODAY_CNT,
-            INSERT_USER_ID
-        ) VALUES (
-            #{dayStatsDate},
-            #{hompiId},
-            #{todayCnt},
-            #{insertUserId}
-        )
-    </insert>
-
-    <insert id="saveHompiMenu" parameterType="HompiMenu">
-        INSERT INTO HOMPI_MENU (
-            HOMPI_MENU_CODE, HOMPI_ID, AVAIL_STATUS,
-            INSERT_USER_ID
-        ) VALUES (
-            #{hompiMenuCode},
-            #{hompiId},
-            #{availStatus},
-            #{insertUserId}
-        )
-    </insert>
-
-    <insert id="saveMinimiBasic" parameterType="MinimiBasic">
-        INSERT INTO MINIMI_BASIC (
-            MINIMI_ID, PRODUCT_ID, USER_ID,
-            FACE_DIRECTION_CODE, X_POSITION, Y_POSITION, Z_POSITION,
-            MAIN_YN, USE_YN,
-            INSERT_USER_ID
-        ) VALUES (
-            #{minimiId},
-            #{productId},
-            #{userId},
-            #{faceDirectionCode},
-            #{xPosition},
-            #{yPosition},
-            #{zPosition},
-            #{mainYN},
-            #{useYN},
-            #{insertUserId}
-        )
-
+        ON DUPLICATE KEY UPDATE
+            ROLE_CD = #{roleCd},
+            UPDATE_USER_ID = #{updateUserId}
     </insert>
 
     <select id="findUserIdByLoginId" parameterType="String" resultType="long">
@@ -126,14 +75,7 @@
         WHERE LOGIN_ID = #{loginId}
     </select>
 
-    <select id="findUserIdByEmail" parameterType="String" resultType="long">
-        SELECT USER_ID
-        FROM USER_BASIC
-        WHERE EMAIL = #{email}
-    </select>
-
-
-    <select id="isUserExist" parameterType="String" resultType="int">
+    <select id="isUserExist" parameterType="UserExistDTO" resultType="int">
         SELECT
             CASE
                 WHEN COUNT(*) > 0 THEN TRUE
@@ -153,16 +95,9 @@
             </if>
     </select>
 
-    <insert id="saveUserRole" parameterType="UserRole">
-        INSERT INTO USER_ROLE (
-            ROLE_CD, USER_ID,
-            INSERT_USER_ID
-        )
-        VALUES (
-                   #{roleCd},
-                   #{userId},
-                   #{insertUserId}
-               )
-    </insert>
-
+    <select id="findUserDataByUserId" parameterType="Long" resultType="UserDataDTO">
+        SELECT EMAIL, PHONE_NO, NAME, GENDER_CODE, BIRTH_DATE
+        FROM USER_BASIC
+        WHERE USER_ID = #{userId}
+    </select>
 </mapper>
