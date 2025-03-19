@@ -37,7 +37,7 @@ CREATE TABLE COMMON_CODE_DETAIL (
                                     CODE_KEY VARCHAR(100) COMMENT '공통 코드 키',
                                     CODE_ID VARCHAR(100) COMMENT '상세 코드 ID',
                                     CODE_NAME VARCHAR(100) COMMENT '상세 코드명',
-                                    SORT_SEQ INT AUTO_INCREMENT UNIQUE COMMENT '정렬 순서',
+                                    SORT_SEQ INT COMMENT '정렬 순서',
                                     USE_YN VARCHAR(1) DEFAULT 'Y' COMMENT '사용 여부',
                                     CODE_REF_01 VARCHAR(100) COMMENT '코드 참조값 1',
                                     CODE_REF_02 VARCHAR(100) COMMENT '코드 참조값 2',
@@ -1192,3 +1192,98 @@ CREATE TABLE FORTUNE_TELLING_LOG (
 /**
 * ==============================================END==============================================
 */
+
+DELIMITER $$
+
+-- 공통 코드 이름 조회
+CREATE FUNCTION FN_COMMON_CODE_NAME (
+    p_CODE_KEY VARCHAR(100)
+) RETURNS VARCHAR(100)
+    DETERMINISTIC
+BEGIN
+    DECLARE v_CODE_NAME VARCHAR(100);
+
+    -- 조회 결과 없을 때 NULL 반환
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_CODE_NAME = NULL;
+
+    -- 파라미터 NULL 체크
+    IF p_CODE_KEY IS NULL THEN
+        RETURN NULL;
+END IF;
+
+    -- 데이터 조회
+SELECT CODE_NAME INTO v_CODE_NAME
+FROM COMMON_CODE
+WHERE CODE_KEY = p_CODE_KEY
+  AND USE_YN = 'Y';
+
+RETURN v_CODE_NAME;
+END$$
+
+-- 공통 코드 상세 이름 조회
+CREATE FUNCTION FN_COMMON_CODE_DETAIL_NAME (
+    p_CODE_KEY VARCHAR(100),
+    p_CODE_ID VARCHAR(100)
+) RETURNS VARCHAR(100)
+    DETERMINISTIC
+BEGIN
+    DECLARE v_CODE_NAME VARCHAR(100);
+
+    -- 조회 결과 없을 때 NULL 반환
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_CODE_NAME = NULL;
+
+    -- 파라미터 NULL 체크
+    IF p_CODE_KEY IS NULL OR p_CODE_ID IS NULL THEN
+        RETURN NULL;
+END IF;
+
+    -- 데이터 조회
+SELECT B.CODE_NAME INTO v_CODE_NAME
+FROM COMMON_CODE A
+         INNER JOIN COMMON_CODE_DETAIL B ON A.CODE_KEY = B.CODE_KEY
+WHERE A.CODE_KEY = p_CODE_KEY
+  AND B.CODE_ID = p_CODE_ID
+  AND A.USE_YN = 'Y'
+  AND B.USE_YN = 'Y';
+
+RETURN v_CODE_NAME;
+END$$
+
+-- 공통 코드 참조값 조회
+CREATE FUNCTION FN_COMMON_CODE_REF (
+    p_CODE_KEY VARCHAR(100),
+    p_CODE_ID VARCHAR(100),
+    p_REF_NO VARCHAR(1)
+) RETURNS VARCHAR(100)
+    DETERMINISTIC
+BEGIN
+    DECLARE v_CODE_REF VARCHAR(100);
+
+    -- 조회 결과 없을 때 NULL 반환
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_CODE_REF = NULL;
+
+    -- 파라미터 NULL 체크
+    IF p_CODE_KEY IS NULL OR p_CODE_ID IS NULL OR p_REF_NO IS NULL THEN
+        RETURN NULL;
+END IF;
+
+    -- 데이터 조회
+SELECT
+    CASE
+        WHEN p_REF_NO = '1' THEN B.CODE_REF_01
+        WHEN p_REF_NO = '2' THEN B.CODE_REF_02
+        WHEN p_REF_NO = '3' THEN B.CODE_REF_03
+        ELSE NULL
+        END
+INTO v_CODE_REF
+FROM COMMON_CODE A
+         INNER JOIN COMMON_CODE_DETAIL B ON A.CODE_KEY = B.CODE_KEY
+WHERE A.CODE_KEY = p_CODE_KEY
+  AND B.CODE_ID = p_CODE_ID
+  AND A.USE_YN = 'Y'
+  AND B.USE_YN = 'Y';
+
+RETURN v_CODE_REF;
+END$$
+
+DELIMITER ;
