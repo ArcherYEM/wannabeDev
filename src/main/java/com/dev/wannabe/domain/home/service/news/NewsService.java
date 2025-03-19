@@ -17,10 +17,10 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class NewsService {
 
-    @Value("${api.naverOpenApi.client.id}")
+//    @Value("${api.naverOpenApi.client.id}")
     private String clientId;
 
-    @Value("${api.naverOpenApi.client.secret}")
+//    @Value("${api.naverOpenApi.client.secret}")
     private String clientSecret;
 
     private final String apiUrl = "https://openapi.naver.com/v1/search/news.json";
