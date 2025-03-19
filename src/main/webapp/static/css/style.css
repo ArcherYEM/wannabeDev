@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/*���κ���� s*/
+/*메인비쥬얼 s*/
 #wrap {
     background: #A4A5A4;
     width: 100%;
@@ -44,10 +44,9 @@
     clear: both;
     display: block;
 }
+/*메인비쥬얼 e*/
 
-/*���κ���� e*/
-
-/*���κ���� ����Ʈ s*/
+/*메인비쥬얼 레프트 s*/
 #leftContainer {
     width: 24%;
     float: left;
@@ -222,9 +221,7 @@
     height: 25px;
     margin-bottom: 10px;
 }
-
-
-/*���κ���� ����Ʈ e*/
+/*메인비쥬얼 레프트 e*/
 
 /**오른쪽 서브뷰 관련**/
 #subViewContainer {
@@ -318,7 +315,7 @@ a[class*="btn"] {
     color: #111;
 }
 
-/*���κ���� ����Ʈ s*/
+/*메인비쥬얼 라이트 s*/
 #rightContainer {
     width: 75%;
     float: right;
@@ -759,10 +756,9 @@ a[class*="btn"] {
     color: #ccc
 }
 
-/*���κ���� ����Ʈ e*/
+/*메인비쥬얼 라이트 e*/
 
-
-/*���� ������ s*/
+/*메인 스프링 s*/
 #spring {
 }
 
@@ -791,6 +787,7 @@ a[class*="btn"] {
     top: 400px;
     left: 224px;
 }
+/*메인 스프링 e*/
 
 #subVieMain {
     margin-top: 10px;
