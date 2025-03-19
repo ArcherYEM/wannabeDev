@@ -8,6 +8,7 @@
   <meta name="Description" content="">
   <title>onlineMain</title>
   <link rel="stylesheet" href="../../../static/css/onlineStyle.css">
+  <link rel="stylesheet" href="../../../static/css/aboutus.css">
   <link rel="stylesheet" href="../../../static/css/reset.css">
   <link rel="stylesheet" href="../../../static/css/header.css">
   <link rel="stylesheet" href="../../../static/css/footer.css">
@@ -16,78 +17,7 @@
   <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
   <script   src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
  </head>
- <style>
- 	/*ABOUT US 시작*/
-	.containerWrap{
-		display: flex;
-		flex-direction: column;
-		width: 60%;
-	}
-	#description-container{
-		display: flex;
-		margin: 20px;
-	}
 
-	#minimi-all{
-		flex: 1;
-		background-color: lightgray;
-		color:orangered;
-		font-weight: 500;
-		font-size: x-large;
-		width: auto;
-		height: auto;
-		margin: 10px;
-	}
-
-    #description{
-        flex: 1;
-		margin: 20px;
-	}
-
-	#description h1{
-		font-weight: bold;
-	}
-
-	#description h3{
-		color:gray;
-	}
-
-	#introduce-member{
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-	}
-
-	#card{
-		width: 93%;
-		padding: 10px;
-		border: 1px solid black;
-		margin-bottom: 15px;
-	}
-	
-	#card h1{
-		font-weight: bold;
-	}
-
-	#photo{
-		display: block;
-		background-color: lightgrey;
-		width: auto;
-        height: 160px;
-		margin: 0 auto;
-	}
-    #icon-collector{
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		gap:10px;
-	}
-	#icon{
-		width:25px;
-	}
-
- 	/*ABOUT US 정료*/
- </style>
  <body>
 	<div id="wrap">
 		<!--헤더 시작-->
@@ -123,76 +53,75 @@
 		<!--메인 시작-->
 		<div id="container">
 			<div class="containerWrap">
-			    <div id="description-container">
-					<div id="minimi-all">
-						<img src="" alt="# 미니룸에 미니미 모인 사진" id="big-photo">
+			    <div class="description-container">
+					<div class="minimi-all">
+						<img src="" alt="# 미니룸에 미니미 모인 사진" class="big-photo">
 					</div>
-                    <div id="description">
+                    <div class="description">
 						<h1>Team. WannabeDev</h1>
 						<h3>Since. 2025. 2. 24 ~</h3>
 						<p>Team.WannabeDav는 개발자가 되고 싶은 취준생과 성장하고 싶은 주니어 개발자들이 함께하는 자기 계발 모임 '개발자가 되고 싶다'에서 시작된 프로젝트입니다.
 							<br/><br/>여기는 싸이월드 프로젝트에 대한 글이 들어갑니다. 제가 해결하려고 했지만 아무래도 대왕님한테 맡겨야겠습니다. 그럴듯한 말이 뭐가 있을까요? 나중에 까먹고 수정 안하면 큰일나니까 노트에 적어놔야겠습니다.</p>
 					</div>
 				</div>
-		        <div id="introduce-member">
-					<div id="card">
-						<img src="" alt="#각자 미니미 사진" id="photo">
+		        <div class="introduce-member">
+					<div class="card">
+						<img src="" alt="#각자 미니미 사진" class="photo">
 						<h1>이름(닉네임)</h1>
 						<p>여기에 개발이 들어갑니다. 역할을 넣어도 좋고 개별적으로 소개말을 적어도 좋은데 3줄 정도만</p>
-						<div id="icon-collector">
-							<img src="./images/git.png" alt="" id="icon">
-							<img src="./images/mail.png" alt="" id="icon">
-							<img src="./images/coffee.png" alt="" id="icon">
+						<div class="icon-collector">
+							<img src="./images/git.png" alt="" class="icon">
+							<img src="./images/mail.png" alt="" class="icon">
 						</div>
 					</div>
-					<div id="card">
-						<img src="" alt="#각자 미니미 사진" id="photo">
+					<div class="card">
+						<img src="" alt="#각자 미니미 사진" class="photo">
 						<h1>이름(닉네임)</h1>
 						<p>여기에 개발이 들어갑니다. 역할을 넣어도 좋고 개별적으로 소개말을 적어도 좋은데 3줄 정도만</p>
-						<div id="icon-collector">
-							<img src="./images/git.png" alt="" id="icon">
-							<img src="./images/mail.png" alt="" id="icon">
-							<img src="./images/coffee.png" alt="" id="icon">
+						<div class="icon-collector">
+							<img src="./images/git.png" alt="" class="icon">
+							<img src="./images/mail.png" alt="" class="icon">
+							<img src="./images/coffee.png" alt="" class="icon">
 						</div>
 					</div>
-					<div id="card">
-						<img src="" alt="#각자 미니미 사진" id="photo">
+					<div class="card">
+						<img src="" alt="#각자 미니미 사진" class="photo">
 						<h1>이름(닉네임)</h1>
 						<p>여기에 개발이 들어갑니다. 역할을 넣어도 좋고 개별적으로 소개말을 적어도 좋은데 3줄 정도만</p>
-						<div id="icon-collector">
-							<img src="./images/git.png" alt="" id="icon">
-							<img src="./images/mail.png" alt="" id="icon">
-							<img src="./images/coffee.png" alt="" id="icon">
+						<div class="icon-collector">
+							<img src="./images/git.png" alt="" class="icon">
+							<img src="./images/mail.png" alt="" class="icon">
+							<img src="./images/coffee.png" alt="" class="icon">
 						</div>
 					</div>
-					<div id="card">
-						<img src="" alt="#각자 미니미 사진" id="photo">
+					<div class="card">
+						<img src="" alt="#각자 미니미 사진" class="photo">
 						<h1>이름(닉네임)</h1>
 						<p>여기에 개발이 들어갑니다. 역할을 넣어도 좋고 개별적으로 소개말을 적어도 좋은데 3줄 정도만</p>
-						<div id="icon-collector">
-							<img src="./images/git.png" alt="" id="icon">
-							<img src="./images/mail.png" alt="" id="icon">
-							<img src="./images/coffee.png" alt="" id="icon">
+						<div class="icon-collector">
+							<img src="./images/git.png" alt="" class="icon">
+							<img src="./images/mail.png" alt="" class="icon">
+							<img src="./images/coffee.png" alt="" class="icon">
 						</div>
 					</div>
-					<div id="card">
-						<img src="" alt="#각자 미니미 사진" id="photo">
+					<div class="card">
+						<img src="" alt="#각자 미니미 사진" class="photo">
 						<h1>이름(닉네임)</h1>
 						<p>여기에 개발이 들어갑니다. 역할을 넣어도 좋고 개별적으로 소개말을 적어도 좋은데 3줄 정도만</p>
-						<div id="icon-collector">
-							<img src="./images/git.png" alt="" id="icon">
-							<img src="./images/mail.png" alt="" id="icon">
-							<img src="./images/coffee.png" alt="" id="icon">
+						<div class="icon-collector">
+							<img src="./images/git.png" alt="" class="icon">
+							<img src="./images/mail.png" alt="" class="icon">
+							<img src="./images/coffee.png" alt="" class="icon">
 						</div>
 					</div>
-					<div id="card">
-						<img src="" alt="#각자 미니미 사진" id="photo">
+					<div class="card">
+						<img src="" alt="#각자 미니미 사진" class="photo">
 						<h1>이름(닉네임)</h1>
 						<p>여기에 개발이 들어갑니다. 역할을 넣어도 좋고 개별적으로 소개말을 적어도 좋은데 3줄 정도만</p>
-						<div id="icon-collector">
-							<img src="./images/git.png" alt="" id="icon">
-							<img src="./images/mail.png" alt="" id="icon">
-							<img src="./images/coffee.png" alt="" id="icon">
+						<div class="icon-collector">
+							<img src="./images/git.png" alt="" class="icon">
+							<img src="./images/mail.png" alt="" class="icon">
+							<img src="./images/coffee.png" alt="" class="icon">
 						</div>
 					</div>
 				</div>	
