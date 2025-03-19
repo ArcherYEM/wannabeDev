@@ -6,9 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -31,10 +29,11 @@ public class MinihompiController {
 
     @GetMapping("/main/{hompiId}")
     public ResponseEntity<Map<String, Object>> miniHompipopup(@PathVariable("hompiId") Long hompiId, HttpSession session) {
-        Integer userId = 1; // 예시 데이터
+        Integer userId = 2; // 예시 데이터
         String myHompi;
         //TODO 세션 연결해서 login ID 받아 json에 추가해서 홈페이지 우상단 main/joginID로 수정하기
-        // 조건에 따라 myHompi 값 설정
+        //TODO 미니홈피 메뉴 테이블에서 메뉴 공개 값 가져와서 json에 추가하고 공개범위 정하기(현재의 MyHompi 역할)
+        //TODO 미니홈피 JSON 널 체크하는 기능 추가
         if (hompiId.equals(userId)) { // 내 미니홈피
             myHompi = "0";
         } else if (userId == null) { // 비로그인
@@ -64,6 +63,45 @@ public class MinihompiController {
 
         return "minihompi/minihompiWrap";
 
+    }
+
+    @PostMapping("/updateTitle")
+    public ResponseEntity<Map<String, Object>> updateTitle(
+            @RequestParam("title") String title, HttpSession session) {
+        //Integer hompiId = (Integer) session.getAttribute("hompiId");
+
+        int hompiId = 1; // 기본값 설정 (예시)
+
+
+        Map<String, Object> response = new HashMap<>();
+
+        // 타이틀 검증
+        if (title == null || title.isEmpty()) {
+            response.put("status", "fail");
+            response.put("message", "타이틀은 비어있을 수 없습니다.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        System.out.println("새로운 타이틀: " + title);
+
+        // 서비스 호출 및 타이틀 업데이트
+        Map<String, Object> miniHompi = new HashMap<>();
+        miniHompi.put("hompiId", hompiId);
+        miniHompi.put("title", title);
+
+        int updateTitle = minihompiService.updateTitle(miniHompi);
+
+        // 업데이트 실패 처리
+        if (updateTitle == 0) {
+            response.put("status", "fail");
+            response.put("message", "타이틀 변경에 실패했습니다.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        // 성공 응답 반환
+        response.put("status", "success");
+        response.put("message", "타이틀 변경 성공");
+        return ResponseEntity.ok(response);
     }
 
 

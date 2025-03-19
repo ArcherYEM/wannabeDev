@@ -47,8 +47,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- CDN 라이브러리 끝 -->
 <script type="module" src="/static/js/common.js"></script>
+
 <!-- 푸터 인클루드 끝 부분 -->
->
 <script src="/static/js/bgm.js"></script>
 
 
@@ -104,21 +104,24 @@ function getMinihompiDataList() {
 // JSON 데이터를 화면에 렌더링하는 함수
 function renderMiniHompi(data) {
     const miniHompi = data.miniHompi;
+    console.log("myHompi"+data.myHompi);
+    const myHompi = data.myHompi;
 
     // 화면에 데이터 삽입
     $("#mainTitle").text(miniHompi.hompiTitle);
     $("#total").text(miniHompi.totalCnt);
     $("#today").text(miniHompi.todayCnt);
     $("#hompiUrl").text(miniHompi.hompiUrl);
-    $("#moveSetting").text(miniHompi.myHompi);
 
-    if (miniHompi.myHompi === "0 || 1") {
+    if (myHompi === 1) {
         $("#moveSetting").hide();
+        $(".editImg").hide();
+        $("#editBtn").hide();
+        $("#titleBtn").hide();
     }
+
 }
 </script>
->
-
 
  </body>
 </html>

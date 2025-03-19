@@ -1,3 +1,8 @@
+$(function () {
+    alert();
+});
+
+
 $(document).on("click", "#moveHome", function (e) {
     e.preventDefault();
     $.ajax({
@@ -7,14 +12,21 @@ $(document).on("click", "#moveHome", function (e) {
         success: function (data) {
             $("#mainWrapBackground").children().remove();
             $("#mainWrapBackground").html(data);
+            $.getScript("/static/js/minihompiMain.js");
+            $.getScript("/static/js/bgm.js");
         },
         error: function (xhr, status, error) {
             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
         }
     });
 });
+
+
 /** 이벤트 리스너 등록 **/
 $(document).ready(function () {
+
+
+    getMinihompiDataList();
 
     const $popuoMain = $("#popupMain");
 
@@ -22,8 +34,7 @@ $(document).ready(function () {
     const $menu_photo = $("#menu_photo");
     const $menu_board = $("#menu_board");
     const $menu_visitor = $("#menu_visitor");
-
-    const $moveHome = $("#moveHome");
+    ;
     const $moveProfile = $("#moveProfile");
     const $moveDairy = $("#moveDairy");
     const $moveJukebox = $("#moveJukebox");
@@ -32,8 +43,13 @@ $(document).ready(function () {
     const $moveVisitor = $("#moveVisitor");
     const $moveSetting = $("#moveSetting");
 
-    const hompMain_url = "/mini-hompi/hompiMain"
-    const homp_url = "/mini-hompi/main";
+    const $count_dairy = $("#count_diary");
+    const $count_visitor = $("#count_visitor");
+    const $count_photo = $("#count_photo");
+    const $count_board = $("#count_board");
+
+    const hompiMain_url = "/mini-hompi/hompiMain"
+    const hompi_url = "/mini-hompi/main";
     const prolfile_url = "/mini-hompi/profile";
     const jukebox_url = "/mini-hompi/jukebox";
     const setting_url = "/mini-hompi/setting";
@@ -41,10 +57,13 @@ $(document).ready(function () {
     const photo_url = "/mini-hompi/photo";
     const board_url = "/mini-hompi/board";
     const visitor_url = "/mini-hompi/visitor";
+    const miniHompiUp = "/mini-hompi/titleUpdate"
 
 
     const $droupdown = $("#nameWrap");
     const $dropbtn = $droupdown.find(".name");
+
+    const $mainTitle = $("#titleBtn.save-mode");
 
 
     //오른쪽 사이드 메뉴 이동(색깔 변경)
@@ -104,7 +123,28 @@ $(document).ready(function () {
         moveHomePageCgColor(e, visitor_url, "moveVisitor");
     });
 
+    $count_dairy.on("click", function (e) {
+        e.preventDefault();
+        moveHomePageCgColor(e, dairy_url, "moveDairy");
+    });
+
+    $count_photo.on("click", function (e) {
+        e.preventDefault();
+        moveHomePageCgColor(e, photo_url, "movePhoto");
+    });
+
+    $count_visitor.on("click", function (e) {
+        e.preventDefault();
+        moveHomePageCgColor(e, visitor_url, "moveVisitor");
+    });
+
+    $count_board.on("click", function (e) {
+        e.preventDefault();
+        moveHomePageCgColor(e, board_url, "moveBoard");
+    });
+
     /** 함수 등록 **/
+
     function movePage(url) {
         $.ajax({
             type: "GET",
@@ -146,12 +186,13 @@ $(document).ready(function () {
         console.log(e.currentTarget);
     }
 
-//메인에서 이름 누르면 나오는 드롭박스
+// 메인에서 이름 누르면 나오는 드롭박스
     $dropbtn.on("click", function (e) {
         e.preventDefault();
         $droupdown.toggleClass("active");
         $droupdown.find("#name-droupdown").slideToggle();
     });
+
     $(document).on("click", function (e) {
         if (!$droupdown.is(e.target) && $droupdown.has(e.target).length === 0) {
             $droupdown.removeClass("active");
@@ -159,7 +200,8 @@ $(document).ready(function () {
         }
     });
 
-    //미니홈피 타이틀 변경
+
+    // 미니홈피 타이틀 변경
     $(".rightMenu").on("click", "#titleBtn", function () {
         const $btn = $(this);
 
@@ -178,40 +220,105 @@ $(document).ready(function () {
             $input.focus();
         } else {
             const newTitle = $("#mainTitleInput").val();
-            const $span = $("<span>", {
-                id: "mainTitle",
-                text: newTitle
+
+            // AJAX 요청으로 서버에 업데이트 요청
+            $.ajax({
+                type: "POST",
+                url: "/mini-hompi/updateTitle", // 타이틀 업데이트를 처리하는 서버 URL
+                data: {title: newTitle},
+                success: function (response) {
+                    console.log("업데이트 성공:", response);
+
+                    // 서버 응답 처리
+                    if (response.status === "success") {
+                        alert(response.message); // 성공 메시지 출력
+
+                        // 새로운 타이틀로 업데이트
+                        const $span = $("<span>", {
+                            id: "mainTitle",
+                            text: newTitle
+                        });
+                        $("#mainTitleInput").replaceWith($span);
+                        $btn.val("수정");
+                        $btn.removeClass("save-mode");
+                    } else {
+                        alert(response.message); // 실패 메시지 출력
+                    }
+                },
+                error: function (xhr) {
+                    const errorResponse = JSON.parse(xhr.responseText);
+                    console.error("업데이트 실패:", errorResponse.message);
+                    alert("업데이트 실패: " + errorResponse.message);
+                }
             });
-            $("#mainTitleInput").replaceWith($span);
-            $btn.val("수정");
-            $btn.removeClass("save-mode");
         }
     });
 
+
+// JSON 데이터를 가져오는 함수
+    function getMinihompiDataList() {
+        const hompiId = 1; // 홈피 ID
+        const hompSub_url = `/mini-hompi/main/${hompiId}`;
+
+        $.ajax({
+            type: "GET",
+            url: hompSub_url,
+            dataType: "json",
+            success: function (response) {
+                console.log("JSON 데이터 로딩 성공:", response);
+
+                // JSON 데이터를 화면에 렌더링
+                renderMiniHompi(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("JSON 로딩 실패:", errorThrown);
+            }
+        });
+    }
+
+// JSON 데이터를 화면에 렌더링하는 함수
+    function renderMiniHompi(data) {
+        const miniHompi = data.miniHompi;
+        console.log("myHompi" + data.myHompi);
+        const myHompi = data.myHompi;
+
+        // 화면에 데이터 삽입
+        $("#mainTitle").text(miniHompi.hompiTitle);
+        $("#total").text(miniHompi.totalCnt);
+        $("#today").text(miniHompi.todayCnt);
+        $("#hompiUrl").text(miniHompi.hompiUrl);
+
+        if (myHompi == 1) {
+            $("#moveSetting").hide();
+            $(".editImg").hide();
+            $("#editBtn").hide();
+            $("#titleBtn").hide();
+        }
+    }
+
+
+    /** 미니홈피 팝업창 설정 **/
+    function openPop() {
+        var popupW = 1280;
+        var popupH = 720;
+        var left = Math.ceil((window.screen.width - popupW) / 2);
+        var top = Math.ceil((window.screen.height - popupH) / 2);
+
+
+        window.open(`/mini-hompi/minihompiWrap/`,
+            'mini-hompi',
+            'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
+    }
+
+    /** 쪽지 팝업창 설정 **/
+    function onpneMessage() {
+        var popupW = 500;
+        var popupH = 500;
+        var left = Math.ceil((window.screen.width - popupW) / 2);
+        var top = Math.ceil((window.screen.height - popupH) / 2);
+
+        var popup = window.open('/mini-hompi/newmessage',
+            '쪽지 보내기',
+            'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
+    }
 });
-
-/** 미니홈피 팝업창 설정 **/
-function openPop() {
-    var popupW = 1280;
-    var popupH = 720;
-    var left = Math.ceil((window.screen.width - popupW) / 2);
-    var top = Math.ceil((window.screen.height - popupH) / 2);
-
-    const hompiId = 1;
-
-    window.open(`/mini-hompi/minihompiWrap`,
-        'mini-hompi',
-        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
-}
-
-/** 쪽지 팝업창 설정 **/
-function onpneMessage() {
-    var popupW = 500;
-    var popupH = 500;
-    var left = Math.ceil((window.screen.width - popupW) / 2);
-    var top = Math.ceil((window.screen.height - popupH) / 2);
-
-    var popup = window.open('/mini-hompi/newmessage',
-        '쪽지 보내기',
-        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
-}

@@ -29,7 +29,7 @@
                                                 <div class="editSet">
                                                     <div class="editImg">
                                                         <img src="/static/images/common/edit.png"></div>
-                                                        <a>EDIT</a>
+                                                        <span id="editBtn"><a >EDIT</a></span>
                                                     </div>
                                                     <br>
                 								<div id="nameWrap">
@@ -101,19 +101,19 @@
                 											<ul>
                 												<li>
                 												    <a id="menu_diary" style="cursor: pointer">다이어리</a>
-                												    <div class="topMenu"><span><span class="count">1</span>/1,011</span>
+                												    <div class="topMenu" id="count_diary" style="cursor: pointer"><span><span class="count">1</span>/1,011</span>
                 												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
                 												<li>
                 												    <a id="menu_photo" style="cursor: pointer">사진첩</a>
-                												    <div class="topMenu"><span><span class="count">2</span>/512</span>
+                												    <div class="topMenu" id="count_photo" style="cursor: pointer"><span><span class="count">2</span>/512</span>
                 												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
                 												<li>
                 												    <a id="menu_board" style="cursor: pointer">게시판</a>
-                												    <div class="topMenu"><span><span class="count">2</span>/1,701</span>
+                												    <div class="topMenu" id="count_board" style="cursor: pointer"><span><span class="count">2</span>/1,701</span>
                 												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
                 												<li>
                 												    <a id="menu_visitor" style="cursor: pointer">방명록</a>
-                												    <div class="topMenu"><span>0/405</span>
+                												    <div class="topMenu" id="count_visitor" style="cursor: pointer"><span>0/405</span>
                 												    <div class="newImg" id="newImgHidden"><img src="/static/images/common/new.png"></div></div></li>
                 											</ul>
                 										    </div>
@@ -243,3 +243,4 @@
 <!-- 푸터 인클루드 끝 부분 -->
 
 <script type="module" src="/static/js/minihompiMain.js"></script>
+
