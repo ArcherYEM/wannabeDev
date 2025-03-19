@@ -67,4 +67,7 @@ out/
 hs_err_pid*
 replay_pid*
 
+## 민감 정보
+application-apiKey.yml
+
 # End of https://www.toptal.com/developers/gitignore/api/java

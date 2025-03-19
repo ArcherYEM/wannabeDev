@@ -1,0 +1,48 @@
+package com.dev.wannabe.domain.home.controller.login;
+
+import com.dev.wannabe.domain.home.model.login.dto.LoginDataDTO;
+import com.dev.wannabe.domain.home.service.login.LoginService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/api/user")
+public class LoginController {
+
+    private final LoginService loginService;
+
+    /*
+     * 입력 : userId와 password 값
+     * 로그인 성공 시 200 Ok 반환
+     * 로그인 실패 시 400 Bad Request 반환
+     */
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody LoginDataDTO loginData) {
+        // Session add : loginId, accessIp
+        if (loginService.login(loginData)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    /*
+     * 로그아웃 성공 시 200 Ok 반환
+     * 로그아웃 실패 시 400 Bad Request 반환
+     */
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+
+        if (loginService.logout()) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+}

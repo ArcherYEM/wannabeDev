@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
-    @RequestMapping("/home")
-    public String home(){
+    @GetMapping("/")
+    public String home() {
         return "home/main";
+    }
+
+    @RequestMapping("/signup")
+    public String signup(){
+        return "home/signup";
     }
 }
