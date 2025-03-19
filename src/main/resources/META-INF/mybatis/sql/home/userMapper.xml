@@ -95,4 +95,9 @@
             </if>
     </select>
 
+    <select id="findUserDataByUserId" parameterType="Long" resultType="UserDataDTO">
+        SELECT EMAIL, PHONE_NO, NAME, GENDER_CODE, BIRTH_DATE
+        FROM USER_BASIC
+        WHERE USER_ID = #{userId}
+    </select>
 </mapper>

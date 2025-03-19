@@ -1,26 +1,28 @@
 $(document).ready(function(){
     $(".loginBtn").click(function(){
 
-        const loginId = $("input[name='userId']").val().trim();
+        const loginId = $("input[name='loginId']").val().trim();
         const password = $("input[name='password']").val().trim();
 
-
-        $.ajax({
-            type: "POST",
-            url: "/api/user/login",
-            contentType: "application/json",
-            data: JSON.stringify({loginId,password}),
-            success:function(response){
-                alert("로그인 성공")
-/*                $(".mainTopLeft").children().remove();*/
-
-            },
-            error: function(error){
-                alert("로그인 실패");
-                console.error(error);
-            }
-
-        });
+        if (loginId && password) {
+            $.ajax({
+                type: "POST",
+                url: "/api/user/login",
+                contentType: "application/json",
+                data: JSON.stringify({loginId,password}),
+                success:function(response){
+                    alert("로그인 성공");
+                },
+                error: function(error){
+                    alert("로그인 실패");
+                    console.error(error);
+                },
+                complete: function () {
+                    console.log("1", loginId)
+                    console.log("2", password)
+                }
+            });
+        }
     });
 
     $(".logoutBtn").click(function () {

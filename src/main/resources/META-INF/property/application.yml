@@ -4,3 +4,7 @@ wannabe:
     url: jdbc:log4jdbc:mariadb://129.154.58.25:3324/wannabe_dev?serverTimezone=UTC&characterEncoding=UTF-8
     username: admin
     password: wannabe0224
+
+spring:
+  config:
+    import: application-apiKey.yml
