@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="fragments/header">
-    <header class="">
-        <div class="logo">
-            <!-- 로고 -->
-            <img src="/images/common/logo_full.png" alt="">
+<th:block th:fragment="header">
+    <header>
+        <!--헤더 시작-->
+        <div id="header">
+            <div class="headerLeft">
+                <a href="#" class="logo"><img src="/static/images/common/logo_full.png"></a>
+            </div>
+            <div class="headerRight">
+                <ul>
+                    <li>(접속IP : 127.0.0.1)</li>
+                    <li class="name">홍길동</li>
+                    <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
+                    <li><a href="/"><img src="/static/images/common/option.png"></a></li>
+                    <li><a href="/" class="btn nobtn">로그아웃</a></li>
+                </ul>
+            </div>
         </div>
+        <!--헤더 끝-->
+
+        <!--gnb 시작-->
+        <div id="gnb">
+            <div>
+                <ul>
+                    <li><a target="_blank" onclick="openPop()">내미니홈피</a></li>
+                    <li><a href="/giftShop/main">선물가게</a></li>
+                    <li><a href="#">장바구니</a></li>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">ABOUT US</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--gnb 끝-->
+
+        <link rel="stylesheet" href="/static/css/header.css">
     </header>
 </th:block>
 </html>

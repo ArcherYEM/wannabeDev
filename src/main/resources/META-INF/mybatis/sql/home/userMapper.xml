@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dev.wannabe.domain.home.mapper.UserMapper">
+<mapper namespace="com.dev.wannabe.domain.home.mapper.user.UserMapper">
 
-    <insert id="saveUserBasic" parameterType="com.dev.wannabe.domain.home.model.vo.UserBasic">
+    <insert id="saveUserBasic" parameterType="UserBasic">
         INSERT INTO USER_BASIC (
-            USER_ID, LOGIN_ID, EMAIL, PHONE_NO, PASSWORD,
+            LOGIN_ID, EMAIL, PHONE_NO, PASSWORD,
             NAME, GENDER_CODE, BIRTH_DATE, USER_STATUS,
             INSERT_USER_ID
-        )
-        VALUES (
-            #{userId},
+        ) VALUES (
             #{loginId},
             #{email},
             #{phoneNo},
@@ -21,15 +19,24 @@
             #{userStatus},
             #{insertUserId}
         )
+        ON DUPLICATE KEY UPDATE
+            LOGIN_ID = #{loginId},
+            EMAIL = #{email},
+            PHONE_NO = #{phoneNo},
+            PASSWORD = #{password},
+            NAME = #{name},
+            GENDER_CODE = #{genderCode},
+            BIRTH_DATE = #{birthDate},
+            USER_STATUS = #{userStatus},
+            UPDATE_USER_ID = #{insertUserId}
     </insert>
 
-    <insert id="saveUserDetail" parameterType="com.dev.wannabe.domain.home.model.vo.UserDetail">
+    <insert id="saveUserDetail" parameterType="UserDetail">
         INSERT INTO USER_DETAIL (
             USER_ID, FRIEND_MESSAGE_AVAIL_YN, HOMPI_USE_YN,
             CONFIRM_YN_1, CONFIRM_YN_2, CONFIRM_YN_3,
             INSERT_USER_ID
-        )
-        VALUES (
+        ) VALUES (
             #{userId},
             #{friendMessageAvailYN},
             #{hompiUseYN},
@@ -38,49 +45,59 @@
             #{confirmYN3},
             #{insertUserId}
         )
+        ON DUPLICATE KEY UPDATE
+            FRIEND_MESSAGE_AVAIL_YN = #{friendMessageAvailYN},
+            HOMPI_USE_YN = #{hompiUseYN},
+            CONFIRM_YN_1 = #{confirmYN1},
+            CONFIRM_YN_2 = #{confirmYN2},
+            CONFIRM_YN_3 = #{confirmYN3},
+            UPDATE_USER_ID = #{insertUserId}
     </insert>
 
-    <insert id="saveUserRole" parameterType="com.dev.wannabe.domain.home.model.vo.UserRole">
+    <insert id="saveUserRole" parameterType="UserRole">
         INSERT INTO USER_ROLE (
-            ROLE_CD, USER_ID,
+            USER_ID, ROLE_CD,
             INSERT_USER_ID
         )
         VALUES (
-            #{roleCd},
             #{userId},
+            #{roleCd},
             #{insertUserId}
         )
+        ON DUPLICATE KEY UPDATE
+            ROLE_CD = #{roleCd},
+            UPDATE_USER_ID = #{updateUserId}
     </insert>
 
-    <select id="isExistByLoginId" parameterType="String" resultType="int">
-        SELECT
-            CASE
-                WHEN COUNT(*) > 0 THEN TRUE
-                ELSE FALSE
-            END
+    <select id="findUserIdByLoginId" parameterType="String" resultType="long">
+        SELECT USER_ID
         FROM USER_BASIC
         WHERE LOGIN_ID = #{loginId}
     </select>
 
-    <select id="isExistByEmail" parameterType="String" resultType="int">
+    <select id="isUserExist" parameterType="UserExistDTO" resultType="int">
         SELECT
             CASE
                 WHEN COUNT(*) > 0 THEN TRUE
                 ELSE FALSE
             END
         FROM USER_BASIC
-        WHERE EMAIL = #{email}
+        WHERE
+            1 = 1
+            <if test="loginId != null">
+                AND LOGIN_ID = #{loginId}
+            </if>
+            <if test="email != null">
+                AND EMAIL = #{email}
+            </if>
+            <if test="phoneNo != null">
+                AND PHONE_NO = #{phoneNo}
+            </if>
     </select>
 
-
-    <select id="isExistByPhoneNo" parameterType="String" resultType="int">
-        SELECT
-            CASE
-                WHEN COUNT(*) > 0 THEN TRUE
-                ELSE FALSE
-            END
+    <select id="findUserDataByUserId" parameterType="Long" resultType="UserDataDTO">
+        SELECT EMAIL, PHONE_NO, NAME, GENDER_CODE, BIRTH_DATE
         FROM USER_BASIC
-        WHERE PHONE_NO = #{phoneNo}
+        WHERE USER_ID = #{userId}
     </select>
-
 </mapper>

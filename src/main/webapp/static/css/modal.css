@@ -1,0 +1,110 @@
+div a {
+    margin-left: 150px;
+}
+
+.dialog {
+    display: none; /* 처음에는 숨김 */
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* 가운데 정렬   */
+    justify-items:center;
+    align-content:center;
+}
+
+.dialog .tb {
+    display: flex;
+    justify-content: center;
+/*    align-items: center;*/
+    width: 80%;
+    height: 70%;
+}
+
+.dialog .tb .inner {
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+}
+
+/*header*/
+.dialog .top {
+    align-item: center;
+    border-bottom: 1px solid #ddd;
+/*    justify-content: space-between;*/
+    padding-bottom: 10px;
+    position:relative
+
+}
+
+.dialog .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    align-content: center;
+/*    position:absolute;*/
+}
+
+.dialog .img{
+    width:100%;
+    height:100%;
+    text-align:left;
+    position: absolute;
+/*    background-color: red;*/
+}
+
+.dialog .img a{
+    width: 100%;
+    height: 100%;
+    margin:0;
+    position:absolute;
+}
+
+
+.dialog .img a .close{
+    bottom:50%;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    position:absolute;
+}
+
+/*약관 동의 내용*/
+.dialog .ct{
+    max-height: 60vw;
+    height: 50vh;
+    border: 3px solid gray;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    overflow: auto;
+    padding: 15px;
+}
+
+.dialog .ct .text{
+    width: 100%;
+    height: 90%;
+    text-align:left;
+    position: relative;
+}
+
+.dialog .ct .check{
+    position:absolute;
+    text-align: center;
+    width: 100%;
+    height: 10%;
+}
+
+.dialog .ct .check{
+    width: 100%;
+    height: 10%;
+}
+/*.dialog .ct .check{*/
+/*    text-align: center;*/
+/*    border: 1px solid black;*/
+/*}*/

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+	<Properties>
+		<Property name="LOG_LEVEL_PATTERN">%highlight{%5p}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue}</Property>
+		<Property name="CONSOLE_LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN} %style{%c}{cyan} %style{(%F:%L)}{magenta} : %m%n</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout disableAnsi="false" pattern="${CONSOLE_LOG_PATTERN}" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<!-- SQL Loggers  -->
+		<Logger name="jdbc.sqlonly" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.resultset" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.resultsettable" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.audit" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.sqltiming" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.connection" level="ERROR" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="java.sql" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+
+		<!-- springframework 로깅 레벨 설정 -->
+		<Logger name="org.springframework" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<!-- apache 로깅 레벨 설정 -->
+		<Logger name="org.apache" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<!-- mybatis 로깅 레벨 설정 -->
+		<Logger name="org.mybatis" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.apache.ibatis" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.mybatis.jdbc.client.ibatis." level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<!-- HikariCP 로깅 레벨 설정 -->
+		<Logger name="com.zaxxer.hikari" level="INFO" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<!-- LOG "com.dev.wannabe" at DEBUG level -->
+		<Logger name="com.dev.wannabe.*" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<!-- LOG "com.dev.wannabe" at DEBUG level -->
+		<Logger name="com.dev.wannabe.global.aop.interceptor.LoggingInterceptor" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<Root level="INFO">
+			<AppenderRef ref="console" />
+		</Root>
+	</Loggers>
+</Configuration>

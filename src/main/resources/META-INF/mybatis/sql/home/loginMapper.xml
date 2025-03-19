@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.login.LoginMapper">
+
+    <select id="findPasswordByLoginId" parameterType="String" resultType="String">
+        SELECT PASSWORD
+        FROM USER_BASIC
+        WHERE LOGIN_ID = #{loginId}
+    </select>
+
+    <insert id="saveLoginLog" parameterType="LoginLog">
+        INSERT INTO LOGIN_LOG (
+            ACCESS_IP, USER_ID,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{accessIp},
+            #{userId},
+            #{insertUserId}
+        )
+        ON DUPLICATE KEY UPDATE
+            LOGOUT_DT = #{logoutDt},
+            UPDATE_USER_ID = #{updateUserId}
+    </insert>
+
+
+</mapper>
