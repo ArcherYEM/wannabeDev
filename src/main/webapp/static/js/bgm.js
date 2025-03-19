@@ -20,7 +20,7 @@ function playSong(index){
     $('#bgmPlayer source').attr('src',track.path)
     audio.load();
     audio.play();
-
+    playCheckBgm();
     $('#bgmTitle').text(track.artist +"-"+ track.title);
 }
 
@@ -47,6 +47,16 @@ function playCheckBgm(){
     $(nowPlayBgm).css('color',"#FF8000");
 }
 
+  $('#trackListWrap').on('click', 'p', function(){
+    const index = $('#trackListWrap p').index(this);
+    $('#pauseBtn img').attr('src','/static/images/common/minimi/pauseBtn.png');
+    bgmIndex = index;
+    playSong(index);
+    if(!audio.paused){
+        startRotation();
+    }
+  });
+
   playSong(bgmIndex);
   $('#pauseBtn img').on('click', function(){
     if(audio.paused){
@@ -67,7 +77,6 @@ function playCheckBgm(){
         bgmIndex = 0;
     }
     playSong(bgmIndex);
-    playCheckBgm();
   });
 
   $('#prevBtn').on('click',function(){
@@ -85,7 +94,6 @@ function playCheckBgm(){
         bgmIndex = 0;
     }
     playSong(bgmIndex);
-    playCheckBgm();
   });
 
   $('#stopBtn img').on('click', function(){
