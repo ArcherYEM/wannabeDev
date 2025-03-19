@@ -199,7 +199,7 @@ function openPop() {
 
     const hompiId = 1;
 
-    window.open(`/mini-hompi/main/${hompiId}`,
+    window.open(`/mini-hompi/minihompiWrap`,
         'mini-hompi',
         'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }

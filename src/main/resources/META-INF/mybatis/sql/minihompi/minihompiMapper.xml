@@ -5,7 +5,7 @@
 
     <select id="findMyHompi" parameterType="map"
             resultType="com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal">
-        SELECT hp.HOMPI_ID, hp.HOMPI_URL, hp.HOMPI_TITLE, hds.TODAY_CNT, hp.TOTAL_CNT
+        SELECT hp.HOMPI_ID, hp.HOMPI_URL, hp.HOMPI_TITLE, hp.OWNER_USER_ID, hds.TODAY_CNT, hp.TOTAL_CNT
         FROM HOMPI hp
         INNER JOIN HOMPI_DAILY_STATS hds ON hp.HOMPI_ID = hds.HOMPI_ID
         WHERE 1 = 1

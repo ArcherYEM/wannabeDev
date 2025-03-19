@@ -1,8 +1,8 @@
 <div id="leftContainer">
                 						<div id="todayWrap">
                 							<ul class="todayUl">
-                								<li class="today">TODAY <span>1</span></li>
-                								<li class="total">TOTAL <span>2</span></li>
+                								<li class="today">TODAY <span id="today"></span></li>
+                								<li class="total">TOTAL <span id="total"></span></li>
                 							</ul>
                 						</div>
                 						<div id="leftWrap">
@@ -58,15 +58,14 @@
                 						<div id="rightTopWrap">
                 							<ul class="rightTopMain">
                 								<li class="mainTitle">
-                								    <span id="mainTitle">튜브의 미니홈피</span>
+                								    <span id="mainTitle"></span>
                                                 </li>
                 								<li class="rightLink">
                 									<ul class="rightMenu">
                 										<li >
                 											<input type="button" value="수정" id="titleBtn">
                 										</li>
-                										<li>
-                												https://www.wannabe.com/mini-hompi/main
+                										<li id="hompiUrl">
                 										</li>
                 									</ul>
                 								</li>
@@ -214,7 +213,7 @@
                 								<li id="movePhoto" style="cursor:pointer;">사진첩</li>
                 								<li id="moveBoard" style="cursor:pointer;">게시판</li>
                 								<li id="moveVisitor"  style="cursor:pointer;">방명록</li>
-                								<li id="moveSetting"  style="cursor:pointer;" th:if="${myHompi == 2}">관리</li>
+                								<li id="moveSetting"  style="cursor:pointer;">관리</li>
                 							</ul>
                 						</div>
                 					</div>
