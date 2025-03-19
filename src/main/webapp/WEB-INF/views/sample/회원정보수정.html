@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WANNABE 회원수정</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <!-- 헤더 -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="WANNABE 로고">
+            <span>WANNABE</span>
+        </div>
+        <div class="header-right">
+            <ul>
+                <li>(접속IP : 127.0.0.1)</li>
+                <li class="name">홍길동</li>
+                <li><a><img src="/images/common/homeIcon.png"></a></li>
+                <li><a href="#"><img src="/images/common/option.png"></a></li>
+                <li><a href="#" class="btn nobtn">로그아웃</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 네비게이션 -->
+    <nav>
+        <ul>
+            <li>내 미니홈피</li>
+            <li>선물하기</li>
+            <li>장바구니</li>
+            <li>공지사항</li>
+            <li>ABOUT US</li>
+        </ul>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main>
+        <section class="signup-form">
+            <h1>회원가입 수정</h1>
+
+            <!-- 아이디 -->
+            <div class="form-group">
+                <label>아이디</label>
+                <input type="text" value="hgy1234" readonly>
+            </div>
+
+            <!-- 이름 -->
+            <div class="form-group">
+                <label>이름</label>
+                <input type="text" value="홍길동" readonly>
+            </div>
+
+            <!--생년월일-->
+            <div class="from-group">
+                <label>생년월일</label>
+                <input type="text" value="1994년 01월 01일" readonly>
+            </div>
+
+            <!--성별-->
+            <div class="from-group">
+                <label>성별</label>
+                <input type="text" value="남" readonly>
+            </div>
+
+            <!-- 비밀번호 변경 -->
+            <div class="form-group">
+                <label>비밀번호 변경</label>
+                <div class="password-group">
+                    <label>현재 비밀번호</label><br>
+                    <input type="password" placeholder="현재 비밀번호"><br>
+                    <label>새 비밀번호</label><br>
+                    <input type="password" placeholder="새 비밀번호"><br>
+                    <label>새 비밀번호 다시 입력</label><br>
+                    <input type="password" placeholder="비밀번호 다시 입력하여 주세요">
+                </div>
+            </div>
+
+            <!-- 가입날짜 변경 -->
+            <div class="form-group">
+                <label>개인정보 변경</label>
+                <div class="join-date">
+                    <label>이메일</label>
+                    <input type="text">
+                    <a href="#" class="">중복확인</a>
+                </div>
+                <div class="join-date">
+                    <label>전화번호</label>
+                    <input type="text" class="">
+                    <a href="#" class="btn di small">중복확인</a>
+                </div>
+            </div>
+
+            <!-- 수정 완료 버튼 -->
+            <div class="form-group">
+                <button class="submit-btn">수정 완료</button>
+            </div>
+        </section>
+
+        <!-- 사이드바 -->
+        <aside>
+            <h3>회원가입도 수정</h3>
+            <ul>
+                <li>1 회원정보 보기</li>
+                <li>2 비밀번호 변경</li>
+                <li>3 가입날짜 변경</li>
+                <li>4 수정 완료</li>
+            </ul>
+        </aside>
+    </main>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-left">
+            <span>TEAM_WANNABEDev</span>
+            <span>SINCE. 2025.2.24-</span>
+        </div>
+        <div class="footer-right">
+            <ul>
+                <li>내 미니홈피</li>
+                <li>선물하기</li>
+                <li>장바구니</li>
+                <li>공지사항</li>
+                <li>ABOUT US</li>
+            </ul>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
