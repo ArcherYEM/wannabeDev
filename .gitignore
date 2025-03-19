@@ -67,16 +67,7 @@ out/
 hs_err_pid*
 replay_pid*
 
+## 민감 정보
+application-apiKey.yml
+
 # End of https://www.toptal.com/developers/gitignore/api/java
-conf/catalina.policy
-conf/catalina.properties
-conf/context.xml
-conf/jaspic-providers.xml
-conf/jaspic-providers.xsd
-conf/logging.properties
-conf/server.xml
-conf/tomcat-users.xml
-conf/tomcat-users.xsd
-conf/web.xml
-conf/Catalina/localhost/ROOT.xml
-logs/localhost_access_log.2025-03-19.txt

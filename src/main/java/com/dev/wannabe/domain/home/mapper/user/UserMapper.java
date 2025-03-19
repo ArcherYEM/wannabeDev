@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.home.mapper.user;
 
+import com.dev.wannabe.domain.home.model.user.dto.UserDataDTO;
 import com.dev.wannabe.domain.home.model.user.dto.UserExistDTO;
 import com.dev.wannabe.domain.home.model.user.vo.UserBasic;
 import com.dev.wannabe.domain.home.model.user.vo.UserDetail;
@@ -21,5 +22,7 @@ public interface UserMapper {
     Integer isUserExist(UserExistDTO userExist);
 
     Long findUserIdByLoginId(String loginId);
+
+    UserDataDTO findUserDataByUserId(Long userId);
 
 }
