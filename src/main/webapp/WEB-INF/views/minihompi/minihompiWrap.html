@@ -60,7 +60,7 @@ $(document).ready(function () {
 
 const hompiId = 1; // 홈피 ID
 const hompMain_url = '/mini-hompi/hompiMain'; // 메인 URL
-const hompSub_url = `/mini-hompi/main/${hompiId}`; // 서브 URL
+const hompSub_url = `/mini-hompi/api/${hompiId}`; // 서브 URL
 
 console.log("Sub URL:", hompSub_url);
 
@@ -113,7 +113,7 @@ function renderMiniHompi(data) {
     $("#today").text(miniHompi.todayCnt);
     $("#hompiUrl").text(miniHompi.hompiUrl);
 
-    if (myHompi === 1) {
+    if (myHompi == 1 || myHompi == 2) {
         $("#moveSetting").hide();
         $(".editImg").hide();
         $("#editBtn").hide();

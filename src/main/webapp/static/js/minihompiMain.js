@@ -1,52 +1,28 @@
-$(function () {
-    alert();
-});
-
-
-$(document).on("click", "#moveHome", function (e) {
-    e.preventDefault();
-    $.ajax({
-        type: "GET",
-        url: "/mini-hompi/hompiMain",
-        dataType: "html",
-        success: function (data) {
-            $("#mainWrapBackground").children().remove();
-            $("#mainWrapBackground").html(data);
-            $.getScript("/static/js/minihompiMain.js");
-            $.getScript("/static/js/bgm.js");
-        },
-        error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-        }
-    });
-});
-
-
 /** 이벤트 리스너 등록 **/
 $(document).ready(function () {
 
 
     getMinihompiDataList();
 
-    const $popuoMain = $("#popupMain");
+    const popuoMain = $("#popupMain");
 
-    const $menu_diary = $("#menu_diary");
-    const $menu_photo = $("#menu_photo");
-    const $menu_board = $("#menu_board");
-    const $menu_visitor = $("#menu_visitor");
-    ;
-    const $moveProfile = $("#moveProfile");
-    const $moveDairy = $("#moveDairy");
-    const $moveJukebox = $("#moveJukebox");
-    const $movePhoto = $("#movePhoto");
-    const $moveBoard = $("#moveBoard");
-    const $moveVisitor = $("#moveVisitor");
-    const $moveSetting = $("#moveSetting");
+    const menu_diary = $("#menu_diary");
+    const menu_photo = $("#menu_photo");
+    const menu_board = $("#menu_board");
+    const menu_visitor = $("#menu_visitor");
 
-    const $count_dairy = $("#count_diary");
-    const $count_visitor = $("#count_visitor");
-    const $count_photo = $("#count_photo");
-    const $count_board = $("#count_board");
+    const moveProfile = $("#moveProfile");
+    const moveDairy = $("#moveDairy");
+    const moveJukebox = $("#moveJukebox");
+    const movePhoto = $("#movePhoto");
+    const moveBoard = $("#moveBoard");
+    const moveVisitor = $("#moveVisitor");
+    const moveSetting = $("#moveSetting");
+
+    const count_dairy = $("#count_diary");
+    const count_visitor = $("#count_visitor");
+    const count_photo = $("#count_photo");
+    const count_board = $("#count_board");
 
     const hompiMain_url = "/mini-hompi/hompiMain"
     const hompi_url = "/mini-hompi/main";
@@ -60,85 +36,85 @@ $(document).ready(function () {
     const miniHompiUp = "/mini-hompi/titleUpdate"
 
 
-    const $droupdown = $("#nameWrap");
-    const $dropbtn = $droupdown.find(".name");
+    const droupdown = $("#nameWrap");
+    const dropbtn = droupdown.find(".name");
 
-    const $mainTitle = $("#titleBtn.save-mode");
+    const mainTitle = $("#titleBtn.save-mode");
 
 
     //오른쪽 사이드 메뉴 이동(색깔 변경)
 
 
-    $moveProfile.on("click", function (e) {
+    moveProfile.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, prolfile_url, "moveProfile");
     });
 
-    $moveDairy.on("click", function (e) {
+    moveDairy.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, dairy_url, "moveDairy");
     });
-    $moveJukebox.on("click", function (e) {
+    moveJukebox.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, jukebox_url, "moveJukebox");
     });
 
-    $moveSetting.on("click", function (e) {
+    moveSetting.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, setting_url, "moveSetting");
     });
 
-    $movePhoto.on("click", function (e) {
+    movePhoto.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, photo_url, "movePhoto");
     });
-    $moveBoard.on("click", function (e) {
+    moveBoard.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, board_url, "moveBoard");
     });
 
-    $moveVisitor.on("click", function (e) {
+    moveVisitor.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, visitor_url, "moveVisitor");
     });
 
     //메인화면에 있는 이동
-    $menu_diary.on("click", function (e) {
+    menu_diary.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, dairy_url, "moveDairy");
     });
 
-    $menu_photo.on("click", function (e) {
+    menu_photo.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, photo_url, "movePhoto");
     });
 
-    $menu_board.on("click", function (e) {
+    menu_board.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, board_url, "moveBoard");
     });
 
-    $menu_visitor.on("click", function (e) {
+    menu_visitor.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, visitor_url, "moveVisitor");
     });
 
-    $count_dairy.on("click", function (e) {
+    count_dairy.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, dairy_url, "moveDairy");
     });
 
-    $count_photo.on("click", function (e) {
+    count_photo.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, photo_url, "movePhoto");
     });
 
-    $count_visitor.on("click", function (e) {
+    count_visitor.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, visitor_url, "moveVisitor");
     });
 
-    $count_board.on("click", function (e) {
+    count_board.on("click", function (e) {
         e.preventDefault();
         moveHomePageCgColor(e, board_url, "moveBoard");
     });
@@ -187,37 +163,37 @@ $(document).ready(function () {
     }
 
 // 메인에서 이름 누르면 나오는 드롭박스
-    $dropbtn.on("click", function (e) {
+    dropbtn.on("click", function (e) {
         e.preventDefault();
-        $droupdown.toggleClass("active");
-        $droupdown.find("#name-droupdown").slideToggle();
+        droupdown.toggleClass("active");
+        droupdown.find("#name-droupdown").slideToggle();
     });
 
     $(document).on("click", function (e) {
-        if (!$droupdown.is(e.target) && $droupdown.has(e.target).length === 0) {
-            $droupdown.removeClass("active");
-            $droupdown.find("#name-droupdown").slideUp();
+        if (!droupdown.is(e.target) && droupdown.has(e.target).length === 0) {
+            droupdown.removeClass("active");
+            droupdown.find("#name-droupdown").slideUp();
         }
     });
 
 
     // 미니홈피 타이틀 변경
     $(".rightMenu").on("click", "#titleBtn", function () {
-        const $btn = $(this);
+        const btn = $(this);
 
-        if ($btn.val() === '수정') {
-            const $title = $("#mainTitle");
-            const currentTitle = $title.text();
+        if (btn.val() === '수정') {
+            const title = $("#mainTitle");
+            const currentTitle = title.text();
 
-            const $input = $("<input>", {
+            const input = $("<input>", {
                 type: "text",
                 id: "mainTitleInput",
                 value: currentTitle
             });
-            $title.replaceWith($input);
-            $btn.val("저장");
-            $btn.addClass("save-mode");
-            $input.focus();
+            title.replaceWith(input);
+            btn.val("저장");
+            btn.addClass("save-mode");
+            input.focus();
         } else {
             const newTitle = $("#mainTitleInput").val();
 
@@ -239,8 +215,8 @@ $(document).ready(function () {
                             text: newTitle
                         });
                         $("#mainTitleInput").replaceWith($span);
-                        $btn.val("수정");
-                        $btn.removeClass("save-mode");
+                        btn.val("수정");
+                        btn.removeClass("save-mode");
                     } else {
                         alert(response.message); // 실패 메시지 출력
                     }
@@ -258,7 +234,7 @@ $(document).ready(function () {
 // JSON 데이터를 가져오는 함수
     function getMinihompiDataList() {
         const hompiId = 1; // 홈피 ID
-        const hompSub_url = `/mini-hompi/main/${hompiId}`;
+        const hompSub_url = `/mini-hompi/api/${hompiId}`;
 
         $.ajax({
             type: "GET",
@@ -288,7 +264,7 @@ $(document).ready(function () {
         $("#today").text(miniHompi.todayCnt);
         $("#hompiUrl").text(miniHompi.hompiUrl);
 
-        if (myHompi == 1) {
+        if (myHompi == 1 || myHompi == 2) {
             $("#moveSetting").hide();
             $(".editImg").hide();
             $("#editBtn").hide();
@@ -296,29 +272,53 @@ $(document).ready(function () {
         }
     }
 
-
-    /** 미니홈피 팝업창 설정 **/
-    function openPop() {
-        var popupW = 1280;
-        var popupH = 720;
-        var left = Math.ceil((window.screen.width - popupW) / 2);
-        var top = Math.ceil((window.screen.height - popupH) / 2);
+});
 
 
-        window.open(`/mini-hompi/minihompiWrap/`,
-            'mini-hompi',
-            'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
-    }
+/** 미니홈피 팝업창 설정 **/
+function openPop() {
+    const popupW = 1280;
+    const popupH = 720;
+    const left = Math.ceil((window.screen.width - popupW) / 2);
+    const top = Math.ceil((window.screen.height - popupH) / 2);
 
-    /** 쪽지 팝업창 설정 **/
-    function onpneMessage() {
-        var popupW = 500;
-        var popupH = 500;
-        var left = Math.ceil((window.screen.width - popupW) / 2);
-        var top = Math.ceil((window.screen.height - popupH) / 2);
+    const hompiId = 1;
 
-        var popup = window.open('/mini-hompi/newmessage',
-            '쪽지 보내기',
-            'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
-    }
+
+    window.open(`/mini-hompi/main/${hompiId}`,
+        'mini-hompi',
+        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
+}
+
+/** 쪽지 팝업창 설정 **/
+function onpneMessage() {
+    var popupW = 500;
+    var popupH = 500;
+    var left = Math.ceil((window.screen.width - popupW) / 2);
+    var top = Math.ceil((window.screen.height - popupH) / 2);
+
+    var popup = window.open('/mini-hompi/newmessage',
+        '쪽지 보내기',
+        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
+}
+
+$(document).on("click", "#moveHome", function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: "/mini-hompi/hompiMain",
+        dataType: "html",
+        success: function (data) {
+            $("#mainWrapBackground").children().remove();
+            $("#mainWrapBackground").html(data);
+            $.getScript("/static/js/minihompiMain.js");
+            if (!window.isBgmLoaded) {
+                window.isBgmLoaded = true; // 중복 실행 방지
+                $.getScript("/static/js/bgm.js");
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+        }
+    });
 });

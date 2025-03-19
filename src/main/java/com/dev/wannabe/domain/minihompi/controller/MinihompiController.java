@@ -27,14 +27,14 @@ public class MinihompiController {
     }
 
 
-    @GetMapping("/main/{hompiId}")
+    @GetMapping("/api/{hompiId}")
     public ResponseEntity<Map<String, Object>> miniHompipopup(@PathVariable("hompiId") Long hompiId, HttpSession session) {
-        Integer userId = 2; // 예시 데이터
+        Integer userId = 1;
         String myHompi;
         //TODO 세션 연결해서 login ID 받아 json에 추가해서 홈페이지 우상단 main/joginID로 수정하기
         //TODO 미니홈피 메뉴 테이블에서 메뉴 공개 값 가져와서 json에 추가하고 공개범위 정하기(현재의 MyHompi 역할)
         //TODO 미니홈피 JSON 널 체크하는 기능 추가
-        if (hompiId.equals(userId)) { // 내 미니홈피
+        if (hompiId == Long.valueOf(userId)) { // 내 미니홈피
             myHompi = "0";
         } else if (userId == null) { // 비로그인
             myHompi = "1";
@@ -58,8 +58,8 @@ public class MinihompiController {
         return ResponseEntity.ok(response); // JSON 형식으로 반환
     }
 
-    @GetMapping("/minihompiWrap")
-    public String minihompiWrap() {
+    @GetMapping("/main/{hompiId}")
+    public String minihompiWrap(@PathVariable("hompiId") Long hompiId) {
 
         return "minihompi/minihompiWrap";
 
@@ -68,9 +68,7 @@ public class MinihompiController {
     @PostMapping("/updateTitle")
     public ResponseEntity<Map<String, Object>> updateTitle(
             @RequestParam("title") String title, HttpSession session) {
-        //Integer hompiId = (Integer) session.getAttribute("hompiId");
-
-        int hompiId = 1; // 기본값 설정 (예시)
+        Integer hompiId = (Integer) session.getAttribute("hompiId");
 
 
         Map<String, Object> response = new HashMap<>();
