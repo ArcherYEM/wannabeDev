@@ -44,7 +44,7 @@
 #container .mainTop .mainTopLeft .loginWrap.noLogin .loginWrapBot ul li{float:left;}
 #container .mainTop .mainTopLeft .loginWrap.noLogin .loginWrapBot ul li:last-child{float:right;}
 
-#container .mainTop .mainTopLeft .loginWrap.yesLogin{}
+#container .mainTop .mainTopLeft .loginWrap.yesLogin{display: none;}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv1{border-bottom:1px solid #bbb; padding-bottom:5px;}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv1:after{content:""; display:block; clear:both;}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv1 > div{float:left;}
