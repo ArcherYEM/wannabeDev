@@ -13,9 +13,9 @@ $(document).ready(function(){
                 data: JSON.stringify({loginId,password}),
                 success:function(response){
                     loginCheck();
+                    location.href ="/"
                 },
                 error: function(error){
-                    alert("로그인 실패");
                     console.error(error);
                 }
             });
@@ -27,11 +27,9 @@ $(document).ready(function(){
             type: "POST",
             url: "/api/user/logout",
             success:function(response){
-                alert("로그아웃 성공")
-                location.href = "/home";
+                location.href = "/";
             },
             error: function(error){
-                alert("로그아웃 실패");
                 console.error(error);
             }
         });
