@@ -2,7 +2,6 @@ package com.dev.wannabe.global.aop.interceptor;
 
 import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,16 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Slf4j
-@Component
 public class LoggingInterceptor implements HandlerInterceptor {
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        if (ex != null) {
+            log.error("예외 발생: {}", ex.getMessage(), ex);
+            log.error("================= EXCEPTION END =================");
+        }
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        log.debug("===================== BEGIN =====================");
+        log.info("Request URI --> {}", getRequestUri(request));
+
         logRequest(request);
         return true;
     }
@@ -34,9 +38,6 @@ public class LoggingInterceptor implements HandlerInterceptor {
     }
 
     private void logRequest(HttpServletRequest request) {
-        log.debug("===================== BEGIN =====================");
-        log.info("Request URI --> {}", getRequestUri(request));
-
         final boolean traceEnabled = log.isTraceEnabled();
 
         String params;
