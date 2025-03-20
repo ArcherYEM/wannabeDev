@@ -1,7 +1,6 @@
 package com.dev.wannabe.domain.minihompi.service;
 
-import com.dev.wannabe.domain.minihompi.mapper.MiniHompiMapper;
-import com.dev.wannabe.domain.minihompi.model.vo.MiniHompiTotal;
+import com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +10,11 @@ import java.util.Map;
 @Service
 public class MinihompiService {
 
-    private final MiniHompiMapper minihompiMapper;
+    private final com.dev.wannabe.domain.minihompi.mapper.MinihompiMapper minihompiMapper;
 
-    public MiniHompiTotal findMiniHompi(Map<String, Object> map) {
-        MiniHompiTotal findMiniHompi = minihompiMapper.findMyHompi(map);
-        return findMiniHompi;
+    public MinihompiTotal findMinihompi(Map<String, Object> map) {
+        MinihompiTotal findMinihompi = minihompiMapper.findMyhompi(map);
+        return findMinihompi;
     }
 
     public int updateTitle(Map<String, Object> miniHompi) {
