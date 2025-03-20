@@ -1,6 +1,6 @@
-package com.dev.wannabe.domain.home.controller.horoscope;
+package com.dev.wannabe.domain.home.controller;
 
-import com.dev.wannabe.domain.home.service.horoscope.FortuneService;
+import com.dev.wannabe.domain.home.service.FortuneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

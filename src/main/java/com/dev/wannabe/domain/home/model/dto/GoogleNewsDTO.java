@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.home.model.news.dto;
+package com.dev.wannabe.domain.home.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.dev.wannabe.domain.home.service.news;
+package com.dev.wannabe.domain.home.service;
 
-import com.dev.wannabe.domain.home.model.news.dto.GoogleNewsDTO;
+import com.dev.wannabe.domain.home.model.dto.GoogleNewsDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;

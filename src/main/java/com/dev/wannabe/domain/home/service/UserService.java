@@ -1,14 +1,13 @@
-package com.dev.wannabe.domain.home.service.user;
+package com.dev.wannabe.domain.home.service;
 
-import com.dev.wannabe.domain.home.mapper.user.UserMapper;
-import com.dev.wannabe.domain.home.model.user.dto.SignupUserDTO;
-import com.dev.wannabe.domain.home.model.user.dto.UserExistDTO;
-import com.dev.wannabe.domain.home.model.user.vo.UserBasic;
-import com.dev.wannabe.domain.home.model.user.vo.UserDetail;
-import com.dev.wannabe.domain.home.model.user.vo.UserRole;
+import com.dev.wannabe.domain.home.mapper.UserMapper;
+import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
+import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
+import com.dev.wannabe.domain.home.model.vo.UserBasic;
+import com.dev.wannabe.domain.home.model.vo.UserDetail;
+import com.dev.wannabe.domain.home.model.vo.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
