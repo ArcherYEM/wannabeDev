@@ -6,8 +6,8 @@ import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
 import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
-import com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO;
-import com.dev.wannabe.domain.minihompi.service.hompi.HompiService;
+import com.dev.wannabe.domain.minihompi.model.dto.dto.HompiInfoDTO;
+import com.dev.wannabe.domain.minihompi.service.HompiService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +56,7 @@ public class LoginService {
 
             HttpSession session = request.getSession(true);
             session.setAttribute("userData", createUserData(loginLog));
-            session.setMaxInactiveInterval(60 * 60); // 단위 : 초 -> null point exception
+            session.setMaxInactiveInterval(60 * 60); // 단위 : 초
 
             log.info("login 성공 user ID {}", userId);
             log.info("클라이언트 IP: {}", accessIp);
@@ -100,18 +100,9 @@ public class LoginService {
         return passwordEncoder.matches(loginData.getPassword(), storedPassword);
     }
 
-    // 클라이언트 ip 가져오기
     private String getAccessIp(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-
-        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-
-        if ("0:0:0:0:0:0:0:1".equals(ip)){
-            ip = "127.0.0.1";
-        }
-        return ip;
+        String ip = request.getRemoteAddr();
+        return ip.split(",")[0];
     }
 
     private SessionUserDTO createUserData(LoginLog loginLog) {

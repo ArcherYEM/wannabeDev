@@ -103,7 +103,7 @@
         VALUES (
             #{hompiId},
             #{dayStatsDate},
-            0,
+            #{t
             #{insertUserId}
         )
         ON DUPLICATE KEY UPDATE

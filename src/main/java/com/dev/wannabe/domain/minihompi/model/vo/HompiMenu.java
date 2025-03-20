@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.model.miniroom.vo;
+package com.dev.wannabe.domain.minihompi.model.vo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder(toBuilder = true)
-public class MiniroomBasic {
+public class HompiMenu {
 
-    private Long miniroomId;
-    private Long userId;
-    private Long productId;
+    private Long hompiId;
+    private String hompiMenuCode;
+    private String availStatus;
     private Long insertUserId;
     private LocalDateTime insertDt;
     private Long updateUserId;
