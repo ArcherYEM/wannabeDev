@@ -13,13 +13,13 @@
 
                 								<div id="mood">
                                                     <label>
-<select>
-    <option>💢화가 남💢</option>
-    <option>💔슬픔💔</option>
-    <option>☠️고통받음☠️</option>
-    <option>😿우울😿</option>
-</select>
-</label>
+                                                        <select>
+                                                            <option id="mood1">💢화가 남💢</option>
+                                                            <option id="mood2">💔슬픔💔</option>
+                                                            <option id="mood3">☠️고통받음☠️</option>
+                                                            <option id="mood4">😿우울😿</option>
+                                                        </select>
+                                                    </label>
                                                 </div>
                 								<div class="introText">
                 									<p>앉아봐라</p>
@@ -235,7 +235,11 @@
     						</ul>
 
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+if (!window.jQuery) {
+    document.write('<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>');
+}
+</script>
     <!-- CDN 라이브러리 끝 -->
 
 
@@ -243,4 +247,5 @@
 <!-- 푸터 인클루드 끝 부분 -->
 
 <script type="module" src="/static/js/minihompiMain.js"></script>
+
 

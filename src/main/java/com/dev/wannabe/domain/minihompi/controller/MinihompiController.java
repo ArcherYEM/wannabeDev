@@ -68,8 +68,8 @@ public class MinihompiController {
     @PostMapping("/updateTitle")
     public ResponseEntity<Map<String, Object>> updateTitle(
             @RequestParam("title") String title, HttpSession session) {
-        Integer hompiId = (Integer) session.getAttribute("hompiId");
-
+        //Integer hompiId = (Integer) session.getAttribute("hompiId");
+        Integer hompiId = 1;
 
         Map<String, Object> response = new HashMap<>();
 

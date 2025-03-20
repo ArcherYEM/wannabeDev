@@ -1,7 +1,7 @@
 /** 이벤트 리스너 등록 **/
 $(document).ready(function () {
 
-
+    console.log("✅ minihompiMain.js가 로드되고 실행됨!");
     getMinihompiDataList();
 
     const popuoMain = $("#popupMain");
@@ -302,23 +302,48 @@ function onpneMessage() {
         'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }
 
+/** 홈 화면으로 이동, js 중복실행 방지 **/
 $(document).on("click", "#moveHome", function (e) {
     e.preventDefault();
+
+    if (window.ajaxCheck) return;
+    window.ajaxCheck = true;
+
     $.ajax({
         type: "GET",
         url: "/mini-hompi/hompiMain",
         dataType: "html",
         success: function (data) {
-            $("#mainWrapBackground").children().remove();
-            $("#mainWrapBackground").html(data);
-            $.getScript("/static/js/minihompiMain.js");
-            if (!window.isBgmLoaded) {
-                window.isBgmLoaded = true; // 중복 실행 방지
-                $.getScript("/static/js/bgm.js");
-            }
+            executeScriptsFromHTML(data);
+
+            //`minihompiMain.js`가 항상 다시 로드되도록 설정
+            $.getScript("/static/js/minihompiMain.js")
+                .done(() => {
+                    console.log("minihompiMain.js 로드 완료");
+                    delete window.isMinihompiMainLoaded;  // 다시 로드 가능하도록 초기화
+                })
+                .fail((jqxhr, settings, exception) => console.error("minihompiMain.js 로드 실패:", exception));
+
+            setTimeout(() => {
+                window.ajaxCheck = false;
+            }, 500);
         },
         error: function (xhr, status, error) {
             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+            window.ajaxCheck = false;
         }
     });
 });
+
+window.executeScriptsFromHTML = function (html) {
+    const $html = $("<div>").append($.parseHTML(html));
+    $("#mainWrapBackground").children().remove().end().append($html);
+
+    // src 없는 인라인 스크립트만 실행 (eval)
+    $html.find("script").each(function () {
+        const scriptSrc = $(this).attr("src");
+        if (!scriptSrc) {
+            eval($(this).text());
+        }
+    });
+};
