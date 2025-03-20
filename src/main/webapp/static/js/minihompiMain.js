@@ -264,11 +264,13 @@ $(document).ready(function () {
         $("#today").text(miniHompi.todayCnt);
         $("#hompiUrl").text(miniHompi.hompiUrl);
 
+        //권한에 따라 관리 버튼 숨김
         if (myHompi == 1 || myHompi == 2) {
             $("#moveSetting").hide();
             $(".editImg").hide();
             $("#editBtn").hide();
             $("#titleBtn").hide();
+            $("#mood select").prop("disabled", true);
         }
     }
 

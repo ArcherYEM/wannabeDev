@@ -19,11 +19,11 @@
 
 		<!--> VO <-->
 		<!--> user <-->
-		<typeAlias alias="UserBasic" type="com.dev.wannabe.domain.home.model.user.vo.UserBasic"/>
-		<typeAlias alias="UserDetail" type="com.dev.wannabe.domain.home.model.user.vo.UserDetail"/>
-		<typeAlias alias="UserRole" type="com.dev.wannabe.domain.home.model.user.vo.UserRole"/>
+		<typeAlias alias="UserBasic" type="com.dev.wannabe.domain.home.model.vo.UserBasic"/>
+		<typeAlias alias="UserDetail" type="com.dev.wannabe.domain.home.model.vo.UserDetail"/>
+		<typeAlias alias="UserRole" type="com.dev.wannabe.domain.home.model.vo.UserRole"/>
 		<!--> login <-->
-		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.login.vo.LoginLog"/>
+		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
 		<!--> hompi <-->
 		<!--<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi"/>
 		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiConfig"/>
@@ -32,11 +32,11 @@
 
 		<!--> DTO <-->
 		<!--> user <-->
-		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.user.dto.SignupUserDTO"/>
-		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.user.dto.UserExistDTO"/>
-		<typeAlias alias="UserDataDTO" type="com.dev.wannabe.domain.home.model.user.dto.UserDataDTO"/>
+		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
+		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
+		<typeAlias alias="UserDataDTO" type="com.dev.wannabe.domain.home.model.dto.UserDataDTO"/>
 		<!--> login <-->
-		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.login.dto.LoginDataDTO"/>
+		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
 		<!--> hompi <-->
 
 	</typeAliases>

@@ -200,6 +200,14 @@
             <artifactId>spring-security-core</artifactId>
             <version>5.8.5</version>
         </dependency>
+
+        <!-- JSON 도구 -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250107</version>
+        </dependency>
+
     </dependencies>
 
     <build>

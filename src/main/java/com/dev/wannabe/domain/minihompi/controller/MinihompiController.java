@@ -29,7 +29,6 @@ public class MinihompiController {
 
     @GetMapping("/api/{hompiId}")
     public ResponseEntity<Map<String, Object>> miniHompipopup(@PathVariable("hompiId") Long hompiId, HttpSession session) {
-        Integer userId = 1;
         String myHompi;
         //TODO 세션 연결해서 login ID 받아 json에 추가해서 홈페이지 우상단 main/joginID로 수정하기
         //TODO 미니홈피 메뉴 테이블에서 메뉴 공개 값 가져와서 json에 추가하고 공개범위 정하기(현재의 MyHompi 역할)
