@@ -1,12 +1,12 @@
-package com.dev.wannabe.domain.minihompi.service.hompi;
+package com.dev.wannabe.domain.minihompi.service;
 
-import com.dev.wannabe.domain.minihompi.mapper.hompi.HompiMapper;
-import com.dev.wannabe.domain.minihompi.model.hompi.dto.CreateHompiDTO;
-import com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiConfig;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiDailyStats;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiMenu;
+import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
+import com.dev.wannabe.domain.minihompi.model.dto.dto.CreateHompiDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.dto.HompiInfoDTO;
+import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
+import com.dev.wannabe.domain.minihompi.model.vo.HompiConfig;
+import com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats;
+import com.dev.wannabe.domain.minihompi.model.vo.HompiMenu;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

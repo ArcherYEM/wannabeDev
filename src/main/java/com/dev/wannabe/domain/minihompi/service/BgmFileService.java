@@ -1,6 +1,6 @@
-package com.dev.wannabe.domain.minihompi.service.bgm;
+package com.dev.wannabe.domain.minihompi.service;
 
-import com.dev.wannabe.domain.minihompi.mapper.bgm.BgmMapper;
+import com.dev.wannabe.domain.minihompi.mapper.BgmMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

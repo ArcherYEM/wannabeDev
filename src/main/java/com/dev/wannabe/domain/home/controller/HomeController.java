@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -23,13 +24,6 @@ public class HomeController {
         return "home/main";
     }
 
-    // 클라이언트 아이피 가져오기
-    @GetMapping("/getIp")
-    @ResponseBody
-    public String getIp(HttpServletRequest req) {
-        return homeService.getIp(req);
-    }
-
     @RequestMapping("/signup")
     public String signup(){
         return "home/signup";
@@ -37,10 +31,15 @@ public class HomeController {
 
     @GetMapping("/userInfo")
     public ResponseEntity<SessionUserDTO> userInfo(HttpServletRequest request){
-        SessionUserDTO userData = homeService.getUserData(request);
-        if(userData == null){
-            return ResponseEntity.ok(null);
-        }
-        return ResponseEntity.ok(userData);
+        HttpSession session = request.getSession(false);
+            if(session == null){
+                return ResponseEntity.ok(null);
+            }
+            SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
+            if(session.getAttribute("userData") == null) {
+                return ResponseEntity.ok(null);
+            }
+
+            return ResponseEntity.ok(userData);
     }
 }

@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.model.hompi.vo;
+package com.dev.wannabe.domain.minihompi.model.vo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,15 +7,14 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder(toBuilder = true)
-public class Hompi {
+public class HompiMenu {
 
     private Long hompiId;
-    private String hompiURL;
-    private String hompiTitle;
-    private Long ownerUserId;
+    private String hompiMenuCode;
+    private String availStatus;
     private Long insertUserId;
     private LocalDateTime insertDt;
-    private String updateUserId;
+    private Long updateUserId;
     private LocalDateTime updateDt;
 
 }
