@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WANNABE 회원수정</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/onlineStyle.css">
+    <link rel="stylesheet" href="/static/css/UpdateProfile.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <!-- 헤더 -->
+    <header>
+        <div class="logo">
+            <a href="#" class="logo"><img src="/images/common/logo_full.png"></a>
+            <span>WANNABE</span>
+        </div>
+        <div class="header-right">
+            <ul>
+                <li class="IP" id="IP" th:text="${IP != null} ? '접속IP ' + IP : '접속IP 없음'">(접속IP 127.0.0.1)</li>
+                <li class="Name" id="Name" th:text="${name != null} ? name : '이름 없음'">홍길동</li>
+                <li><a href="#"><img src="/images/common/homeIcon.png"></a></li>
+                <li><a href="#"><img src="/images/common/option.png"></a></li>
+                <li><a th:href="@{/logout}" class="btn nobtn">로그아웃</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 네비게이션 -->
+    <nav>
+        <ul>
+            <li><a href="#">내 미니홈피</a></li>
+            <li><a href="#">선물하기</a></li>
+            <li><a href="#">장바구니</a></li>
+            <li><a href="#">공지사항</a></li>
+            <li><a href="#">ABOUT US</a></li>
+        </ul>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main>
+        <section class="signup-form">
+            <h1>회원가입 수정</h1>
+
+            <!-- 수정불가한 정보 -->
+            <section>
+                <div>
+                    <label>아이디</label>
+                    <span class="LoginId" id="LoginId" th:text="${LoginId != null} ? LoginId : '아이디 없음'"></span>
+                </div>
+                <div>
+                    <label>이름</label>
+                    <span class="username" id="username" th:text="${username != null} ? username : '이름 없음'"></span>
+                </div>
+                <div>
+                    <label>생년월일</label>
+                    <span class="birthDate" id="birthDate" th:text="${birthDate != null} ? birthDate : '생년월일 없음'"></span>
+                </div>
+                <div>
+                    <label>성별</label>
+                    <span class="genderCode" id="genderCode" th:text="${genderCode != null} ? genderCode : '성별 없음'"></span>
+                </div>
+            </section>
+
+            <!-- 비밀번호 변경 -->
+            <div class="form-group">
+                <label>비밀번호 변경</label>
+                <div class="password-group">
+                    <label>현재 비밀번호</label><br>
+                    <input type="password" class="password" id="password" placeholder="현재 비밀번호"><br>
+                    <label>새 비밀번호</label><br>
+                    <input type="password" class="newpassword" id="newpassword" placeholder="새 비밀번호"><br>
+                    <label>새 비밀번호 다시 입력</label><br>
+                    <input type="password" class="newpassword" id="new_password" placeholder="비밀번호 다시 입력하여 주세요">
+                </div>
+            </div>
+
+            <!-- 개인정보 변경 -->
+            <div class="form-group">
+                <label>개인정보 변경</label>
+                <div class="join-date">
+                    <label>이메일</label>
+                    <input type="text" class="email" id="email" th:value="${email != null} ? email : ''">
+                    <a href="#" class="check-duplicate" data-type="email">중복확인</a>
+                </div>
+                <div class="join-date">
+                    <label>전화번호</label>
+                    <input type="text" class="PoneNo" id="PoneNo" th:value="${phoneNo != null} ? phoneNo : ''">
+                    <a href="#" class="check-duplicate btn di small" data-type="phone">중복확인</a>
+                </div>
+            </div>
+
+            <!-- 수정 완료 버튼 -->
+            <div class="form-group">
+                <button class="submit-btn" id="submitBtn">수정 완료</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-left">
+            <span>TEAM_WANNABEDev</span>
+            <span>SINCE. 2025.2.24-</span>
+        </div>
+        <div class="footer-right">
+            <ul>
+                <li><a href="#">내 미니홈피</a></li>
+                <li><a href="#">선물하기</a></li>
+                <li><a href="#">장바구니</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">ABOUT US</a></li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<script src="/static/js/UpdateProfile.js"></script>
+</body>
+</html>
