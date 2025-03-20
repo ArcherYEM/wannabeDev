@@ -1,6 +1,7 @@
 package com.dev.wannabe.domain.home.controller;
 
 import com.dev.wannabe.domain.home.service.HomeService;
+import com.dev.wannabe.domain.home.service.LoginService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class HomeController {
     private final HomeService homeService;
+    private final LoginService loginService;
 
     @GetMapping("/")
     public String home() {
@@ -27,7 +29,8 @@ public class HomeController {
     @GetMapping("/getIp")
     @ResponseBody
     public String getIp(HttpServletRequest req) {
-        return homeService.getIp(req);
+        SessionUserDTO sessionUser = loginService.getSessionUserData(req);
+        return sessionUser.getAccessIp();
     }
 
     @RequestMapping("/signup")

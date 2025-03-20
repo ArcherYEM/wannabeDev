@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class UserDataDTO {
+public class UserInfoDTO {
 
     private String email;   // UNIQUE
     private String phoneNo; // UNIQUE

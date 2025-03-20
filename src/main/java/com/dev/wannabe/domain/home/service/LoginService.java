@@ -4,7 +4,7 @@ import com.dev.wannabe.domain.home.mapper.LoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
-import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
+import com.dev.wannabe.domain.home.model.dto.UserInfoDTO;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO;
 import com.dev.wannabe.domain.minihompi.service.hompi.HompiService;
@@ -95,6 +95,10 @@ public class LoginService {
         }
     }
 
+    public SessionUserDTO getSessionUserData(HttpServletRequest request) {
+        return (SessionUserDTO) request.getSession().getAttribute("userData");
+    }
+
     private Boolean authenticate(LoginDataDTO loginData) {
         String storedPassword = loginMapper.findPasswordByLoginId(loginData.getLoginId());
         return passwordEncoder.matches(loginData.getPassword(), storedPassword);
@@ -116,21 +120,16 @@ public class LoginService {
 
     private SessionUserDTO createUserData(LoginLog loginLog) {
 
-        UserDataDTO userData = userMapper.findUserDataByUserId(loginLog.getUserId());
-        HompiInfoDTO hompiInfo = hompiService.readHompiInfoByUserId(loginLog.getUserId());
+        UserInfoDTO userInfo = userMapper.findUserInfoByUserId(loginLog.getUserId());
+        HompiInfoDTO hompiInfo = hompiMapper.findHompiInfoByUserId(loginLog.getUserId());
 
         return SessionUserDTO.builder()
                 .accessIp(loginLog.getAccessIp())
                 .userId(loginLog.getUserId())
-                .email(userData.getEmail())
-                .phoneNo(userData.getPhoneNo())
-                .name(userData.getName())
-                .genderCode(userData.getGenderCode())
-                .birthDate(userData.getBirthDate())
+                .name(userInfo.getName())
                 .hompiId(hompiInfo.getHompiId())
                 .hompiURL(hompiInfo.getHompiURL())
                 .hompiTitle(hompiInfo.getHompiTitle())
-                .miniroomId(0L)
                 .build();
     }
 }
