@@ -1,7 +1,7 @@
-package com.dev.wannabe.domain.minihompi.service.minihompiService;
+package com.dev.wannabe.domain.minihompi.service;
 
 import com.dev.wannabe.domain.minihompi.mapper.MiniHompiMapper;
-import com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal;
+import com.dev.wannabe.domain.minihompi.model.vo.MiniHompiTotal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

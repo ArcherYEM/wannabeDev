@@ -1,9 +1,9 @@
 package com.dev.wannabe.domain.minihompi.mapper;
 
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiConfig;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiDailyStats;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiMenu;
+import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
+import com.dev.wannabe.domain.minihompi.model.vo.HompiConfig;
+import com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats;
+import com.dev.wannabe.domain.minihompi.model.vo.HompiMenu;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

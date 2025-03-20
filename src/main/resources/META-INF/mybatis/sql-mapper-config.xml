@@ -27,12 +27,12 @@
 		<!--> friend <-->
 		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.minihompi.model.friend.vo.FriendMessage"/>
 		<!--> hompi <-->
-		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi"/>
-		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiConfig"/>
-		<typeAlias alias="HompiMenu" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiMenu"/>
-		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiDailyStats"/>
+		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.vo.Hompi"/>
+		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.vo.HompiConfig"/>
+		<typeAlias alias="HompiMenu" type="com.dev.wannabe.domain.minihompi.model.vo.HompiMenu"/>
+		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats"/>
 		<!--> miniroom <-->
-		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.miniroom.vo.MiniroomBasic"/>
+		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
 
 		<!--> DTO <-->
 		<!--> user <-->
