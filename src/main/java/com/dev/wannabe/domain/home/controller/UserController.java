@@ -22,7 +22,10 @@ public class UserController {
      */
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody SignupUserDTO signupUser) {
-        return ResponseEntity.status(userManageService.signUpUser(signupUser)).build();
+        if (userManageService.signUpUser(signupUser)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     /*
@@ -32,7 +35,10 @@ public class UserController {
      */
     @PostMapping("/checkLoginId/{loginId}")
     public ResponseEntity<Void> checkLoginId(@PathVariable String loginId) {
-        return ResponseEntity.status(userManageService.checkDuplicationLoginId(loginId)).build();
+        if (userManageService.checkDuplicationLoginId(loginId)) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
     }
 
     /*
@@ -42,7 +48,10 @@ public class UserController {
      */
     @PostMapping("/checkEmail/{email}")
     public ResponseEntity<Void> checkEmail(@PathVariable String email) {
-        return ResponseEntity.status(userManageService.checkDuplicationEmail(email)).build();
+        if (userManageService.checkDuplicationEmail(email)) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
     }
 
     /*
@@ -52,7 +61,10 @@ public class UserController {
      */
     @PostMapping("/checkPhoneNo/{phoneNo}")
     public ResponseEntity<Void> checkPhoneNo(@PathVariable String phoneNo) {
-        return ResponseEntity.status(userManageService.checkDuplicationPhone(phoneNo)).build();
+        if (userManageService.checkDuplicationPhone(phoneNo)) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

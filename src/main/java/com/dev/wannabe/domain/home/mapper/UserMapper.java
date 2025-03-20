@@ -1,10 +1,11 @@
 package com.dev.wannabe.domain.home.mapper;
 
+import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
 import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
-import com.dev.wannabe.domain.home.model.vo.*;
+import com.dev.wannabe.domain.home.model.vo.UserBasic;
+import com.dev.wannabe.domain.home.model.vo.UserDetail;
+import com.dev.wannabe.domain.home.model.vo.UserRole;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.Optional;
 
 @Mapper
 public interface UserMapper {
@@ -18,14 +19,10 @@ public interface UserMapper {
     // USER_ROLE 저장
     void saveUserRole(UserRole userRole);
 
-    // FRIEND_MESSAGE 저장
-    void saveFriendMessage(FriendMessage friendMessage);
+    Integer isUserExist(UserExistDTO userExist);
 
-    int isUserExist(String checkValue);
+    Long findUserIdByLoginId(String loginId);
 
-    // email을 기준으로 user id 추출
-    Optional<Long> findUserIdByEmail(String email);
-
-    Optional<Long> findUserIdByLoginId(String loginId);
+    UserDataDTO findUserDataByUserId(Long userId);
 
 }

@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/*���κ���� s*/
+/*메인비쥬얼 s*/
 #wrap {
     background: #A4A5A4;
     width: 100%;
@@ -10,6 +10,7 @@
     box-sizing: border-box;
     display: flex;
     column-gap: 10px;
+    cursor: default;
 }
 
 #mainWrap {
@@ -19,6 +20,7 @@
     padding: 10px;
     box-sizing: border-box;
     margin: 0;
+    height: 640px;
 
 }
 
@@ -43,9 +45,9 @@
     display: block;
 }
 
-/*���κ���� e*/
+/*메인비쥬얼 e*/
 
-/*���κ���� ����Ʈ s*/
+/*메인비쥬얼 레프트 s*/
 #leftContainer {
     width: 24%;
     float: left;
@@ -59,6 +61,7 @@
 }
 
 #leftContainer #todayWrap .todayUl li {
+    cursor: default;
     display: inline-block;
 }
 
@@ -201,11 +204,10 @@
     display: inline-block;
     vertical-align: middle;
     font-weight: lighter;
-    width: 15px;
     height: 15px;
     line-height: 15px;
-    text-align: center;
-    margin-top: -3px;
+    float: right;
+
 }
 
 
@@ -221,8 +223,7 @@
     margin-bottom: 10px;
 }
 
-
-/*���κ���� ����Ʈ e*/
+/*메인비쥬얼 레프트 e*/
 
 /**오른쪽 서브뷰 관련**/
 #subViewContainer {
@@ -235,7 +236,7 @@
     box-sizing: border-box;
     background: #fff;
     margin-left: 30px;
-    height: 230px;
+    height: 140px;
 }
 
 #subViewContainer #subViewWrap #subViewTop {
@@ -316,7 +317,7 @@ a[class*="btn"] {
     color: #111;
 }
 
-/*���κ���� ����Ʈ s*/
+/*메인비쥬얼 라이트 s*/
 #rightContainer {
     width: 75%;
     float: right;
@@ -404,10 +405,12 @@ a[class*="btn"] {
 
 #titleBtn.save-mode {
     font-size: 12px;
-    font-weight: lighter;
     background-color: orange;
     color: white;
     border: none;
+    height: 22px;
+    padding: 0 10px;
+    outline: 1px dotted #111;
 }
 
 #rightWrapBox {
@@ -502,6 +505,10 @@ a[class*="btn"] {
     font-size: 14px;
 }
 
+#rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li a:hover {
+    color: orange;
+}
+
 #rightWrap .rightMainWrap .rightMainTop .rightMainTopRight ul li span {
     color: #1613F2;
     font-size: 12px;
@@ -529,7 +536,6 @@ a[class*="btn"] {
 
 #rightWrap .rightMainWrap .rightMain ul li {
     fLoat: left;
-    cursor: pointer;
     font-size: 14px;
     font-weight: bold;
     color: #1C97CC;
@@ -666,13 +672,21 @@ a[class*="btn"] {
     float: right;
     font-weight: bold;
     cursor: pointer;
+}
+
+.editSet a {
+    color: #595959;
+}
+
+.editSet a:hover {
+    color: orange;
 
 }
 
 .editImg {
     display: inline-block;
     float: left;
-    margin-right: 6px;
+    margin-top: -1px;
 }
 
 .editImg img {
@@ -685,12 +699,12 @@ a[class*="btn"] {
     visibility: hidden;
 }
 
-#mood {
+#moodDiv {
     margin-top: 10px;
     box-sizing: border-box;
 }
 
-#mood select {
+#moodDiv {
     all: initial;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -709,18 +723,29 @@ a[class*="btn"] {
     border: 1px solid #aaa;
     border-radius: 0.5em;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+    margin-top: 10px;
 }
 
-#mood select:hover {
+#moodDiv select:hover {
     border-color: #888;
 }
 
-#mood select:focus {
+#moodDiv select:focus {
     border-color: #aaa;
     box-shadow: 0 0 1px 3px orange;
     box-shadow: 0 0 0 3px -moz-mac-focusring;
     color: #222;
     outline: none;
+}
+
+select#mood {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+#moodDiv label {
+    width: 100%;
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .commentList {
@@ -744,10 +769,9 @@ a[class*="btn"] {
     color: #ccc
 }
 
-/*���κ���� ����Ʈ e*/
+/*메인비쥬얼 라이트 e*/
 
-
-/*���� ������ s*/
+/*메인 스프링 s*/
 #spring {
 }
 
@@ -776,6 +800,8 @@ a[class*="btn"] {
     top: 400px;
     left: 224px;
 }
+
+/*메인 스프링 e*/
 
 #subVieMain {
     margin-top: 10px;

@@ -3,17 +3,14 @@ package com.dev.wannabe.domain.home.service;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
 import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
-import com.dev.wannabe.domain.home.model.vo.*;
+import com.dev.wannabe.domain.home.model.vo.UserBasic;
+import com.dev.wannabe.domain.home.model.vo.UserDetail;
+import com.dev.wannabe.domain.home.model.vo.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -22,7 +19,6 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final SqlSessionFactory sqlSessionFactory;
 
     /*
      * 회원 가입 기능
@@ -30,23 +26,30 @@ public class UserService {
      * 중복이면 return 400 bad request
      * 저장 후 return 200 ok
      */
-    public HttpStatus signUpUser(SignupUserDTO signupUser) {
-        long userId;
-        long hompiId;
+    @Transactional
+    public Boolean signUpUser(SignupUserDTO signupUser) {
+        Long userId;
 
-        SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            if (isUserExist(signupUser.getLoginId())) {
-                return HttpStatus.BAD_REQUEST;
-            }
-            if (isUserExist(signupUser.getEmail())) {
-                return HttpStatus.BAD_REQUEST;
-            }
-            if (isUserExist(signupUser.getPhoneNo())) {
-                return HttpStatus.BAD_REQUEST;
+            /*
+             * loginId, email, phoneNo 중복 체크
+             * 중복되면 예외 처리 발생
+             * 이후 400 Bad Request 반환
+             */
+            UserExistDTO userExist = UserExistDTO.builder()
+                    .loginId(signupUser.getLoginId())
+                    .email(signupUser.getEmail())
+                    .phoneNo(signupUser.getPhoneNo())
+                    .build();
+
+            if (isUserExist(userExist)) {
+                throw new Exception();
             }
 
-
+            /*
+             * User Basic 생성
+             * 이후 User Basic 에서 User Id 추출
+             */
             UserBasic newUserBasic = UserBasic.builder()
                     .loginId(signupUser.getLoginId())
                     .email(signupUser.getEmail())
@@ -60,19 +63,20 @@ public class UserService {
 
             userMapper.saveUserBasic(newUserBasic);
 
-            sqlSession.commit();
+            /*
+             * User Basic 에서 User Id 추출
+             * Optional 을 통해 User Id가 없으면 예외 처리 발생
+             * 이후 400 Bad Request 반환
+             */
+            userId = userMapper.findUserIdByLoginId(signupUser.getLoginId());
 
-            Optional<Long> userIdData = userMapper.findUserIdByEmail(signupUser.getEmail());
-            if (userIdData.isPresent()) {
-                userId = userIdData.get();
-            } else {
-                throw new Exception();
-            }
-
+            /*
+             * User Detail, User Role 테이블 생성 및 저장
+             * 회원 가입 축하용 Friend Message 생성 및 저장
+             */
             UserDetail newUserDetail = UserDetail.builder()
                     .userId(userId)
                     .friendMessageAvailYN(signupUser.getFriendMessageAvailYN())
-                    .hompiUseYN(signupUser.getHompiUseYN())
                     .confirmYN1(signupUser.getConfirmYN1())
                     .confirmYN2(signupUser.getConfirmYN2())
                     .confirmYN3(signupUser.getConfirmYN3())
@@ -85,41 +89,12 @@ public class UserService {
                     .insertUserId(userId)
                     .build();
 
-            FriendMessage friendMessage = FriendMessage.builder()
-                    .userId(userId)
-                    .friendUserId(0)
-                    .message("가입을 축하합니다")
-                    .insertUserId(0)
-                    .build();
-
             userMapper.saveUserDetail(newUserDetail);
             userMapper.saveUserRole(newUserRole);
-            userMapper.saveFriendMessage(friendMessage);
 
-            sqlSession.commit();
-
-            Hompi newHompi = Hompi.builder()
-                    .hompiUrl("test")
-                    .hompiTitle("testTitle")
-                    .ownerUserId(userId)
-                    .insertUserId(userId)
-                    .build();
-
-
-            sqlSession.commit();
-
-
-            //hompiId
-
-
-
-
-            sqlSession.close();
-            return HttpStatus.OK;
+            return true;
         } catch (Exception e) {
-            sqlSession.rollback();
-            sqlSession.close();
-            return HttpStatus.BAD_REQUEST;
+            return false;
         }
 
     }
@@ -129,11 +104,16 @@ public class UserService {
      * 중복 아니면 return 200 ok
      * 중복이면 return 400 bad request
      */
-    public HttpStatus checkDuplicationLoginId(String loginId) {
-        if (isUserExist(loginId)) {
-            return HttpStatus.BAD_REQUEST;
+    public Boolean checkDuplicationLoginId(String loginId) {
+        UserExistDTO userExist = UserExistDTO.builder()
+                .loginId(loginId)
+                .build();
+
+        if (isUserExist(userExist)) {
+            log.info("User LoginId Exist {}", loginId);
+            return true;
         }
-        return HttpStatus.OK;
+        return false;
     }
 
     /*
@@ -141,11 +121,16 @@ public class UserService {
      * 중복 아니면 return 200 ok
      * 중복이면 return 400 bad request
      */
-    public HttpStatus checkDuplicationEmail(String email) {
-        if (isUserExist(email)) {
-            return HttpStatus.BAD_REQUEST;
+    public Boolean checkDuplicationEmail(String email){
+        UserExistDTO userExist = UserExistDTO.builder()
+                .email(email)
+                .build();
+
+        if (isUserExist(userExist)) {
+            log.info("User Email Exist {}", email);
+            return true;
         }
-        return HttpStatus.OK;
+        return false;
     }
 
     /*
@@ -153,16 +138,19 @@ public class UserService {
      * 중복 아니면 return 200 ok
      * 중복이면 return 400 bad request
      */
-    public HttpStatus checkDuplicationPhone(String phoneNo) {
-        if (isUserExist(phoneNo)) {
-            return HttpStatus.BAD_REQUEST;
+    public Boolean checkDuplicationPhone(String phoneNo) {
+        UserExistDTO userExist = UserExistDTO.builder()
+                .phoneNo(phoneNo)
+                .build();
+
+        if (isUserExist(userExist)) {
+            log.info("User PhoneNo Exist {}", phoneNo);
+            return true;
         }
-        return HttpStatus.OK;
+        return false;
     }
 
-    private boolean isUserExist(String checkValue) {
-        return userMapper.isUserExist(checkValue) > 0;
+    private Boolean isUserExist(UserExistDTO userExist) {
+        return userMapper.isUserExist(userExist) > 0;
     }
-
-
 }

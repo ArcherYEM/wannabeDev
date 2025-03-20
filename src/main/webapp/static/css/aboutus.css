@@ -1,0 +1,67 @@
+.containerWrap{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+.description-container{
+    display: flex;
+    margin: 20px;
+}
+
+.minimi-all{
+    flex: 1;
+    background-color: lightgray;
+    color:orangered;
+    font-weight: 500;
+    font-size: x-large;
+    width: auto;
+    height: auto;
+    margin: 10px;
+}
+
+.description{
+    flex: 1;
+    margin: 20px;
+}
+
+.description h1{
+    font-weight: bold;
+}
+
+.description h3{
+    color:gray;
+}
+
+.introduce-member{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.card{
+    width: 93%;
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 15px;
+}
+
+.card h1{
+    font-weight: bold;
+}
+
+.photo{
+    display: block;
+    background-color: lightgrey;
+    width: auto;
+    height: 160px;
+    margin: 0 auto;
+}
+.icon-collector{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap:10px;
+}
+.icon{
+    width:25px;
+}

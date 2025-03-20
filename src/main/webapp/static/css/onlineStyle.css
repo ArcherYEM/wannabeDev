@@ -22,30 +22,9 @@
 
 .mainTitleText{font-size:16px; font-weight:bold; color: var(--color-basic);}
 .mainTitleText span{font-size:14px; color:#bbb;}
-#wrap{width:100%; height:100%; position:relative; }
-#header{overflow:hidden; width:100%; height:49px; padding:10px 0; box-sizing:border-box; line-height:25px; max-width:1280px; margin:0 auto;}
-#header .headerLeft{float:left; }
-#header .headerLeft a.logo{width:150px; display:inline-block;}
-#header .headerLeft a.logo img{width:100%;}
-#header .headerRight{float:right; }
-#header .headerRight ul{text-align:right;}
-#header .headerRight ul li{Display:inline-block; margin-right:10px;}
-#header .headerRight ul li.name{font-weight:bold;}
-#header .headerRight ul li:last-child{margin-right:0;}
-#header .headerRight ul li input{width:200px; height:30px; border-radius:5px; border:1px solid var(--color-basic)}
-
-#gnb{width:100%; height:50px; border:1px solid var(--color-basic); border-left:0; border-right:0;}
-#gnb div{max-width:1280px; margin:0 auto;}
-#gnb div ul{display: flex; flex-wrap: nowrap; justify-content: center; align-content: center; align-items: center;}
-#gnb div ul li{flex:auto;}
-#gnb div ul li a{color:#333; font-weight:bold; width:100%; display:block; text-align:center; height:50px; line-height:45px; font-size:16px; transition:all,.5s}
-#gnb div ul li a:hover{color:var(--color-basic)}	
-
-#footer{width:100%; border-top:1px solid var(--color-gray); border-bottom:1px solid var(--color-gray); overflow:hidden; padding:20px 30px; box-sizing:border-box;}
-#footer div.footerWrap{max-width:1280px; margin:0 auto;}
-#footer div.footerWrap p{text-align:center; font-size:14px;}
-#footer div.footerWrap span{color:var(--color-gray); font-size:18px; font-weight:bold;}
-#footer div.footerWrap span.basic{color:var(--color-basic);}
+#wrap{width:100%; height:100%;
+	position:relative;
+}
 
 /*메인 s*/
 #container{}
@@ -65,7 +44,7 @@
 #container .mainTop .mainTopLeft .loginWrap.noLogin .loginWrapBot ul li{float:left;}
 #container .mainTop .mainTopLeft .loginWrap.noLogin .loginWrapBot ul li:last-child{float:right;}
 
-#container .mainTop .mainTopLeft .loginWrap.yesLogin{}
+#container .mainTop .mainTopLeft .loginWrap.yesLogin{display: none;}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv1{border-bottom:1px solid #bbb; padding-bottom:5px;}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv1:after{content:""; display:block; clear:both;}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv1 > div{float:left;}
@@ -87,7 +66,6 @@
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv2 > div > ul > li > span.title{font-weight:bold;}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv2 > div > ul > li span.text{color:#aaa}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv2 > div > ul > li > span:last-child{float:right;}
-
 
 #container .mainTop .mainTopCenter{width:48%;  height:100%; text-align:center; }
 #container .mainTop .mainTopRight{width:25%;   height:100%; text-align:center; } 
@@ -143,8 +121,16 @@
 #container .mainBot .mainBotCenter .bot ul{margin-left:35px;margin-top:10px;}
 #container .mainBot .mainBotCenter .bot ul li{font-weight:bold; width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:block; margin-bottom:3px; font-size:14px;}
 #container .mainBot .mainBotRight{width:25%;   height:100%; text-align:center;} 
-#container .mainBot .mainBotRight .top{height:200px; text-align:left;} 
-#container .mainBot .mainBotRight .top .todayLucky{font-weight:bold; font-size:16px; margin-left:35px;} 
+#container .mainBot .mainBotRight .top{height:200px; text-align:left;}
+.todayLuckyFrame {
+	background-image: url('/static/images/common/lucky_background.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 52px 40px;
+	color: #454545;
+}
+#container .mainBot .mainBotRight .top .todayLucky{font-weight:bold; font-size:16px; text-align:center;}
 #container .mainBot .mainBotRight .bot{height:200px; text-align:left;} 
 /*메인 e*/
 

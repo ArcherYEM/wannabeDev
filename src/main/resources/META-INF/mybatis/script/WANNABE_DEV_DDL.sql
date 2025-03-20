@@ -37,7 +37,7 @@ CREATE TABLE COMMON_CODE_DETAIL (
                                     CODE_KEY VARCHAR(100) COMMENT '공통 코드 키',
                                     CODE_ID VARCHAR(100) COMMENT '상세 코드 ID',
                                     CODE_NAME VARCHAR(100) COMMENT '상세 코드명',
-                                    SORT_SEQ INT AUTO_INCREMENT UNIQUE COMMENT '정렬 순서',
+                                    SORT_SEQ INT COMMENT '정렬 순서',
                                     USE_YN VARCHAR(1) DEFAULT 'Y' COMMENT '사용 여부',
                                     CODE_REF_01 VARCHAR(100) COMMENT '코드 참조값 1',
                                     CODE_REF_02 VARCHAR(100) COMMENT '코드 참조값 2',
@@ -46,7 +46,7 @@ CREATE TABLE COMMON_CODE_DETAIL (
                                     INSERT_USER_ID VARCHAR(100) COMMENT '등록자 ID',
                                     INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                     UPDATE_USER_ID VARCHAR(100) COMMENT '수정자 ID',
-                                    UPDATE_DT DATETIME COMMENT '수정일시',
+                                    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                     PRIMARY KEY (CODE_KEY, CODE_ID),
                                     CONSTRAINT FK_COMMON_CODE FOREIGN KEY (CODE_KEY) REFERENCES COMMON_CODE(CODE_KEY)
 ) COMMENT='공통 코드 상세';
@@ -73,7 +73,7 @@ CREATE TABLE WNB_SYSTEM_LOG (
                                 INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                 INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                 UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                UPDATE_DT DATETIME COMMENT '변경일시',
+                                UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                 PRIMARY KEY (LOG_ID)
 ) COMMENT='WANNABE 애플리케이션 로그';
 /**
@@ -100,7 +100,7 @@ CREATE TABLE LOGIN_LOG (
                            INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                            INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                            UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                           UPDATE_DT DATETIME COMMENT '변경일시',
+                           UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                            PRIMARY KEY (LOG_ID)
 ) COMMENT='로그인 이력';
 /**
@@ -128,7 +128,7 @@ CREATE TABLE USER_USED_LOG (
                                INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                               UPDATE_DT DATETIME COMMENT '변경일시',
+                               UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                PRIMARY KEY (LOG_ID)
 ) COMMENT='회원 사용 이력';
 
@@ -159,7 +159,7 @@ CREATE TABLE ATTACH_FILE_MANAGE (
                                     INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                     INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                     UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                                    UPDATE_DT DATETIME COMMENT '수정일시',
+                                    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                     PRIMARY KEY (ATTACH_FILE_ID)
 ) COMMENT='첨부파일';
 /**
@@ -190,7 +190,7 @@ CREATE TABLE USER_BASIC (
                             INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                             INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                             UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                            UPDATE_DT DATETIME COMMENT '수정일시',
+                            UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                             PRIMARY KEY (USER_ID)
 ) COMMENT='회원 기본';
 
@@ -211,7 +211,6 @@ CREATE TABLE USER_BASIC (
 CREATE TABLE USER_DETAIL (
                              USER_ID BIGINT COMMENT '회원ID',
                              FRIEND_MESSAGE_AVAIL_YN VARCHAR(1) COMMENT '일촌 쪽지 허용 여부',
-                             HOMPI_USE_YN VARCHAR(1) COMMENT '홈피 사용 여부',
                              CONFIRM_YN_1 VARCHAR(1) COMMENT '수집동의 여부 1',
                              CONFIRM_YN_2 VARCHAR(1) COMMENT '수집동의 여부 2',
                              CONFIRM_YN_3 VARCHAR(1) COMMENT '수집동의 여부 3',
@@ -219,7 +218,7 @@ CREATE TABLE USER_DETAIL (
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                              UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                             UPDATE_DT DATETIME COMMENT '수정일시',
+                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                              PRIMARY KEY (USER_ID)
 ) COMMENT='회원 상세';
 /**
@@ -242,7 +241,7 @@ CREATE TABLE USER_ROLE (
                            INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                            INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                            UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                           UPDATE_DT DATETIME COMMENT '변경일시',
+                           UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                            PRIMARY KEY (USER_ID, ROLE_CD)
 ) COMMENT='회원 권한';
 /**
@@ -267,7 +266,7 @@ CREATE TABLE FRIEND_INFO (
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                              UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME COMMENT '변경일시',
+                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                              PRIMARY KEY (USER_ID, FRIEND_USER_ID)
 ) COMMENT='일촌 정보';
 /**
@@ -297,7 +296,7 @@ CREATE TABLE FRIEND_NAME_CHANGE_LOG (
                                         INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                         INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                         UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                        UPDATE_DT DATETIME COMMENT '변경일시',
+                                        UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                         PRIMARY KEY (LOG_ID)
 ) COMMENT='일촌명 변경 이력';
 /**
@@ -324,7 +323,7 @@ CREATE TABLE FRIEND_MESSAGE (
                                 INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                 INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                 UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                UPDATE_DT DATETIME COMMENT '변경일시',
+                                UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                 PRIMARY KEY (MESSAGE_ID)
 ) COMMENT='쪽지';
 
@@ -352,7 +351,7 @@ CREATE TABLE USER_CART (
                            INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                            INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                            UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                           UPDATE_DT DATETIME COMMENT '변경일시',
+                           UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                            PRIMARY KEY (CART_ITEM_ID)
 ) COMMENT='회원 장바구니';
 
@@ -385,7 +384,7 @@ CREATE TABLE USER_ITEM_INVENTORY (
                                      INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                      INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                      UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                                     UPDATE_DT DATETIME COMMENT '수정일시',
+                                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                      PRIMARY KEY (ORDER_ID, ORDER_DETAIL_ID)
 ) COMMENT='회원 아이템 인벤토리';
 CREATE INDEX USER_ITEM_INVENTORY_IDX_01 ON USER_ITEM_INVENTORY(USER_ID);
@@ -415,7 +414,7 @@ CREATE TABLE RECEIVED_GIFT (
                                INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                               UPDATE_DT DATETIME COMMENT '변경일시',
+                               UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                PRIMARY KEY (GIFT_ID)
 ) COMMENT='받은 선물';
 /**
@@ -440,7 +439,7 @@ CREATE TABLE HOMPI (
                        INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                        INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                        UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                       UPDATE_DT DATETIME COMMENT '변경일시',
+                       UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                        PRIMARY KEY (HOMPI_ID)
 ) COMMENT='미니홈피 기본';
 /**
@@ -464,7 +463,7 @@ CREATE TABLE HOMPI_CONFIG (
                               INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                               INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                               UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                              UPDATE_DT DATETIME COMMENT '변경일시',
+                              UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                               PRIMARY KEY (HOMPI_ID, HOMPI_CONFIG_CODE)
 ) COMMENT='홈피 설정';
 /**
@@ -487,7 +486,7 @@ CREATE TABLE HOMPI_MENU (
                             INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                             INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                             UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                            UPDATE_DT DATETIME COMMENT '변경일시',
+                            UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                             PRIMARY KEY (HOMPI_ID, HOMPI_MENU_CODE)
 ) COMMENT='홈피 메뉴';
 /**
@@ -512,7 +511,7 @@ CREATE TABLE HOMPI_FRIEND_COMMENT (
                                       INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                       INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                       UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                                      UPDATE_DT DATETIME COMMENT '수정일시',
+                                      UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                       PRIMARY KEY (HOMPI_ID, WRITE_USER_ID)
 ) COMMENT='일촌평 관리';
 /**
@@ -536,7 +535,7 @@ CREATE TABLE HOMPI_DAILY_STATS (
                                    INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                    INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                    UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                                   UPDATE_DT DATETIME COMMENT '수정일시',
+                                   UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                    PRIMARY KEY (HOMPI_ID, DAY_STATS_DATE)
 ) COMMENT='홈피 일별 통계';
 /**
@@ -561,7 +560,7 @@ CREATE TABLE HOMPI_DIARY (
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                              UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME COMMENT '변경일시',
+                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                              PRIMARY KEY (DIARY_ID)
 ) COMMENT='홈피 다이어리';
 /**
@@ -586,7 +585,7 @@ CREATE TABLE HOMPI_DIARY_CONTENT (
                                      INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                      INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                      UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                     UPDATE_DT DATETIME COMMENT '변경일시',
+                                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                      PRIMARY KEY (CONTENTS_ID)
 ) COMMENT='홈피 다이어리 내용';
 /**
@@ -611,7 +610,7 @@ CREATE TABLE HOMPI_ALBUM (
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                              UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME COMMENT '변경일시',
+                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                              PRIMARY KEY (ALBUM_ID)
 ) COMMENT='미니홈피 사진첩';
 /**
@@ -637,7 +636,7 @@ CREATE TABLE HOMPI_ALBUM_CONTENT (
                                      INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                      INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                      UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                     UPDATE_DT DATETIME COMMENT '변경일시',
+                                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                      PRIMARY KEY (CONTENTS_ID)
 ) COMMENT='미니홈피 사진첩 내용';
 /**
@@ -662,7 +661,7 @@ CREATE TABLE HOMPI_BOARD (
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                              UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME COMMENT '변경일시',
+                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                              PRIMARY KEY (HOMPI_BOARD_ID)
 ) COMMENT='홈피 게시판';
 /**
@@ -686,7 +685,7 @@ CREATE TABLE HOMPI_BOARD_ATTACH (
                                     INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                     INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                     UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                                    UPDATE_DT DATETIME COMMENT '수정일시',
+                                    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                     PRIMARY KEY (HOMPI_BOARD_ATTACH_ID)
 ) COMMENT='게시판 첨부';
 /**
@@ -710,7 +709,7 @@ CREATE TABLE HOMPI_GUEST_BOOK (
                                   INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                   INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                   UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                  UPDATE_DT DATETIME COMMENT '변경일시',
+                                  UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                   PRIMARY KEY (GUEST_BOOK_ID)
 ) COMMENT='미니홈피 방명록';
 
@@ -733,16 +732,16 @@ CREATE TABLE MINIMI_BASIC (
                               USER_ID BIGINT NOT NULL COMMENT '회원 ID',
                               PRODUCT_ID BIGINT COMMENT '상품 ID',
                               FACE_DIRECTION_CODE VARCHAR(2) COMMENT '미니미 방향',
-                              X_POSITION INT COMMENT 'x축',
-                              Y_POSITION INT COMMENT 'y축',
-                              Z_POSITION INT COMMENT 'z축',
+                              X_POSITION FLOAT COMMENT 'x축',
+                              Y_POSITION FLOAT COMMENT 'y축',
+                              Z_POSITION FLOAT COMMENT 'z축',
                               MAIN_YN VARCHAR(1) COMMENT '대표 여부',
                               USE_YN VARCHAR(255) COMMENT '사용 여부',
                               REMARKS VARCHAR(500) COMMENT '비고',
                               INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                               INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                               UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                              UPDATE_DT DATETIME COMMENT '수정일시',
+                              UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                               PRIMARY KEY (MINIMI_ID)
 ) COMMENT='미니미 기본';
 
@@ -773,7 +772,7 @@ CREATE TABLE MINIROOM_BASIC (
                                 INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                 INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                 UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                UPDATE_DT DATETIME COMMENT '변경일시',
+                                UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                 PRIMARY KEY (MINIROOM_ID)
 ) COMMENT='미니룸 기본';
 /**
@@ -802,7 +801,7 @@ CREATE TABLE PRODUCT (
                          INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                          INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                          UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                         UPDATE_DT DATETIME COMMENT '수정일시',
+                         UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                          PRIMARY KEY (PRODUCT_ID)
 ) COMMENT='상품';
 /**
@@ -829,7 +828,7 @@ CREATE TABLE PRODUCT_PRICE (
                                INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                               UPDATE_DT DATETIME COMMENT '수정일시',
+                               UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                PRIMARY KEY (PRODUCT_ID, AVAIL_DAY)
 ) COMMENT='상품 가격';
 /**
@@ -861,7 +860,7 @@ CREATE TABLE BGM (
                      INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                      IMAGE_FILE_ATTACH_ID BIGINT NOT NULL COMMENT '이미지 파일 ID',
                      UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                     UPDATE_DT DATETIME COMMENT '변경일시',
+                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                      PRIMARY KEY (BGM_ID)
 ) COMMENT='배경음악';
 /**
@@ -890,7 +889,7 @@ CREATE TABLE BGM_PRICE (
                            INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                            INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                            UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                           UPDATE_DT DATETIME COMMENT '변경일시',
+                           UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                            PRIMARY KEY (BGM_ID, AVAIL_DAY)
 ) COMMENT='BGM 가격';
 /**
@@ -959,7 +958,7 @@ CREATE TABLE ORDER_BASIC (
                              REMARKS VARCHAR(500) COMMENT '비고',
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',     UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME COMMENT '변경일시',
+                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                              PRIMARY KEY (ORDER_ID)
 ) COMMENT='도토리 운용 이력';
 /**
@@ -989,7 +988,7 @@ CREATE TABLE ORDER_DETAIL (
                               REMARKS VARCHAR(500) COMMENT '비고',
                               INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                               INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',     UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                              UPDATE_DT DATETIME COMMENT '변경일시',
+                              UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                               PRIMARY KEY (ORDER_ID, ORDER_DETAIL_ID)
 ) COMMENT='도토리 운용 상세 이력';
 /**
@@ -1016,7 +1015,7 @@ CREATE TABLE ACORN_RECHARGE (
                                 REMARKS VARCHAR(500) COMMENT '비고',
                                 INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                 INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',     UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                                UPDATE_DT DATETIME COMMENT '수정일시',
+                                UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                                 PRIMARY KEY (RECHARGE_ID)
 ) COMMENT='도토리 충전 이력';
 
@@ -1047,7 +1046,7 @@ CREATE TABLE PAYMENT (
                          REMARKS VARCHAR(500) COMMENT '비고',
                          INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                          INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',     UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                         UPDATE_DT DATETIME COMMENT '수정일시',
+                         UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                          PRIMARY KEY (PAYMENT_ID)
 ) COMMENT='결제 상세 이력';
 /**
@@ -1077,7 +1076,7 @@ CREATE TABLE NOTICE (
                         REMARKS VARCHAR(500) COMMENT '비고',
                         INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                         INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',     UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                        UPDATE_DT DATETIME COMMENT '수정일시',
+                        UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                         PRIMARY KEY (NOTICE_ID)
 ) COMMENT='공지 및 알림';
 /**
@@ -1106,7 +1105,7 @@ CREATE TABLE BANNER (
                         REMARKS VARCHAR(500) COMMENT '비고',
                         INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                         INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',     UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
-                        UPDATE_DT DATETIME COMMENT '수정일시',
+                        UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                         PRIMARY KEY (BANNER_ID)
 ) COMMENT='배너';
 /**
@@ -1132,7 +1131,7 @@ CREATE TABLE NEWS_LOG (
                           INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                           INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                           UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                          UPDATE_DT DATETIME COMMENT '변경일시',
+                          UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                           PRIMARY KEY (LOG_ID)
 ) COMMENT='뉴스 API 이력';
 /**
@@ -1154,11 +1153,13 @@ CREATE TABLE WEATHER_LOG (
                              LOG_ID BIGINT AUTO_INCREMENT COMMENT '날씨 ID',
                              MESSAGE TEXT COMMENT '날씨 메세지',
                              CONTENTS TEXT COMMENT '날씨 내용',
+                             TEMPERATURE INT COMMENT '기온',
+                             RAIN DECIMAL(5,2) COMMENT '강수확률',
                              REMARKS VARCHAR(500) COMMENT '비고',
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                              UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME COMMENT '변경일시',
+                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                              PRIMARY KEY (LOG_ID)
 ) COMMENT='날씨 API';
 /**
@@ -1186,9 +1187,104 @@ CREATE TABLE FORTUNE_TELLING_LOG (
                                      INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                                      INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                                      UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                     UPDATE_DT DATETIME COMMENT '변경일시',
+                                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                      PRIMARY KEY (LOG_ID)
 ) COMMENT='운세 API';
 /**
 * ==============================================END==============================================
 */
+
+DELIMITER $$
+
+-- 공통 코드 이름 조회
+CREATE FUNCTION FN_COMMON_CODE_NAME (
+    p_CODE_KEY VARCHAR(100)
+) RETURNS VARCHAR(100)
+    DETERMINISTIC
+BEGIN
+    DECLARE v_CODE_NAME VARCHAR(100);
+
+    -- 조회 결과 없을 때 NULL 반환
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_CODE_NAME = NULL;
+
+    -- 파라미터 NULL 체크
+    IF p_CODE_KEY IS NULL THEN
+        RETURN NULL;
+END IF;
+
+    -- 데이터 조회
+SELECT CODE_NAME INTO v_CODE_NAME
+FROM COMMON_CODE
+WHERE CODE_KEY = p_CODE_KEY
+  AND USE_YN = 'Y';
+
+RETURN v_CODE_NAME;
+END$$
+
+-- 공통 코드 상세 이름 조회
+CREATE FUNCTION FN_COMMON_CODE_DETAIL_NAME (
+    p_CODE_KEY VARCHAR(100),
+    p_CODE_ID VARCHAR(100)
+) RETURNS VARCHAR(100)
+    DETERMINISTIC
+BEGIN
+    DECLARE v_CODE_NAME VARCHAR(100);
+
+    -- 조회 결과 없을 때 NULL 반환
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_CODE_NAME = NULL;
+
+    -- 파라미터 NULL 체크
+    IF p_CODE_KEY IS NULL OR p_CODE_ID IS NULL THEN
+        RETURN NULL;
+END IF;
+
+    -- 데이터 조회
+SELECT B.CODE_NAME INTO v_CODE_NAME
+FROM COMMON_CODE A
+         INNER JOIN COMMON_CODE_DETAIL B ON A.CODE_KEY = B.CODE_KEY
+WHERE A.CODE_KEY = p_CODE_KEY
+  AND B.CODE_ID = p_CODE_ID
+  AND A.USE_YN = 'Y'
+  AND B.USE_YN = 'Y';
+
+RETURN v_CODE_NAME;
+END$$
+
+-- 공통 코드 참조값 조회
+CREATE FUNCTION FN_COMMON_CODE_REF (
+    p_CODE_KEY VARCHAR(100),
+    p_CODE_ID VARCHAR(100),
+    p_REF_NO VARCHAR(1)
+) RETURNS VARCHAR(100)
+    DETERMINISTIC
+BEGIN
+    DECLARE v_CODE_REF VARCHAR(100);
+
+    -- 조회 결과 없을 때 NULL 반환
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_CODE_REF = NULL;
+
+    -- 파라미터 NULL 체크
+    IF p_CODE_KEY IS NULL OR p_CODE_ID IS NULL OR p_REF_NO IS NULL THEN
+        RETURN NULL;
+END IF;
+
+    -- 데이터 조회
+SELECT
+    CASE
+        WHEN p_REF_NO = '1' THEN B.CODE_REF_01
+        WHEN p_REF_NO = '2' THEN B.CODE_REF_02
+        WHEN p_REF_NO = '3' THEN B.CODE_REF_03
+        ELSE NULL
+        END
+INTO v_CODE_REF
+FROM COMMON_CODE A
+         INNER JOIN COMMON_CODE_DETAIL B ON A.CODE_KEY = B.CODE_KEY
+WHERE A.CODE_KEY = p_CODE_KEY
+  AND B.CODE_ID = p_CODE_ID
+  AND A.USE_YN = 'Y'
+  AND B.USE_YN = 'Y';
+
+RETURN v_CODE_REF;
+END$$
+
+DELIMITER ;

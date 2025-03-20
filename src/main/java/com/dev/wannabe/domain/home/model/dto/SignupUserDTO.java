@@ -2,8 +2,6 @@ package com.dev.wannabe.domain.home.model.dto;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 // 회원가입 시 전송받는 Data
 @Data
 public class SignupUserDTO {
@@ -19,7 +17,6 @@ public class SignupUserDTO {
 
     // USER_DETAIL
     private String friendMessageAvailYN; // 일촌 메시지 허용 여부
-    private String hompiUseYN; // 홈피 사용 여부
     private String confirmYN1; // 수집 동의 여부 1
     private String confirmYN2; // 수집 동의 여부 2
     private String confirmYN3; // 수집 동의 여부 3
