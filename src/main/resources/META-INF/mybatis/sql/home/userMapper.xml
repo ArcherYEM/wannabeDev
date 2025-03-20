@@ -33,13 +33,12 @@
 
     <insert id="saveUserDetail" parameterType="UserDetail">
         INSERT INTO USER_DETAIL (
-            USER_ID, FRIEND_MESSAGE_AVAIL_YN, HOMPI_USE_YN,
+            USER_ID, FRIEND_MESSAGE_AVAIL_YN,
             CONFIRM_YN_1, CONFIRM_YN_2, CONFIRM_YN_3,
             INSERT_USER_ID
         ) VALUES (
             #{userId},
             #{friendMessageAvailYN},
-            #{hompiUseYN},
             #{confirmYN1},
             #{confirmYN2},
             #{confirmYN3},
@@ -47,7 +46,6 @@
         )
         ON DUPLICATE KEY UPDATE
             FRIEND_MESSAGE_AVAIL_YN = #{friendMessageAvailYN},
-            HOMPI_USE_YN = #{hompiUseYN},
             CONFIRM_YN_1 = #{confirmYN1},
             CONFIRM_YN_2 = #{confirmYN2},
             CONFIRM_YN_3 = #{confirmYN3},
