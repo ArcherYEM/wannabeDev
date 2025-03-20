@@ -93,7 +93,7 @@
             </if>
     </select>
 
-    <select id="findUserDataByUserId" parameterType="Long" resultType="UserDataDTO">
+    <select id="findUserInfoByUserId" parameterType="Long" resultType="UserInfoDTO">
         SELECT EMAIL, PHONE_NO, NAME, GENDER_CODE, BIRTH_DATE
         FROM USER_BASIC
         WHERE USER_ID = #{userId}
