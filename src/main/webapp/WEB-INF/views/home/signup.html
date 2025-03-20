@@ -24,8 +24,9 @@
 
                 <p class="joinTitle">아이디</p>
                 <div class="joinInputWrap">
-                    <input type="text" id="signUpLoginId" placeholder="아이디 입력">
+                    <input type="text" id="loginId" placeholder="아이디 입력">
                     <a href="#" class="btn di small checkDuplicate" id="checkDuplicateLoginId">중복확인</a>
+                    <p class="checkMatch loginId"></p>
                 </div>
 
                 <p class="joinTitle">비밀번호</p>
@@ -35,8 +36,7 @@
                 <p class="joinTitle">비밀번호 확인</p>
                 <div class="joinInputWrap">
                     <input type="password" id="passwordChk" placeholder="비밀번호 확인">
-                    <p class="checkMatch failChk">비밀번호가 일치하지 않습니다.</p>
-                    <p class="checkMatch successChk">비밀번호가 일치합니다.</p>
+                    <p class="checkMatch pwd"></p>
                 </div>
 
                 <p class="joinTitle">이름</p>
@@ -78,12 +78,14 @@
                 <div class="joinInputWrap">
                     <input type="text" id="email" placeholder="이메일 입력">
                     <a href="#" class="btn di small checkDuplicate" id="checkDuplicateEmail">중복확인</a>
+                    <p class="checkMatch email"></p>
                 </div>
 
                 <p class="joinTitle">휴대폰번호</p>
                 <div class="joinInputWrap">
                     <input type="text" id="phoneNo" placeholder="휴대폰 번호 입력">
                     <a href="#" class="btn di small checkDuplicate" id="checkDuplicatePhoneNo">중복확인</a>
+                    <p class="checkMatch phoneNo"></p>
                 </div>
 
                 <div class="joinInputWrap btn" style="display: flex;">
