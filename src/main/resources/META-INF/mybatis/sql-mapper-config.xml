@@ -2,18 +2,18 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<!--Mybatis 설정 -->
+    <!--Mybatis 설정 -->
 
-	<settings>
-		<!-- 전통적인 데이터베이스 컬럼명 형태인 A_COLUMN을 CamelCase형태의 자바 프로퍼티명 형태인 aColumn으로 자동으로 매핑하도록 함 -->
-		<setting name="jdbcTypeForNull" value="VARCHAR" />
-		<setting name="callSettersOnNulls" value="true" />
-		<setting name="mapUnderscoreToCamelCase" value="true" />
-		<setting name="lazyLoadingEnabled" value="true" />
-		<setting name="aggressiveLazyLoading" value="false" />
-	</settings>
+    <settings>
+        <!-- 전통적인 데이터베이스 컬럼명 형태인 A_COLUMN을 CamelCase형태의 자바 프로퍼티명 형태인 aColumn으로 자동으로 매핑하도록 함 -->
+        <setting name="jdbcTypeForNull" value="VARCHAR"/>
+        <setting name="callSettersOnNulls" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
 
-	<typeAliases>
+    <typeAliases>
         <typeAlias alias="map" type="java.util.Map"/>
         <typeAlias alias="hashMap" type="java.util.HashMap"/>
 
@@ -32,15 +32,15 @@
 		<!--> miniroom <-->
 		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
 
-		<!--> DTO <-->
-		<!--> user <-->
-		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
-		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
-		<typeAlias alias="UserDataDTO" type="com.dev.wannabe.domain.home.model.dto.UserDataDTO"/>
-		<!--> login <-->
-		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
-		<!--> hompi <-->
+        <!--> DTO <-->
+        <!--> user <-->
+        <typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
+        <typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
+        <typeAlias alias="UserDataDTO" type="com.dev.wannabe.domain.home.model.dto.UserDataDTO"/>
+        <!--> login <-->
+        <typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
+        <!--> hompi <-->
 
-	</typeAliases>
+    </typeAliases>
 
 </configuration>

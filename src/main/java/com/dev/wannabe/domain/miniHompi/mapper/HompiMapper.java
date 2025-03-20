@@ -14,10 +14,12 @@ public interface HompiMapper {
 
     // HOMPI_CONFIG 저장
     void saveAllHompiConfig(HompiConfig hompiConfig);
+
     void saveHompiConfig(HompiConfig hompiConfig);
 
     // HOMPI_MENU 저장
     void saveAllHompiMenu(HompiMenu hompiMenu);
+
     void saveHompiMenu(HompiMenu hompiMenu);
 
     // HOMPI_DAILY_STATS
@@ -25,6 +27,7 @@ public interface HompiMapper {
 
     // userId로 hompiId 추출
     Long findByHompiIdByUserId(Long userId);
+
     Hompi findByHompiByUserId(Long userId);
 
 }

@@ -44,6 +44,7 @@
     clear: both;
     display: block;
 }
+
 /*메인비쥬얼 e*/
 
 /*메인비쥬얼 레프트 s*/
@@ -221,6 +222,7 @@
     height: 25px;
     margin-bottom: 10px;
 }
+
 /*메인비쥬얼 레프트 e*/
 
 /**오른쪽 서브뷰 관련**/
@@ -697,12 +699,12 @@ a[class*="btn"] {
     visibility: hidden;
 }
 
-#mood {
+#moodDiv {
     margin-top: 10px;
     box-sizing: border-box;
 }
 
-#mood select {
+#moodDiv {
     all: initial;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -721,18 +723,29 @@ a[class*="btn"] {
     border: 1px solid #aaa;
     border-radius: 0.5em;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+    margin-top: 10px;
 }
 
-#mood select:hover {
+#moodDiv select:hover {
     border-color: #888;
 }
 
-#mood select:focus {
+#moodDiv select:focus {
     border-color: #aaa;
     box-shadow: 0 0 1px 3px orange;
     box-shadow: 0 0 0 3px -moz-mac-focusring;
     color: #222;
     outline: none;
+}
+
+select#mood {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+#moodDiv label {
+    width: 100%;
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .commentList {
@@ -787,6 +800,7 @@ a[class*="btn"] {
     top: 400px;
     left: 224px;
 }
+
 /*메인 스프링 e*/
 
 #subVieMain {
