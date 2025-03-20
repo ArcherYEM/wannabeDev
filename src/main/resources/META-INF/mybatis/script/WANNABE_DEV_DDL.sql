@@ -211,7 +211,6 @@ CREATE TABLE USER_BASIC (
 CREATE TABLE USER_DETAIL (
                              USER_ID BIGINT COMMENT '회원ID',
                              FRIEND_MESSAGE_AVAIL_YN VARCHAR(1) COMMENT '일촌 쪽지 허용 여부',
-                             HOMPI_USE_YN VARCHAR(1) COMMENT '홈피 사용 여부',
                              CONFIRM_YN_1 VARCHAR(1) COMMENT '수집동의 여부 1',
                              CONFIRM_YN_2 VARCHAR(1) COMMENT '수집동의 여부 2',
                              CONFIRM_YN_3 VARCHAR(1) COMMENT '수집동의 여부 3',
