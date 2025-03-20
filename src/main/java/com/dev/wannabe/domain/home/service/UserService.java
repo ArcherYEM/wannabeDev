@@ -77,7 +77,6 @@ public class UserService {
             UserDetail newUserDetail = UserDetail.builder()
                     .userId(userId)
                     .friendMessageAvailYN(signupUser.getFriendMessageAvailYN())
-                    .hompiUseYN(signupUser.getHompiUseYN())
                     .confirmYN1(signupUser.getConfirmYN1())
                     .confirmYN2(signupUser.getConfirmYN2())
                     .confirmYN3(signupUser.getConfirmYN3())

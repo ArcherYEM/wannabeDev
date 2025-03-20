@@ -7,7 +7,6 @@
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="/static/js/login.js"></script>
     <script src="/static/js/home/newsSection.js"></script>
 </head>
 <body>
@@ -48,6 +47,7 @@
                             </ul>
                         </div>
                     </div>
+                    <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
                 </div>
                 <!--login e-->
                 <div class="mainTopCenter">
@@ -225,7 +225,9 @@
                 <div class="mainBotRight">
                     <div class="top">
                         <p class="mainTitleText">오늘의 운세</span></p>
-                        <p class="todayLucky">퍼블 하기에 디자인이 겁나 꼬인 날입니다.</p>
+                        <div class="todayLuckyFrame">
+                            <p class="todayLucky"></p>
+                        </div>
                     </div>
                     <div class="bot">
                         <p class="mainTitleText">영화추천</span></p>
@@ -249,6 +251,7 @@
     </div>
 </div>
 <script src="/static/js/login.js"></script>
+<script src="/static/js/fortune.js"></script>
 <script src="/static/js/minihompiMain.js"></script>
 </body>
 </html>
