@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.controller;
+package com.dev.wannabe.domain.miniHompi.controller;
 
 import com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO;
 import com.dev.wannabe.domain.minihompi.service.BgmService;

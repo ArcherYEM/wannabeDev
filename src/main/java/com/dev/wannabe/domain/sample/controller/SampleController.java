@@ -68,12 +68,33 @@ public class SampleController {
     }
 
     @GetMapping("/mini-hompi")
-    public String miniHompi() {
+    public String minihompi() {
         return "sample/main";
     }
 
     @GetMapping("/main-page")
     public String mainPage() {
         return "home/main";
+    }
+
+    /*쪽지창 관련*/
+    @GetMapping("/popupMessage")
+    public String popupMessage() {
+        return "common/popup/popupMessage";
+    }
+
+    @GetMapping("/popupSendMessage")
+    public String popupSendMessage() {
+        return "common/popup/inc/popupSendMessage";
+    }
+
+    @GetMapping("/popupReciveMessageBox")
+    public String popupReciveMessageBox() {
+        return "common/popup/inc/popupReciveMessageBox";
+    }
+
+    @GetMapping("/popupSendMessageBox")
+    public String popupSendMessageBox() {
+        return "common/popup/inc/popupSendMessageBox";
     }
 }

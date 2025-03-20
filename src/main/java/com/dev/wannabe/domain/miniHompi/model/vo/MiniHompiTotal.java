@@ -3,7 +3,7 @@ package com.dev.wannabe.domain.minihompi.model.vo;
 import lombok.Data;
 
 @Data
-public class MiniHompiTotal {
+public class MinihompiTotal {
 
     private Long userId; //유저 ID
 
@@ -32,6 +32,12 @@ public class MiniHompiTotal {
     private String useYN; // 사용 여부
 
     private Long miniroomId; //미니룸 ID
+
+    private String profileImage; //프로필 사진
+    private String introduction; //소개글
+    private String friendsCommentYn; //일촌평 공개
+    private String mood; //기분
+    private String hompiLang; //홈피 소개글 언어
 
 
 }

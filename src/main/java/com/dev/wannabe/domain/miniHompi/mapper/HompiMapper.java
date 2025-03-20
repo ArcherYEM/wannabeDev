@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.minihompi.mapper;
 
+import com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiConfig;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats;
@@ -14,17 +15,22 @@ public interface HompiMapper {
 
     // HOMPI_CONFIG 저장
     void saveAllHompiConfig(HompiConfig hompiConfig);
+
     void saveHompiConfig(HompiConfig hompiConfig);
 
     // HOMPI_MENU 저장
     void saveAllHompiMenu(HompiMenu hompiMenu);
+
     void saveHompiMenu(HompiMenu hompiMenu);
 
     // HOMPI_DAILY_STATS
     void saveHompiDailyStats(HompiDailyStats hompiDailyStats);
 
     // userId로 hompiId 추출
-    Long findByHompiIdByUserId(Long userId);
-    Hompi findByHompiByUserId(Long userId);
+    Long findHompiIdByUserId(Long userId);
+
+    Hompi findHompiByUserId(Long userId);
+
+    HompiInfoDTO findHompiInfoByUserId(Long userId);
 
 }

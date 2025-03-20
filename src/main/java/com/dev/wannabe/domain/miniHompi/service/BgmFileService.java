@@ -19,12 +19,10 @@ public class BgmFileService {
         File mp3File = new File(audioFolderPath);   // audioFolderPath 경로의 File 가져오기
 
         // 파일 존재 여부 검증 코드
-        if(!mp3File.exists()){
+        if (!mp3File.exists()) {
             System.out.println("해당 경로의 MP3파일은 존재하지 않습니다.");
             return;
         }
-
-
 
 
     }

@@ -1,24 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.MiniHompiMapper">
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.MinihompiMapper">
 
-    <select id="findMyHompi" parameterType="map"
-            resultType="com.dev.wannabe.domain.minihompi.model.vo.MiniHompiTotal">
-        SELECT hp.HOMPI_ID, hp.HOMPI_URL, hp.HOMPI_TITLE, hp.OWNER_USER_ID, hds.TODAY_CNT, hp.TOTAL_CNT
+    <select id="findMyhompi" parameterType="map"
+            resultType="com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal">
+
+        SELECT
+        hp.HOMPI_ID,
+        hp.HOMPI_URL,
+        hp.HOMPI_TITLE,
+        hp.OWNER_USER_ID,
+        IFNULL(hds.TODAY_CNT, 0) AS TODAY_CNT,
+        hp.TOTAL_CNT,
+        hc.HOMPI_CONFIG_CODE,
+        hc.HOMPI_CONFIG_CONTENT,
+        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '01' THEN hc.HOMPI_CONFIG_CONTENT END) AS PROFILE_IMAGE,
+        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '02' THEN hc.HOMPI_CONFIG_CONTENT END) AS INTRODUCTION,
+        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '03' THEN hc.HOMPI_CONFIG_CONTENT END) AS FRIENDS_COMMENT_YN,
+        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '04' THEN hc.HOMPI_CONFIG_CONTENT END) AS MOOD,
+        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '05' THEN hc.HOMPI_CONFIG_CONTENT END) AS HOMPI_LANG
         FROM HOMPI hp
-        INNER JOIN HOMPI_DAILY_STATS hds ON hp.HOMPI_ID = hds.HOMPI_ID
-        WHERE 1 = 1
+        LEFT OUTER JOIN HOMPI_DAILY_STATS hds
+        ON hp.HOMPI_ID = hds.HOMPI_ID
         AND hds.DAY_STATS_DATE = CURDATE()
-        <if test="hompiId == userId">
-            AND hp.HOMPI_ID = #{hompiId}
-            AND hp.OWNER_USER_ID = #{userId}
-        </if>
-        <if test="userId == null or userId != hompiId ">
-            AND hp.HOMPI_ID = #{hompiId}
-
-        </if>
-
+        LEFT OUTER JOIN HOMPI_CONFIG hc
+        ON hp.HOMPI_ID = hc.HOMPI_ID
+        <where>
+            <if test="hompiId == userId">
+                hp.HOMPI_ID = #{hompiId}
+                AND hp.OWNER_USER_ID = #{userId}
+            </if>
+            <if test="userId == null or userId != hompiId ">
+                hp.HOMPI_ID = #{hompiId}
+            </if>
+        </where>
     </select>
 
+    <update id="updateTitle" parameterType="map">
+        UPDATE wannabe_dev.HOMPI
+        SET HOMPI_TITLE= #{title}
+        WHERE HOMPI_ID = #{hompiId}
+    </update>
+
+    <update id="moodSave" parameterType="map">
+        UPDATE wannabe_dev.HOMPI_CONFIG
+        SET HOMPI_CONFIG_CONTENT = #{mood}
+        WHERE HOMPI_CONFIG_CODE = '04'
+          AND HOMPI_ID = #{hompiId}
+
+    </update>
 </mapper>
