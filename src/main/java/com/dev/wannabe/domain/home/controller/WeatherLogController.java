@@ -1,7 +1,7 @@
 package com.dev.wannabe.domain.home.controller;
 
-import com.dev.wannabe.domain.home.model.weather.vo.WeatherLog;
-import com.dev.wannabe.domain.home.service.weather.WeatherLogService;
+import com.dev.wannabe.domain.home.model.vo.WeatherLog;
+import com.dev.wannabe.domain.home.service.WeatherLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

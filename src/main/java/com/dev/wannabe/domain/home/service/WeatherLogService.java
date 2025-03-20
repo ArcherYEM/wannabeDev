@@ -1,8 +1,8 @@
-package com.dev.wannabe.domain.home.service.weather;
+package com.dev.wannabe.domain.home.service;
 
-import com.dev.wannabe.domain.home.mapper.weather.WeatherLogMapper;
-import com.dev.wannabe.domain.home.model.weather.dto.WeatherLogDTO;
-import com.dev.wannabe.domain.home.model.weather.vo.WeatherLog;
+import com.dev.wannabe.domain.home.mapper.WeatherLogMapper;
+import com.dev.wannabe.domain.home.model.dto.WeatherLogDTO;
+import com.dev.wannabe.domain.home.model.vo.WeatherLog;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
