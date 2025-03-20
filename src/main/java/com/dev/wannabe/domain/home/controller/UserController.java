@@ -1,12 +1,15 @@
-package com.dev.wannabe.domain.home.controller.user;
+package com.dev.wannabe.domain.home.controller;
 
 
-import com.dev.wannabe.domain.home.model.user.dto.SignupUserDTO;
-import com.dev.wannabe.domain.home.service.user.UserService;
+import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
+import com.dev.wannabe.domain.home.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor

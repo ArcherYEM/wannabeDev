@@ -1,10 +1,10 @@
-package com.dev.wannabe.domain.home.service.login;
+package com.dev.wannabe.domain.home.service;
 
-import com.dev.wannabe.domain.home.mapper.login.LoginMapper;
-import com.dev.wannabe.domain.home.mapper.user.UserMapper;
-import com.dev.wannabe.domain.home.model.login.dto.LoginDataDTO;
-import com.dev.wannabe.domain.home.model.login.vo.LoginLog;
-import com.dev.wannabe.domain.home.model.user.dto.UserDataDTO;
+import com.dev.wannabe.domain.home.mapper.LoginMapper;
+import com.dev.wannabe.domain.home.mapper.UserMapper;
+import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
+import com.dev.wannabe.domain.home.model.vo.LoginLog;
+import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;

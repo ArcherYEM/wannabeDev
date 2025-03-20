@@ -1,12 +1,15 @@
-package com.dev.wannabe.domain.home.controller.news;
+package com.dev.wannabe.domain.home.controller;
 
-import com.dev.wannabe.domain.home.model.news.dto.GoogleNewsDTO;
-import com.dev.wannabe.domain.home.service.news.GoogleNewsService;
+import com.dev.wannabe.domain.home.model.dto.GoogleNewsDTO;
+import com.dev.wannabe.domain.home.service.GoogleNewsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 

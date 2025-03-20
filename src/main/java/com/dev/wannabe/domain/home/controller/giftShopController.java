@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.giftShop.controller;
+package com.dev.wannabe.domain.home.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
