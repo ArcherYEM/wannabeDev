@@ -215,3 +215,15 @@ function onpneMessage() {
         '쪽지 보내기',
         'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }
+
+/** 쪽지 팝업창 설정 **/
+function openPopupMessage() {
+    var popupW = 650;
+    var popupH = 650;
+    var left = Math.ceil((window.screen.width - popupW) / 2);
+    var top = Math.ceil((window.screen.height - popupH) / 2);
+
+    var popup = window.open('/sample/popupMessage',
+        '쪽지 보내기',
+        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
+}

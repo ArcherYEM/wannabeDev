@@ -90,7 +90,6 @@ div#popupMessageMain {
 }
 
 div#popupMessageMain > #popupMessageMainHeader {
-
     margin-bottom: 30px;
     padding-left: 15px;
 }
@@ -100,7 +99,7 @@ textarea {
     width: 435px;
     height: 350px;
     margin-bottom: 30px;
-    border: 3px solid #f0f0f0;
+    border: 2px solid #989797;
     border-radius: 0.5em;
     resize: none;
 }
@@ -116,4 +115,66 @@ div#popupMessageSendBtnArea {
 
 div#popupMessageMainArea button#MessageSendBtn {
     margin-right: 10px;
+}
+
+/*페이지네이션 관련 css*/
+.page {
+    text-align: center;
+    width: 5%;
+}
+
+
+.pagination {
+    list-style: none;
+    display: inline-block;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.pagination li {
+    display: inline;
+    text-align: center;
+}
+
+.pagination a {
+    float: left;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 5px 12px;
+    color: #96a0ad;
+    line-height: 1.5;
+}
+
+.last {
+    margin-right: 15px;
+}
+
+.last:hover, .left:hover, .right:hover {
+    color: #2e9cdf;
+}
+
+.pagination a.active {
+    cursor: default;
+    color: #ffffff;
+
+    outline: none;
+}
+
+.modal .page:hover {
+    background-color: #2e9cdf;
+    color: #ffffff;
+}
+
+.modal .page.active, .modal .page:active {
+    background-color: #2e9cdf;
+    cursor: pointer;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #007bff;
 }
