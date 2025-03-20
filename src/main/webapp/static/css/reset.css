@@ -28,7 +28,7 @@ footer, header, hgroup, menu, nav, section {margin: 0; padding: 0; border: 0;}
 article, aside, details, figcaption, figure, dialog,
 footer, header, hgroup, menu, nav, section {display: block;}
 html, body {height: 100%; -webkit-text-size-adjust: 100%;}
-body {font-size: 12px;font-family: "Noto Sans KR",  "����", dotum, sans-serif, Tahoma; color:#333; line-height:1.5; letter-spacing:-0.25px;}
+body {font-size: 12px;font-family: "Noto Sans KR",  "돋음", dotum, sans-serif, Tahoma; color:#333; line-height:1.5; letter-spacing:-0.25px;}
 
 :before,:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html {/*overflow-y:scroll;*/font-size: 12px;}
@@ -40,24 +40,24 @@ a:visited { text-decoration: none; }
 a:hover {  text-decoration: none; }
 a:active {  text-decoration: none; }
 a:focus { text-decoration: none; }
-select, input, textarea { font-size: 100%;vertical-align: middle ; font-family:"Noto Sans KR",  "����", dotum, sans-serif, Tahoma;}
+select, input, textarea { font-size: 100%;vertical-align: middle ; font-family:"Noto Sans KR",  "돋음", dotum, sans-serif, Tahoma;}
 input {margin: 0;padding: 0;outline: none;}
 ol, ul {list-style: none;}
 label {vertical-align:middle;}
 legend, caption {position:relative; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; text-indent:-9999px;}
 img {vertical-align: middle;image-rendering: -webkit-optimize-contrast;}
 
-/* �߰��κ� Start */
+/* 추가부분 Start */
 em,address {font-style:normal;}
 table {clear:both;border-collapse:collapse;border-spacing:0px;border:0;}
 /*table caption {display:none;}*/
 table th {font-weight: normal !important;}
-/* �߰��κ� End */
+/* 추가부분 End */
 
-/*���ټ����*/
+/*접근성향상*/
 .ir {text-indent: -9999px; position: fixed; top: -9999px; font-size: 1px; width: 1px; height: 1px; opacity: 0}
 
-/* Form��� �⺻���� */
+/* Form요소 기본설정 */
 button {cursor: pointer; border: 0}
 button,input {overflow: visible}
 button,select {text-transform: none}
@@ -69,15 +69,15 @@ button::-moz-focus-inner,
     border-style: none;
     padding: 0
 }
-input, textarea, select, button{font-size:1rem; font-family: 'NotoKR-Regular', "Noto Sans KR",  "����", dotum, sans-serif, Tahoma; color:#333;}
+input, textarea, select, button{font-size:1rem; font-family: 'NotoKR-Regular', "Noto Sans KR",  "돋음", dotum, sans-serif, Tahoma; color:#333;}
 input:disabled, select:disabled { background-color:#ddd; }
 input, select{vertical-align: middle; color:#666;}
 select {
     border:1px solid #ccc;
-    -webkit-appearance:none; /* ũ�� ȭ��ǥ ���ֱ� */
-    -moz-appearance:none; /* ���̾����� ȭ��ǥ ���ֱ� */
-    appearance:none; /* ȭ��ǥ ���ֱ� */
-    background: #fff url('../images/common/select-arrow-down.png') no-repeat top -8px right 3px;
+    -webkit-appearance:none; /* 크롬 화살표 없애기 */
+    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+    appearance:none; /* 화살표 없애기 */
+    background: #fff url('../images/select-arrow-down.png') no-repeat top -8px right 3px;
     height: 20px;
     padding: 0 40px 0 10px;
     box-sizing: border-box;
@@ -85,7 +85,7 @@ select {
     letter-spacing: -1px;
 }
 select:focus {outline: 1px solid;/* outline: none;*//*border-color: #44465c*/}
-select::-ms-expand {display: none;            /* ȭ��ǥ ���ֱ� for IE10, 11*/}
+select::-ms-expand {display: none;            /* 화살표 없애기 for IE10, 11*/}
 
 input[type=radio], input[type=checkbox] {border:0px;vertical-align: middle;box-sizing: border-box;padding: 0}
 input[type=button] {padding:0 10px;}
@@ -132,7 +132,7 @@ textarea:focus {
 :-ms-input-placeholder {color: #6c6d73}
 ::-ms-input-placeholder { color: #6c6d73}
 
-/* �����Ӻи�*/
+/* 공통약속분모*/
 .hid, .hidden {position: absolute;width: 0;height: 0;visibility: hidden;font-size: 0;line-height: 0; top:-9999px}
 .hide{display:none;}
 .text-placeholder{ color: #777; }
@@ -158,7 +158,7 @@ hr { display:none; }
 .alignL{text-align: left !important;}
 .alignR{text-align: right !important;}
 
-/*��Ÿ*/
+/*기타*/
 table {width: 100%; margin: 0; border: 0; table-layout: fixed; border-collapse: collapse; empty-cells: show}
 .table caption {position: absolute; overflow: hidden; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; clip: rect(0,0,0,0);}
 /*table caption { overflow: hidden; width: 0; height: 0; font-size: 0; line-height: 0}*/
@@ -255,7 +255,7 @@ table {width: 100%; margin: 0; border: 0; table-layout: fixed; border-collapse: 
 .mb65{margin-bottom:65px !important; }
 .mb80{margin-bottom:80px !important; }
 
-/*============== ��Ʈ, ��ƮĮ��, �ؽ�Ʈ����, ����Į�� ���� s ==============*/
+/*============== 폰트, 폰트칼라, 텍스트정렬, 보더칼라 관련 s ==============*/
 .va-t {vertical-align: top !important}
 .va-m {vertical-align: middle !important}
 .va-b {vertical-align: bottom !important}
@@ -313,9 +313,9 @@ table {width: 100%; margin: 0; border: 0; table-layout: fixed; border-collapse: 
     overflow: hidden
 }
 
-/*===================��Ʈ, ��ƮĮ��, �ؽ�Ʈ����, ����Į�� ���� e=====================*/
+/*===================폰트, 폰트칼라, 텍스트정렬, 보더칼라 관련 e=====================*/
 
-/*==================����, ���� ����======================*/
+/*==================넓이, 높이 시작======================*/
 .w10pc {width: 10% !important}
 .w20pc {width: 20% !important}
 .w25pc {width: 25% !important}
@@ -491,7 +491,6 @@ table {width: 100%; margin: 0; border: 0; table-layout: fixed; border-collapse: 
 .h450px {height: 450px !important}
 .h500px {height: 500px !important}
 .h-auto {height: auto !important}
-
 
 *::-webkit-scrollbar {
     width: 5px;
