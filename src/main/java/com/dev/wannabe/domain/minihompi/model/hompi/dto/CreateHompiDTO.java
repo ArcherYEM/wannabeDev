@@ -9,7 +9,6 @@ public class CreateHompiDTO {
 
     // Hompi
     private Long userId;
-    private String hompiURL;
     private String hompiTitle;
 
 }

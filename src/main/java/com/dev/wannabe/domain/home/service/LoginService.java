@@ -5,9 +5,8 @@ import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
 import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
-import com.dev.wannabe.domain.minihompi.mapper.hompi.HompiMapper;
+import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi;
 import com.dev.wannabe.domain.minihompi.service.hompi.HompiService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
@@ -57,7 +56,7 @@ public class LoginService {
 
             HttpSession session = request.getSession(true);
             session.setAttribute("userData", createUserData(loginLog));
-            session.setMaxInactiveInterval(60 * 60); // 단위 : 초
+            session.setMaxInactiveInterval(60 * 60); // 단위 : 초 -> null point exception
 
             log.info("login 성공 user ID {}", userId);
             log.info("클라이언트 IP: {}", accessIp);
