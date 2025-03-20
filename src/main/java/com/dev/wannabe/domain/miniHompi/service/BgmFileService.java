@@ -1,6 +1,5 @@
 package com.dev.wannabe.domain.minihompi.service;
 
-import com.dev.wannabe.domain.minihompi.mapper.BgmMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import java.io.File;
 @RequiredArgsConstructor
 public class BgmFileService {
 
-    private final BgmMapper bgmMapper;
     private final String audioFolderPath = "src/main/resources/static/audio";
 
     @Scheduled(fixedRate = 30000)
