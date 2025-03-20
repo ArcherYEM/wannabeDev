@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.hompi.HompiMapper">
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.HompiMapper">
     <insert id="saveHompi" parameterType="Hompi">
         INSERT INTO HOMPI (
             HOMPI_URL, HOMPI_TITLE, OWNER_USER_ID,
@@ -103,7 +103,7 @@
         VALUES (
             #{hompiId},
             #{dayStatsDate},
-            #{t
+            0,
             #{insertUserId}
         )
         ON DUPLICATE KEY UPDATE
@@ -111,15 +111,21 @@
             UPDATE_USER_ID = #{updateUserId}
     </insert>
 
-    <select id="findByHompiIdByUserId" parameterType="Long">
+    <select id="findHompiIdByUserId" parameterType="Long">
         SELECT HOMPI_ID
         FROM HOMPI
         WHERE OWNER_USER_ID = #{userId}
     </select>
 
-    <select id="findByHompiByUserId" parameterType="Long">
+    <select id="findHompiByUserId" parameterType="Long">
         SELECT HOMPI_ID, HOMPI_URL, HOMPI_TITLE, OWNER_USER_ID,
                INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT
+        FROM HOMPI
+        WHERE OWNER_USER_ID = #{userId}
+    </select>
+    
+    <select id="findHompiInfoByUserId" parameterType="Long" resultType="HompiInfoDTO">
+        SELECT HOMPI_ID, HOMPI_URL, HOMPI_TITLE
         FROM HOMPI
         WHERE OWNER_USER_ID = #{userId}
     </select>

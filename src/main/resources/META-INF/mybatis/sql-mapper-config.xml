@@ -2,18 +2,18 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<!--Mybatis 설정 -->
+    <!--Mybatis 설정 -->
 
-	<settings>
-		<!-- 전통적인 데이터베이스 컬럼명 형태인 A_COLUMN을 CamelCase형태의 자바 프로퍼티명 형태인 aColumn으로 자동으로 매핑하도록 함 -->
-		<setting name="jdbcTypeForNull" value="VARCHAR" />
-		<setting name="callSettersOnNulls" value="true" />
-		<setting name="mapUnderscoreToCamelCase" value="true" />
-		<setting name="lazyLoadingEnabled" value="true" />
-		<setting name="aggressiveLazyLoading" value="false" />
-	</settings>
+    <settings>
+        <!-- 전통적인 데이터베이스 컬럼명 형태인 A_COLUMN을 CamelCase형태의 자바 프로퍼티명 형태인 aColumn으로 자동으로 매핑하도록 함 -->
+        <setting name="jdbcTypeForNull" value="VARCHAR"/>
+        <setting name="callSettersOnNulls" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
 
-	<typeAliases>
+    <typeAliases>
         <typeAlias alias="map" type="java.util.Map"/>
         <typeAlias alias="hashMap" type="java.util.HashMap"/>
 
@@ -24,21 +24,29 @@
 		<typeAlias alias="UserRole" type="com.dev.wannabe.domain.home.model.vo.UserRole"/>
 		<!--> login <-->
 		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
+		<!--> friend <-->
+		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.minihompi.model.vo.FriendMessage"/>
 		<!--> hompi <-->
-		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi"/>
-		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiConfig"/>
-		<typeAlias alias="HompiMenu" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiMenu"/>
-		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiDailyStats"/>
+		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.vo.Hompi"/>
+		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.vo.HompiConfig"/>
+		<typeAlias alias="HompiMenu" type="com.dev.wannabe.domain.minihompi.model.vo.HompiMenu"/>
+		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats"/>
+		<!--> miniroom <-->
+		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
 
 		<!--> DTO <-->
 		<!--> user <-->
 		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
 		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
-		<typeAlias alias="UserDataDTO" type="com.dev.wannabe.domain.home.model.dto.UserDataDTO"/>
+		<typeAlias alias="UserInfoDTO" type="com.dev.wannabe.domain.home.model.dto.UserInfoDTO"/>
 		<!--> login <-->
 		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
+		<!--> friend <-->
 		<!--> hompi <-->
+		<typeAlias alias="HompiInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO"/>
+		<!--> miniroom <-->
 
+		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>
 	</typeAliases>
 
 </configuration>

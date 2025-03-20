@@ -4,11 +4,9 @@ import com.dev.wannabe.domain.home.mapper.LoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
-import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
-import com.dev.wannabe.domain.minihompi.mapper.hompi.HompiMapper;
-import com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO;
-import com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi;
-import com.dev.wannabe.domain.minihompi.service.hompi.HompiService;
+import com.dev.wannabe.domain.home.model.dto.UserInfoDTO;
+import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
+import com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +28,6 @@ public class LoginService {
     private final LoginMapper loginMapper;
     private final HompiMapper hompiMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final HompiService hompiService;
 
     @Transactional
     public Boolean login(LoginDataDTO loginData) {
@@ -38,7 +35,6 @@ public class LoginService {
             HttpServletRequest request = SessionUtil.getRequest();
 
             if (request == null) {
-                log.error("session get request null 반환");
                 return false;
             }
 
@@ -57,15 +53,11 @@ public class LoginService {
 
             HttpSession session = request.getSession(true);
             session.setAttribute("userData", createUserData(loginLog));
-            session.setMaxInactiveInterval(60 * 60); // 단위 : 초
-
-            log.info("login 성공 user ID {}", userId);
-            log.info("클라이언트 IP: {}", accessIp);
+            session.setMaxInactiveInterval(60 * 60); // 단위 : 초 -> null point exception
 
             loginMapper.saveLoginLog(loginLog);
             return true;
         } catch (Exception e) {
-            log.error("로그인 에러 {}", e.getMessage());
             return false;
         }
     }
@@ -73,27 +65,31 @@ public class LoginService {
     @Transactional
     public Boolean logout() {
         try {
-            HttpSession session = SessionUtil.getSession();
-
-            Long userId = (Long) session.getAttribute("userId");
+            HttpServletRequest request = SessionUtil.getRequest();
+            SessionUserDTO sessionUser = getSessionUserData(request);
 
             LoginLog loginLog = LoginLog.builder()
-                    .accessIp(session.getAttribute("accessIp").toString())
-                    .userId(userId)
+                    .accessIp(sessionUser.getAccessIp())
+                    .userId(sessionUser.getUserId())
                     .logoutDt(LocalDateTime.now())
-                    .updateUserId(userId)
+                    .updateUserId(sessionUser.getUserId())
                     .build();
             loginMapper.saveLoginLog(loginLog);
 
+            HttpSession session = SessionUtil.getSession();
             if (session != null) {
+                session.removeAttribute("userData");
                 session.invalidate();
             }
-            log.info("logout 성공");
             return true;
         } catch (Exception e) {
-            log.error("로그아웃 에러 {}", e.getMessage());
+            log.error("로그아웃 실패 {}", e.getMessage());
             return false;
         }
+    }
+
+    public SessionUserDTO getSessionUserData(HttpServletRequest request) {
+        return (SessionUserDTO) request.getSession().getAttribute("userData");
     }
 
     private Boolean authenticate(LoginDataDTO loginData) {
@@ -101,28 +97,31 @@ public class LoginService {
         return passwordEncoder.matches(loginData.getPassword(), storedPassword);
     }
 
+    // 클라이언트 ip 가져오기
     private String getAccessIp(HttpServletRequest request) {
-        String ip = request.getRemoteAddr();
-        return ip.split(",")[0];
+        String ip = request.getHeader("x-forwarded-for");
+
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+
+        if ("0:0:0:0:0:0:0:1".equals(ip)){
+            ip = "127.0.0.1";
+        }
+        return ip;
     }
 
     private SessionUserDTO createUserData(LoginLog loginLog) {
 
-        UserDataDTO userData = userMapper.findUserDataByUserId(loginLog.getUserId());
-        HompiInfoDTO hompiInfo = hompiService.readHompiInfoByUserId(loginLog.getUserId());
-
+        UserInfoDTO userInfo = userMapper.findUserInfoByUserId(loginLog.getUserId());
+        HompiInfoDTO hompiInfo = hompiMapper.findHompiInfoByUserId(loginLog.getUserId());
         return SessionUserDTO.builder()
                 .accessIp(loginLog.getAccessIp())
                 .userId(loginLog.getUserId())
-                .email(userData.getEmail())
-                .phoneNo(userData.getPhoneNo())
-                .name(userData.getName())
-                .genderCode(userData.getGenderCode())
-                .birthDate(userData.getBirthDate())
+                .name(userInfo.getName())
                 .hompiId(hompiInfo.getHompiId())
                 .hompiURL(hompiInfo.getHompiURL())
                 .hompiTitle(hompiInfo.getHompiTitle())
-                .miniroomId(0L)
                 .build();
     }
 }

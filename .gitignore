@@ -71,3 +71,15 @@ replay_pid*
 application-apiKey.yml
 
 # End of https://www.toptal.com/developers/gitignore/api/java
+/conf/Catalina/localhost/ROOT.xml
+/conf/catalina.policy
+/conf/catalina.properties
+/conf/context.xml
+/conf/jaspic-providers.xml
+/conf/jaspic-providers.xsd
+/conf/logging.properties
+/conf/server.xml
+/conf/tomcat-users.xml
+/conf/tomcat-users.xsd
+/conf/web.xml
+/logs/localhost_access_log.2025-03-19.txt
