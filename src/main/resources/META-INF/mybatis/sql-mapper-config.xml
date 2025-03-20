@@ -46,6 +46,7 @@
 		<typeAlias alias="HompiInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO"/>
 		<!--> miniroom <-->
 
+		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>
 	</typeAliases>
 
 </configuration>

@@ -2,56 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.BgmMapper">
-
-
-    <select id="findById" resultType="com.dev.wannabe.domain.minihompi.model.vo.Bgm">
-        SELECT id
-             , bgm_file_attach_id
-             , image_file_attach_id
-             , bgm_name
-             , artist
-             , lyrics
-             , genre_code
-             , bgm_length
-             , use_yn
-             , remarks
-             , insert_user_id
-             , insert_dt
-             , update_user_id
-             , update_dt
-        FROM bgm
-        WHERE id = #{id}
+    <select id="findOwnerBgmByOwnerId" parameterType="Long">
+        SELECT
     </select>
-
-    <select id="findAll" resultType="com.dev.wannabe.domain.minihompi.model.vo.Bgm">
-        SELECT id
-             , bgm_file_attach_id
-             , image_file_attach_id
-             , bgm_name
-             , artist
-             , lyrics
-             , genre_code
-             , bgm_length
-             , use_yn
-             , remarks
-             , insert_user_id
-             , insert_dt
-             , update_user_id
-             , update_dt
-        FROM bgm
-    </select>
-
-    <update id="updateBgm">
-        UPDATE BGM
-        SET BGM_NAME       = #{updateBgmDto.bgmName},
-            ARTIST         = #{updateBgmDto.artist},
-            LYRICS         = #{updateBgmDto.lyrics},
-            GENRE_CODE     = #{updateBgmDto.genreCode},
-            BGM_LENGTH     = #{updateBgmDto.bgmLength},
-            USE_YN         = #{updateBgmDto.useYn},
-            REMARKS        = #{updateBgmDto.remarks},
-            UPDATE_USER_ID = #{updateBgmDto.updateUserId},
-            UPDATE_DT      = #{updateBgmDto.updateDt}
-        WHERE BGM_ID = #{id}
-    </update>
 </mapper>
