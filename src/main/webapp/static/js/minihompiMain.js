@@ -24,7 +24,7 @@ $(document).ready(function () {
     const count_photo = $("#count_photo");
     const count_board = $("#count_board");
 
-    const hompiMain_url = "/mini-hompi/hompiMain"
+    //const hompiMain_url = "/mini-hompi/hompiMain"
     const hompi_url = "/mini-hompi/main";
     const prolfile_url = "/mini-hompi/profile";
     const jukebox_url = "/mini-hompi/jukebox";
