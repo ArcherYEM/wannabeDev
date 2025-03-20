@@ -23,7 +23,8 @@ public class MinihompiService {
         return updateTitle;
     }
 
-    public void saveMood(String mood) {
-        MiniHompiTotal moodSave = minihompiMapper.moodSave(mood);
+    public Map<String, Object> saveMood(Map<String, Object> map) {
+        Map<String, Object> moodSave = minihompiMapper.moodSave(map);
+        return moodSave;
     }
 }

@@ -42,8 +42,11 @@
         WHERE HOMPI_ID = #{hompiId}
     </update>
 
-    <update id="moodSave" parameterType="String">
+    <update id="moodSave" parameterType="map">
         UPDATE wannabe_dev.HOMPI_CONFIG
+        SET HOMPI_CONFIG_CONTENT = #{mood}
+        WHERE HOMPI_CONFIG_CODE = '04'
+          AND HOMPI_ID = #{hompiId}
 
     </update>
 </mapper>

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,8 +57,6 @@ public class MinihompiController {
         response.put("hompiId", hompiId);
         response.put("myHompi", myHompi);
         response.put("miniHompi", findMiniHompi);
-        System.out.println(response);
-
         return ResponseEntity.ok(response); // JSON 형식으로 반환
     }
 
@@ -71,7 +71,7 @@ public class MinihompiController {
     public ResponseEntity<Map<String, Object>> updateTitle(
             @RequestParam("title") String title, HttpSession session) {
         //Integer hompiId = (Integer) session.getAttribute("hompiId");
-        Integer hompiId = 1;
+        Integer hompiId = 0;
 
         Map<String, Object> response = new HashMap<>();
 
@@ -81,8 +81,6 @@ public class MinihompiController {
             response.put("message", "타이틀은 비어있을 수 없습니다.");
             return ResponseEntity.badRequest().body(response);
         }
-
-        System.out.println("새로운 타이틀: " + title);
 
         // 서비스 호출 및 타이틀 업데이트
         Map<String, Object> miniHompi = new HashMap<>();
@@ -104,12 +102,18 @@ public class MinihompiController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/api/mood/{hompiId}")
-    public ResponseEntity<String> saveMood(@RequestParam String mood) {
-        MiniHompiTotal miniHompiTotal = new MiniHompiTotal();
-        miniHompiTotal.setMood(mood);
-        minihompiService.saveMood(mood);
-        return ResponseEntity.ok("success");
+    @PostMapping("/api/mood/save/{hompiId}")
+    public ResponseEntity<Map<String, Object>> saveMood(@PathVariable("hompiId") Long hompiId,
+                                                        @RequestBody String mood) {
+
+        String decodedMood = URLDecoder.decode(mood, StandardCharsets.UTF_8);
+        decodedMood = decodedMood.replace("=", "").trim();
+        System.out.println("mood-->" + mood);
+        Map<String, Object> map = new HashMap<>();
+        map.put("mood", decodedMood);
+        map.put("hompiId", hompiId);
+        minihompiService.saveMood(map);
+        return ResponseEntity.ok(map);
     }
 
 

@@ -1,3 +1,4 @@
+<html lang="UTF-8">
 <div id="leftContainer">
                 						<div id="todayWrap">
                 							<ul class="todayUl">
@@ -11,13 +12,13 @@
                 									<img src="/static/images/common/main.jpg">
                 								</div>
 
-                								<div id="mood">
+                								<div id="moodDiv">
                                                     <label>
-                                                        <select>
-                                                            <option value="화">💢화가 남💢</option>
-                                                            <option value="슬픔">💔슬픔💔</option>
-                                                            <option value="고통">☠️고통받음☠️</option>
-                                                            <option value="우울">😿우울😿</option>
+                                                        <select id="mood">
+                                                            <option selected value="angry">💢화💢</option>
+                                                            <option value="sad">🥹슬픔🥹</option>
+                                                            <option value="pain">☠️고통</option>
+                                                            <option value="blue">😿우울😿</option>
                                                         </select>
                                                     </label>
                                                 </div>
@@ -235,6 +236,7 @@
     							<li></li>
     						</ul>
 
+</html>
 
 <script>
 if (!window.jQuery) {

@@ -265,8 +265,7 @@ $(document).ready(function () {
         $("#today").text(miniHompi.todayCnt);
         $("#hompiUrl").text(miniHompi.hompiUrl);
         $(".introduction").text(miniHompi.introduction);
-        $("#mood select").val(miniHompi.mood);
-
+        $('#mood').val(miniHompi.mood).prop('selected', true);
 
         //권한에 따라 관리 버튼 숨김
         if (myHompi == 1 || myHompi == 2) {
@@ -355,18 +354,18 @@ window.executeScriptsFromHTML = function (html) {
 };
 
 /** 기분 저장하기 **/
-$(document).on("chang", ".mood select", function () {
+$(document).on("change", "#mood", function () {
     const selectMood = $(this).val();
     const hompiId = 0;
+    const url = `/mini-hompi/api/mood/save/${hompiId}`
     $.ajax({
         type: "POST",
-        url: "mini-hompi/api/mood/save/{hompiId}",
-        data: {mood: selectMood},
+        url: url,
+        dataType: "TEXT",
+        data: selectMood,
         success: function () {
-            alert("감정 상태 저장 성공" + selectMood);
         },
         error: function () {
-            alert("저장 실패");
         }
     });
 });
