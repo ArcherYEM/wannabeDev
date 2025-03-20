@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.model.minihompi;
+package com.dev.wannabe.domain.minihompi.model.vo;
 
 import lombok.Data;
 

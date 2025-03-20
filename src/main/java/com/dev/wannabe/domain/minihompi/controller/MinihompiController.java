@@ -1,7 +1,7 @@
 package com.dev.wannabe.domain.minihompi.controller;
 
-import com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal;
-import com.dev.wannabe.domain.minihompi.service.minihompiService.MinihompiService;
+import com.dev.wannabe.domain.minihompi.model.vo.MiniHompiTotal;
+import com.dev.wannabe.domain.minihompi.service.MinihompiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

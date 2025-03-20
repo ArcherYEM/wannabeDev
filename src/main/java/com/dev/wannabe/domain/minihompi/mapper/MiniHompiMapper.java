@@ -1,6 +1,6 @@
-package com.dev.wannabe.domain.minihompi.mapper.minihompi;
+package com.dev.wannabe.domain.minihompi.mapper;
 
-import com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal;
+import com.dev.wannabe.domain.minihompi.model.vo.MiniHompiTotal;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
