@@ -25,7 +25,7 @@
 		<!--> login <-->
 		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
 		<!--> friend <-->
-		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.minihompi.model.friend.vo.FriendMessage"/>
+		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.minihompi.model.vo.FriendMessage"/>
 		<!--> hompi <-->
 		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.vo.Hompi"/>
 		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.vo.HompiConfig"/>
@@ -43,7 +43,7 @@
 		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
 		<!--> friend <-->
 		<!--> hompi <-->
-		<typeAlias alias="HompiInfoDTO" type="com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO"/>
+		<typeAlias alias="HompiInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO"/>
 		<!--> miniroom <-->
 
 	</typeAliases>
