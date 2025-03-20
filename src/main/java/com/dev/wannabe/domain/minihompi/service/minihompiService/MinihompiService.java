@@ -22,4 +22,8 @@ public class MinihompiService {
         int updateTitle = minihompiMapper.updateTitle(miniHompi);
         return updateTitle;
     }
+
+    public void saveMood(String mood) {
+        MiniHompiTotal moodSave = minihompiMapper.moodSave(mood);
+    }
 }

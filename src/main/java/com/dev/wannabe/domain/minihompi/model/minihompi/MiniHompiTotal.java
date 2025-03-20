@@ -33,5 +33,11 @@ public class MiniHompiTotal {
 
     private Long miniroomId; //미니룸 ID
 
+    private String profileImage; //프로필 사진
+    private String introduction; //소개글
+    private String friendsCommentYn; //일촌평 공개
+    private String mood; //기분
+    private String hompiLang; //홈피 소개글 언어
+
 
 }

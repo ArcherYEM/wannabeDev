@@ -11,5 +11,7 @@ public interface MiniHompiMapper {
     MiniHompiTotal findMyHompi(Map<String, Object> map);
 
     int updateTitle(Map<String, Object> miniHompi);
+
+    MiniHompiTotal moodSave(String mood);
 }
 

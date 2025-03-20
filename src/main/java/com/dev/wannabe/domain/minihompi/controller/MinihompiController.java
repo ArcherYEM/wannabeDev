@@ -48,13 +48,14 @@ public class MinihompiController {
         map.put("hompiId", hompiId);
 
         MiniHompiTotal findMiniHompi = minihompiService.findMiniHompi(map);
-        System.out.println("findMiniHompi:" + findMiniHompi);
+
 
         // JSON 응답 데이터 구성
         Map<String, Object> response = new HashMap<>();
         response.put("hompiId", hompiId);
         response.put("myHompi", myHompi);
         response.put("miniHompi", findMiniHompi);
+        System.out.println(response);
 
         return ResponseEntity.ok(response); // JSON 형식으로 반환
     }
@@ -101,6 +102,14 @@ public class MinihompiController {
         response.put("status", "success");
         response.put("message", "타이틀 변경 성공");
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/api/mood/{hompiId}")
+    public ResponseEntity<String> saveMood(@RequestParam String mood) {
+        MiniHompiTotal miniHompiTotal = new MiniHompiTotal();
+        miniHompiTotal.setMood(mood);
+        minihompiService.saveMood(mood);
+        return ResponseEntity.ok("success");
     }
 
 
