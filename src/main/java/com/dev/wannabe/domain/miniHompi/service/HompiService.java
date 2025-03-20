@@ -1,8 +1,8 @@
 package com.dev.wannabe.domain.minihompi.service;
 
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
-import com.dev.wannabe.domain.minihompi.model.dto.dto.CreateHompiDTO;
-import com.dev.wannabe.domain.minihompi.model.dto.dto.HompiInfoDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.CreateHompiDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiConfig;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats;
@@ -31,7 +31,7 @@ public class HompiService {
             Long userId = createHompi.getUserId();
 
             Hompi newHompi = Hompi.builder()
-                    .hompiURL("http://localhost:8080/mini-hompi/main/"+ userId)
+                    .hompiURL("http://localhost:8080/mini-hompi/main/" + userId)
                     .hompiTitle(createHompi.getHompiTitle())
                     .ownerUserId(userId)
                     .insertUserId(userId)

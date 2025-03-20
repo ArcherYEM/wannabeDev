@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     console.log("✅ minihompiMain.js가 로드되고 실행됨!");
-    getMinihompiDataList();
+    getminihompiDataList();
 
     const popuoMain = $("#popupMain");
 
@@ -33,7 +33,7 @@ $(document).ready(function () {
     const photo_url = "/mini-hompi/photo";
     const board_url = "/mini-hompi/board";
     const visitor_url = "/mini-hompi/visitor";
-    const miniHompiUp = "/mini-hompi/titleUpdate"
+    const minihompiUp = "/mini-hompi/titleUpdate"
 
 
     const droupdown = $("#nameWrap");
@@ -232,7 +232,7 @@ $(document).ready(function () {
 
 
 // JSON 데이터를 가져오는 함수
-    function getMinihompiDataList() {
+    function getminihompiDataList() {
         const hompiId = 0; // 홈피 ID
         const hompSub_url = `/mini-hompi/api/${hompiId}`;
 
@@ -244,7 +244,7 @@ $(document).ready(function () {
                 console.log("JSON 데이터 로딩 성공:", response);
 
                 // JSON 데이터를 화면에 렌더링
-                renderMiniHompi(response);
+                renderminihompi(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error("JSON 로딩 실패:", errorThrown);
@@ -253,19 +253,19 @@ $(document).ready(function () {
     }
 
 // JSON 데이터를 화면에 렌더링하는 함수
-    function renderMiniHompi(data) {
-        const miniHompi = data.miniHompi;
+    function renderminihompi(data) {
+        const minihompi = data.minihompi;
         console.log("myHompi" + data.myHompi);
-        console.log("miniHompi" + data.miniHompi);
+        console.log("minihompi" + data.minihompi);
         const myHompi = data.myHompi;
 
         // 화면에 데이터 삽입
-        $("#mainTitle").text(miniHompi.hompiTitle);
-        $("#total").text(miniHompi.totalCnt);
-        $("#today").text(miniHompi.todayCnt);
-        $("#hompiUrl").text(miniHompi.hompiUrl);
-        $(".introduction").text(miniHompi.introduction);
-        $('#mood').val(miniHompi.mood).prop('selected', true);
+        $("#mainTitle").text(minihompi.hompiTitle);
+        $("#total").text(minihompi.totalCnt);
+        $("#today").text(minihompi.todayCnt);
+        $("#hompiUrl").text(minihompi.hompiUrl);
+        $(".introduction").text(minihompi.introduction);
+        $('#mood').val(minihompi.mood).prop('selected', true);
 
         //권한에 따라 관리 버튼 숨김
         if (myHompi == 1 || myHompi == 2) {
@@ -325,7 +325,7 @@ $(document).on("click", "#moveHome", function (e) {
             $.getScript("/static/js/minihompiMain.js")
                 .done(() => {
                     console.log("minihompiMain.js 로드 완료");
-                    delete window.isMinihompiMainLoaded;  // 다시 로드 가능하도록 초기화
+                    delete window.isminihompiMainLoaded;  // 다시 로드 가능하도록 초기화
                 })
                 .fail((jqxhr, settings, exception) => console.error("minihompiMain.js 로드 실패:", exception));
 

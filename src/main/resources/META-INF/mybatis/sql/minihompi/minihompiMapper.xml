@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.MiniHompiMapper">
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.MinihompiMapper">
 
-    <select id="findMyHompi" parameterType="map"
-            resultType="com.dev.wannabe.domain.minihompi.model.MiniHompiTotal">
+    <select id="findMyhompi" parameterType="map"
+            resultType="com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal">
+
         SELECT
         hp.HOMPI_ID,
         hp.HOMPI_URL,
