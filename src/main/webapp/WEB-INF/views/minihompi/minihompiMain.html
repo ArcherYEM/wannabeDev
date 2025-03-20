@@ -1,3 +1,4 @@
+<html lang="UTF-8">
 <div id="leftContainer">
                 						<div id="todayWrap">
                 							<ul class="todayUl">
@@ -11,25 +12,26 @@
                 									<img src="/static/images/common/main.jpg">
                 								</div>
 
-                								<div id="mood">
+                								<div id="moodDiv">
                                                     <label>
-<select>
-    <option>💢화가 남💢</option>
-    <option>💔슬픔💔</option>
-    <option>☠️고통받음☠️</option>
-    <option>😿우울😿</option>
-</select>
-</label>
+                                                        <select id="mood">
+                                                            <option selected value="angry">💢화💢</option>
+                                                            <option value="sad">🥹슬픔🥹</option>
+                                                            <option value="pain">☠️고통</option>
+                                                            <option value="blue">😿우울😿</option>
+                                                        </select>
+                                                    </label>
                                                 </div>
+
                 								<div class="introText">
-                									<p>앉아봐라</p>
+                									<p class="introduction"></p>
                 								</div>
                 							</div>
                 							<div id="leftBottom">
                                                 <div class="editSet">
                                                     <div class="editImg">
                                                         <img src="/static/images/common/edit.png"></div>
-                                                        <a>EDIT</a>
+                                                        <span id="editBtn"><a >EDIT</a></span>
                                                     </div>
                                                     <br>
                 								<div id="nameWrap">
@@ -101,19 +103,19 @@
                 											<ul>
                 												<li>
                 												    <a id="menu_diary" style="cursor: pointer">다이어리</a>
-                												    <div class="topMenu"><span><span class="count">1</span>/1,011</span>
+                												    <div class="topMenu" id="count_diary" style="cursor: pointer"><span><span class="count">1</span>/1,011</span>
                 												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
                 												<li>
                 												    <a id="menu_photo" style="cursor: pointer">사진첩</a>
-                												    <div class="topMenu"><span><span class="count">2</span>/512</span>
+                												    <div class="topMenu" id="count_photo" style="cursor: pointer"><span><span class="count">2</span>/512</span>
                 												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
                 												<li>
                 												    <a id="menu_board" style="cursor: pointer">게시판</a>
-                												    <div class="topMenu"><span><span class="count">2</span>/1,701</span>
+                												    <div class="topMenu" id="count_board" style="cursor: pointer"><span><span class="count">2</span>/1,701</span>
                 												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
                 												<li>
                 												    <a id="menu_visitor" style="cursor: pointer">방명록</a>
-                												    <div class="topMenu"><span>0/405</span>
+                												    <div class="topMenu" id="count_visitor" style="cursor: pointer"><span>0/405</span>
                 												    <div class="newImg" id="newImgHidden"><img src="/static/images/common/new.png"></div></div></li>
                 											</ul>
                 										    </div>
@@ -234,12 +236,19 @@
     							<li></li>
     						</ul>
 
+</html>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+if (!window.jQuery) {
+    document.write('<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>');
+}
+</script>
     <!-- CDN 라이브러리 끝 -->
 
 
 <script type="module" src="/static/js/common.js"></script>
 <!-- 푸터 인클루드 끝 부분 -->
 
-<script type="module" src="/js/minihompi/minihompiMain.js"></script>
+<script type="module" src="/static/js/minihompiMain.js"></script>
+
+
