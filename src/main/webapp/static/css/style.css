@@ -723,6 +723,7 @@ a[class*="btn"] {
     border: 1px solid #aaa;
     border-radius: 0.5em;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+    margin-top: 10px;
 }
 
 #moodDiv select:hover {
@@ -735,6 +736,16 @@ a[class*="btn"] {
     box-shadow: 0 0 0 3px -moz-mac-focusring;
     color: #222;
     outline: none;
+}
+
+select#mood {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+#moodDiv label {
+    width: 100%;
 }
 
 #rightWrap .rightMainWrap .rightMainBottom .commentList {
