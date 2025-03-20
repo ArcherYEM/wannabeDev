@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="UTF-8">
  <head>
   <meta charset="UTF-8">
   <meta name="Generator" content="EditPlus®">
@@ -85,41 +85,6 @@ function openMinihompi() {
     });
 }
 
-// JSON 데이터를 가져오는 함수
-function getMinihompiDataList() {
-    $.ajax({
-        type: "GET",
-        url: hompSub_url,
-        dataType: "json",
-        success: function (response) {
-            console.log("JSON 데이터 로딩 성공:", response);
-
-            // JSON 데이터를 화면에 렌더링
-            renderMiniHompi(response);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("JSON 로딩 실패:", errorThrown);
-        }
-    });
-}
-
-// JSON 데이터를 화면에 렌더링하는 함수
-function renderMiniHompi(data) {
-    const miniHompi = data.miniHompi;
-
-    // 화면에 데이터 삽입
-    $("#mainTitle").text(miniHompi.hompiTitle);
-    $("#total").text(miniHompi.totalCnt);
-    $("#today").text(miniHompi.todayCnt);
-    $("#hompiUrl").text(miniHompi.hompiUrl);
-    $("#moveSetting").text(miniHompi.myHompi);
-
-    if (miniHompi.myHompi === "0 || 1") {
-        $("#moveSetting").hide();
-    }
-}
-</script>
->
 
 
  </body>
