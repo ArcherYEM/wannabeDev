@@ -67,7 +67,6 @@
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv2 > div > ul > li span.text{color:#aaa}
 #container .mainTop .mainTopLeft .loginWrap.yesLogin .yesLoginDiv2 > div > ul > li > span:last-child{float:right;}
 
-
 #container .mainTop .mainTopCenter{width:48%;  height:100%; text-align:center; }
 #container .mainTop .mainTopRight{width:25%;   height:100%; text-align:center; } 
 #container .mainBot{width:100%; overflow:hidden; height:400px;}
@@ -122,8 +121,16 @@
 #container .mainBot .mainBotCenter .bot ul{margin-left:35px;margin-top:10px;}
 #container .mainBot .mainBotCenter .bot ul li{font-weight:bold; width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:block; margin-bottom:3px; font-size:14px;}
 #container .mainBot .mainBotRight{width:25%;   height:100%; text-align:center;} 
-#container .mainBot .mainBotRight .top{height:200px; text-align:left;} 
-#container .mainBot .mainBotRight .top .todayLucky{font-weight:bold; font-size:16px; margin-left:35px;} 
+#container .mainBot .mainBotRight .top{height:200px; text-align:left;}
+.todayLuckyFrame {
+	background-image: url('/static/images/common/lucky_background.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 52px 40px;
+	color: #454545;
+}
+#container .mainBot .mainBotRight .top .todayLucky{font-weight:bold; font-size:16px; text-align:center;}
 #container .mainBot .mainBotRight .bot{height:200px; text-align:left;} 
 /*메인 e*/
 
