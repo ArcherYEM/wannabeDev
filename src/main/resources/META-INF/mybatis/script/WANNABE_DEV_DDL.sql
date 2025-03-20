@@ -1154,6 +1154,8 @@ CREATE TABLE WEATHER_LOG (
                              LOG_ID BIGINT AUTO_INCREMENT COMMENT '날씨 ID',
                              MESSAGE TEXT COMMENT '날씨 메세지',
                              CONTENTS TEXT COMMENT '날씨 내용',
+                             TEMPERATURE INT COMMENT '기온',
+                             RAIN DECIMAL(5,2) COMMENT '강수확률',
                              REMARKS VARCHAR(500) COMMENT '비고',
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
