@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.home.model.vo;
+package com.dev.wannabe.domain.home.model.weather.vo;
 
 import lombok.Data;
 

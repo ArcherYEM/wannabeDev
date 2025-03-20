@@ -201,14 +201,8 @@
             <artifactId>spring-security-core</artifactId>
             <version>5.8.5</version>
         </dependency>
-<<<<<<< Updated upstream
-=======
 
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>5.8.5</version>
-        </dependency>
+
 <!--외부API관련-->
         <!-- Spring WebFlux 관련 의존성 -->
         <dependency>
@@ -247,7 +241,6 @@
             <scope>runtime</scope>
         </dependency>
 
->>>>>>> Stashed changes
     </dependencies>
 
     <build>

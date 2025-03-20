@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             function (error) {
                 console.error("❌ 위치 정보를 가져올 수 없습니다.", error);
-                fetchWeatherByCity("Seoul"); // 위치 정보 못 가져오면 기본값 서울
+                fetchWeatherByCity("Seoul"); // 기본값 서울
             }
         );
     } else {
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchWeatherByLocation(lat, lon) {
-        const apiKey = "629da2d63bca145438b81baeebadcdbe"; // OpenWeather API 키
+        const apiKey = "629da2d63bca145438b81baeebadcdbe";
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
         fetch(url)
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchWeatherByCity(city) {
-        const apiKey = "629da2d63bca145438b81baeebadcdbe"; // OpenWeather API 키
+        const apiKey = "629da2d63bca145438b81baeebadcdbe";
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
         fetch(url)
@@ -44,13 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateWeatherUI(data) {
-        let cityName = data.name; // 🏙️ 현재 위치한 도시명 가져오기
-        let translatedCity = translateCityToKorean(cityName); // 🌍 한글 변환
-        let weatherState = data.weather[0].main;
-        let translatedWeather = translateWeatherToKorean(weatherState);
-        let iconUrl = getWeatherIcon(weatherState);
+        let cityName = data.name;
+        let translatedCity = translateCityToKorean(cityName);
+        let weatherState = data.weather[0].main; // 🌥️ 원본 날씨 상태 (영어)
+        let translatedWeather = translateWeatherToKorean(weatherState); // 🏷️ 한글 변환
+        let iconUrl = getWeatherIcon(weatherState); // 🌤️ 아이콘 가져오기
 
-        document.getElementById("location").textContent = ` ${translatedCity} 날씨`;
+        document.getElementById("location").textContent = `${translatedCity} 날씨`;
         document.querySelector(".weather-title span").textContent = translatedWeather;
         document.getElementById("weatherIcon").src = iconUrl;
         document.getElementById("weatherIcon").alt = translatedWeather;
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "Gangneung": "강릉",
             "Changwon": "창원"
         };
-        return cityTranslations[city] || city; // 한글 번역이 없으면 원래 값 반환
+        return cityTranslations[city] || city; // 변환된 도시명 반환 (없으면 원래 값)
     }
 
     function getWeatherIcon(weather) {

@@ -1,8 +1,8 @@
-package com.dev.wannabe.domain.home.service;
+package com.dev.wannabe.domain.home.service.weather;
 
-import com.dev.wannabe.domain.home.mapper.WeatherLogMapper;
-import com.dev.wannabe.domain.home.model.dto.WeatherLogDTO;
-import com.dev.wannabe.domain.home.model.vo.WeatherLog;
+import com.dev.wannabe.domain.home.mapper.weather.WeatherLogMapper;
+import com.dev.wannabe.domain.home.model.weather.dto.WeatherLogDTO;
+import com.dev.wannabe.domain.home.model.weather.vo.WeatherLog;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
@@ -38,12 +37,11 @@ public class WeatherLogService {
             String response = webClient.get().uri(url).retrieve().bodyToMono(String.class).block();
             JsonNode jsonNode = objectMapper.readTree(response);
 
-            // API의 원본 날씨 상태 (영어)
             String weatherState = jsonNode.get("weather").get(0).get("main").asText();
 
             // DTO 생성 및 데이터 설정
             WeatherLogDTO weatherLogDTO = new WeatherLogDTO();
-            weatherLogDTO.setMessage(weatherState); // API 원본 상태 그대로 저장
+            weatherLogDTO.setMessage(weatherState);
             weatherLogDTO.setContents(jsonNode.get("weather").get(0).get("description").asText());
             weatherLogDTO.setTemperature((int) Math.round(jsonNode.get("main").get("temp").asDouble()));
 
@@ -64,6 +62,8 @@ public class WeatherLogService {
 
             // DB 저장
             weatherLogMapper.insertWeatherLog(weatherLog);
+            System.out.println("✅ 날씨 데이터 삽입 완료: " + weatherLog.getMessage());
+
 
             return weatherLog; // 저장된 데이터 반환
         } catch (Exception e) {

@@ -1,6 +1,6 @@
-package com.dev.wannabe.domain.home.mapper;
+package com.dev.wannabe.domain.home.mapper.weather;
 
-import com.dev.wannabe.domain.home.model.vo.WeatherLog;
+import com.dev.wannabe.domain.home.model.weather.vo.WeatherLog;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
