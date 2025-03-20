@@ -23,13 +23,6 @@ public class HomeController {
         return "home/main";
     }
 
-    // 클라이언트 아이피 가져오기
-    @GetMapping("/getIp")
-    @ResponseBody
-    public String getIp(HttpServletRequest req) {
-        return homeService.getIp(req);
-    }
-
     @RequestMapping("/signup")
     public String signup(){
         return "home/signup";
