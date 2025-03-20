@@ -203,6 +203,7 @@
         </dependency>
 
 
+
 <!--외부API관련-->
         <!-- Spring WebFlux 관련 의존성 -->
         <dependency>
@@ -239,6 +240,13 @@
             <version>4.1.100.Final</version>
             <classifier>osx-aarch_64</classifier>
             <scope>runtime</scope>
+        </dependency>
+        <!-- JSON 도구 -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250107</version>
+
         </dependency>
 
     </dependencies>
