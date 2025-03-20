@@ -5,7 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserBgmDTO {
+public class HompiBgmDTO {
 
+    private String bgmName;
+    private String artist;
+    private String bgmPath;
 
 }

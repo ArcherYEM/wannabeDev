@@ -38,7 +38,7 @@
 		<!--> login <-->
 		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
 		<!--> hompi <-->
-
+		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>
 	</typeAliases>
 
 </configuration>
