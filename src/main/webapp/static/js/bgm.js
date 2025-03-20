@@ -21,6 +21,7 @@ function playSong(index){
     audio.load();
     audio.play();
     playCheckBgm();
+    $('#pauseBtn img').attr('src','/static/images/common/minimi/pauseBtn.png');
     $('#bgmTitle').text(track.artist +"-"+ track.title);
 }
 
@@ -47,7 +48,7 @@ function playCheckBgm(){
     $(nowPlayBgm).css('color',"#FF8000");
 }
 
-  $('#trackListWrap').on('click', 'p', function(){
+  $('#trackListWrap').on('click','p', function(){
     const index = $('#trackListWrap p').index(this);
     $('#pauseBtn img').attr('src','/static/images/common/minimi/pauseBtn.png');
     bgmIndex = index;
