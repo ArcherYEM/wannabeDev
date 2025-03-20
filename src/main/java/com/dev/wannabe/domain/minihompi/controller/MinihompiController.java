@@ -56,7 +56,7 @@ public class MinihompiController {
         Map<String, Object> response = new HashMap<>();
         response.put("hompiId", hompiId);
         response.put("myHompi", myHompi);
-        response.put("miniHompi", findMinihompi);
+        response.put("minihompi", findMinihompi);
         return ResponseEntity.ok(response); // JSON 형식으로 반환
     }
 

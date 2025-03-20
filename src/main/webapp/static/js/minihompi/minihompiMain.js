@@ -255,8 +255,6 @@ $(document).ready(function () {
 // JSON 데이터를 화면에 렌더링하는 함수
     function renderminihompi(data) {
         const minihompi = data.minihompi;
-        console.log("myHompi" + data.myHompi);
-        console.log("minihompi" + data.minihompi);
         const myHompi = data.myHompi;
 
         // 화면에 데이터 삽입
@@ -306,7 +304,7 @@ $(document).on("click", "#moveHome", function (e) {
             executeScriptsFromHTML(data);
 
             //`minihompiMain.js`가 항상 다시 로드되도록 설정
-            $.getScript("/static/js/minihompiMain.js")
+            $.getScript("/static/js/minihompi/minihompiMain.js")
                 .done(() => {
                     console.log("minihompiMain.js 로드 완료");
                     delete window.isminihompiMainLoaded;  // 다시 로드 가능하도록 초기화
