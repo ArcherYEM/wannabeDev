@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.miniHompi.model.dto;
+package com.dev.wannabe.domain.minihompi.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
