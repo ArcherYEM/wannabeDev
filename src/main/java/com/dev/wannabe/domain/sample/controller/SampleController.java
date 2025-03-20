@@ -68,7 +68,7 @@ public class SampleController {
     }
 
     @GetMapping("/mini-hompi")
-    public String miniHompi() {
+    public String minihompi() {
         return "sample/main";
     }
 
