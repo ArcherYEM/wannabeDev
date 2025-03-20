@@ -6,10 +6,6 @@ import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.model.vo.UserDetail;
 import com.dev.wannabe.domain.home.model.vo.UserRole;
-import com.dev.wannabe.domain.minihompi.model.friend.dto.SendMessageDTO;
-import com.dev.wannabe.domain.minihompi.model.hompi.dto.CreateHompiDTO;
-import com.dev.wannabe.domain.minihompi.service.FriendService;
-import com.dev.wannabe.domain.minihompi.service.hompi.HompiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,8 +19,6 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final HompiService hompiService;
-    private final FriendService friendService;
 
     /*
      * 회원 가입 기능
@@ -34,6 +28,7 @@ public class UserService {
      */
     @Transactional
     public Boolean signUpUser(SignupUserDTO signupUser) {
+        Long userId;
 
         try {
             /*
@@ -73,7 +68,7 @@ public class UserService {
              * Optional 을 통해 User Id가 없으면 예외 처리 발생
              * 이후 400 Bad Request 반환
              */
-            Long userId = userMapper.findUserIdByLoginId(signupUser.getLoginId());
+            userId = userMapper.findUserIdByLoginId(signupUser.getLoginId());
 
             /*
              * User Detail, User Role 테이블 생성 및 저장
@@ -96,21 +91,6 @@ public class UserService {
 
             userMapper.saveUserDetail(newUserDetail);
             userMapper.saveUserRole(newUserRole);
-
-            SendMessageDTO sendMessage = SendMessageDTO.builder()
-                    .toUserId(userId)
-                    .fromUserId(0L)
-                    .message("회원 가입을 축하합니다")
-                    .build();
-
-            friendService.sendFriendMessage(sendMessage);
-
-            CreateHompiDTO createHompi = CreateHompiDTO.builder()
-                    .userId(userId)
-                    .hompiTitle("test")
-                    .build();
-
-            hompiService.createHompi(createHompi);
 
             return true;
         } catch (Exception e) {

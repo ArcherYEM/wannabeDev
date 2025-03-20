@@ -103,18 +103,9 @@ public class LoginService {
         return passwordEncoder.matches(loginData.getPassword(), storedPassword);
     }
 
-    // 클라이언트 ip 가져오기
     private String getAccessIp(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-
-        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-
-        if ("0:0:0:0:0:0:0:1".equals(ip)){
-            ip = "127.0.0.1";
-        }
-        return ip;
+        String ip = request.getRemoteAddr();
+        return ip.split(",")[0];
     }
 
     private SessionUserDTO createUserData(LoginLog loginLog) {
