@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.FriendMapper">
+    <insert id="saveFriendMessage" parameterType="FriendMessage">
+        INSERT INTO FRIEND_MESSAGE (
+            MESSAGE_ID, USER_ID, FRIEND_USER_ID, MESSAGE, READ_YN,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{messageId},
+            #{userId},
+            #{friendId},
+            #{message},
+            #{readYN},
+            #{insertUserId}
+        )
+        ON DUPLICATE KEY UPDATE
+            MESSAGE = #{message},
+            READ_YN = #{readYN},
+            UPDATE_USER_ID = #{updateUserId}
+    </insert>
+</mapper>

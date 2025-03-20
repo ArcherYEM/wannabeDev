@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.mapper.hompi;
+package com.dev.wannabe.domain.minihompi.mapper;
 
 import com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi;
 import com.dev.wannabe.domain.minihompi.model.hompi.vo.HompiConfig;

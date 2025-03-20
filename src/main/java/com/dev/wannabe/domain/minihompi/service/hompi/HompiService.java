@@ -1,6 +1,6 @@
 package com.dev.wannabe.domain.minihompi.service.hompi;
 
-import com.dev.wannabe.domain.minihompi.mapper.hompi.HompiMapper;
+import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.hompi.dto.CreateHompiDTO;
 import com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi;

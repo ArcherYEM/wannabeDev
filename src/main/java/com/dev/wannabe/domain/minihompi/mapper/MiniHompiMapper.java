@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.mapper.minihompi;
+package com.dev.wannabe.domain.minihompi.mapper;
 
 import com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal;
 import org.apache.ibatis.annotations.Mapper;
