@@ -11,21 +11,6 @@ import java.net.InetAddress;
 @Slf4j
 @Service
 public class HomeService {
-    // 클라이언트 아이피 가져오기
-    public String getIp(HttpServletRequest req){
-        String ip = req.getHeader("x-forwarded-for");
-
-        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
-            ip = req.getRemoteAddr();
-        }
-
-        if ("0:0:0:0:0:0:0:1".equals(ip)){
-            ip = "127.0.0.1";
-        }
-
-        return ip;
-    }
-
     public SessionUserDTO getUserData(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null){
