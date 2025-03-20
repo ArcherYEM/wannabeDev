@@ -1,6 +1,6 @@
 package com.dev.wannabe.domain.minihompi.controller;
 
-import com.dev.wannabe.domain.minihompi.model.vo.MiniHompiTotal;
+import com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal;
 import com.dev.wannabe.domain.minihompi.service.MinihompiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,14 +49,14 @@ public class MinihompiController {
         map.put("userId", userId);
         map.put("hompiId", hompiId);
 
-        MiniHompiTotal findMiniHompi = minihompiService.findMiniHompi(map);
+        MinihompiTotal findMinihompi = minihompiService.findMinihompi(map);
 
 
         // JSON 응답 데이터 구성
         Map<String, Object> response = new HashMap<>();
         response.put("hompiId", hompiId);
         response.put("myHompi", myHompi);
-        response.put("miniHompi", findMiniHompi);
+        response.put("miniHompi", findMinihompi);
         return ResponseEntity.ok(response); // JSON 형식으로 반환
     }
 

@@ -6,7 +6,7 @@ import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
 import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
-import com.dev.wannabe.domain.minihompi.model.dto.dto.HompiInfoDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO;
 import com.dev.wannabe.domain.minihompi.service.HompiService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;

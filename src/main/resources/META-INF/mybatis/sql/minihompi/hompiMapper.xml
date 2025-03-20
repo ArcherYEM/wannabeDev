@@ -3,110 +3,83 @@
 
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.HompiMapper">
     <insert id="saveHompi" parameterType="Hompi">
-        INSERT INTO HOMPI (
-            HOMPI_URL, HOMPI_TITLE, OWNER_USER_ID,
-            INSERT_USER_ID
-        )
-        VALUES (
-            #{hompiURL},
-            #{hompiTitle},
-            #{ownerUserId},
-            #{insertUserId}
-        )
-        ON DUPLICATE KEY UPDATE
+        INSERT INTO HOMPI (HOMPI_URL, HOMPI_TITLE, OWNER_USER_ID,
+                           INSERT_USER_ID)
+        VALUES (#{hompiURL},
+                #{hompiTitle},
+                #{ownerUserId},
+                #{insertUserId}) ON DUPLICATE KEY
+        UPDATE
             HOMPI_URL = #{hompiURL},
             HOMPI_TITLE = #{hompiTitle},
             UPDATE_USER_ID = #{updateUserId}
     </insert>
 
     <insert id="saveAllHompiConfig" parameterType="HompiConfig">
-        INSERT INTO HOMPI_CONFIG (
-            HOMPI_ID, HOMPI_CONFIG_CODE, HOMPI_CONFIG_CONTENT,
-            INSERT_USER_ID
-        )
-        SELECT
-            #{hompiId},
-            CCD.CODE_ID,
-            #{hompiConfigContent},
-            #{insertUserId}
+        INSERT INTO HOMPI_CONFIG (HOMPI_ID, HOMPI_CONFIG_CODE, HOMPI_CONFIG_CONTENT,
+                                  INSERT_USER_ID)
+        SELECT #{hompiId},
+               CCD.CODE_ID,
+               #{hompiConfigContent},
+               #{insertUserId}
         FROM COMMON_CODE_DETAIL CCD
         WHERE CCD.CODE_KEY IN
-            (
-                SELECT CODE_KEY
-                FROM COMMON_CODE_DETAIL
-                WHERE CODE_KEY = 'HOMPI_CONFIG_CODE'
-            )
-        ON DUPLICATE KEY UPDATE
+              (SELECT CODE_KEY
+               FROM COMMON_CODE_DETAIL
+               WHERE CODE_KEY = 'HOMPI_CONFIG_CODE') ON DUPLICATE KEY
+        UPDATE
             HOMPI_CONFIG_CONTENT = #{hompiConfigContent},
             UPDATE_USER_ID = #{updateUserId}
     </insert>
 
     <insert id="saveHompiConfig" parameterType="HompiConfig">
-        INSERT INTO HOMPI_CONFIG (
-            HOMPI_ID, HOMPI_CONFIG_CODE, HOMPI_CONFIG_CONTENT,
-            INSERT_USER_ID
-        )
-        VALUES (
-            #{hompiId},
-            #{hompiConfigCode},
-            #{hompiConfigContent},
-            #{insertUserId}
-        )
-        ON DUPLICATE KEY UPDATE
+        INSERT INTO HOMPI_CONFIG (HOMPI_ID, HOMPI_CONFIG_CODE, HOMPI_CONFIG_CONTENT,
+                                  INSERT_USER_ID)
+        VALUES (#{hompiId},
+                #{hompiConfigCode},
+                #{hompiConfigContent},
+                #{insertUserId}) ON DUPLICATE KEY
+        UPDATE
             HOMPI_CONFIG_CONTENT = #{hompiConfigContent},
             UPDATE_USER_ID = #{updateUserId}
     </insert>
 
     <insert id="saveAllHompiMenu" parameterType="HompiMenu">
-        INSERT INTO HOMPI_MENU (
-            HOMPI_ID, HOMPI_MENU_CODE, AVAIL_STATUS,
-            INSERT_USER_ID
-        )
-        SELECT
-            #{hompiId},
-            CCD.CODE_ID,
-            #{availStatus},
-            #{insertUserId}
+        INSERT INTO HOMPI_MENU (HOMPI_ID, HOMPI_MENU_CODE, AVAIL_STATUS,
+                                INSERT_USER_ID)
+        SELECT #{hompiId},
+               CCD.CODE_ID,
+               #{availStatus},
+               #{insertUserId}
         FROM COMMON_CODE_DETAIL CCD
         WHERE CCD.CODE_KEY IN
-              (
-                  SELECT CODE_KEY
-                  FROM COMMON_CODE_DETAIL
-                  WHERE CODE_KEY = 'HOMPI_MENU_CODE'
-              )
-        ON DUPLICATE KEY UPDATE
+              (SELECT CODE_KEY
+               FROM COMMON_CODE_DETAIL
+               WHERE CODE_KEY = 'HOMPI_MENU_CODE') ON DUPLICATE KEY
+        UPDATE
             AVAIL_STATUS = #{availStatus},
             UPDATE_USER_ID = #{updateUserId}
     </insert>
 
     <insert id="saveHompiMenu" parameterType="HompiMenu">
-        INSERT INTO HOMPI_CONFIG (
-            HOMPI_ID, HOMPI_MENU_CODE, AVAIL_STATUS,
-            INSERT_USER_ID
-        )
-        VALUES (
-            #{hompiId},
-            #{hompiMenuCode},
-            #{availStatus},
-            #{insertUserId}
-        )
-        ON DUPLICATE KEY UPDATE
+        INSERT INTO HOMPI_CONFIG (HOMPI_ID, HOMPI_MENU_CODE, AVAIL_STATUS,
+                                  INSERT_USER_ID)
+        VALUES (#{hompiId},
+                #{hompiMenuCode},
+                #{availStatus},
+                #{insertUserId}) ON DUPLICATE KEY
+        UPDATE
             AVAIL_STATUS = #{availStatus},
             UPDATE_USER_ID = #{updateUserId}
     </insert>
 
     <insert id="saveHompiDailyStats" parameterType="HompiDailyStats">
-        INSERT INTO HOMPI_DAILY_STATS (
-            HOMPI_ID, DAY_STATS_DATE, TODAY_CNT,
-            INSERT_USER_ID
-        )
-        VALUES (
-            #{hompiId},
-            #{dayStatsDate},
-            #{t
-            #{insertUserId}
-        )
-        ON DUPLICATE KEY UPDATE
+        INSERT INTO HOMPI_DAILY_STATS (HOMPI_ID, DAY_STATS_DATE, TODAY_CNT,
+                                       INSERT_USER_ID)
+        VALUES (#{hompiId},
+                #{dayStatsDate},
+                #{t #{insertUserId}) ON DUPLICATE KEY
+        UPDATE
             TODAY_CNT = #{todayCnt},
             UPDATE_USER_ID = #{updateUserId}
     </insert>
@@ -118,8 +91,14 @@
     </select>
 
     <select id="findByHompiByUserId" parameterType="Long">
-        SELECT HOMPI_ID, HOMPI_URL, HOMPI_TITLE, OWNER_USER_ID,
-               INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT
+        SELECT HOMPI_ID,
+               HOMPI_URL,
+               HOMPI_TITLE,
+               OWNER_USER_ID,
+               INSERT_USER_ID,
+               INSERT_DT,
+               UPDATE_USER_ID,
+               UPDATE_DT
         FROM HOMPI
         WHERE OWNER_USER_ID = #{userId}
     </select>

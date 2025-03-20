@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    getMinihompiDataList(); // JSON 데이터 가져오기
-    openMinihompi(); // HTML 데이터 가져오기
+    getminihompiDataList(); // JSON 데이터 가져오기
+    openminihompi(); // HTML 데이터 가져오기
 });
 
 const hompiId = 0; // 홈피 ID
@@ -10,7 +10,7 @@ const hompSub_url = `/mini-hompi/api/${hompiId}`; // 서브 URL
 console.log("Sub URL:", hompSub_url);
 
 // HTML 데이터를 가져오는 함수
-function openMinihompi() {
+function openminihompi() {
     $.ajax({
         type: "GET",
         url: hompMain_url,
@@ -28,7 +28,7 @@ function openMinihompi() {
 }
 
 // JSON 데이터를 가져오는 함수
-function getMinihompiDataList() {
+function getminihompiDataList() {
     $.ajax({
         type: "GET",
         url: hompSub_url,
@@ -37,7 +37,7 @@ function getMinihompiDataList() {
             console.log("JSON 데이터 로딩 성공:", response);
 
             // JSON 데이터를 화면에 렌더링
-            renderMiniHompi(response);
+            renderminihompi(response);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error("JSON 로딩 실패:", errorThrown);
@@ -46,16 +46,16 @@ function getMinihompiDataList() {
 }
 
 // JSON 데이터를 화면에 렌더링하는 함수
-function renderMiniHompi(data) {
-    const miniHompi = data.miniHompi;
+function renderminihompi(data) {
+    const minihompi = data.minihompi;
     console.log("myHompi" + data.myHompi);
     const myHompi = data.myHompi;
 
     // 화면에 데이터 삽입
-    $("#mainTitle").text(miniHompi.hompiTitle);
-    $("#total").text(miniHompi.totalCnt);
-    $("#today").text(miniHompi.todayCnt);
-    $("#hompiUrl").text(miniHompi.hompiUrl);
+    $("#mainTitle").text(minihompi.hompiTitle);
+    $("#total").text(minihompi.totalCnt);
+    $("#today").text(minihompi.todayCnt);
+    $("#hompiUrl").text(minihompi.hompiUrl);
 
     if (myHompi == 1 || myHompi == 2) {
         $("#moveSetting").hide();
