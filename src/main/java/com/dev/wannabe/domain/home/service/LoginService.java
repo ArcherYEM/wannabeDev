@@ -5,6 +5,10 @@ import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
 import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
+import com.dev.wannabe.domain.minihompi.mapper.hompi.HompiMapper;
+import com.dev.wannabe.domain.minihompi.model.hompi.dto.HompiInfoDTO;
+import com.dev.wannabe.domain.minihompi.model.hompi.vo.Hompi;
+import com.dev.wannabe.domain.minihompi.service.hompi.HompiService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +28,9 @@ public class LoginService {
 
     private final UserMapper userMapper;
     private final LoginMapper loginMapper;
+    private final HompiMapper hompiMapper;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final HompiService hompiService;
 
     @Transactional
     public Boolean login(LoginDataDTO loginData) {
@@ -103,6 +109,7 @@ public class LoginService {
     private SessionUserDTO createUserData(LoginLog loginLog) {
 
         UserDataDTO userData = userMapper.findUserDataByUserId(loginLog.getUserId());
+        HompiInfoDTO hompiInfo = hompiService.readHompiInfoByUserId(loginLog.getUserId());
 
         return SessionUserDTO.builder()
                 .accessIp(loginLog.getAccessIp())
@@ -112,9 +119,9 @@ public class LoginService {
                 .name(userData.getName())
                 .genderCode(userData.getGenderCode())
                 .birthDate(userData.getBirthDate())
-                .hompiId(0L)
-                .hompiURL("localhost:8080")
-                .hompiTitle("test")
+                .hompiId(hompiInfo.getHompiId())
+                .hompiURL(hompiInfo.getHompiURL())
+                .hompiTitle(hompiInfo.getHompiTitle())
                 .miniroomId(0L)
                 .build();
     }
