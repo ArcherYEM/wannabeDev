@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날씨 정보</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"> <!-- 기존 스타일 유지 -->
+    <link rel="stylesheet" type="text/css" href="/static/css/weather.css"> <!-- 추가적인 스타일 -->
+</head>
+<body>
+<div class="weather-box">
+    <p id="location"></p> <!-- 🏙️ 현재 위치한 지역명 표시 -->
+    <h2 class="weather-title">날씨: <span></span></h2>
+    <img id="weatherIcon" src="" alt="날씨 아이콘">
+    <p class="temperature">현재온도: <span th:text="${temperature} + '°C'">0°C</span></p>
+    <p class="rain-info">강수량: <span th:text="${rain} + '%'">0%</span></p>
+</div>
+
+<!-- 분리된 JS 파일 로드 -->
+<script src="/js/home/weather.js"></script>
+</body>
+</html>

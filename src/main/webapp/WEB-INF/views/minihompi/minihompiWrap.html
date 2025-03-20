@@ -1,125 +1,60 @@
 <!doctype html>
-<html lang="ko">
- <head>
-  <meta charset="UTF-8">
-  <meta name="Generator" content="EditPlus®">
-  <meta name="Author" content="">
-  <meta name="Keywords" content="">
-  <meta name="Description" content="">
-  <title>main</title>
-  <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/reset.css">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <link rel="stylesheet" href="/static/css/bgm.css">
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>main</title>
+    <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/bgm.css">
+    <link rel="stylesheet" href="/static/css/jukebox.css">
 
- </head>
- <body>
-	<div id="wrap">
-			<div id="mainWrap">
-    			<div id="mainBorder">
-    				<div id="mainWrapBackground">
+</head>
+<body>
+<div id="wrap">
+    <div id="mainWrap">
+        <div id="mainBorder">
+            <div id="mainWrapBackground">
 
 
-    			    </div>
-    		    </div>
-    	    </div>
+            </div>
+        </div>
+    </div>
 
-	 					<div id="subViewContainer">
-                               <div id ="subViewWrap">
-                                     <div id="subViewTop">
-                                    <a href="#" class="btn purple block">싸이월드 홈</a>
-                                     </div>
-                                     <div id="subVieMain">
-                                        액티브 <progress id="ative" value="30" max="100"></progress><br>
-                                        페이머스 <progress id="famous" value="60" max="100"></progress><br>
-                                        프랜들리 <progress id="frandly" value="90" max="100"></progress><br>
-                                        러블리 <progress id="lovely" value="20" max="100"></progress><br>
-                                        센서티브 <progress id="sensertive" value="40" max="100"></progress><br>
-                                     </div>
-                                </div>
-                                    <div th:replace="minihompi/bgmInclude :: bgmFragment"></div>
-                               </div>
-                        </div>
+    <div id="subViewContainer">
+        <div id ="subViewWrap">
+            <div id="subViewTop">
+                <a href="#" class="btn purple block">싸이월드 홈</a>
+            </div>
+            <div id="subVieMain">
+                액티브 <progress id="ative" value="30" max="100"></progress><br>
+                페이머스 <progress id="famous" value="60" max="100"></progress><br>
+                프랜들리 <progress id="frandly" value="90" max="100"></progress><br>
+                러블리 <progress id="lovely" value="20" max="100"></progress><br>
+                센서티브 <progress id="sensertive" value="40" max="100"></progress><br>
+            </div>
+        </div>
+        <div th:replace="minihompi/bgmInclude :: bgmFragment"></div>
+    </div>
+</div>
 
 
 <!-- 푸터 블럭 인클루드 시작점 -->
-    <!-- CDN 라이브러리 시작 -->
+<!-- CDN 라이브러리 시작 -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- CDN 라이브러리 끝 -->
+<!-- CDN 라이브러리 끝 -->
 <script type="module" src="/static/js/common.js"></script>
+
 <!-- 푸터 인클루드 끝 부분 -->
->
 <script src="/static/js/bgm.js"></script>
+<script src="/static/js/minihompiWarp.js"></script>
 
 
-<script>
-$(document).ready(function () {
-    getMinihompiDataList(); // JSON 데이터 가져오기
-    openMinihompi(); // HTML 데이터 가져오기
-});
 
-const hompiId = 1; // 홈피 ID
-const hompMain_url = '/mini-hompi/hompiMain'; // 메인 URL
-const hompSub_url = `/mini-hompi/main/${hompiId}`; // 서브 URL
-
-console.log("Sub URL:", hompSub_url);
-
-// HTML 데이터를 가져오는 함수
-function openMinihompi() {
-    $.ajax({
-        type: "GET",
-        url: hompMain_url,
-        dataType: "html",
-        success: function (data) {
-            console.log("HTML 데이터 로딩 성공");
-
-            // 기존 콘텐츠 제거 후 새로운 HTML 삽입
-            $("#mainWrapBackground").children().remove();
-            $("#mainWrapBackground").html(data);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("화면 로딩 실패:", errorThrown);
-        }
-    });
-}
-
-// JSON 데이터를 가져오는 함수
-function getMinihompiDataList() {
-    $.ajax({
-        type: "GET",
-        url: hompSub_url,
-        dataType: "json",
-        success: function (response) {
-            console.log("JSON 데이터 로딩 성공:", response);
-
-            // JSON 데이터를 화면에 렌더링
-            renderMiniHompi(response);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("JSON 로딩 실패:", errorThrown);
-        }
-    });
-}
-
-// JSON 데이터를 화면에 렌더링하는 함수
-function renderMiniHompi(data) {
-    const miniHompi = data.miniHompi;
-
-    // 화면에 데이터 삽입
-    $("#mainTitle").text(miniHompi.hompiTitle);
-    $("#total").text(miniHompi.totalCnt);
-    $("#today").text(miniHompi.todayCnt);
-    $("#hompiUrl").text(miniHompi.hompiUrl);
-    $("#moveSetting").text(miniHompi.myHompi);
-
-    if (miniHompi.myHompi === "0 || 1") {
-        $("#moveSetting").hide();
-    }
-}
-</script>
->
-
-
- </body>
+</body>
 </html>
 

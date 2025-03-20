@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.wannabe.domain.home.mapper.WeatherLogMapper">
+
+    <insert id="insertWeatherLog">
+        INSERT INTO WEATHER_LOG (MESSAGE, CONTENTS, TEMPERATURE, RAIN, INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT)
+        VALUES (#{message}, #{contents}, #{temperature}, #{rain}, #{insertUserId}, #{insertDt, jdbcType=TIMESTAMP}, #{updateUserId}, #{updateDt, jdbcType=TIMESTAMP})
+    </insert>
+</mapper>

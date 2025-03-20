@@ -1,245 +1,254 @@
+<html lang="UTF-8">
 <div id="leftContainer">
-                						<div id="todayWrap">
-                							<ul class="todayUl">
-                								<li class="today">TODAY <span id="today"></span></li>
-                								<li class="total">TOTAL <span id="total"></span></li>
-                							</ul>
-                						</div>
-                						<div id="leftWrap">
-                							<div id="leftTop">
-                								<div class="mainImg">
-                									<img src="/static/images/common/main.jpg">
-                								</div>
+	<div id="todayWrap">
+		<ul class="todayUl">
+			<li class="today">TODAY <span id="today"></span></li>
+			<li class="total">TOTAL <span id="total"></span></li>
+		</ul>
+	</div>
+	<div id="leftWrap">
+		<div id="leftTop">
+			<div class="mainImg">
+				<img src="/static/images/common/main.jpg">
+			</div>
 
-                								<div id="mood">
-                                                    <label>
-<select>
-    <option>💢화가 남💢</option>
-    <option>💔슬픔💔</option>
-    <option>☠️고통받음☠️</option>
-    <option>😿우울😿</option>
-</select>
-</label>
-                                                </div>
-                								<div class="introText">
-                									<p>앉아봐라</p>
-                								</div>
-                							</div>
-                							<div id="leftBottom">
-                                                <div class="editSet">
-                                                    <div class="editImg">
-                                                        <img src="/static/images/common/edit.png"></div>
-                                                        <a>EDIT</a>
-                                                    </div>
-                                                    <br>
-                								<div id="nameWrap">
-                									<span class="name"> 고라파덕</span>
-                									    <div id="name-droupdown">
-                									        <a href="#">일촌 신청</a>
-                									        <a target="_blank" onclick="onpneMessage()">쪽지 보내기</a>
-                									        <a href="#">일촌 끊기</a>
-                                                        </div>
-                									<span class="nameSymbol">♂</span>
-                									<span class="nameEmail">paduck@korea.co.kr</span>
-                								</div>
-                								<div id="padoWrap">
-                									<select>
-                										<option>상대방 1촌 파도타기</option>
-                									</select>
+			<div id="moodDiv">
+				<label>
+					<select id="mood">
+						<option selected value="angry">💢화💢</option>
+						<option value="sad">🥹슬픔🥹</option>
+						<option value="pain">☠️고통</option>
+						<option value="blue">😿우울😿</option>
+					</select>
+				</label>
+			</div>
 
-                									<select>
-                                                    <option>나의 1촌 파도타기</option>
-                                                    </select>
-                								</div>
-                							</div>
-                						</div>
-                					</div>
-                	<div id="rightContainer">
-                						<div id="rightTopWrap">
-                							<ul class="rightTopMain">
-                								<li class="mainTitle">
-                								    <span id="mainTitle"></span>
-                                                </li>
-                								<li class="rightLink">
-                									<ul class="rightMenu">
-                										<li >
-                											<input type="button" value="수정" id="titleBtn">
-                										</li>
-                										<li id="hompiUrl">
-                										</li>
-                									</ul>
-                								</li>
-                							</ul>
-                						</div>
-                						<div id="rightWrapBox">
-                							<div id="rightWrap">
-                								<div class="rightMainWrap">
-                									<div class="rightMainTop">
-                										<p class="fcWb">최근게시물</p>
-                										<div class="rightMainTopLeft">
-                											<ul>
-                												<li>
-                													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
-                													<p class="time">2025-01-01</p>
-                												</li>
-                												<li>
-                													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
-                													<p class="time">2025-01-01</p>
-                												</li>
-                												<li>
-                													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
-                													<p class="time">2025-01-01</p>
-                												</li>
-                												<li>
-                													<p class="title"><a href="#">최근게시물 제목입니다</a></p>
-                													<p class="time">2025-01-01</p>
-                												</li>
+			<div class="introText">
+				<p class="introduction"></p>
+			</div>
+		</div>
+		<div id="leftBottom">
+			<div class="editSet">
+				<div class="editImg">
+					<img src="/static/images/common/edit.png"></div>
+				<span id="editBtn"><a >EDIT</a></span>
+			</div>
+			<br>
+			<div id="nameWrap">
+				<span class="name"> 고라파덕</span>
+				<div id="name-droupdown">
+					<a href="#">일촌 신청</a>
+					<a target="_blank" onclick="onpneMessage()">쪽지 보내기</a>
+					<a href="#">일촌 끊기</a>
+				</div>
+				<span class="nameSymbol">♂</span>
+				<span class="nameEmail">paduck@korea.co.kr</span>
+			</div>
+			<div id="padoWrap">
+				<select>
+					<option>상대방 1촌 파도타기</option>
+				</select>
 
-                											</ul>
-                										</div>
-                										<div class="rightMainTopRight">
-                											<ul>
-                												<li>
-                												    <a id="menu_diary" style="cursor: pointer">다이어리</a>
-                												    <div class="topMenu"><span><span class="count">1</span>/1,011</span>
-                												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
-                												<li>
-                												    <a id="menu_photo" style="cursor: pointer">사진첩</a>
-                												    <div class="topMenu"><span><span class="count">2</span>/512</span>
-                												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
-                												<li>
-                												    <a id="menu_board" style="cursor: pointer">게시판</a>
-                												    <div class="topMenu"><span><span class="count">2</span>/1,701</span>
-                												    <div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
-                												<li>
-                												    <a id="menu_visitor" style="cursor: pointer">방명록</a>
-                												    <div class="topMenu"><span>0/405</span>
-                												    <div class="newImg" id="newImgHidden"><img src="/static/images/common/new.png"></div></div></li>
-                											</ul>
-                										    </div>
-                                                        </div>
+				<select>
+					<option>나의 1촌 파도타기</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="rightContainer">
+	<div id="rightTopWrap">
+		<ul class="rightTopMain">
+			<li class="mainTitle">
+				<span id="mainTitle"></span>
+			</li>
+			<li class="rightLink">
+				<ul class="rightMenu">
+					<li >
+						<input type="button" value="수정" id="titleBtn">
+					</li>
+					<li id="hompiUrl">
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div id="rightWrapBox">
+		<div id="rightWrap">
+			<div class="rightMainWrap">
+				<div class="rightMainTop">
+					<p class="fcWb">최근게시물</p>
+					<div class="rightMainTopLeft">
+						<ul>
+							<li>
+								<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+								<p class="time">2025-01-01</p>
+							</li>
+							<li>
+								<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+								<p class="time">2025-01-01</p>
+							</li>
+							<li>
+								<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+								<p class="time">2025-01-01</p>
+							</li>
+							<li>
+								<p class="title"><a href="#">최근게시물 제목입니다</a></p>
+								<p class="time">2025-01-01</p>
+							</li>
 
-                									<div class="rightMain">
-                										<ul>
-                											<li>Miniroom</li>
-                										</ul>
-                										<div class="miniRoom">
-                											<div class="talk">
-                												미니룸 준비중
-                											</div>
-                											<img src="/static/images/common/minimi/human.png" class="human"/>
-                										</div>
-                									</div>
-                									<div class="rightMainBottom">
-                										<div class="friendSay">
-                											<table>
-                												<colgroup>
-                													<col width="7%">
-                													<col width="*">
-                													<col width="7%">
-                												</colgroup>
-                												<tbody>
-                													<tr>
-                														<td>
-                															<p class="fcWb">일촌평</p>
-                														</td>
-                														<td>
-                															<input type="text" placeholder="일촌과 나누고 싶은 이야기를 남겨보세요~!">
-                														</td>
-                														<td>
-                															<button type="button">확인</button>
-                														</td>
-                													</tr>
-                												</tbody>
-                											</table>
-                										</div>
-                										<ul class="commentList">
-                											<li>
+						</ul>
+					</div>
+					<div class="rightMainTopRight">
+						<ul>
+							<li>
+								<a id="menu_diary" style="cursor: pointer">다이어리</a>
+								<div class="topMenu" id="count_diary" style="cursor: pointer"><span><span class="count">1</span>/1,011</span>
+									<div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
+							<li>
+								<a id="menu_photo" style="cursor: pointer">사진첩</a>
+								<div class="topMenu" id="count_photo" style="cursor: pointer"><span><span class="count">2</span>/512</span>
+									<div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
+							<li>
+								<a id="menu_board" style="cursor: pointer">게시판</a>
+								<div class="topMenu" id="count_board" style="cursor: pointer"><span><span class="count">2</span>/1,701</span>
+									<div class="newImg"><img src="/static/images/common/new.png"></div></div></li>
+							<li>
+								<a id="menu_visitor" style="cursor: pointer">방명록</a>
+								<div class="topMenu" id="count_visitor" style="cursor: pointer"><span>0/405</span>
+									<div class="newImg" id="newImgHidden"><img src="/static/images/common/new.png"></div></div></li>
+						</ul>
+					</div>
+				</div>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+				<div class="rightMain">
+					<ul>
+						<li>Miniroom</li>
+					</ul>
+					<div class="miniRoom">
+						<div class="talk">
+							미니룸 준비중
+						</div>
+						<img src="/static/images/common/minimi/human.png" class="human"/>
+					</div>
+				</div>
+				<div class="rightMainBottom">
+					<div class="friendSay">
+						<table>
+							<colgroup>
+								<col width="7%">
+								<col width="*">
+								<col width="7%">
+							</colgroup>
+							<tbody>
+							<tr>
+								<td>
+									<p class="fcWb">일촌평</p>
+								</td>
+								<td>
+									<input type="text" placeholder="일촌과 나누고 싶은 이야기를 남겨보세요~!">
+								</td>
+								<td>
+									<button type="button">확인</button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<ul class="commentList">
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                											<li>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
-                												<span class="comment">일촌평이다~</span>
-                												<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-                											</li>
-                										</ul>
-                									</div>
-                								</div>
-                							</div>
-                						</div>
-                						<div id="gnb">
-                							<ul>
-                								<li class="on" id="moveHome" style="cursor:pointer;">홈</li>
-                								<li id="moveProfile" style="cursor:pointer;">프로필</li>
-                								<li id="moveDairy" style="cursor:pointer;">다이어리</li>
-                								<li id="moveJukebox" style="cursor:pointer;">쥬크박스</li>
-                								<li id="movePhoto" style="cursor:pointer;">사진첩</li>
-                								<li id="moveBoard" style="cursor:pointer;">게시판</li>
-                								<li id="moveVisitor"  style="cursor:pointer;">방명록</li>
-                								<li id="moveSetting"  style="cursor:pointer;">관리</li>
-                							</ul>
-                						</div>
-                					</div>
-                	<div id="spring" class="spring1">
-                						<ul>
-                							<li></li>
-                							<li></li>
-                						</ul>
-                					</div>
-                	<div id="spring" class="spring2">
-                						<ul>
-                							<li></li>
-                							<li></li>
-                						</ul>
-                					</div>
-    						<ul>
-    							<li></li>
-    							<li></li>
-    						</ul>
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+						<li>
 
+							<span class="comment">일촌평이다~</span>
+							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="gnb">
+		<ul>
+			<li class="on" id="moveHome" style="cursor:pointer;">홈</li>
+			<li id="moveProfile" style="cursor:pointer;">프로필</li>
+			<li id="moveDairy" style="cursor:pointer;">다이어리</li>
+			<li id="moveJukebox" style="cursor:pointer;">쥬크박스</li>
+			<li id="movePhoto" style="cursor:pointer;">사진첩</li>
+			<li id="moveBoard" style="cursor:pointer;">게시판</li>
+			<li id="moveVisitor"  style="cursor:pointer;">방명록</li>
+			<li id="moveSetting"  style="cursor:pointer;">관리</li>
+		</ul>
+	</div>
+</div>
+<div id="spring" class="spring1">
+	<ul>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+<div id="spring" class="spring2">
+	<ul>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+<ul>
+	<li></li>
+	<li></li>
+</ul>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- CDN 라이브러리 끝 -->
+</html>
+
+<script>
+	if (!window.jQuery) {
+		document.write('<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>');
+	}
+</script>
+<!-- CDN 라이브러리 끝 -->
 
 
 <script type="module" src="/static/js/common.js"></script>
 <!-- 푸터 인클루드 끝 부분 -->
 
 <script type="module" src="/static/js/minihompiMain.js"></script>
+
+
