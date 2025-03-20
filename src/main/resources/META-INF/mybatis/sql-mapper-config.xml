@@ -17,28 +17,35 @@
         <typeAlias alias="map" type="java.util.Map"/>
         <typeAlias alias="hashMap" type="java.util.HashMap"/>
 
-        <!--> VO <-->
-        <!--> user <-->
-        <typeAlias alias="UserBasic" type="com.dev.wannabe.domain.home.model.vo.UserBasic"/>
-        <typeAlias alias="UserDetail" type="com.dev.wannabe.domain.home.model.vo.UserDetail"/>
-        <typeAlias alias="UserRole" type="com.dev.wannabe.domain.home.model.vo.UserRole"/>
-        <!--> login <-->
-        <typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
-        <!--> hompi <-->
-        <typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.vo.Hompi"/>
-        <typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.vo.HompiConfig"/>
-        <typeAlias alias="HompiMenu" type="com.dev.wannabe.domain.minihompi.model.vo.HompiMenu"/>
-        <typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats"/>
+		<!--> VO <-->
+		<!--> user <-->
+		<typeAlias alias="UserBasic" type="com.dev.wannabe.domain.home.model.vo.UserBasic"/>
+		<typeAlias alias="UserDetail" type="com.dev.wannabe.domain.home.model.vo.UserDetail"/>
+		<typeAlias alias="UserRole" type="com.dev.wannabe.domain.home.model.vo.UserRole"/>
+		<!--> login <-->
+		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
+		<!--> friend <-->
+		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.minihompi.model.vo.FriendMessage"/>
+		<!--> hompi <-->
+		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.vo.Hompi"/>
+		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.vo.HompiConfig"/>
+		<typeAlias alias="HompiMenu" type="com.dev.wannabe.domain.minihompi.model.vo.HompiMenu"/>
+		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats"/>
+		<!--> miniroom <-->
+		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
 
-        <!--> DTO <-->
-        <!--> user <-->
-        <typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
-        <typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
-        <typeAlias alias="UserDataDTO" type="com.dev.wannabe.domain.home.model.dto.UserDataDTO"/>
-        <!--> login <-->
-        <typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
-        <!--> hompi <-->
+		<!--> DTO <-->
+		<!--> user <-->
+		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
+		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
+		<typeAlias alias="UserInfoDTO" type="com.dev.wannabe.domain.home.model.dto.UserInfoDTO"/>
+		<!--> login <-->
+		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
+		<!--> friend <-->
+		<!--> hompi <-->
+		<typeAlias alias="HompiInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO"/>
+		<!--> miniroom <-->
 
-    </typeAliases>
+	</typeAliases>
 
 </configuration>

@@ -39,7 +39,7 @@ public class HompiService {
 
             hompiMapper.saveHompi(newHompi);
 
-            hompiId = hompiMapper.findByHompiIdByUserId(userId);
+            hompiId = hompiMapper.findHompiIdByUserId(userId);
 
             HompiConfig newHompiConfig = HompiConfig.builder()
                     .hompiId(hompiId)
@@ -83,7 +83,7 @@ public class HompiService {
 
     @Transactional
     public HompiInfoDTO readHompiInfoByUserId(Long userId) {
-        Hompi hompi = hompiMapper.findByHompiByUserId(userId);
+        Hompi hompi = hompiMapper.findHompiByUserId(userId);
         return HompiInfoDTO.builder()
                 .hompiId(hompi.getHompiId())
                 .hompiURL(hompi.getHompiURL())

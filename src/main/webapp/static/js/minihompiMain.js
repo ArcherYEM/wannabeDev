@@ -24,7 +24,7 @@ $(document).ready(function () {
     const count_photo = $("#count_photo");
     const count_board = $("#count_board");
 
-    const hompiMain_url = "/mini-hompi/hompiMain"
+    //const hompiMain_url = "/mini-hompi/hompiMain"
     const hompi_url = "/mini-hompi/main";
     const prolfile_url = "/mini-hompi/profile";
     const jukebox_url = "/mini-hompi/jukebox";
@@ -278,6 +278,22 @@ $(document).ready(function () {
     }
 
 });
+
+
+/** 미니홈피 팝업창 설정 **/
+function openPop() {
+    const popupW = 1280;
+    const popupH = 720;
+    const left = Math.ceil((window.screen.width - popupW) / 2);
+    const top = Math.ceil((window.screen.height - popupH) / 2);
+
+    const hompiId = 0;
+
+
+    window.open(`/mini-hompi/main/${hompiId}`,
+        'mini-hompi',
+        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
+}
 
 /** 쪽지 팝업창 설정 **/
 function onpneMessage() {
