@@ -3,7 +3,7 @@ $(document).ready(function () {
     openMinihompi(); // HTML 데이터 가져오기
 });
 
-const hompiId = 1; // 홈피 ID
+const hompiId = 0; // 홈피 ID
 const hompMain_url = '/mini-hompi/hompiMain'; // 메인 URL
 const hompSub_url = `/mini-hompi/api/${hompiId}`; // 서브 URL
 
@@ -17,8 +17,6 @@ function openMinihompi() {
         dataType: "html",
         success: function (data) {
             console.log("HTML 데이터 로딩 성공");
-            alert("mihompiWrap openMinihompi호출");
-
             // 기존 콘텐츠 제거 후 새로운 HTML 삽입
             $("#mainWrapBackground").children().remove();
             $("#mainWrapBackground").html(data);

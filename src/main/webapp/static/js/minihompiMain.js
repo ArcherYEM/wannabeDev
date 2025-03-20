@@ -233,7 +233,7 @@ $(document).ready(function () {
 
 // JSON 데이터를 가져오는 함수
     function getMinihompiDataList() {
-        const hompiId = 1; // 홈피 ID
+        const hompiId = 0; // 홈피 ID
         const hompSub_url = `/mini-hompi/api/${hompiId}`;
 
         $.ajax({
@@ -284,7 +284,7 @@ function openPop() {
     const left = Math.ceil((window.screen.width - popupW) / 2);
     const top = Math.ceil((window.screen.height - popupH) / 2);
 
-    const hompiId = 1;
+    const hompiId = 0;
 
 
     window.open(`/mini-hompi/main/${hompiId}`,

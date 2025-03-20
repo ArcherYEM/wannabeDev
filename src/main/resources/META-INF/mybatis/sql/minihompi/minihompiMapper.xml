@@ -5,27 +5,35 @@
 
     <select id="findMyHompi" parameterType="map"
             resultType="com.dev.wannabe.domain.minihompi.model.minihompi.MiniHompiTotal">
-        SELECT hp.HOMPI_ID, hp.HOMPI_URL, hp.HOMPI_TITLE, hp.OWNER_USER_ID, NVL(hds.TODAY_CNT,0)TODAY_CNT, hp.TOTAL_CNT
+        SELECT
+        hp.HOMPI_ID,
+        hp.HOMPI_URL,
+        hp.HOMPI_TITLE,
+        hp.OWNER_USER_ID,
+        IFNULL(hds.TODAY_CNT, 0) AS TODAY_CNT,
+        hp.TOTAL_CNT,
+        hc.HOMPI_CONFIG_CODE,
+        hc.HOMPI_CONFIG_CONTENT
         FROM HOMPI hp
         LEFT OUTER JOIN HOMPI_DAILY_STATS hds
-        ON hp.HOMPI_ID = hds.HOMPI_ID AND hds.DAY_STATS_DATE = CURDATE()
-        WHERE 1 = 1
-        <if test="hompiId == userId">
-            AND hp.HOMPI_ID = #{hompiId}
-            AND hp.OWNER_USER_ID = #{userId}
-        </if>
-        <if test="userId == null or userId != hompiId ">
-            AND hp.HOMPI_ID = #{hompiId}
-
-        </if>
-
+        ON hp.HOMPI_ID = hds.HOMPI_ID
+        AND hds.DAY_STATS_DATE = CURDATE()
+        LEFT OUTER JOIN HOMPI_CONFIG hc
+        ON hp.HOMPI_ID = hc.HOMPI_ID
+        <where>
+            <if test="hompiId == userId">
+                hp.HOMPI_ID = #{hompiId}
+                AND hp.OWNER_USER_ID = #{userId}
+            </if>
+            <if test="userId == null or userId != hompiId ">
+                hp.HOMPI_ID = #{hompiId}
+            </if>
+        </where>
     </select>
 
     <update id="updateTitle" parameterType="map">
         UPDATE wannabe_dev.HOMPI
         SET HOMPI_TITLE= #{title}
         WHERE HOMPI_ID = #{hompiId}
-
     </update>
-
 </mapper>
