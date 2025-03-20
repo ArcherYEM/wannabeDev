@@ -27,7 +27,7 @@ public class UserService {
      * 저장 후 return 200 ok
      */
     @Transactional
-    public Boolean signUpUser(SignupUserDTO signupUser) {
+    public Long signUpUser(SignupUserDTO signupUser) {
         Long userId;
 
         try {
@@ -92,9 +92,9 @@ public class UserService {
             userMapper.saveUserDetail(newUserDetail);
             userMapper.saveUserRole(newUserRole);
 
-            return true;
+            return userId;
         } catch (Exception e) {
-            return false;
+            return 0L;
         }
 
     }
