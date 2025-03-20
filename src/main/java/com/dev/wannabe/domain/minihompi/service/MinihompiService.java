@@ -17,4 +17,14 @@ public class MinihompiService {
         MiniHompiTotal findMiniHompi = minihompiMapper.findMyHompi(map);
         return findMiniHompi;
     }
+
+    public int updateTitle(Map<String, Object> miniHompi) {
+        int updateTitle = minihompiMapper.updateTitle(miniHompi);
+        return updateTitle;
+    }
+
+    public Map<String, Object> saveMood(Map<String, Object> map) {
+        Map<String, Object> moodSave = minihompiMapper.moodSave(map);
+        return moodSave;
+    }
 }
