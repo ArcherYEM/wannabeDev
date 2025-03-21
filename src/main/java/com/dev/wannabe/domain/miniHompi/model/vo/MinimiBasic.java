@@ -12,7 +12,7 @@ public class MinimiBasic {
     private Long minimiId;
     private Long userId;
     private Long productId;
-    private Long faceDirectionCode;
+    private String faceDirectionCode;
     private Float xPosition;
     private Float yPosition;
     private Float zPosition;
