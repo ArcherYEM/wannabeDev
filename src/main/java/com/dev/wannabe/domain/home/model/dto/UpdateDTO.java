@@ -7,6 +7,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
+//정보 업데이트 DTO
 public class UpdateDTO {
 
     private String email;

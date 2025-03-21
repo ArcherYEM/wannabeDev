@@ -88,7 +88,8 @@
                 </div>
                 <div class="join-date">
                     <label>전화번호</label>
-                    <input type="text" class="PoneNo" id="PoneNo" th:value="${phoneNo != null} ? phoneNo : ''">
+                    <!-- 수정: placeholder 변경, 숫자만 입력 가능하도록 설정 -->
+                    <input type="text" class="PoneNo" id="PoneNo" th:value="${phoneNo != null} ? phoneNo : ''" placeholder="전화번호를 입력하여 주세요" onkeypress="return (event.charCode != 45 && event.charCode >= 48 && event.charCode <= 57)">
                     <a href="#" class="check-duplicate btn di small" data-type="phone">중복확인</a>
                 </div>
             </div>

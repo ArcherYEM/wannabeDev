@@ -31,19 +31,19 @@ public class UpdateProfileController {
     @Autowired
     private UpdateProfileService userService;
 
-    // 회원정보 수정 페이지를 표시하는 메서드입니다.
-    // @PostMapping("/update-profile"): "/user/update-profile" 경로로 POST 요청이 오면 이 메서드가 실행됩니다.
+    // 회원정보 수정 페이지를 표시하는 메서드
     // 수정: @PostMapping("/update-profile")이 중복되어 하나를 다른 경로로 변경합니다.
     @GetMapping("/update-profile") // 수정: POST 대신 GET으로 변경, 중복 경로 문제 해결
     public String showUpdateProfile(Model model, HttpServletRequest request, @AuthenticationPrincipal UserDetails user) {
+
         // 현재 로그인한 사용자의 loginId를 가져옵니다.
         String loginId = user.getUsername();
+
         // userService를 통해 loginId로 사용자 정보를 조회합니다.
-        // 수정: UpdateProfileService.getUser(loginId) → userService.getUser(loginId)로 변경
         // 클래스 이름(UpdateProfileService) 대신 주입받은 객체(userService)를 사용합니다.
         SignupUserDTO signupUserDTO = userService.getUser(loginId); // 수정: 변수 이름 소문자로 변경 (SignupUserDTO → signupUserDTO)
-        // 수정: UpdateProfileService.updateUser() 호출 제거
-        // updateUser는 void 메서드로 반환값이 없으므로 호출 불가능합니다.
+
+
         String ipAddress = request.getRemoteAddr();
 
         // Thymeleaf 템플릿에 데이터를 전달합니다.
@@ -60,53 +60,43 @@ public class UpdateProfileController {
         return "update-profile";
     }
 
-    // 이메일 중복 확인 API입니다.
-    // @PostMapping("/check-email-duplicate"): "/user/check-email-duplicate" 경로로 POST 요청이 오면 실행됩니다.
-    // @ResponseBody: 반환값을 JSON 형태로 클라이언트에 보냅니다.
+    // 이메일 중복 확인 API
+    // @PostMapping("/check-email-duplicate"): "/user/check-email-duplicate" 경로로 POST 요청이 오면 실행
     @PostMapping("/check-email-duplicate")
     @ResponseBody
     public Map<String, Boolean> checkEmailDuplicate(@RequestParam String email, @AuthenticationPrincipal UserDetails user) {
         // userService를 통해 이메일 중복 여부를 확인합니다.
         // 수정: UpdateProfileService → userService로 변경
         boolean isDuplicate = userService.isEmailDuplicate(email, user.getUsername());
-        // 중복 여부를 JSON 형태로 반환합니다.
         return Collections.singletonMap("isDuplicate", isDuplicate);
     }
 
-    // 전화번호 중복 확인 API입니다.
-    // @PostMapping("/check-phone-duplicate"): "/user/check-phone-duplicate" 경로로 POST 요청이 오면 실행됩니다.
+    // 전화번호 중복 확인 API
     @PostMapping("/check-phone-duplicate")
     @ResponseBody
     public Map<String, Boolean> checkPhoneDuplicate(@RequestParam String phone, @AuthenticationPrincipal UserDetails user) {
         // userService를 통해 전화번호 중복 여부를 확인합니다.
-        // 수정: UpdateProfileService → userService로 변경
         boolean isDuplicate = userService.isPhoneNoDuplicate(phone, user.getUsername());
-        // 중복 여부를 JSON 형태로 반환합니다.
         return Collections.singletonMap("isDuplicate", isDuplicate);
     }
 
-    // 비밀번호 검증 API입니다.
-    // @PostMapping("/verify-password"): "/user/verify-password" 경로로 POST 요청이 오면 실행됩니다.
+    // 비밀번호 검증 API
     @PostMapping("/verify-password")
     @ResponseBody
     public Map<String, Boolean> verifyPassword(@RequestParam String password, @RequestParam String loginId) {
-        // userService를 통해 비밀번호가 일치하는지 검증합니다.
-        // 수정: UpdateProfileService → userService로 변경
+        // userService를 통해 비밀번호가 일치하는지 검증
         boolean isValid = userService.verifyPassword(loginId, password);
-        // 검증 결과를 JSON 형태로 반환합니다.
+
         return Collections.singletonMap("isValid", isValid);
     }
 
-    // 회원정보 업데이트 API입니다.
-    // @PostMapping("/update-profile"): "/user/update-profile" 경로로 POST 요청이 오면 실행됩니다.
-    // @ResponseBody: 반환값을 JSON 형태로 클라이언트에 보냅니다.
+    // 회원정보 업데이트 API
     @PostMapping("/update-profile")
     @ResponseBody
     public ResponseEntity<String> updateProfile(@RequestBody UpdateDTO updateDTO) { // 수정: 변수 이름 소문자로 변경 (UpdateDTO → updateDTO)
-        // userService를 통해 사용자 정보를 업데이트합니다.
-        // 수정: UpdateProfileService → userService로 변경
+        // userService를 통해 사용자 정보를 업데이트
         userService.updateUser(updateDTO);
-        // 성공 메시지를 반환합니다.
+        // 성공 메시지를 반환
         return ResponseEntity.ok("Success");
     }
 }

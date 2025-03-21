@@ -1,5 +1,7 @@
 $(document).ready(function() {
     const loginId = $('#LoginId').text();
+    let isEmailAvailable = false;
+    let isPhoneAvailable = false;
 
     // 중복 확인 버튼 클릭 이벤트
     $('.check-duplicate').on('click', function(e) {
@@ -12,20 +14,48 @@ $(document).ready(function() {
             return;
         }
 
+        // 이메일과 전화번호 형식 확인
+        if (type === 'email') {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(value)) {
+                alert('올바른 이메일 형식이 아닙니다. 예: abc@naver.com');
+                return;
+            }
+        } else if (type === 'phone') {
+            // 수정: 전화번호 형식 규칙 변경
+            // 숫자 11자리로만 입력받아요. 예: 01012345678
+            const phonePattern = /^\d{11}$/;
+            if (!phonePattern.test(value)) {
+                alert('올바른 전화번호 형식이 아닙니다. 예: 01012345678 (숫자 11자리)');
+                return;
+            }
+            // 수정: 전화번호가 010으로 시작하는지 확인
+            if (!value.startsWith('010')) {
+                alert('전화번호는 010으로 시작해야 합니다.');
+                return;
+            }
+        }
+
         // 서버에 중복 확인 요청 (AJAX)
         $.ajax({
-            url: `/user/check-${type}-duplicate`, // 컨트롤러 엔드포인트와 일치
+            url: `/user/check-${type}-duplicate`,
             method: 'POST',
             data: { [type]: value },
             success: function(response) {
                 if (response.isDuplicate) {
                     alert(`${type === 'email' ? '이메일' : '전화번호'}가 이미 사용 중입니다.`);
+                    if (type === 'email') isEmailAvailable = false;
+                    else isPhoneAvailable = false;
                 } else {
                     alert(`${type === 'email' ? '이메일' : '전화번호'} 사용 가능합니다.`);
+                    if (type === 'email') isEmailAvailable = true;
+                    else isPhoneAvailable = true;
                 }
             },
             error: function() {
                 alert('중복 확인 중 오류가 발생했습니다.');
+                if (type === 'email') isEmailAvailable = false;
+                else isPhoneAvailable = false;
             }
         });
     });
@@ -53,9 +83,18 @@ $(document).ready(function() {
             return;
         }
 
+        if (!isEmailAvailable) {
+            alert('이메일 중복 확인을 해주세요.');
+            return;
+        }
+        if (!isPhoneAvailable) {
+            alert('전화번호 중복 확인을 해주세요.');
+            return;
+        }
+
         // 비밀번호 확인 요청
         $.ajax({
-            url: '/user/verify-password', // 컨트롤러 엔드포인트와 일치
+            url: '/user/verify-password',
             method: 'POST',
             data: { password: currentPassword, loginId: loginId },
             success: function(response) {
@@ -71,8 +110,9 @@ $(document).ready(function() {
                     phoneNo: phoneNo
                 };
 
+                // 회원정보 업데이트 요청
                 $.ajax({
-                    url: '/user/update-profile', // 컨트롤러 엔드포인트와 일치
+                    url: '/user/update-profile',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(updateData),
@@ -80,8 +120,11 @@ $(document).ready(function() {
                         alert('회원정보가 성공적으로 수정되었습니다.');
                         window.location.href = '/profile';
                     },
-                    error: function() {
-                        alert('회원정보 수정 중 오류가 발생했습니다.');
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON && xhr.responseJSON.message
+                            ? xhr.responseJSON.message
+                            : '회원정보 수정 중 오류가 발생했습니다.';
+                        alert(errorMessage);
                     }
                 });
             },
