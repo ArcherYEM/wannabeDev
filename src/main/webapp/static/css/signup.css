@@ -1,0 +1,29 @@
+.select {
+    appearance: auto;
+}
+.rightNotation {
+    text-align: right;
+    padding-right: 0;
+}
+.leftNotation {
+    text-align: left;
+    padding-right: 0;
+}
+
+.checkDuplicate {
+    background-color: var(--color-basic);
+    color: white;
+}
+.checkedDuplicate {
+    background-color: var(--color-gray);
+    color: white;
+}
+
+#confirm1Wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#confirm1Wrap input {
+    width: 15px;
+}
