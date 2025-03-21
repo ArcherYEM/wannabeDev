@@ -39,5 +39,4 @@ public class MinihompiTotal {
     private String mood; //기분
     private String hompiLang; //홈피 소개글 언어
 
-
 }

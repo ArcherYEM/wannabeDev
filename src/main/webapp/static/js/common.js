@@ -1,4 +1,4 @@
-$(function (){
+$(function () {
 
 });
 
@@ -9,7 +9,7 @@ function openPop() {
     const left = Math.ceil((window.screen.width - popupW) / 2);
     const top = Math.ceil((window.screen.height - popupH) / 2);
 
-    const hompiId = 0;
+    const hompiId = 9;
 
     window.open(`/mini-hompi/main/${hompiId}`,
         'mini-hompi',

@@ -233,7 +233,7 @@ $(document).ready(function () {
 
 // JSON 데이터를 가져오는 함수
     function getminihompiDataList() {
-        const hompiId = 0; // 홈피 ID
+        const hompiId = 9; // 홈피 ID
         const hompSub_url = `/mini-hompi/api/${hompiId}`;
 
         $.ajax({
@@ -266,7 +266,7 @@ $(document).ready(function () {
         $('#mood').val(minihompi.mood).prop('selected', true);
 
         //권한에 따라 관리 버튼 숨김
-        if (myHompi == 1 || myHompi == 2) {
+        if (myHompi != 0) {
             $("#moveSetting").hide();
             $(".editImg").hide();
             $("#editBtn").hide();

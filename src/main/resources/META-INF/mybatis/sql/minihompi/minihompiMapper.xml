@@ -27,11 +27,11 @@
         LEFT OUTER JOIN HOMPI_CONFIG hc
         ON hp.HOMPI_ID = hc.HOMPI_ID
         <where>
-            <if test="hompiId == userId">
+            <if test="userId == ownerUserId">
                 hp.HOMPI_ID = #{hompiId}
-                AND hp.OWNER_USER_ID = #{userId}
+                AND hp.OWNER_USER_ID = #{ownerUserId}
             </if>
-            <if test="userId == null or userId != hompiId ">
+            <if test="userId == null or userId != ownerUserId ">
                 hp.HOMPI_ID = #{hompiId}
             </if>
         </where>
@@ -50,4 +50,18 @@
           AND HOMPI_ID = #{hompiId}
 
     </update>
+
+    <select id="findOwnerUserId" parameterType="Long"
+            resultType="com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal">
+        SELECT OWNER_USER_ID
+        FROM HOMPI
+        WHERE HOMPI_ID = #{hompiId}
+    </select>
+
+    <insert id="insertTodayCount" parameterType="map">
+
+
+    </insert>
+
+
 </mapper>
