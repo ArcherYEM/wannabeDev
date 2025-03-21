@@ -1,10 +1,12 @@
 <div xmlns:th="http://www.thymeleaf.org">
   <div th:fragment="modalFragment">
-    <div>
-      <label>
-        <input class="checkbox" type="checkbox"> 개인정보 수집 및 이용 동의
-      </label>
-      <a href="#" onclick="modal('dialog')">내용보기</a>
+    <div class="joinInputWrap btn" style="display: flex;">
+      <div id="confirm1Wrap">
+        <input type="checkbox" id="confirm1" class="checkbox">
+        <label for="confirm1">개인정보 수집 및 이용동의</label>
+<!--        <a href="#" id="showConfirm" onclick="modal('dialog')">내용보기</a>-->
+        <a href="#" class="btn di small checkDuplicate" id= "showConfirm" onclick="modal('dialog')">내용보기</a>
+      </div>
     </div>
     <!-- 모달 창 -->
     <div id="dialog" class="dialog">
