@@ -1,14 +1,14 @@
 package com.dev.wannabe.domain.minihompi.mapper;
 
-import com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal;
+import com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal2;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
 
 @Mapper
-public interface MinihompiMapper {
+public interface MinihompiMapper2 {
 
-    MinihompiTotal findMyhompi(Map<String, Object> map);
+    MinihompiTotal2 findMyhompi(Map<String, Object> map);
 
     int updateTitle(Map<String, Object> miniHompi);
 
