@@ -271,7 +271,7 @@ $(document).ready(function () {
             $(".editImg").hide();
             $("#editBtn").hide();
             $("#titleBtn").hide();
-            $("#mood select").prop("disabled", true);
+            $("select#mood").prop("disabled", true);
         }
     }
 
