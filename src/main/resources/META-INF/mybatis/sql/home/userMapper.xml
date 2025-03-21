@@ -61,17 +61,11 @@
                 ELSE FALSE
             END
         FROM USER_BASIC
-        WHERE
-            1 = 1
-            <if test="loginId != null">
-                AND LOGIN_ID = #{loginId}
-            </if>
-            <if test="email != null">
-                AND EMAIL = #{email}
-            </if>
-            <if test="phoneNo != null">
-                AND PHONE_NO = #{phoneNo}
-            </if>
+        <where>
+            <if test="loginId != null">  OR LOGIN_ID = #{loginId}</if>
+            <if test="email != null">    OR EMAIL = #{email}</if>
+            <if test="phoneNo != null">  OR PHONE_NO = #{phoneNo}</if>
+        </where>
     </select>
 
     <select id="findUserBasicByUserId" parameterType="Long" resultType="UserBasic">
