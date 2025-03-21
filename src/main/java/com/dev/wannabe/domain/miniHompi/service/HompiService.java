@@ -2,7 +2,6 @@ package com.dev.wannabe.domain.minihompi.service;
 
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.CreateHompiDTO;
-import com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiConfig;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats;
@@ -79,16 +78,6 @@ public class HompiService {
             log.error("홈피 생성 에러 {}", e.getMessage());
             return false;
         }
-    }
-
-    @Transactional
-    public HompiInfoDTO readHompiInfoByUserId(Long userId) {
-        Hompi hompi = hompiMapper.findHompiByUserId(userId);
-        return HompiInfoDTO.builder()
-                .hompiId(hompi.getHompiId())
-                .hompiURL(hompi.getHompiURL())
-                .hompiTitle(hompi.getHompiTitle())
-                .build();
     }
 
     private String nowFormatyyyyMMdd() {
