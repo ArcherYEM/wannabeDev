@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/giftShop")
-public class giftShopController {
+public class GiftShopController {
 
     @GetMapping("/main")
     public String giftShop(){
