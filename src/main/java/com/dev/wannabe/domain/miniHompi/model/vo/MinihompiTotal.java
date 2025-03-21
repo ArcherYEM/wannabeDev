@@ -3,7 +3,7 @@ package com.dev.wannabe.domain.minihompi.model.vo;
 import lombok.Data;
 
 @Data
-public class MinihompiTotal2 {
+public class MinihompiTotal {
 
     private Long userId; //유저 ID
 
