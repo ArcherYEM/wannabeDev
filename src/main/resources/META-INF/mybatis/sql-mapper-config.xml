@@ -33,6 +33,8 @@
 		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats"/>
 		<!--> miniroom <-->
 		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
+		<!--> minimi <-->
+		<typeAlias alias="MinimiBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MinimiBasic"/>
 
 		<!--> DTO <-->
 		<!--> user <-->
