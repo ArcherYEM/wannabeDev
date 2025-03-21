@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.MinimiMapper">
+    <insert id="saveMinimiBasic" parameterType="MinimiBasic">
+        INSERT INTO MINIMI_BASIC (
+            USER_ID, PRODUCT_ID, FACE_DIRECTION_CODE,
+            X_POSITION, Y_POSITION, Z_POSITION,
+            MAIN_YN, USE_YN,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{userId},
+            #{productId},
+            #{faceDirectionCode},
+            #{xPosition},
+            #{yPosition},
+            #{zPosition},
+            #{mainYN},
+            #{useYN},
+            #{insertUserId}
+        )
+        ON DUPLICATE KEY UPDATE
+            PRODUCT_ID = #productId},
+            FACE_DIRECTION_CODE = #{faceDirectionCode},
+            X_POSITION = #{xPosition},
+            Y_POSITION = #{yPosition},
+            Z_POSITION = #{zPosition},
+            MAIN_YN = #{mainYN},
+            USE_YN = #{useYN},
+            UPDATE_USER_ID = #{updateUserId}
+    </insert>
+</mapper>
