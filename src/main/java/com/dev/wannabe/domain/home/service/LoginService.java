@@ -4,9 +4,9 @@ import com.dev.wannabe.domain.home.mapper.LoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
-import com.dev.wannabe.domain.home.model.dto.UserInfoDTO;
+import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
-import com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO;
+import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
@@ -113,15 +113,16 @@ public class LoginService {
 
     private SessionUserDTO createUserData(LoginLog loginLog) {
 
-        UserInfoDTO userInfo = userMapper.findUserInfoByUserId(loginLog.getUserId());
-        HompiInfoDTO hompiInfo = hompiMapper.findHompiInfoByUserId(loginLog.getUserId());
+        UserBasic userBasic = userMapper.findUserBasicByUserId(loginLog.getUserId());
+        Hompi hompi = hompiMapper.findHompiByUserId(loginLog.getUserId());
+
         return SessionUserDTO.builder()
                 .accessIp(loginLog.getAccessIp())
                 .userId(loginLog.getUserId())
-                .name(userInfo.getName())
-                .hompiId(hompiInfo.getHompiId())
-                .hompiURL(hompiInfo.getHompiURL())
-                .hompiTitle(hompiInfo.getHompiTitle())
+                .name(userBasic.getName())
+                .hompiId(hompi.getHompiId())
+                .hompiURL(hompi.getHompiURL())
+                .hompiTitle(hompi.getHompiTitle())
                 .build();
     }
 }

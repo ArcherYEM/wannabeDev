@@ -2,7 +2,6 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
-import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.model.vo.UserDetail;
 import com.dev.wannabe.domain.home.model.vo.UserRole;
@@ -36,13 +35,7 @@ public class UserService {
              * 중복되면 예외 처리 발생
              * 이후 400 Bad Request 반환
              */
-            UserExistDTO userExist = UserExistDTO.builder()
-                    .loginId(signupUser.getLoginId())
-                    .email(signupUser.getEmail())
-                    .phoneNo(signupUser.getPhoneNo())
-                    .build();
-
-            if (isUserExist(userExist)) {
+            if (isUserExist(signupUser.getLoginId()) || isUserExist(signupUser.getEmail()) || isUserExist(signupUser.getPhoneNo())) {
                 throw new Exception();
             }
 
@@ -99,58 +92,7 @@ public class UserService {
 
     }
 
-    /*
-     * Login Id 중복 확인 기능
-     * 중복 아니면 return 200 ok
-     * 중복이면 return 400 bad request
-     */
-    public Boolean checkDuplicationLoginId(String loginId) {
-        UserExistDTO userExist = UserExistDTO.builder()
-                .loginId(loginId)
-                .build();
-
-        if (isUserExist(userExist)) {
-            log.info("User LoginId Exist {}", loginId);
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * email 중복 확인 기능
-     * 중복 아니면 return 200 ok
-     * 중복이면 return 400 bad request
-     */
-    public Boolean checkDuplicationEmail(String email){
-        UserExistDTO userExist = UserExistDTO.builder()
-                .email(email)
-                .build();
-
-        if (isUserExist(userExist)) {
-            log.info("User Email Exist {}", email);
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * phone no 중복 확인 기능
-     * 중복 아니면 return 200 ok
-     * 중복이면 return 400 bad request
-     */
-    public Boolean checkDuplicationPhone(String phoneNo) {
-        UserExistDTO userExist = UserExistDTO.builder()
-                .phoneNo(phoneNo)
-                .build();
-
-        if (isUserExist(userExist)) {
-            log.info("User PhoneNo Exist {}", phoneNo);
-            return true;
-        }
-        return false;
-    }
-
-    private Boolean isUserExist(UserExistDTO userExist) {
-        return userMapper.isUserExist(userExist) > 0;
+    public Boolean isUserExist(String data) {
+        return userMapper.isUserExist(data) > 0;
     }
 }
