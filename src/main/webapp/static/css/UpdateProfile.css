@@ -1,0 +1,225 @@
+/* General Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff8c00;
+    padding: 10px 20px;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    height: 40px;
+}
+
+header .logo span {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-left: 10px;
+}
+
+header .header-right ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+header .header-right ul li {
+    margin-left: 15px;
+    color: white;
+}
+
+header .header-right ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+header .header-right ul li img {
+    height: 20px;
+}
+
+header .header-right ul li .btn {
+    background-color: transparent;
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Navigation */
+nav {
+    background-color: #ff8c00;
+    padding: 10px 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Main Content */
+main {
+    padding: 40px 20px;
+    background-color: white;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.signup-form h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Uneditable Information Section */
+.signup-form section {
+    margin-bottom: 30px;
+}
+
+.signup-form section div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.signup-form section label {
+    width: 150px;
+    font-size: 16px;
+    color: #666;
+}
+
+.signup-form section span {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Form Groups (Password and Personal Info) */
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: block;
+    color: #ff8c00;
+}
+
+.password-group label,
+.join-date label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.password-group input,
+.join-date input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.join-date {
+    display: flex;
+    align-items: center;
+}
+
+.join-date input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.join-date a {
+    background-color: #ff8c00;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #e07b00;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff8c00;
+    padding: 20px;
+    color: white;
+}
+
+footer .footer-left span {
+    margin-right: 10px;
+}
+
+footer .footer-right ul {
+    display: flex;
+    list-style: none;
+}
+
+footer .footer-right ul li {
+    margin-left: 20px;
+    cursor: pointer;
+}

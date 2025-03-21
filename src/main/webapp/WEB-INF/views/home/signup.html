@@ -5,201 +5,26 @@
     <title>onlineMain</title>
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/onlineStyle.css">
+    <link rel="stylesheet" href="/static/css/signup.css">
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
-    <script src="/static/js/login.js"></script>
 </head>
-<script>
-    $(document).ready(function () {
-        // 중복 확인 여부를 저장하는 변수
-        let isLoginIdValid = false;
-        let isEmailValid = false;
-        let isPhoneValid = false;
-
-        // 아이디 중복 확인
-        $("#checkDuplicateLoginId").click(function () {
-            const loginId = $("#signUpLoginId").val().trim();
-            if (loginId === "") {
-                alert("아이디를 입력하세요.");
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: `/api/user/checkLoginId/${loginId}`,
-                success: function(response) {
-                    alert("사용 가능한 아이디입니다.");
-                    isLoginIdValid = true;
-                    checkAllValid(); // 모든 필드 검증 후 버튼 활성화
-                },
-                error: function(error) {
-                    alert("이미 사용 중인 아이디입니다.");
-                    isLoginIdValid = false;
-                    disableSignUpButton();
-                }
-            });
-        });
-
-        // 이메일 중복 확인
-        $("#checkDuplicateEmail").click(function () {
-            const email = $("#email").val().trim();
-            if (email === "") {
-                alert("이메일을 입력하세요.");
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: `/api/user/checkEmail/${email}`,
-                success: function(response) {
-                    alert("사용 가능한 이메일입니다.");
-                    isEmailValid = true;
-                    checkAllValid();
-                },
-                error: function(error) {
-                    alert("이미 사용 중인 이메일입니다.");
-                    isEmailValid = false;
-                    disableSignUpButton();
-                }
-            });
-        });
-
-        // 휴대폰 번호 중복 확인
-        $("#checkDuplicatePhoneNo").click(function () {
-            const phoneNo = $("#phoneNo").val().trim();
-            if (phoneNo === "") {
-                alert("휴대폰 번호를 입력하세요.");
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: `/api/user/checkPhoneNo/${phoneNo}`,
-                success: function(response) {
-                    alert("사용 가능한 휴대폰 번호입니다.");
-                    isPhoneValid = true;
-                    checkAllValid();
-                },
-                error: function(error) {
-                    alert("이미 사용 중인 휴대폰 번호입니다.");
-                    isPhoneValid = false;
-                    disableSignUpButton();
-                }
-            });
-        });
-
-        // 비밀번호 확인
-        var passwdChk = function(obj){
-            var pw = $("#password").val();
-            var pwChk = obj.value;
-
-            if (pw !== pwChk) {
-                $(".failChk").show();
-                $(".successChk").hide();
-            } else {
-                $(".failChk").hide();
-                $(".successChk").show();
-            }
-        }
-
-        // 모든 필드가 통과했을 경우 회원가입 버튼 활성화
-        function checkAllValid() {
-            if (isLoginIdValid && isEmailValid && isPhoneValid) {
-                $("#signUpBtn").prop("disabled", false);
-            }
-        }
-
-        // 하나라도 실패하면 회원가입 버튼 비활성화
-        function disableSignUpButton() {
-            $("#signUpBtn").prop("disabled", true);
-        }
-
-        // 회원가입 요청
-        $("#signUpBtn").click(function (event) {
-            event.preventDefault();
-
-            const userData = {
-                loginId: $("#signUpLoginId").val().trim(),
-                email: $("#email").val().trim(),
-                phoneNo: $("#phoneNo").val().trim(),
-                password: $("#password").val().trim(),
-                name: $("#name").val().trim(),
-                genderCode: $("#gender").val(), // M or F
-                birthDate: $("#birthDate").val().trim(), // 8자리 숫자
-                friendMessageAvailYN: $("#friendMessageAvailYN").val(), // Y or N
-                hompiUseYN: $("#hompiUseYN").val(), // Y or N
-                confirmYN1: $("#confirmYN1").val(), // Y or N
-                confirmYN2: $("#confirmYN2").val(), // Y or N
-                confirmYN3: $("#confirmYN3").val() // Y or N
-            };
-
-            // 필수 필드 확인
-            if (!userData.loginId || !userData.email || !userData.phoneNo || !userData.password || !userData.name ) {
-                alert("모든 필수 정보를 입력해주세요.");
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/api/user/signup",
-                contentType: "application/json",
-                data: JSON.stringify(userData),
-                success: function (response) {
-                    alert("회원가입이 완료되었습니다!");
-                    location.href = "/home";
-                },
-                error: function (error) {
-                    alert("회원가입 실패: " + error.responseText);
-                    console.error(error);
-                }
-            });
-        });
-        // 초기에 회원가입 버튼 비활성화
-        disableSignUpButton();
-    });
-</script>
 <body>
 <div id="wrap">
     <!--헤더 시작-->
-    <div id="header">
-        <div class="headerLeft">
-            <a href="#" class="logo"><img src="/static/images/common/logo_full.png"></a>
-        </div>
-        <div class="headerRight">
-            <ul>
-                <li><input type="text" name="loginId" placeholder="아이디"></li>
-                <li><input type="password" name="password" placeholder="비밀번호"></li>
-                <li><a href="#" class="loginBtn btn">로그인</a></li>
-                <li><a href="#" class="signupBtn btn">회원가입</a></li>
-            </ul>
-        </div>
-    </div>
+    <th:block th:include="/common/layout/fragments/header :: header"></th:block>
     <!--헤더 끝-->
-
-    <!--gnb 시작-->
-    <div id="gnb">
-        <div>
-            <ul>
-                <li><a href="#">내미니홈피</a></li>
-                <li><a href="#">선물가게</a></li>
-                <li><a href="#">장바구니</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">ABOUT US</a></li>
-            </ul>
-        </div>
-    </div>
-    <!--gnb 끝-->
 
     <!--메인 시작-->
     <div id="container">
         <div class="containerWrap joinContainer">
-            <p class="menuTitle">회원가입</p>
             <div class="joinDiv mt30">
 
                 <p class="joinTitle">아이디</p>
                 <div class="joinInputWrap">
-                    <input type="text" id="signUpLoginId" placeholder="아이디 입력">
-                    <a href="#" class="btn di small" id="checkDuplicateLoginId">중복확인</a>
+                    <input type="text" id="loginId" placeholder="아이디 입력">
+                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicateLoginId">중복확인</a>
+                    <p class="checkMatch loginId"></p>
                 </div>
 
                 <p class="joinTitle">비밀번호</p>
@@ -208,21 +33,8 @@
                 </div>
                 <p class="joinTitle">비밀번호 확인</p>
                 <div class="joinInputWrap">
-                    <input type="password" id="passwordChk" placeholder="비밀번호 확인" onkeyup="passwdChk(this);">
-                    <p class="failChk" style="display:none; color:red;">비밀번호가 일치하지 않습니다.</p>
-                    <p class="successChk" style="display:none; color:green;">비밀번호가 일치합니다.</p>
-                </div>
-
-                <p class="joinTitle">이메일</p>
-                <div class="joinInputWrap">
-                    <input type="text" id="email" placeholder="이메일 입력">
-                    <a href="#" class="btn di small" id="checkDuplicateEmail">중복확인</a>
-                </div>
-
-                <p class="joinTitle">휴대폰번호</p>
-                <div class="joinInputWrap">
-                    <input type="text" id="phoneNo" placeholder="휴대폰 번호 입력">
-                    <a href="#" class="btn di small" id="checkDuplicatePhoneNo">중복확인</a>
+                    <input type="password" id="passwordChk" placeholder="비밀번호 확인">
+                    <p class="checkMatch pwd"></p>
                 </div>
 
                 <p class="joinTitle">이름</p>
@@ -230,60 +42,61 @@
                     <input type="text" id="name" placeholder="이름 입력">
                 </div>
 
+                <p class="joinTitle">생년월일</p>
+                <div class="joinInputWrap">
+                    <ul id="birthSelectList">
+                        <li>
+                            <select name="birthYear" id="birthYear" class="select rightNotation">
+                                <option value="" hidden selected>년</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select name="birthMonth" id="birthMonth" class="select rightNotation">
+                                <option value="" hidden selected>월</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select name="birthDay" id="birthDay" class="select rightNotation">
+                                <option value="" hidden selected>일</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+
                 <p class="joinTitle">성별</p>
                 <div class="joinInputWrap">
-                    <select id="gender">
+                    <select id="gender" class="select leftNotation">
+                        <option value="" hidden selected>성별</option>
                         <option value="M">남자</option>
                         <option value="F">여자</option>
                     </select>
                 </div>
 
-                <p class="joinTitle">생년월일 (8자리)</p>
+                <p class="joinTitle">이메일</p>
                 <div class="joinInputWrap">
-                    <input type="text" id="birthDate" placeholder="YYYYMMDD" maxlength="8">
+                    <input type="text" id="email" placeholder="이메일 입력">
+                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicateEmail">중복확인</a>
+                    <p class="checkMatch email"></p>
                 </div>
 
-                <p class="joinTitle">일촌메시지 허용 여부</p>
+                <p class="joinTitle">휴대폰번호</p>
                 <div class="joinInputWrap">
-                    <select id="friendMessageAvailYN">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
-                    </select>
+                    <input type="text" id="phoneNo" placeholder="휴대폰 번호 입력">
+                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicatePhoneNo">중복확인</a>
+                    <p class="checkMatch phoneNo"></p>
                 </div>
 
-                <p class="joinTitle">홈피 사용 여부</p>
-                <div class="joinInputWrap">
-                    <select id="hompiUseYN">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
-                    </select>
+                <div class="joinInputWrap btn" style="display: flex;">
+                    <div id="confirm1Wrap">
+                        <input type="checkbox" id="confirm1" class="checkbox">
+                        <label for="confirm1">개인정보 수집 및 이용동의</label>
+                        <a href="#" id="showConfirm">내용보기</a>
+                    </div>
                 </div>
 
-                <p class="joinTitle">이용약관 1</p>
                 <div class="joinInputWrap">
-                    <select id="confirmYN1">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
-                    </select>
+                    <button id="signUpBtn" class="btn">회원가입</button>
                 </div>
-
-                <p class="joinTitle">이용약관 2</p>
-                <div class="joinInputWrap">
-                    <select id="confirmYN2">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
-                    </select>
-                </div>
-
-                <p class="joinTitle">이용약관 3</p>
-                <div class="joinInputWrap">
-                    <select id="confirmYN3">
-                        <option value="Y">Y</option>
-                        <option value="N">N</option>
-                    </select>
-                </div>
-
-                <a href="#" class="btn mt20 mb20 disabled" id="signUpBtn" disabled>회원가입</a>
 
             </div>
         </div>
@@ -291,16 +104,13 @@
     <!--메인 끝-->
 
     <!--푸터 시작-->
-    <div id="footer">
-        <div class="footerWrap">
-            <div>
-                <p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
-                <p>Since.2025.2.24~</p>
-            </div>
-        </div>
-    </div>
+    <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
     <!--푸터 끝-->
-</div>
 
+    <div th:replace="/home/fragment/modal :: modalFragment"></div>
+</div>
+<script src="/static/js/home/login.js"></script>
+<script src="/static/js/home/signup.js"></script>
+<script src="/static/js/home/modal.js"></script>
 </body>
 </html>

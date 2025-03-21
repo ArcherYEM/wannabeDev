@@ -7,16 +7,8 @@
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="/static/js/login.js"></script>
 </head>
 <body>
-<script>
-    $(document).ready(function(){
-        $(".signupBtn").click(function() {
-            location.href="/signup";
-        });
-    });
-</script>
 <div id="wrap">
     <!--헤더 시작-->
     <th:block th:include="/common/layout/fragments/header :: header"></th:block>
@@ -51,6 +43,7 @@
                             </ul>
                         </div>
                     </div>
+                    <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
                 </div>
                 <!--login e-->
                 <div class="mainTopCenter">
@@ -222,19 +215,15 @@
                     </div>
                     <div class="bot">
                         <p class="mainTitleText">실시간뉴스</span></p>
-                        <ul>
-                            <li>실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다</li>
-                            <li>실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다</li>
-                            <li>실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다</li>
-                            <li>실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다</li>
-                            <li>실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다실시간뉴스다</li>
-                        </ul>
+                        <ul id="newsList"> </ul> <!-- 동적으로 생성 -->
                     </div>
                 </div>
                 <div class="mainBotRight">
                     <div class="top">
                         <p class="mainTitleText">오늘의 운세</span></p>
-                        <p class="todayLucky">퍼블 하기에 디자인이 겁나 꼬인 날입니다.</p>
+                        <div class="todayLuckyFrame">
+                            <p class="todayLucky"></p>
+                        </div>
                     </div>
                     <div class="bot">
                         <p class="mainTitleText">영화추천</span></p>
@@ -248,6 +237,10 @@
     <!--푸터 시작-->
     <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
     <!--푸터 끝-->
+    <script src="/static/js/home/fortune.js"></script>
+    <script src="/static/js/home/login.js"></script>
+    <script src="/static/js/home/newsSection.js"></script>
+    <script src="/static/js/home/moveFromHome.js"></script>
 </div>
 
 <div class="modalBg"></div>
@@ -264,5 +257,3 @@
 
 </body>
 </html>
-
-

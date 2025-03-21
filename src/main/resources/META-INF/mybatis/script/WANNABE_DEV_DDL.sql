@@ -211,7 +211,6 @@ CREATE TABLE USER_BASIC (
 CREATE TABLE USER_DETAIL (
                              USER_ID BIGINT COMMENT '회원ID',
                              FRIEND_MESSAGE_AVAIL_YN VARCHAR(1) COMMENT '일촌 쪽지 허용 여부',
-                             HOMPI_USE_YN VARCHAR(1) COMMENT '홈피 사용 여부',
                              CONFIRM_YN_1 VARCHAR(1) COMMENT '수집동의 여부 1',
                              CONFIRM_YN_2 VARCHAR(1) COMMENT '수집동의 여부 2',
                              CONFIRM_YN_3 VARCHAR(1) COMMENT '수집동의 여부 3',
@@ -766,7 +765,7 @@ CREATE INDEX MINIMI_BASIC_IDX_01 ON MINIMI_BASIC(USER_ID);
 * =============================================START=============================================
 */
 CREATE TABLE MINIROOM_BASIC (
-                                MINIROOM_ID BIGINT COMMENT '미니룸 ID',
+                                MINIROOM_ID BIGINT AUTO_INCREMENT COMMENT '미니룸 ID',
                                 USER_ID BIGINT NOT NULL COMMENT '회원 ID',
                                 PRODUCT_ID BIGINT NOT NULL COMMENT '상품 ID',
                                 REMARKS VARCHAR(500) COMMENT '비고',
@@ -1154,6 +1153,8 @@ CREATE TABLE WEATHER_LOG (
                              LOG_ID BIGINT AUTO_INCREMENT COMMENT '날씨 ID',
                              MESSAGE TEXT COMMENT '날씨 메세지',
                              CONTENTS TEXT COMMENT '날씨 내용',
+                             TEMPERATURE INT COMMENT '기온',
+                             RAIN DECIMAL(5,2) COMMENT '강수확률',
                              REMARKS VARCHAR(500) COMMENT '비고',
                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
