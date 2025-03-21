@@ -14,6 +14,10 @@
     <th:block th:include="/common/layout/fragments/header :: header"></th:block>
     <!--헤더 끝-->
 
+    <!--모달 테스트-->
+    <th:block th:include="/home/fragment/findIdAndPwInclude :: myModal"></th:block>
+    <!--모달 끝-->
+
     <!--메인 시작-->
     <div id="container">
         <div class="containerWrap">
@@ -35,7 +39,7 @@
                         <div class="loginWrapBot">
                             <ul>
                                 <li><a href="#" class="signupBtn btn">회원가입</a></li>
-                                <li><a href="#" class="btn">ID찾기 / 비밀번호찾기</a></li>
+                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
                             </ul>
                         </div>
                     </div>
@@ -238,5 +242,18 @@
     <script src="/static/js/home/newsSection.js"></script>
     <script src="/static/js/home/moveFromHome.js"></script>
 </div>
+
+<div class="modalBg"></div>
+<div class="modal">
+    <a href="#" class="close"><img src="/static/images/common/close.png"></a>
+    <p class="title">개인정보 수집 및 이용동의</p>
+    <div>
+    </div>
+</div>
+
+<script src="/static/js/login.js"></script>
+<script src="/static/js/minihompiMain.js"></script>
+<script src="/static/js/findIdAndPw.js"></script>
+
 </body>
 </html>
