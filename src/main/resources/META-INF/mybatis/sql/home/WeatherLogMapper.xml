@@ -3,8 +3,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dev.wannabe.domain.home.mapper.WeatherLogMapper">
 
-    <insert id="insertWeatherLog">
-        INSERT INTO WEATHER_LOG (MESSAGE, CONTENTS, TEMPERATURE, RAIN, INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT)
-        VALUES (#{message}, #{contents}, #{temperature}, #{rain}, #{insertUserId}, #{insertDt, jdbcType=TIMESTAMP}, #{updateUserId}, #{updateDt, jdbcType=TIMESTAMP})
+    <!-- 최신 데이터 가져오기 -->
+    <select id="getLatestWeatherLog" resultType="com.dev.wannabe.domain.home.model.dto.WeatherLogDTO">
+        SELECT LOG_ID, MESSAGE, CONTENTS, TEMPERATURE, RAIN, INSERT_DT, UPDATE_DT
+        FROM WEATHER_LOG
+        ORDER BY INSERT_DT DESC
+            LIMIT 1
+    </select>
+
+    <!-- 최초 INSERT -->
+    <insert id="insertWeatherLog" parameterType="com.dev.wannabe.domain.home.model.dto.WeatherLogDTO">
+        INSERT INTO WEATHER_LOG (
+            MESSAGE, CONTENTS, TEMPERATURE, RAIN, INSERT_DT, UPDATE_DT
+        ) VALUES (
+                     #{message},
+                     #{contents},
+                     #{temperature},
+                     #{rain},
+                     #{insertDt},
+                     #{updateDt}
+                 )
     </insert>
+
+    <!-- 1시간마다 UPDATE -->
+    <update id="updateWeatherLog">
+        UPDATE WEATHER_LOG
+        SET MESSAGE = #{message},
+            CONTENTS = #{contents},
+            TEMPERATURE = #{temperature},
+            RAIN = #{rain},
+            UPDATE_USER_ID = 1,
+            UPDATE_DT = NOW()
+        WHERE LOG_ID = #{logId}
+    </update>
+
 </mapper>

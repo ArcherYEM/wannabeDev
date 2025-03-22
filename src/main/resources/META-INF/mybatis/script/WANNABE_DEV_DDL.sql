@@ -765,7 +765,7 @@ CREATE INDEX MINIMI_BASIC_IDX_01 ON MINIMI_BASIC(USER_ID);
 * =============================================START=============================================
 */
 CREATE TABLE MINIROOM_BASIC (
-                                MINIROOM_ID BIGINT COMMENT '미니룸 ID',
+                                MINIROOM_ID BIGINT AUTO_INCREMENT COMMENT '미니룸 ID',
                                 USER_ID BIGINT NOT NULL COMMENT '회원 ID',
                                 PRODUCT_ID BIGINT NOT NULL COMMENT '상품 ID',
                                 REMARKS VARCHAR(500) COMMENT '비고',

@@ -1,7 +1,5 @@
 package com.dev.wannabe.domain.home.mapper;
 
-import com.dev.wannabe.domain.home.model.dto.UserDataDTO;
-import com.dev.wannabe.domain.home.model.dto.UserExistDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.model.vo.UserDetail;
 import com.dev.wannabe.domain.home.model.vo.UserRole;
@@ -19,10 +17,9 @@ public interface UserMapper {
     // USER_ROLE 저장
     void saveUserRole(UserRole userRole);
 
-    Integer isUserExist(UserExistDTO userExist);
+    Integer isUserExist(String data);
 
     Long findUserIdByLoginId(String loginId);
-
-    UserDataDTO findUserDataByUserId(Long userId);
+    UserBasic findUserBasicByUserId(Long UserId);
 
 }

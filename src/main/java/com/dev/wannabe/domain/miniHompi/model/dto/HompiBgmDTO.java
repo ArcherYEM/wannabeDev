@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class HompiInfoDTO {
+public class HompiBgmDTO {
 
-    private Long hompiId;
-    private String hompiURL;
-    private String hompiTitle;
+    private String bgmName;
+    private String artist;
+    private String bgmPath;
 
 }

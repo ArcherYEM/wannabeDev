@@ -14,20 +14,13 @@ public class SessionUserDTO {
     private String accessIp;
 
     // User
-    private Long userId;  // UUID, PK
-    private String email;   // UNIQUE
-    private String phoneNo; // UNIQUE
+    private Long userId;
     private String name;
-    private String genderCode; // 성별 코드 M, F
-    private String birthDate;
 
     // Hompi
     private Long hompiId;
     private String hompiURL;
     private String hompiTitle;
-
-    // MiniRoom
-    private Long miniroomId;
 
 
 }

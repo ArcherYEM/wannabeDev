@@ -1,0 +1,176 @@
+@charset "utf-8";
+.btn{display:inline-block; width:100%; height:30px; background:#fff; color:#555; border:1px solid var(--color-basic); padding:5px 10px; font-weight:bold; border-radius:5px; text-align:center; line-height:16px; box-sizing:border-box; transition:all,.5s; cursor:pointer}
+.btn:hover{color:var(--color-basic)}
+.btn.small{height:inherit; padding:0 10px;}
+.btn.nobtn{background:#595959; border:1px solid #595959; color:#fff}
+.btn.nobtn:hover{color:var(--color-basic)}
+.btn.btnRed{background:var(--color-red); border:1px solid var(--color-red);}
+.btn.btnGreen{background:var(--color-green); border:1px solid var(--color-green);}
+.btn.btnBlue{background:var(--color-blue); border:1px solid var(--color-blue);}
+.btn.btnGray{background:var(--color-gray); border:1px solid var(--color-gray); }
+#popupMessageNav ul li a:hover{color:var(--color-basic)}
+/*기본색 s*/
+:root {
+	--color-basic: #FF8000;
+	--color-red: #ff4f4f;
+	--color-green: #00a336d9 ;
+	--color-blue: #3700ffc7 ;
+	--color-gray: #595959;
+}
+
+.dFlex {
+    display: flex;
+}
+
+div#wrap {
+    width: 650px;
+    height: 600px;
+}
+
+ol, ul {
+    list-style: none;
+    margin:0; padding:0;
+}
+
+
+ul > li {
+    cursor: pointer;
+    font-size: 20px;
+    padding-right: 30px;
+    padding-left: 15px;
+}
+
+ul > li:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+input[type=text] {
+    font-size: 19px;
+    width: 200px;
+    padding: 5px;
+    border: 1px solid orange;
+}
+
+
+button {
+    background-color: orange;
+    cursor: pointer;
+    padding: 10px 25px;
+}
+
+header#header {
+    padding: 30px;
+    height: 20%;
+    text-align: center;
+
+}
+
+#header img {
+   margin-top: 20px;
+}
+
+
+main#main.dFlex {
+    flex-wrap: nowrap;
+	justify-content: space-between;
+	justify-content: center;
+	width: 100%;
+    height: 80%;
+	/*border: 1px solid red;*/
+}
+
+div#popupMessageNav {
+    width: 25%;
+    border-right: 1px solid red;
+    padding-top: 10px;
+    margin-top: 35px;
+}
+
+div#popupMessageMain {
+    width: 70%;
+    padding: 0px 15px;
+    /*border: 1px solid green;*/
+}
+
+div#popupMessageMain > #popupMessageMainHeader {
+    margin-bottom: 10px;
+
+}
+
+textarea {
+    padding: 10px;
+    width: 435px;
+    height: 350px;
+    margin-bottom: 30px;
+    border: 2px solid #989797;
+    border-radius: 0.5em;
+    resize: none;
+}
+
+#sendMessagePre, #reciveMessagePre {
+    padding: 10px;
+    width: 435px;
+    height: 350px;
+    margin-bottom: 30px;
+    border: 2px solid #989797;
+    border-radius: 0.5em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow: auto;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+p.receiveMessageTime {
+    font-weight: bold;
+    text-align: right;
+}
+div#popupMessageMainArea {
+   /*text-align: right;*/
+    margin: 0;
+}
+
+div#popupMessageSendBtnArea {
+    padding: 0px 10px;
+    text-align: right;
+}
+
+div#popupMessageReciveBtnArea.dFlex {
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+
+div#popupMessageSendboxBtnArea.dFlex {
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+
+
+div#popupMessageMainArea button#MessageSendBtn {
+    margin-right: 10px;
+}
+
+/*페이지네이션 관련 css*/
+#paging > ul {
+    list-style-type:none;
+}
+
+#paging > ul li {
+    font-size: 1.1em;
+    display:inline-block;
+    cursor:pointer;
+    padding: 0 3px;
+}
+
+#paging > ul > li:hover {
+    /*background: #fbfbfb;*/
+    /*font-weight:bold;*/
+    color: #0080ff;
+}
+
+#paging > ul > li.selected {
+    color: #0080ff;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: default;
+}

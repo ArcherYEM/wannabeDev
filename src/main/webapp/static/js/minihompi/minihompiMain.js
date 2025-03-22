@@ -255,8 +255,6 @@ $(document).ready(function () {
 // JSON 데이터를 화면에 렌더링하는 함수
     function renderminihompi(data) {
         const minihompi = data.minihompi;
-        console.log("myHompi" + data.myHompi);
-        console.log("minihompi" + data.minihompi);
         const myHompi = data.myHompi;
 
         // 화면에 데이터 삽입
@@ -273,27 +271,11 @@ $(document).ready(function () {
             $(".editImg").hide();
             $("#editBtn").hide();
             $("#titleBtn").hide();
-            $("#mood select").prop("disabled", true);
+            $("select#mood").prop("disabled", true);
         }
     }
 
 });
-
-
-/** 미니홈피 팝업창 설정 **/
-function openPop() {
-    const popupW = 1280;
-    const popupH = 720;
-    const left = Math.ceil((window.screen.width - popupW) / 2);
-    const top = Math.ceil((window.screen.height - popupH) / 2);
-
-    const hompiId = 0;
-
-
-    window.open(`/mini-hompi/main/${hompiId}`,
-        'mini-hompi',
-        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
-}
 
 /** 쪽지 팝업창 설정 **/
 function onpneMessage() {
@@ -322,7 +304,7 @@ $(document).on("click", "#moveHome", function (e) {
             executeScriptsFromHTML(data);
 
             //`minihompiMain.js`가 항상 다시 로드되도록 설정
-            $.getScript("/static/js/minihompiMain.js")
+            $.getScript("/static/js/minihompi/minihompiMain.js")
                 .done(() => {
                     console.log("minihompiMain.js 로드 완료");
                     delete window.isminihompiMainLoaded;  // 다시 로드 가능하도록 초기화

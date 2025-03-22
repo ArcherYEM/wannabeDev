@@ -26,8 +26,8 @@ public interface HompiMapper {
     void saveHompiDailyStats(HompiDailyStats hompiDailyStats);
 
     // userId로 hompiId 추출
-    Long findByHompiIdByUserId(Long userId);
+    Long findHompiIdByUserId(Long userId);
 
-    Hompi findByHompiByUserId(Long userId);
+    Hompi findHompiByUserId(Long userId);
 
 }

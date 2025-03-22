@@ -1,80 +1,52 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                console.log(`📍 현재 위치: 위도 ${lat}, 경도 ${lon}`);
-                fetchWeatherByLocation(lat, lon);
-            },
-            function (error) {
-                console.error("❌ 위치 정보를 가져올 수 없습니다.", error);
-                fetchWeatherByCity("Seoul"); // 기본값 서울
-            }
-        );
+        navigator.geolocation.getCurrentPosition(function (position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            fetchWeatherFromServer(lat, lon);
+        }, function (error) {
+            fetchWeatherFromServer(37.5665, 126.9780); // 서울 기본값
+        });
     } else {
-        console.error("❌ 이 브라우저는 위치 정보를 지원하지 않습니다.");
-        fetchWeatherByCity("Seoul"); // 기본값 서울
+        fetchWeatherFromServer(37.5665, 126.9780); // 서울 기본값
     }
 
-    function fetchWeatherByLocation(lat, lon) {
-        const apiKey = "629da2d63bca145438b81baeebadcdbe";
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    function fetchWeatherFromServer(lat, lon) {
+        $.ajax({
+            url: '/weather/location',
+            method: 'GET',
+            data: { lat: lat, lon: lon },
+            success: function (data) {
+                console.log("🌤️ 서버에서 받아온 날씨 데이터:", data);
+                updateWeatherUI(data, lat, lon);
+            },
+            error: function (error) {
+                console.error("❌ 서버에서 날씨 데이터를 가져오는 중 오류 발생:", error);
+            }
+        });
+    }
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("🌤️ 위치 기반 날씨 데이터:", data);
-                updateWeatherUI(data);
+    function updateWeatherUI(data, lat, lon) {
+        const translatedWeather = translateWeatherToKorean(data.message);
+
+        $('#location').text(`날씨 정보를 가져오는 중...`);
+        $('.weather-title span').text(translatedWeather);
+        $('#weatherIcon').attr('src', getWeatherIcon(data.message)).attr('alt', translatedWeather);
+        $('#temperature').text(`${data.temperature}° C`);
+        $('#rain').text(`${data.rain}%`);
+
+        // GeoAPI로 위경도를 이용하여 지역명 가져오기
+        fetch(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lon}`)
+            .then(response => response.json())
+            .then(locationData => {
+                const city = locationData.address.city || locationData.address.town || locationData.address.village || "현재 위치";
+                const translatedCity = translateCityToKorean(city);
+                $('#location').text(`${translatedCity} 날씨`);
             })
-            .catch((error) => console.error("❌ 날씨 데이터를 가져오는 중 오류 발생:", error));
-    }
-
-    function fetchWeatherByCity(city) {
-        const apiKey = "629da2d63bca145438b81baeebadcdbe";
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("🌤️ 기본 도시(서울) 날씨 데이터:", data);
-                updateWeatherUI(data);
-            })
-            .catch((error) => console.error("❌ 날씨 데이터를 가져오는 중 오류 발생:", error));
-    }
-
-    function updateWeatherUI(data) {
-        let cityName = data.name;
-        let translatedCity = translateCityToKorean(cityName);
-        let weatherState = data.weather[0].main; // 🌥️ 원본 날씨 상태 (영어)
-        let translatedWeather = translateWeatherToKorean(weatherState); // 🏷️ 한글 변환
-        let iconUrl = getWeatherIcon(weatherState); // 🌤️ 아이콘 가져오기
-
-        document.getElementById("location").textContent = `${translatedCity} 날씨`;
-        document.querySelector(".weather-title span").textContent = translatedWeather;
-        document.getElementById("weatherIcon").src = iconUrl;
-        document.getElementById("weatherIcon").alt = translatedWeather;
-        document.getElementById("temperature").textContent = `${Math.round(data.main.temp)}° C`;
-        document.getElementById("rain").textContent = `${data.rain ? data.rain["1h"] + "%" : "0%"}`;
-    }
-
-    function translateCityToKorean(city) {
-        const cityTranslations = {
-            "Seoul": "서울",
-            "Busan": "부산",
-            "Incheon": "인천",
-            "Daegu": "대구",
-            "Daejeon": "대전",
-            "Gwangju": "광주",
-            "Ulsan": "울산",
-            "Suwon": "수원",
-            "Jeju": "제주도",
-            "Gyeonggi-do": "경기도",
-            "Chuncheon": "춘천",
-            "Gangneung": "강릉",
-            "Changwon": "창원"
-        };
-        return cityTranslations[city] || city; // 변환된 도시명 반환 (없으면 원래 값)
+            .catch(error => {
+                console.error("❌ 지역 정보를 가져오는 중 오류 발생:", error);
+                $('#location').text(`현재 위치 날씨`);
+            });
     }
 
     function getWeatherIcon(weather) {
@@ -105,5 +77,24 @@ document.addEventListener("DOMContentLoaded", function () {
             "Haze": "실안개"
         };
         return weatherTranslations[weather] || "기타";
+    }
+
+    function translateCityToKorean(city) {
+        const cityTranslations = {
+            "Seoul": "서울",
+            "Busan": "부산",
+            "Incheon": "인천",
+            "Daegu": "대구",
+            "Daejeon": "대전",
+            "Gwangju": "광주",
+            "Ulsan": "울산",
+            "Suwon": "수원",
+            "Jeju": "제주도",
+            "Gyeonggi-do": "경기도",
+            "Chuncheon": "춘천",
+            "Gangneung": "강릉",
+            "Changwon": "창원"
+        };
+        return cityTranslations[city] || city;
     }
 });
