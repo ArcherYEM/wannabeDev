@@ -2,7 +2,6 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.WeatherLogMapper;
 import com.dev.wannabe.domain.home.model.dto.WeatherLogDTO;
-import com.dev.wannabe.domain.home.model.vo.WeatherLog;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @RequiredArgsConstructor
 @Service
@@ -24,54 +25,112 @@ public class WeatherLogService {
     private final String apiUrl = "https://api.openweathermap.org/data/2.5/weather";
     private final String apiKey = "629da2d63bca145438b81baeebadcdbe";
 
-    // 1시간마다
+    // 매시간마다 서울 날씨 업데이트
     @Scheduled(fixedRate = 3600000)
-    public void fetchWeatherData() {
-        saveWeatherData("Seoul");
+    public void updateWeatherDataHourly() {
+        WeatherLogDTO latestLog = weatherLogMapper.getLatestWeatherLog();
+        if (latestLog != null) {
+            updateWeatherData("Seoul", latestLog.getLogId());
+        }
     }
 
-    // 서울의 날씨 데이터를 가져와 DB에 저장
-    public WeatherLog saveWeatherData(String city) {
-        try {
-            String url = String.format("%s?q=%s&appid=%s&units=metric", apiUrl, city, apiKey);
-            String response = webClient.get().uri(url).retrieve().bodyToMono(String.class).block();
-            JsonNode jsonNode = objectMapper.readTree(response);
-
-            String weatherState = jsonNode.get("weather").get(0).get("main").asText();
-
-            // DTO 생성 및 데이터 설정
-            WeatherLogDTO weatherLogDTO = new WeatherLogDTO();
-            weatherLogDTO.setMessage(weatherState);
-            weatherLogDTO.setContents(jsonNode.get("weather").get(0).get("description").asText());
-            weatherLogDTO.setTemperature((int) Math.round(jsonNode.get("main").get("temp").asDouble()));
-
-            // 강수량 데이터 확인 (없으면 0)
-            BigDecimal rainAmount = new BigDecimal(jsonNode.path("rain").path("1h").asText("0"));
-            weatherLogDTO.setRain(rainAmount);
-
-            // DTO → VO 변환
-            WeatherLog weatherLog = new WeatherLog();
-            weatherLog.setMessage(weatherLogDTO.getMessage());
-            weatherLog.setContents(weatherLogDTO.getContents());
-            weatherLog.setTemperature(weatherLogDTO.getTemperature());
-            weatherLog.setRain(weatherLogDTO.getRain());
-            weatherLog.setInsertUserId(1L);
-            weatherLog.setUpdateUserId(1L);
-            weatherLog.setInsertDt(LocalDateTime.now());
-            weatherLog.setUpdateDt(LocalDateTime.now());
-
-            // DB 저장
-            weatherLogMapper.insertWeatherLog(weatherLog);
-            System.out.println("✅ 날씨 데이터 삽입 완료: " + weatherLog.getMessage());
-
-
-            return weatherLog; // 저장된 데이터 반환
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    // 최초 접속 시 데이터가 없으면 서울 날씨를 저장 (옵션)
+    public void saveInitialWeatherData(String city) {
+        if (weatherLogMapper.getLatestWeatherLog() == null) {
+            saveWeatherData(city);
         }
     }
 
 
 
+
+    public WeatherLogDTO saveWeatherData(String city) {
+        try {
+            String url = String.format("%s?q=%s&appid=%s&units=metric", apiUrl, city, apiKey);
+            String response = webClient.get().uri(url).retrieve().bodyToMono(String.class).block();
+            JsonNode jsonNode = objectMapper.readTree(response);
+
+            WeatherLogDTO weatherLogDTO = new WeatherLogDTO();
+            weatherLogDTO.setMessage(jsonNode.get("weather").get(0).get("main").asText());
+            weatherLogDTO.setContents(jsonNode.get("weather").get(0).get("description").asText());
+            weatherLogDTO.setTemperature((int) Math.round(jsonNode.get("main").get("temp").asDouble()));
+            BigDecimal rainAmount = new BigDecimal(jsonNode.path("rain").path("1h").asText("0"));
+            weatherLogDTO.setRain(rainAmount);
+
+            long utcSeconds = jsonNode.get("dt").asLong();  // API가 주는 UTC 시간값
+            LocalDateTime koreaTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(utcSeconds), ZoneId.of("Asia/Seoul"));
+            System.out.println("🔔 KST로 변환한 시간: " + koreaTime);
+
+
+            // DTO에서 시간을 같이 저장
+            weatherLogDTO.setInsertDt(koreaTime);
+            weatherLogDTO.setUpdateDt(koreaTime);
+
+            weatherLogMapper.insertWeatherLog(weatherLogDTO);
+            System.out.println("✅ 날씨 데이터 삽입 완료 (KST 기준): " + weatherLogDTO.getMessage());
+
+            return weatherLogDTO;
+        } catch (Exception e) {
+            System.out.println("❌ 예외 발생: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // 날씨 업데이트 메서드
+    public void updateWeatherData(String city, Long logId) {
+        try {
+            String url = String.format("%s?q=%s&appid=%s&units=metric", apiUrl, city, apiKey);
+            String response = webClient.get().uri(url).retrieve().bodyToMono(String.class).block();
+            JsonNode jsonNode = objectMapper.readTree(response);
+
+            WeatherLogDTO weatherLogDTO = new WeatherLogDTO();
+            weatherLogDTO.setLogId(logId);
+            weatherLogDTO.setMessage(jsonNode.get("weather").get(0).get("main").asText());
+            weatherLogDTO.setContents(jsonNode.get("weather").get(0).get("description").asText());
+            weatherLogDTO.setTemperature((int) Math.round(jsonNode.get("main").get("temp").asDouble()));
+            BigDecimal rainAmount = new BigDecimal(jsonNode.path("rain").path("1h").asText("0"));
+            weatherLogDTO.setRain(rainAmount);
+
+            weatherLogMapper.updateWeatherLog(weatherLogDTO);
+            System.out.println("♻️ 날씨 데이터 업데이트 완료: " + weatherLogDTO.getMessage());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 위경도로 날씨 저장 (Ajax에서 호출할 메서드)
+    public WeatherLogDTO saveWeatherDataByCoords(double lat, double lon) {
+        try {
+            String url = String.format("%s?lat=%f&lon=%f&appid=%s&units=metric", apiUrl, lat, lon, apiKey);
+            String response = webClient.get().uri(url).retrieve().bodyToMono(String.class).block();
+            JsonNode jsonNode = objectMapper.readTree(response);
+
+            WeatherLogDTO weatherLogDTO = new WeatherLogDTO();
+            weatherLogDTO.setMessage(jsonNode.get("weather").get(0).get("main").asText());
+            weatherLogDTO.setContents(jsonNode.get("weather").get(0).get("description").asText());
+            weatherLogDTO.setTemperature((int) Math.round(jsonNode.get("main").get("temp").asDouble()));
+            BigDecimal rainAmount = new BigDecimal(jsonNode.path("rain").path("1h").asText("0"));
+            weatherLogDTO.setRain(rainAmount);
+
+            // 📌중요: OpenWeatherMap에서 제공하는 UTC 기준의 'dt' 사용
+            long utcSeconds = jsonNode.get("dt").asLong();
+            LocalDateTime koreaTime = LocalDateTime.ofInstant(
+                    Instant.ofEpochSecond(utcSeconds),
+                    ZoneId.of("Asia/Seoul")
+            );
+
+            // 🔥 DTO에 시간을 반드시 설정해줘야 함! 🔥
+            weatherLogDTO.setInsertDt(koreaTime);
+            weatherLogDTO.setUpdateDt(koreaTime);
+
+            weatherLogMapper.insertWeatherLog(weatherLogDTO);
+            return weatherLogDTO;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
