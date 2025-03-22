@@ -40,9 +40,9 @@
 		<!--> user <-->
 		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
 		<!--> login <-->
-		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
 		<!--> friend <-->
 		<!--> hompi <-->
+		<typeAlias alias="HompiBasicInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO"/>
 		<!--> miniroom <-->
 
 		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>

@@ -123,4 +123,10 @@
         FROM HOMPI
         WHERE OWNER_USER_ID = #{userId}
     </select>
+    
+    <select id="findHompiBasicInfoByUserId" parameterType="Long">
+        SELECT HOMPI_ID, HOMPI_URL, HOMPI_TITLE
+        FROM HOMPI
+        WHERE OWNER_USER_ID = #{userId}
+    </select>
 </mapper>

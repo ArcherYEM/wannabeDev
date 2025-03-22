@@ -3,7 +3,7 @@ package com.dev.wannabe.domain.home.model.dto;
 import lombok.Data;
 
 @Data
-public class LoginDataDTO {
+public class LoginDTO {
 
     private String loginId;
     private String password;
