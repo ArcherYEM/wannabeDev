@@ -3,7 +3,7 @@ const modal = document.getElementById('idPwModal');
 
 modalOpenBtn.addEventListener('click',function(){
     modal.classList.remove('hidden');
-});
+});``
 
 const birthYearSelect = document.getElementById("birthYear");
 const birthMonthSelect = document.getElementById("birthMonth");
@@ -66,3 +66,24 @@ birthMonthSelect.addEventListener("change", updateBirthDays);
 birthYearSelect.addEventListener("change", updateBirthDays);
 
 updateBirthDays();
+
+// 모달 창 안에서 아이디 찾기 / 비밀번호 찾기 버튼
+const idBtn = document.querySelector('.findIdBtn');
+const pwBtn = document.querySelector('.findPwBtn');
+
+const userInfoId = document.querySelector('.userInfoId');
+const userInfoPw = document.querySelector('.userInfoPw');
+
+// 아이디 찾기 버튼 눌렀을 때
+idBtn.addEventListener('click',function(){
+    userInfoId.style.display = 'block';
+    userInfoPw.style.display = 'none';
+});
+
+// 비밀번호 찾기 버튼 눌렀을 때
+pwBtn.addEventListener('click',function(){
+    userInfoId.style.display = 'none';
+    userInfoPw.style.display = 'block';
+});
+
+

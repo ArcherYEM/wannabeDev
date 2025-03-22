@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <th:block th:fragment="myModal">
-
 <div id="idPwModal" class="hidden">
     <div id="idPwModalContents">
         <div class="logoContainer">
@@ -18,9 +17,9 @@
             </div>
             <form>
                 <div class="userInfoId">
-                    <div class="username">
-                        <label for="name">이름</label>
-                        <input class="nameInput" type="text" id="name" name="name">
+                    <div class="findIdUsername">
+                        <label for="nameInput">이름</label>
+                        <input class="nameInput" type="text" id="nameInput" name="nameInput" placeholder="이름을 입력하세요">
                     </div>
                     <div class="userDOB">
                         <label>생년월일</label>
@@ -34,11 +33,21 @@
             </form>
             <form>
                 <div class="userInfoPw" style="display: none;">
-                    <div>
-                        아이디
+                    <div class="findPwId">
+                        <label for="idInput">아이디</label>
+                        <input class="idInput" type="text" id="idInput" name="idInput" placeholder="아이디를 입력하세요">
                     </div>
-                    <div>
-                        이메일
+                    <div class="emailContainer">
+                        <div class="emailDiv">
+                            <label for="emailInput">이메일</label><br>
+                            <input class="emailInput" type="email" id="emailInput" name="emailInput" placeholder="이메일을 입력하세요">
+                            <button class="emailBth" type="submit">인증번호 전송</button>
+                        </div>
+                        <div class="codeCheckDiv">
+                            <label for="codeCheck"></label>
+                            <input class="codeCheck" type="text" id="codeCheck" name="codeCheck" placeholder="이메일로 발송된 인증번호를 입력해주세요">
+                            <button class="emailBth" type="submit">인증번호 확인</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -53,7 +62,6 @@
         </div>
     </div>
 </div>
-
     <link rel="stylesheet" href="/static/css/findIdAndPw.css">
 </th:block>
 </html>
