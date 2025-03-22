@@ -100,12 +100,14 @@ document.addEventListener("DOMContentLoaded",function() {
 
     // 아이디 찾기 버튼 눌렀을 때
     idBtn.addEventListener('click',function(){
+        document.querySelector("form").reset();
         userInfoId.style.display = 'block';
         userInfoPw.style.display = 'none';
     });
 
     // 비밀번호 찾기 버튼 눌렀을 때
     pwBtn.addEventListener('click',function(){
+        document.querySelector("form").reset();
         userInfoId.style.display = 'none';
         userInfoPw.style.display = 'block';
     });
