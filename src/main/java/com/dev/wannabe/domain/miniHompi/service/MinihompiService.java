@@ -65,11 +65,11 @@ public class MinihompiService {
                 int todayCount = minihompiMapper.selectTodayCount(map);
 
                 if (todayCount == 0) {
-                    // 방문 기록 없을 경우 → INSERT + HOMPI 업데이트
+                    // INSERT + HOMPI 업데이트
                     minihompiMapper.insertTodayCount(map);
                     minihompiMapper.updateTotalCount(map);
                 } else {
-                    // 이미 오늘 방문 기록 있을 경우 → TODAY_CNT만 +1
+                    // 이미 오늘 방문 테이블이 있을 경우 → TODAY_CNT만 +1
                     minihompiMapper.updateTodayCount(map);
                 }
 

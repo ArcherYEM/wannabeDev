@@ -23,7 +23,7 @@
         FROM HOMPI hp
         LEFT OUTER JOIN HOMPI_DAILY_STATS hds
         ON hp.HOMPI_ID = hds.HOMPI_ID
-        AND hds.DAY_STATS_DATE = CURDATE()
+        AND hds.DAY_STATS_DATE = #{today}
         LEFT OUTER JOIN HOMPI_CONFIG hc
         ON hp.HOMPI_ID = hc.HOMPI_ID
         <where>
@@ -70,7 +70,7 @@
             JOIN HOMPI hp
         ON hds.HOMPI_ID = hp.HOMPI_ID
             SET hds.TODAY_CNT = hds.TODAY_CNT+1, hp.TOTAL_CNT = hp.TOTAL_CNT+1
-        WHERE hds.HOMPI_ID = #{hompiID}
+        WHERE hds.HOMPI_ID = #{hompiId}
           AND hds.DAY_STATS_DATE = #{today}
     </update>
 
