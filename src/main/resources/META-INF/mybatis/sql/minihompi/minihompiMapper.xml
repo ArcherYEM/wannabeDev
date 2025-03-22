@@ -58,10 +58,32 @@
         WHERE HOMPI_ID = #{hompiId}
     </select>
 
+    <select id="selectTodayCount" parameterType="map">
+        SELECT COUNT(*)
+        FROM HOMPI_DAILY_STATS
+        WHERE DAY_STATS_DATE = #{today}
+          AND HOMPI_ID = #{hompiId}
+    </select>
+
+    <update id="updateTodayCount" parameterType="map">
+        UPDATE HOMPI_DAILY_STATS hds
+            JOIN HOMPI hp
+        ON hds.HOMPI_ID = hp.HOMPI_ID
+            SET hds.TODAY_CNT = hds.TODAY_CNT+1, hp.TOTAL_CNT = hp.TOTAL_CNT+1
+        WHERE hds.HOMPI_ID = #{hompiID}
+          AND hds.DAY_STATS_DATE = #{today}
+    </update>
+
+    <update id="updateTotalCount" parameterType="map">
+        UPDATE HOMPI
+        SET TOTAL_CNT = TOTAL_CNT + 1
+        WHERE HOMPI_ID = #{hompiId}
+    </update>
+
     <insert id="insertTodayCount" parameterType="map">
-
-
+        INSERT INTO wannabe_dev.HOMPI_DAILY_STATS
+        (HOMPI_ID, DAY_STATS_DATE, TODAY_CNT, REMARKS, INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT)
+        VALUES (#{hompiId}, #{today}, 1, NULL, #{userId}, NOW(), #{userId}, NOW())
     </insert>
-
 
 </mapper>

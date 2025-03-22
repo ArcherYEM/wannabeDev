@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -16,7 +17,7 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("/mini-hompi")
 public class MinihompiController {
-    
+
     //TODO 미니홈피 메뉴 테이블에서 메뉴 공개 값 가져와서 json에 추가하고 공개범위 정하기(현재의 MyHompi 역할)
     //TODO 미니홈피 JSON 널 체크하는 기능 추가
 
@@ -30,9 +31,9 @@ public class MinihompiController {
 
 
     @GetMapping("/api/{hompiId}")
-    public ResponseEntity<Map<String, Object>> miniHompipopup(@PathVariable Long hompiId, HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> miniHompipopup(@PathVariable Long hompiId, HttpServletRequest request, HttpSession session) {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
-        Map<String, Object> response = minihompiService.getMinihompiPopup(hompiId, userData);
+        Map<String, Object> response = minihompiService.getMinihompiPopup(hompiId, userData, session);
         return ResponseEntity.ok(response);
     }
 

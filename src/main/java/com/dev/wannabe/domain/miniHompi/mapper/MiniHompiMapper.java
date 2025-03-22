@@ -14,8 +14,14 @@ public interface MinihompiMapper {
 
     Map<String, Object> moodSave(Map<String, Object> mood);
 
-    int insertTodayCount(Map<String, Object> param);
-
     MinihompiTotal findOwnerUserId(Long hompiId);
+
+    int selectTodayCount(Map<String, Object> map);
+
+    int updateTodayCount(Map<String, Object> map);
+
+    void insertTodayCount(Map<String, Object> map);
+
+    void updateTotalCount(Map<String, Object> map);
 }
 
