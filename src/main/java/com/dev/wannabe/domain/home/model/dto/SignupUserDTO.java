@@ -21,4 +21,7 @@ public class SignupUserDTO {
     private String confirmYN2; // 수집 동의 여부 2
     private String confirmYN3; // 수집 동의 여부 3
 
+    public String getname() {
+        return  name;
+    }
 }

@@ -1,11 +1,12 @@
 $(document).ready(function() {
-    // 로그인 시 사용자 데이터 표시 (서버에서 Thymeleaf로 이미 렌더링됨)
-    const loginId = $('#LoginId').text(); // 수정 불가 데이터 예시
+    const loginId = $('#LoginId').text();
+    let isEmailAvailable = false;
+    let isPhoneAvailable = false;
 
     // 중복 확인 버튼 클릭 이벤트
     $('.check-duplicate').on('click', function(e) {
         e.preventDefault();
-        const type = $(this).data('type'); // "email" 또는 "phone"
+        const type = $(this).data('type');
         const value = $(`#${type === 'email' ? 'email' : 'PoneNo'}`).val();
 
         if (!value) {
@@ -13,20 +14,48 @@ $(document).ready(function() {
             return;
         }
 
+        // 이메일과 전화번호 형식 확인
+        if (type === 'email') {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(value)) {
+                alert('올바른 이메일 형식이 아닙니다. 예: abc@naver.com');
+                return;
+            }
+        } else if (type === 'phone') {
+            // 수정: 전화번호 형식 규칙 변경
+            // 숫자 11자리로만 입력받아요. 예: 01012345678
+            const phonePattern = /^\d{11}$/;
+            if (!phonePattern.test(value)) {
+                alert('올바른 전화번호 형식이 아닙니다. 예: 01012345678 (숫자 11자리)');
+                return;
+            }
+            // 수정: 전화번호가 010으로 시작하는지 확인
+            if (!value.startsWith('010')) {
+                alert('전화번호는 010으로 시작해야 합니다.');
+                return;
+            }
+        }
+
         // 서버에 중복 확인 요청 (AJAX)
         $.ajax({
-            url: `/api/check-${type}-duplicate`, // 서버의 중복 체크 API 경로
+            url: `/user/check-${type}-duplicate`,
             method: 'POST',
             data: { [type]: value },
             success: function(response) {
                 if (response.isDuplicate) {
                     alert(`${type === 'email' ? '이메일' : '전화번호'}가 이미 사용 중입니다.`);
+                    if (type === 'email') isEmailAvailable = false;
+                    else isPhoneAvailable = false;
                 } else {
                     alert(`${type === 'email' ? '이메일' : '전화번호'} 사용 가능합니다.`);
+                    if (type === 'email') isEmailAvailable = true;
+                    else isPhoneAvailable = true;
                 }
             },
             error: function() {
                 alert('중복 확인 중 오류가 발생했습니다.');
+                if (type === 'email') isEmailAvailable = false;
+                else isPhoneAvailable = false;
             }
         });
     });
@@ -35,14 +64,12 @@ $(document).ready(function() {
     $('#submitBtn').on('click', function(e) {
         e.preventDefault();
 
-        // 입력값 가져오기
         const currentPassword = $('#password').val();
         const newPassword = $('#newpassword').val();
         const confirmNewPassword = $('#new_password').val();
         const email = $('#email').val();
         const phoneNo = $('#PoneNo').val();
 
-        // 유효성 검사
         if (!currentPassword) {
             alert('현재 비밀번호를 입력해주세요.');
             return;
@@ -56,9 +83,18 @@ $(document).ready(function() {
             return;
         }
 
-        // 현재 비밀번호 확인 요청
+        if (!isEmailAvailable) {
+            alert('이메일 중복 확인을 해주세요.');
+            return;
+        }
+        if (!isPhoneAvailable) {
+            alert('전화번호 중복 확인을 해주세요.');
+            return;
+        }
+
+        // 비밀번호 확인 요청
         $.ajax({
-            url: '/api/verify-password', // 비밀번호 확인 API
+            url: '/user/verify-password',
             method: 'POST',
             data: { password: currentPassword, loginId: loginId },
             success: function(response) {
@@ -67,7 +103,6 @@ $(document).ready(function() {
                     return;
                 }
 
-                // 비밀번호가 일치하면 수정 데이터 전송
                 const updateData = {
                     loginId: loginId,
                     password: newPassword,
@@ -75,17 +110,21 @@ $(document).ready(function() {
                     phoneNo: phoneNo
                 };
 
+                // 회원정보 업데이트 요청
                 $.ajax({
-                    url: '/api/update-profile', // 프로필 업데이트 API
+                    url: '/user/update-profile',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(updateData),
                     success: function(response) {
                         alert('회원정보가 성공적으로 수정되었습니다.');
-                        window.location.href = '/profile'; // 수정 후 이동할 페이지
+                        window.location.href = '/profile';
                     },
-                    error: function() {
-                        alert('회원정보 수정 중 오류가 발생했습니다.');
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON && xhr.responseJSON.message
+                            ? xhr.responseJSON.message
+                            : '회원정보 수정 중 오류가 발생했습니다.';
+                        alert(errorMessage);
                     }
                 });
             },
