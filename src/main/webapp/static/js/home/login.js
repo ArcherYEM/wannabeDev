@@ -30,28 +30,6 @@ $(document).ready(function(){
                 })
             }
         });
-
-        /*
-        if (loginData.loginId && loginData.password) {
-            $.ajax({
-                type: "POST",
-                url: "/api/user/login",
-                contentType: "application/json",
-                data: JSON.stringify(loginData),
-                success:function(response){
-                    loginCheck();
-                    loginCheckDisplayText.text("")
-                    location.href ="/"
-                },
-                error: function(error){
-                    loginId = ""
-                    password = ""
-                    loginCheckDisplayText.text("아이디 혹은 비밀번호를 다시 입력해주세요")
-                }
-            });
-        }
-
-         */
     });
 
     $(".logoutBtn").click(function () {
