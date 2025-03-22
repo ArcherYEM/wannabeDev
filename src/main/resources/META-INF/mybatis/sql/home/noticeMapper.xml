@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.NoticeMapper">
+
+    <!-- 공지사항 목록 조회 -->
+    <select id="getNotices" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
+        SELECT
+        n.NOTICE_ID,
+        n.NOTICE_TYPE,
+        n.NOTICE_TITLE,
+        n.NOTICE_CONTENTS,
+        n.START_DATE,
+        n.END_DATE,
+        n.INSERT_DT,
+        n.INSERT_USER_ID,
+        u.LOGIN_ID  <!-- LOGIN_ID를 함께 조회 -->
+        FROM NOTICE n
+        JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID  <!-- JOIN 조건 -->
+        ORDER BY n.START_DATE DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+<!--    &lt;!&ndash; 공지사항 추가 &ndash;&gt;-->
+<!--    <insert id="insertNotice" parameterType="com.dev.wannabe.domain.home.model.NoticeDTO">-->
+<!--        INSERT INTO NOTICE_TABLE (NOTICE_TYPE, NOTICE_TITLE, NOTICE_CONTENTS, START_DATE, END_DATE, INSERT_DATE, INSERT_USER_ID)-->
+<!--        VALUES (#{noticeType}, #{noticeTitle}, #{noticeContents}, #{startDate}, #{endDate}, #{insertDate}, #{insertUserId})-->
+<!--    </insert>-->
+
+</mapper>
