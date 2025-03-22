@@ -33,17 +33,16 @@
 		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats"/>
 		<!--> miniroom <-->
 		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
+		<!--> minimi <-->
+		<typeAlias alias="MinimiBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MinimiBasic"/>
 
 		<!--> DTO <-->
 		<!--> user <-->
 		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
-		<typeAlias alias="UserExistDTO" type="com.dev.wannabe.domain.home.model.dto.UserExistDTO"/>
-		<typeAlias alias="UserInfoDTO" type="com.dev.wannabe.domain.home.model.dto.UserInfoDTO"/>
 		<!--> login <-->
-		<typeAlias alias="LoginDataDTO" type="com.dev.wannabe.domain.home.model.dto.LoginDataDTO"/>
 		<!--> friend <-->
 		<!--> hompi <-->
-		<typeAlias alias="HompiInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiInfoDTO"/>
+		<typeAlias alias="HompiBasicInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO"/>
 		<!--> miniroom <-->
 
 		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>

@@ -765,7 +765,7 @@ CREATE INDEX MINIMI_BASIC_IDX_01 ON MINIMI_BASIC(USER_ID);
 * =============================================START=============================================
 */
 CREATE TABLE MINIROOM_BASIC (
-                                MINIROOM_ID BIGINT COMMENT '미니룸 ID',
+                                MINIROOM_ID BIGINT AUTO_INCREMENT COMMENT '미니룸 ID',
                                 USER_ID BIGINT NOT NULL COMMENT '회원 ID',
                                 PRODUCT_ID BIGINT NOT NULL COMMENT '상품 ID',
                                 REMARKS VARCHAR(500) COMMENT '비고',
@@ -1069,7 +1069,7 @@ CREATE TABLE NOTICE (
                         NOTICE_TYPE VARCHAR(2) COMMENT '알림 종류',
                         NOTICE_TITLE VARCHAR(200) COMMENT '공지 제목',
                         NOTICE_CONTENTS TEXT COMMENT '공지 내용',
-                        STARAT_DATE VARCHAR(8) COMMENT '시작 일자',
+                        START_DATE VARCHAR(8) COMMENT '시작 일자',
                         END_DATE VARCHAR(8) COMMENT '종료 일자',
                         START_TIME VARCHAR(4) COMMENT '시작 시간',
                         END_TIME VARCHAR(4) COMMENT '종료 시간',

@@ -2,13 +2,14 @@ package com.dev.wannabe.domain.minihompi.controller;
 
 import com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal;
 import com.dev.wannabe.domain.minihompi.service.MinihompiService;
+import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -30,13 +31,15 @@ public class MinihompiController {
 
 
     @GetMapping("/api/{hompiId}")
-    public ResponseEntity<Map<String, Object>> miniHompipopup(@PathVariable("hompiId") Long hompiId, HttpSession session) {
-        Integer userId = 0;
+    public ResponseEntity<Map<String, Object>> miniHompipopup(@PathVariable("hompiId") Long hompiId, HttpServletRequest request) {
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        Long userId = userData.getUserId();
+        System.out.println("userId = " + userId);
         String myHompi;
         //TODO 세션 연결해서 login ID 받아 json에 추가해서 홈페이지 우상단 main/joginID로 수정하기
         //TODO 미니홈피 메뉴 테이블에서 메뉴 공개 값 가져와서 json에 추가하고 공개범위 정하기(현재의 MyHompi 역할)
         //TODO 미니홈피 JSON 널 체크하는 기능 추가
-        if (hompiId == Long.valueOf(userId)) { // 내 미니홈피
+        if (hompiId == userData.getUserId()) { // 내 미니홈피
             myHompi = "0";
         } else if (userId == null) { // 비로그인
             myHompi = "1";
@@ -69,10 +72,9 @@ public class MinihompiController {
 
     @PostMapping("/updateTitle")
     public ResponseEntity<Map<String, Object>> updateTitle(
-            @RequestParam("title") String title, HttpSession session) {
-        //Integer hompiId = (Integer) session.getAttribute("hompiId");
-        Integer hompiId = 0;
-
+            @RequestParam("title") String title, HttpServletRequest request) {
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        Long hompiId = userData.getHompiId();
         Map<String, Object> response = new HashMap<>();
 
         // 타이틀 검증

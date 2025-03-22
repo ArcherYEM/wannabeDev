@@ -1,11 +1,11 @@
 package com.dev.wannabe.domain.minihompi.model.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
-public class HompiInfoDTO {
+public class HompiBasicInfoDTO {
 
     private Long hompiId;
     private String hompiURL;

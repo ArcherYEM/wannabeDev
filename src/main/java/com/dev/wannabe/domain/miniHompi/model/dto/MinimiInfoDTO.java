@@ -1,13 +1,13 @@
-package com.dev.wannabe.domain.minihompi.model.vo;
+package com.dev.wannabe.domain.minihompi.model.dto;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Builder(toBuilder = true)
-public class MinimiBasic {
+@Data
+@Builder
+public class MinimiInfoDTO {
 
     private Long minimiId;
     private Long userId;
@@ -18,9 +18,6 @@ public class MinimiBasic {
     private Float zPosition;
     private String mainYN;
     private String useYN;
-    private Long insertUserId;
-    private LocalDateTime insertDt;
-    private Long updateUserId;
-    private LocalDateTime updateDt;
+    private Long upsertUserId;
 
 }
