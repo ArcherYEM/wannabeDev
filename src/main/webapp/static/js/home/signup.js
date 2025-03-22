@@ -182,7 +182,7 @@ $(document).ready(function() {
 
         // 값이 바뀌면 중복 false 처리
         phoneNo.on("keyup", function () {
-            $("#checkDuplicateEmail").addClass("checkDuplicate").removeClass("checkedDuplicate")
+            $("#checkDuplicatePhoneNo").addClass("checkDuplicate").removeClass("checkedDuplicate")
             isPhoneValid = false;
         });
     });
