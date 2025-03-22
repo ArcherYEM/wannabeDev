@@ -1,26 +1,23 @@
-.weather-box {
+.weather-container {
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
     text-align: center;
-    padding: 20px;
 }
 
-.weather-icon {
-    width: 20px;
-    height: 20px;
-    margin-bottom: 10px;
+.weather-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-.weather-state {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
+.weather-content img {
+    width: 50px;
+    height: 50px;
 }
 
-.temperature {
-    font-size: 18px;
-    color: #FF5722;
-}
-
-.rain-info {
-    font-size: 16px;
-    color: #1C97CC;
+.weather-info p {
+    margin: 5px 0;
+    font-size: 14px;
 }
