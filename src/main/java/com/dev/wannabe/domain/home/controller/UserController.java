@@ -76,7 +76,7 @@ public class UserController {
      */
     @PostMapping("/checkLoginId/{loginId}")
     public ResponseEntity<Void> checkLoginId(@PathVariable String loginId) {
-        if (userManageService.checkDuplicationLoginId(loginId)) {
+        if (userManageService.isUserExist(loginId)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
@@ -89,7 +89,7 @@ public class UserController {
      */
     @PostMapping("/checkEmail/{email}")
     public ResponseEntity<Void> checkEmail(@PathVariable String email) {
-        if (userManageService.checkDuplicationEmail(email)) {
+        if (userManageService.isUserExist(email)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
@@ -102,7 +102,7 @@ public class UserController {
      */
     @PostMapping("/checkPhoneNo/{phoneNo}")
     public ResponseEntity<Void> checkPhoneNo(@PathVariable String phoneNo) {
-        if (userManageService.checkDuplicationPhone(phoneNo)) {
+        if (userManageService.isUserExist(phoneNo)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
