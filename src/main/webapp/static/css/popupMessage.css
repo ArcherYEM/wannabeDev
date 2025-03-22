@@ -18,6 +18,10 @@
 	--color-gray: #595959;
 }
 
+.dFlex {
+    display: flex;
+}
+
 div#wrap {
     width: 650px;
     height: 600px;
@@ -67,7 +71,6 @@ header#header {
 
 
 main#main.dFlex {
-    display: flex;
     flex-wrap: nowrap;
 	justify-content: space-between;
 	justify-content: center;
@@ -90,8 +93,8 @@ div#popupMessageMain {
 }
 
 div#popupMessageMain > #popupMessageMainHeader {
-    margin-bottom: 30px;
-    padding-left: 15px;
+    margin-bottom: 10px;
+
 }
 
 textarea {
@@ -104,77 +107,70 @@ textarea {
     resize: none;
 }
 
+#sendMessagePre, #reciveMessagePre {
+    padding: 10px;
+    width: 435px;
+    height: 350px;
+    margin-bottom: 30px;
+    border: 2px solid #989797;
+    border-radius: 0.5em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow: auto;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+p.receiveMessageTime {
+    font-weight: bold;
+    text-align: right;
+}
 div#popupMessageMainArea {
    /*text-align: right;*/
     margin: 0;
 }
 
 div#popupMessageSendBtnArea {
+    padding: 0px 10px;
     text-align: right;
 }
+
+div#popupMessageReciveBtnArea.dFlex {
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+
+div#popupMessageSendboxBtnArea.dFlex {
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+
 
 div#popupMessageMainArea button#MessageSendBtn {
     margin-right: 10px;
 }
 
 /*페이지네이션 관련 css*/
-.page {
-    text-align: center;
-    width: 5%;
+#paging > ul {
+    list-style-type:none;
 }
 
-
-.pagination {
-    list-style: none;
-    display: inline-block;
-    padding: 0;
-    margin-top: 20px;
+#paging > ul li {
+    font-size: 1.1em;
+    display:inline-block;
+    cursor:pointer;
+    padding: 0 3px;
 }
 
-.pagination li {
-    display: inline;
-    text-align: center;
+#paging > ul > li:hover {
+    /*background: #fbfbfb;*/
+    /*font-weight:bold;*/
+    color: #0080ff;
 }
 
-.pagination a {
-    float: left;
-    display: block;
-    font-size: 14px;
-    text-decoration: none;
-    padding: 5px 12px;
-    color: #96a0ad;
-    line-height: 1.5;
-}
-
-.last {
-    margin-right: 15px;
-}
-
-.last:hover, .left:hover, .right:hover {
-    color: #2e9cdf;
-}
-
-.pagination a.active {
+#paging > ul > li.selected {
+    color: #0080ff;
+    font-size: 1.2em;
+    font-weight: bold;
     cursor: default;
-    color: #ffffff;
-
-    outline: none;
-}
-
-.modal .page:hover {
-    background-color: #2e9cdf;
-    color: #ffffff;
-}
-
-.modal .page.active, .modal .page:active {
-    background-color: #2e9cdf;
-    cursor: pointer;
-}
-
-.arrow-left {
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right: 10px solid #007bff;
 }

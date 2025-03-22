@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+}
+
+#idPwModal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+#idPwModalContents {
+    position: absolute;
+    background-color: #ffffff;
+    width: 500px;
+    height: 400px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#modalContainer .hidden {
+    display: none;
+}
+
+.logoContainer {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 20px;
+}
+
+.findBtnContainer, .bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 85%;
+    margin: 10px auto;
+}
+
+.modalBtn {
+    width: 100%;
+    height: 40px;
+    margin: 0 auto;
+    font-size: 15px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.findIdBtn, .findBtn {
+    background-color: #FF8000;
+}
+
+.findPwBtn, .cancelBtn {
+    background-color: #595959;
+}
+
+.userInfoId {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin: 0 auto;
+    gap:10px;
+}
+
+.username, .userDOB {
+    display: flex;
+    flex-direction: column;
+    font-size:18px;
+    font-weight: 600;
+    gap:5px;
+}
+
+.contentsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - 70px);
+}
+
+.selectDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.nameInput, .userDOB select {
+    height:30px !important;
+    border: 1px solid #FF8000 !important;
+    border-radius: 5px;
+}
+
+.userDOB select {
+    width: 100%;
+}

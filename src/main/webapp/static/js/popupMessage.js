@@ -10,24 +10,15 @@ $(document).ready(function () {
 
   $("a.aTag").css({ "color": "#333333"});
   $("a."+className).css({ "color": "#ff8000"});
-
-  if (className === "sendMsgFrm") {
-/*   쪽지 보내기*/
-   $("#popupMessageMain").load("/sample/popupSendMessage");
-
-   $(this).children().css({"color": "#FF8000"});
-
-  }
-  if (className === "receiveMsgbox") {
-/*   받은 쪽지함*/
-   $("#popupMessageMain").load("/sample/popupReciveMessageBox");
-  }
+  /* 쪽지 보내기*/
+  if (className === "sendMsgFrm") { $("#popupMessageMain").load("/sample/popupSendMessage"); }
+  /* 받은 쪽지함*/
+  if (className === "receiveMsgbox") { $("#popupMessageMain").load("/sample/popupReciveMessageBox"); }
+  /* 보낸 쪽지함*/
   if (className === "sendMsgBox") {
-/*   보낸 쪽지함*/
    $("#popupMessageMain").load("/sample/popupSendMessageBox");
+
   }
-
-
 
  });
 
@@ -45,24 +36,3 @@ function openPopupMessage() {
      'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }
 
-/*function PopupMassageNav(click_LI) {
- var MentText  = "";
- var selectClass = $(this).attr("class");
- if (click_LI == "SendMsgFrm") {
-  MentText = "쪽지 보내기";
-  $("#popupMessageMain").load("/sample/popupSendMessage");
-
- $(this).children().css({"color": "#FF8000"});
-
- }
- if (click_LI == "ReceiveMsgbox") {
-  MentText = "받은 쪽지함";
-  $("#popupMessageMain").load("/sample/popupReciveMessageBox");
- }
- if (click_LI == "sendMsgBox") {
-  MentText = "보낸 쪽지함";
-  $("#popupMessageMain").load("/sample/popupSendMessageBox");
- }
- console.log("MentText : " + MentText);
-
-}*/
