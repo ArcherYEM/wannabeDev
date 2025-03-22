@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ok">
+<head th:include="/common/layout/fragments/head :: head"></head>
+<body>
+<div id="wrap">
+    <!--헤더 시작-->
+    <th:block th:include="/common/layout/fragments/header :: header"></th:block>
+    <!--헤더 끝-->
+
+    <!--메인 시작-->
+    <div id="container">
+        <div class="containerWrap joinContainer">
+            <div class="joinDiv mt30">
+
+                <button id="rechargeTest">날 눌러요</button>
+
+            </div>
+        </div>
+    </div>
+    <!--메인 끝-->
+
+    <!--푸터 시작-->
+    <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
+    <!--푸터 끝-->
+
+</div>
+<script src="/static/js/home/recharge.js"></script>
+</body>
+</html>
