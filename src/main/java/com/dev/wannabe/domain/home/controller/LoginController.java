@@ -1,6 +1,6 @@
 package com.dev.wannabe.domain.home.controller;
 
-import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
+import com.dev.wannabe.domain.home.model.dto.LoginDTO;
 import com.dev.wannabe.domain.home.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class LoginController {
      * 로그인 실패 시 400 Bad Request 반환
      */
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginDataDTO loginData) {
+    public ResponseEntity<Void> login(@RequestBody LoginDTO loginData) {
         // Session add : loginId, accessIp
         if (loginService.login(loginData)) {
             return ResponseEntity.ok().build();
