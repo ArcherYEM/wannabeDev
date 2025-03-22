@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.minihompi.mapper;
 
+import com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiConfig;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats;
@@ -29,5 +30,7 @@ public interface HompiMapper {
     Long findHompiIdByUserId(Long userId);
 
     Hompi findHompiByUserId(Long userId);
+
+    HompiBasicInfoDTO findHompiBasicInfoByUserId(Long userId);
 
 }

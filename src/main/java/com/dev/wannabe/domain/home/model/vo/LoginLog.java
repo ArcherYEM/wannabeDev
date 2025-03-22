@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 public class LoginLog {
 
-    private Long logId;
+    private String logId;
     private String accessIp;
     private Long userId;
     private LocalDateTime loginDt;

@@ -1069,7 +1069,7 @@ CREATE TABLE NOTICE (
                         NOTICE_TYPE VARCHAR(2) COMMENT '알림 종류',
                         NOTICE_TITLE VARCHAR(200) COMMENT '공지 제목',
                         NOTICE_CONTENTS TEXT COMMENT '공지 내용',
-                        STARAT_DATE VARCHAR(8) COMMENT '시작 일자',
+                        START_DATE VARCHAR(8) COMMENT '시작 일자',
                         END_DATE VARCHAR(8) COMMENT '종료 일자',
                         START_TIME VARCHAR(4) COMMENT '시작 시간',
                         END_TIME VARCHAR(4) COMMENT '종료 시간',
