@@ -223,7 +223,6 @@ $(document).ready(function () {
                 },
                 error: function (xhr) {
                     const errorResponse = JSON.parse(xhr.responseText);
-                    console.error("업데이트 실패:", errorResponse.message);
                     alert("업데이트 실패: " + errorResponse.message);
                 }
             });
@@ -241,13 +240,11 @@ $(document).ready(function () {
             url: hompSub_url,
             dataType: "json",
             success: function (response) {
-                console.log("JSON 데이터 로딩 성공:", response);
 
                 // JSON 데이터를 화면에 렌더링
                 renderminihompi(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.error("JSON 로딩 실패:", errorThrown);
             }
         });
     }
@@ -264,6 +261,7 @@ $(document).ready(function () {
         $("#hompiUrl").text(minihompi.hompiUrl);
         $(".introduction").text(minihompi.introduction);
         $('#mood').val(minihompi.mood).prop('selected', true);
+        $(".mainImg > img").attr("src", minihompi.profileImage);
 
         //권한에 따라 관리 버튼 숨김
         if (myHompi != 0) {
