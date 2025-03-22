@@ -4,6 +4,7 @@ import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.model.vo.UserDetail;
 import com.dev.wannabe.domain.home.model.vo.UserRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMapper {
@@ -22,4 +23,5 @@ public interface UserMapper {
     Long findUserIdByLoginId(String loginId);
     UserBasic findUserBasicByUserId(Long UserId);
 
+    String findIdByNameAndBirthDate(@Param("name") String name, @Param("birthDate") String birthDate);
 }

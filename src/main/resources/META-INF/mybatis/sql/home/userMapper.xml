@@ -74,4 +74,12 @@
         FROM USER_BASIC
         WHERE  USER_ID = #{userId}
     </select>
+
+    <select id="findIdByNameAndBirthDate" parameterType="Map" resultType="String">
+        SELECT LOGIN_ID
+          FROM USER_BASIC
+         WHERE NAME = #{name}
+           AND BIRTH_DATE = #{birthDate}
+    </select>
+
 </mapper>

@@ -15,7 +15,7 @@
                     <button class="findPwBtn modalBtn">비밀번호 찾기</button>
                 </div>
             </div>
-            <form>
+            <form id="findIdForm">
                 <div class="userInfoId">
                     <div class="findIdUsername">
                         <label for="nameInput">이름</label>
@@ -24,9 +24,15 @@
                     <div class="userDOB">
                         <label>생년월일</label>
                         <div class="selectDiv">
-                            <select id="birthYear" name="birthYear"></select>
-                            <select id="birthMonth" name="birthMonth"></select>
-                            <select id="birthDay" name="birthDay"></select>
+                            <select id="birthYear" name="birthYear">
+                                <option value="" selected disabled hidden>년</option>
+                            </select>
+                            <select id="birthMonth" name="birthMonth">
+                                <option value="" selected disabled hidden>월</option>
+                            </select>
+                            <select id="birthDay" name="birthDay">
+                                <option value="" selected disabled hidden>일</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -41,16 +47,32 @@
                         <div class="emailDiv">
                             <label for="emailInput">이메일</label><br>
                             <input class="emailInput" type="email" id="emailInput" name="emailInput" placeholder="이메일을 입력하세요">
-                            <button class="emailBth" type="submit">인증번호 전송</button>
+                            <button class="emailBth" type="button">인증번호 전송</button>
                         </div>
                         <div class="codeCheckDiv">
                             <label for="codeCheck"></label>
                             <input class="codeCheck" type="text" id="codeCheck" name="codeCheck" placeholder="이메일로 발송된 인증번호를 입력해주세요">
-                            <button class="emailBth" type="submit">인증번호 확인</button>
+                            <button class="emailBth" type="button">인증번호 확인</button>
                         </div>
                     </div>
                 </div>
             </form>
+            <div class="showIdDiv" style="display: none;">
+                <div class="logoDiv">
+                    <img src="/static/images/common/logo.png">
+                </div>
+                <div class="showId">
+
+                </div>
+                <div class="menuBtnDiv">
+                    <div class="findPwBtnContainer">
+                        <button class="findPwBtn1 modalBtn">비밀번호 찾기</button>
+                    </div>
+                    <div class="cancelBtnContainer">
+                        <button class="outBtn modalBtn">취소</button>
+                    </div>
+                </div>
+            </div>
             <div class="bottom">
                 <div class="findBtnDiv">
                     <button class="findBtn modalBtn">찾기</button>
@@ -62,6 +84,7 @@
         </div>
     </div>
 </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="/static/css/findIdAndPw.css">
 </th:block>
 </html>

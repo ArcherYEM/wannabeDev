@@ -89,10 +89,13 @@ public class UserService {
         } catch (Exception e) {
             return 0L;
         }
-
     }
 
     public Boolean isUserExist(String data) {
         return userMapper.isUserExist(data) > 0;
+    }
+
+    public String findId(String name, String birthDate){
+        return userMapper.findIdByNameAndBirthDate(name, birthDate);
     }
 }

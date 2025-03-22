@@ -12,9 +12,13 @@ import com.dev.wannabe.domain.minihompi.service.HompiService;
 import com.dev.wannabe.domain.minihompi.service.MinimiService;
 import com.dev.wannabe.domain.minihompi.service.MiniroomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -108,4 +112,25 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/findId")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> findId(String name, String birthDate) {
+
+        System.out.println("name: " + name);
+        System.out.println("birthDate: " + birthDate);
+
+        // 이름과 생년월일을 통해 찾은 loginId
+        String foundId = userManageService.findId(name, birthDate);
+        System.out.println("foundId: " + foundId);
+
+        Map<String, String> response = new HashMap<>();
+
+        if (foundId != null) {
+            response.put("id", foundId);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "이름 또는 생년월일을 확인해주세요.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
 }
