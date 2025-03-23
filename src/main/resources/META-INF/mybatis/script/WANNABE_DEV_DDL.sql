@@ -547,21 +547,22 @@ CREATE TABLE HOMPI_DAILY_STATS (
 * NAME     : HOMPI_DIARY
 * TYPE     : TABLE
 * AUTHOR   : Ah-ah
-* DATE     : 2025-03-05
+* DATE     : 2025-03-24
 * DESC     : 홈피 다이어리 테이블 생성 스크립트.
 * =============================================START=============================================
 */
 CREATE TABLE HOMPI_DIARY (
-                             DIARY_ID BIGINT AUTO_INCREMENT COMMENT '다이어리 ID',
-                             DIARY_NAME VARCHAR(20) COMMENT '다이어리명',
-                             HOMPI_ID BIGINT COMMENT '홈피 ID',
-                             AVAIL_STATUS VARCHAR(2) NOT NULL COMMENT '상태',
-                             REMARKS VARCHAR(500) COMMENT '비고',
-                             INSERT_USER_ID BIGINT COMMENT '등록자 ID',
-                             INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
-                             UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
-                             PRIMARY KEY (DIARY_ID)
+    DIARY_ID BIGINT AUTO_INCREMENT COMMENT '다이어리 ID',
+    DIARY_NAME VARCHAR(20) COMMENT '다이어리명',
+    HOMPI_ID BIGINT COMMENT '홈피 ID',
+    FOLDER_ID BIGINT COMMNET '폴더 ID',
+    AVAIL_STATUS VARCHAR(2) NOT NULL COMMENT '상태',
+    REMARKS VARCHAR(500) COMMENT '비고',
+    INSERT_USER_ID BIGINT COMMENT '등록자 ID',
+    INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+    UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
+    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
+    PRIMARY KEY (DIARY_ID)
 ) COMMENT='홈피 다이어리';
 /**
 * ==============================================END==============================================
@@ -596,22 +597,23 @@ CREATE TABLE HOMPI_DIARY_CONTENT (
 /**
 * NAME     : HOMPI_ALBUM
 * TYPE     : TABLE
-* AUTHOR   : ERROR
-* DATE     : 2025-03-13
+* AUTHOR   : Ah-ah
+* DATE     : 2025-03-24
 * DESC     : 미니홈피 사진첩 테이블 생성 스크립트.
 * =============================================START=============================================
 */
 CREATE TABLE HOMPI_ALBUM (
-                             ALBUM_ID BIGINT AUTO_INCREMENT COMMENT '사진첩 ID',
-                             HOMPI_ID BIGINT COMMENT '홈피 ID',
-                             ALBUM_NAME VARCHAR(20) COMMENT '사진첩 이름',
-                             AVAIL_STATUS VARCHAR(2) COMMENT '상태',
-                             REMARKS VARCHAR(500) COMMENT '비고',
-                             INSERT_USER_ID BIGINT COMMENT '등록자 ID',
-                             INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
-                             UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
-                             PRIMARY KEY (ALBUM_ID)
+    ALBUM_ID BIGINT AUTO_INCREMENT COMMENT '사진첩 ID',
+    HOMPI_ID BIGINT COMMENT '홈피 ID',
+    FOLDER_ID BIGINT COMMNET '폴더 ID',
+    ALBUM_NAME VARCHAR(20) COMMENT '사진첩 이름',
+    AVAIL_STATUS VARCHAR(2) COMMENT '상태',
+    REMARKS VARCHAR(500) COMMENT '비고',
+    INSERT_USER_ID BIGINT COMMENT '등록자 ID',
+    INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+    UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
+    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
+    PRIMARY KEY (ALBUM_ID)
 ) COMMENT='미니홈피 사진첩';
 /**
 * ==============================================END==============================================
@@ -647,22 +649,23 @@ CREATE TABLE HOMPI_ALBUM_CONTENT (
 /**
 * NAME     : HOMPI_BOARD
 * TYPE     : TABLE
-* AUTHOR   : ERROR
-* DATE     : 2025-03-13
+* AUTHOR   : Ah-ah
+* DATE     : 2025-03-24
 * DESC     : 미니홈피 게시판 테이블 생성 스크립트.
 * =============================================START=============================================
 */
 CREATE TABLE HOMPI_BOARD (
-                             HOMPI_BOARD_ID BIGINT AUTO_INCREMENT COMMENT '게시판 ID',
-                             HOMPI_ID BIGINT COMMENT '홈피 ID',
-                             HOMPI_BOARD_TITLE VARCHAR(200) COMMENT '게시판 제목',
-                             HOMPI_BOARD_CONTENT VARCHAR(50) COMMENT '게시판 내용',
-                             REMARKS VARCHAR(500) COMMENT '비고',
-                             INSERT_USER_ID BIGINT COMMENT '등록자 ID',
-                             INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
-                             UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                             UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
-                             PRIMARY KEY (HOMPI_BOARD_ID)
+    HOMPI_BOARD_ID BIGINT AUTO_INCREMENT COMMENT '게시판 ID',
+    HOMPI_ID BIGINT COMMENT '홈피 ID',
+    FOLDER_ID BIGINT COMMNET '폴더 ID',
+    HOMPI_BOARD_TITLE VARCHAR(200) COMMENT '게시판 제목',
+    HOMPI_BOARD_CONTENT VARCHAR(50) COMMENT '게시판 내용',
+    REMARKS VARCHAR(500) COMMENT '비고',
+    INSERT_USER_ID BIGINT COMMENT '등록자 ID',
+    INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+    UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
+    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
+    PRIMARY KEY (HOMPI_BOARD_ID)
 ) COMMENT='홈피 게시판';
 /**
 * ==============================================END==============================================
@@ -692,6 +695,29 @@ CREATE TABLE HOMPI_BOARD_ATTACH (
 * ==============================================END==============================================
 */
 
+/**
+ * NAME     : HOMPI_FOLDER
+ * TYPE     : TABLE
+ * AUTHOR   : Ah-ah
+ * DATE     : 2025-03-24
+ * DESC     : 미니홈피 폴더 테이블 생성 스크립트.
+ * =============================================START=============================================
+ */
+CREATE TABLE HOMPI_FOLDER (
+                              HOMPI_ID BIGINT COMMENT '홈피 ID',
+                              FOLDER_ID BIGINT AUTO_INCREMENT UNIQUE COMMENT '폴더 ID',
+                              FOLDER_NAME VARCHAR(500) COMMENT '폴더 이름',
+                              CONTENT_CD VARCHAR(2) COMMENT '콘텐츠 코드',
+                              REMARKS VARCHAR(500) COMMENT '비고',
+                              INSERT_USER_ID BIGINT COMMENT '등록자 ID',
+                              INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+                              UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
+                              UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
+                              PRIMARY KEY (HOMPI_ID, FOLDER_ID)
+) COMMENT='홈피 폴더';
+/**
+* ==============================================END==============================================
+*/
 
 /**
  * NAME     : HOMPI_GUEST_BOOK
