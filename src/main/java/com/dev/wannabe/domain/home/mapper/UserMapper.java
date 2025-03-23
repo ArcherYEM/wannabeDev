@@ -24,7 +24,6 @@ public interface UserMapper {
 
     UserBasic findUserBasicByUserId(Long UserId);
 
-
     String findIdByNameAndBirthDate(@Param("name") String name, @Param("birthDate") String birthDate);
 
     String findUserNameByUserId(Long UserId);

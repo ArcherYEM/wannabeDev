@@ -96,11 +96,11 @@ document.addEventListener("DOMContentLoaded",function() {
 
     updateBirthDays();
 
-
-
     // 아이디 찾기 버튼 눌렀을 때
     idBtn.addEventListener('click',function(){
         document.querySelector("form").reset();
+        pwBtn.style.backgroundColor = '#595959';
+        idBtn.style.backgroundColor = '#FF8000';
         userInfoId.style.display = 'block';
         userInfoPw.style.display = 'none';
     });
@@ -109,6 +109,8 @@ document.addEventListener("DOMContentLoaded",function() {
     pwBtn.addEventListener('click',function(){
         document.querySelector("form").reset();
         userInfoId.style.display = 'none';
+        pwBtn.style.backgroundColor = '#FF8000';
+        idBtn.style.backgroundColor = '#595959';
         userInfoPw.style.display = 'block';
     });
 
