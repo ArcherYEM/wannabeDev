@@ -8,6 +8,7 @@ $(document).ready(function() {
     // 연도 생성
     let startYear = 1950;
     let endYear = new Date().getFullYear();
+
     for (let i = endYear; i >= startYear; i--) {
         $("#birthYear").append(`<option value="${i}">${i}</option>`);
     }
@@ -15,10 +16,44 @@ $(document).ready(function() {
     for (let i = 1; i <= 12; i++) {
         $("#birthMonth").append(`<option value="${i.toString().padStart(2, '0')}">${i}</option>`);
     }
-    // 일 생성
     for (let i = 1; i <= 31; i++) {
         $("#birthDay").append(`<option value="${i.toString().padStart(2, '0')}">${i}</option>`);
     }
+
+    let birthUnderText = $(".checkMatch.birth");
+    birthUnderText.text("연도를 먼저 선택해주세요");
+
+    let birthMonth = $("#birthMonth");
+    birthMonth.attr("disabled", true);
+
+    let birthDay = $("#birthDay");
+    birthDay.attr("disabled", true);
+
+    $("#birthYear, #birthMonth").on("change click", function() {
+        let year = $("#birthYear").val();
+        let month = birthMonth.val();
+
+        if (year && !month) {
+            birthMonth.attr("disabled", false);
+            birthUnderText.text("월을 선택해주세요");
+        }
+        if (year && month) {
+            birthDay.attr("disabled", false);
+            birthUnderText.text("일을 선택해주세요");
+
+            birthDay.empty();
+            birthDay.append(`<option value="" hidden selected>일</option>`);
+
+            let days = new Date(year, month, 0).getDate();
+            for (let i = 1; i <= days; i++) {
+                $("#birthDay").append(`<option value="${i.toString().padStart(2, '0')}">${i}</option>`);
+            }
+        }
+    })
+
+    $("#birthDay").on("change click", function() {
+        birthUnderText.text("");
+    })
 
     // 비밀번호 확인
     let isPasswordEqual = false;
@@ -60,7 +95,9 @@ $(document).ready(function() {
             url: `/api/user/checkLoginId/${loginIdValue}`,
             success: function (response) {
                 $("#checkDuplicateLoginId").addClass("checkedDuplicate").removeClass("checkDuplicate")
-                $(".checkMatch.loginId").text("")
+                $(".checkMatch.loginId").text("사용 가능한 아이디입니다.").css({
+                    "color":"blue"
+                });
                 isLoginIdValid = true;
             },
             error: function (error) {
@@ -94,7 +131,9 @@ $(document).ready(function() {
             url: `/api/user/checkEmail/${emailValue}`,
             success: function (response) {
                 $("#checkDuplicateEmail").addClass("checkedDuplicate").removeClass("checkDuplicate")
-                $(".checkMatch.email").text("")
+                $(".checkMatch.email").text("사용 가능한 이메일입니다.").css({
+                    "color":"blue"
+                });
                 isEmailValid = true;
             },
             error: function (error) {
@@ -128,21 +167,22 @@ $(document).ready(function() {
             url: `/api/user/checkPhoneNo/${phoneNoValue}`,
             success: function (response) {
                 $("#checkDuplicatePhoneNo").addClass("checkedDuplicate").removeClass("checkDuplicate")
-                $(".checkMatch.phoneNo").text("");
+                $(".checkMatch.phoneNo").text("사용 가능한 전화번호입니다.").css({
+                    "color":"blue"
+                });
                 isPhoneValid = true;
             },
             error: function (error) {
                 $(".checkMatch.phoneNo").text("이미 사용 중인 전화번호입니다.").css({
                     "color":"red"
                 });
-                alert("이미 사용 중인 전화번호입니다.");
                 isPhoneValid = false;
             }
         });
 
         // 값이 바뀌면 중복 false 처리
         phoneNo.on("keyup", function () {
-            $("#checkDuplicateEmail").addClass("checkDuplicate").removeClass("checkedDuplicate")
+            $("#checkDuplicatePhoneNo").addClass("checkDuplicate").removeClass("checkedDuplicate")
             isPhoneValid = false;
         });
     });

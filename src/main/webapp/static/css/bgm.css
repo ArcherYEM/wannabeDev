@@ -104,3 +104,9 @@
     text-align: left;
 }
 
+#bgmLyrics{
+    max-height: 260px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
