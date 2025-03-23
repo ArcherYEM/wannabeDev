@@ -3,9 +3,6 @@ package com.dev.wannabe.global.model;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Getter
 @Builder
 public class SessionUserDTO {
@@ -21,6 +18,5 @@ public class SessionUserDTO {
     private Long hompiId;
     private String hompiURL;
     private String hompiTitle;
-
 
 }

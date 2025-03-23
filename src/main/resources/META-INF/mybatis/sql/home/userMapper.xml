@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dev.wannabe.domain.home.mapper.UserMapper">
-
     <insert id="saveUserBasic" parameterType="UserBasic">
         INSERT INTO USER_BASIC (
             LOGIN_ID, EMAIL, PHONE_NO, PASSWORD,
@@ -69,10 +68,17 @@
     </select>
 
     <select id="findUserBasicByUserId" parameterType="Long" resultType="UserBasic">
-        SELECT LONGIN_ID, EMAIL, PHONE_NO, PASSWORD, NAME,
-               GENDER_CODE, BIRTH_DATE, USE_sTATUS
+        SELECT USER_ID, LOGIN_ID, EMAIL, PHONE_NO, PASSWORD, NAME,
+               GENDER_CODE, BIRTH_DATE, USER_STATUS, REMARKS,
+               INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT
         FROM USER_BASIC
-        WHERE  USER_ID = #{userId}
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="findUserNameByUserId" parameterType="Long" resultType="String">
+        Select NAME
+        FROM USER_BASIC
+        WHERE USER_ID = #{userId}
     </select>
 
     <select id="findIdByNameAndBirthDate" parameterType="Map" resultType="String">

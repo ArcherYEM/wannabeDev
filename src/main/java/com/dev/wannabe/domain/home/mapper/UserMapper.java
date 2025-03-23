@@ -21,7 +21,12 @@ public interface UserMapper {
     Integer isUserExist(String data);
 
     Long findUserIdByLoginId(String loginId);
+
     UserBasic findUserBasicByUserId(Long UserId);
 
+
     String findIdByNameAndBirthDate(@Param("name") String name, @Param("birthDate") String birthDate);
+
+    String findUserNameByUserId(Long UserId);
+
 }

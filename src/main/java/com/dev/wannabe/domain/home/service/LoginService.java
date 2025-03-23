@@ -2,11 +2,10 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.LoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
-import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
+import com.dev.wannabe.domain.home.model.dto.LoginDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
-import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
-import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
+import com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import com.dev.wannabe.global.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class LoginService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public Boolean login(LoginDataDTO loginData) {
+    public Boolean login(LoginDTO loginData) {
         try {
             HttpServletRequest request = SessionUtil.getRequest();
 
@@ -52,7 +51,8 @@ public class LoginService {
                     .build();
 
             HttpSession session = request.getSession(true);
-            session.setAttribute("userData", createUserData(loginLog));
+            SessionUserDTO sessionUserDTO = createSessionUserData(loginLog);
+            session.setAttribute("userData", sessionUserDTO);
             session.setMaxInactiveInterval(60 * 60); // 단위 : 초 -> null point exception
 
             loginMapper.saveLoginLog(loginLog);
@@ -92,7 +92,7 @@ public class LoginService {
         return (SessionUserDTO) request.getSession().getAttribute("userData");
     }
 
-    private Boolean authenticate(LoginDataDTO loginData) {
+    private Boolean authenticate(LoginDTO loginData) {
         String storedPassword = loginMapper.findPasswordByLoginId(loginData.getLoginId());
         return passwordEncoder.matches(loginData.getPassword(), storedPassword);
     }
@@ -111,18 +111,19 @@ public class LoginService {
         return ip;
     }
 
-    private SessionUserDTO createUserData(LoginLog loginLog) {
+    private SessionUserDTO createSessionUserData(LoginLog loginLog) {
 
-        UserBasic userBasic = userMapper.findUserBasicByUserId(loginLog.getUserId());
-        Hompi hompi = hompiMapper.findHompiByUserId(loginLog.getUserId());
+        String userName = userMapper.findUserNameByUserId(loginLog.getUserId());
+        HompiBasicInfoDTO hompiBasicInfo = hompiMapper.findHompiBasicInfoByUserId(loginLog.getUserId());
 
         return SessionUserDTO.builder()
                 .accessIp(loginLog.getAccessIp())
                 .userId(loginLog.getUserId())
-                .name(userBasic.getName())
-                .hompiId(hompi.getHompiId())
-                .hompiURL(hompi.getHompiURL())
-                .hompiTitle(hompi.getHompiTitle())
+                .name(userName)
+                .hompiId(hompiBasicInfo.getHompiId())
+                .hompiURL(hompiBasicInfo.getHompiURL())
+                .hompiTitle(hompiBasicInfo.getHompiTitle())
                 .build();
     }
+
 }
