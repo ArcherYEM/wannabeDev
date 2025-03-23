@@ -1,7 +1,5 @@
 /** 이벤트 리스너 등록 **/
 $(document).ready(function () {
-
-    console.log("✅ minihompiMain.js가 로드되고 실행됨!");
     getminihompiDataList();
 
     const popuoMain = $("#popupMain");
@@ -203,8 +201,6 @@ $(document).ready(function () {
                 url: "/mini-hompi/updateTitle", // 타이틀 업데이트를 처리하는 서버 URL
                 data: {title: newTitle},
                 success: function (response) {
-                    console.log("업데이트 성공:", response);
-
                     // 서버 응답 처리
                     if (response.status === "success") {
                         alert(response.message); // 성공 메시지 출력
@@ -254,15 +250,20 @@ $(document).ready(function () {
         const minihompi = data.minihompi;
         const myHompi = data.myHompi;
 
-        // 화면에 데이터 삽입
-        $("#mainTitle").text(minihompi.hompiTitle);
-        $("#total").text(minihompi.totalCnt);
-        $("#today").text(minihompi.todayCnt);
-        $("#hompiUrl").text(minihompi.hompiUrl);
-        $(".introduction").text(minihompi.introduction);
-        $('#mood').val(minihompi.mood).prop('selected', true);
-        $(".mainImg > img").attr("src", minihompi.profileImage);
+        $("#mainTitle").text(minihompi.hompiTitle ?? "제목이 없습니다.");
+        $("#total").text(minihompi.totalCnt ?? "-");
+        $("#today").text(minihompi.todayCnt ?? "-");
+        $("#hompiUrl").text(minihompi.hompiUrl ?? "홈피 주소 없음");
+        $(".introduction").text(minihompi.introduction ?? "자기소개가 작성되지 않았습니다.");
+        if (minihompi.mood != null) {
+            $('#mood').val(minihompi.mood).prop('selected', true);
+        } else {
+            $('#mood').val("").prop('selected', true);
+        }
 
+        if (minihompi.profileImage) {
+            $(".mainImg > img").attr("src", minihompi.profileImage);
+        }
         //권한에 따라 관리 버튼 숨김
         if (myHompi != 0) {
             $("#moveSetting").hide();
