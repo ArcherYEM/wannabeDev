@@ -68,7 +68,6 @@ function loginCheck(){
                 $(".loginWrap.noLogin").hide();
                 $(".loginWrap.yesLogin").show();
                 $(".username").text(response.name);
-                $(".name").text(response.name);
             },
             error:function(error){
                 console.error(error);
