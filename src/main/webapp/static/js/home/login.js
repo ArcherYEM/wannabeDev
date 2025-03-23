@@ -19,8 +19,14 @@ $(document).ready(function(){
             data: JSON.stringify(loginData),
             success:function(response){
                 loginCheck();
+                Swal.fire(
+                    '로그인 성공!',
+                    '환영합니다 :)',
+                    'success'
+                ).then(() => {
+                    location.href = "/";
+                });
                 loginCheckDisplayText.text("")
-                location.href ="/"
             },
             error: function(error){
                 loginId.val("")
