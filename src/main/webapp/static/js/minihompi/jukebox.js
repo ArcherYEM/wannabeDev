@@ -1,10 +1,20 @@
 $(document).ready(function(){
 
-   $(document).on('click', '#moveJukebox1', function() {
+    $(document).on('click', '#moveJukebox1', function() {
+            searchStatus = null;
+            search = null;
+            pageNum = 0;
             clickMenu(this);
-            getBgmCount();
             moveJukebox();
         });
+
+    $(document).on('click','.searchBtn',function(){
+      searchStatus = $('.searchSelect').val().trim();
+      search = $('.searchText').val().trim();
+      pageNum = 0;
+      clickPage(pageNum);
+    });
+
     $(document).on('click','.listenBtn',function(){
         audio.pause();
         $('#pauseBtn img').attr('src','/static/images/common/minimi/playBtn.png');
@@ -84,10 +94,14 @@ $(document).ready(function(){
     });
 });
 
+let searchCheck;
+let searchStatus;
+let search; //검색 텍스트
 let bgmIds;
 let jukebox;
 let pageNum = 0;
 let pageCount = 0;
+
 //메뉴 바 색상 변경
 function clickMenu(li){
     const clickLi = li;
@@ -113,12 +127,13 @@ function moveJukebox() {
 
 //bgmList는 bgm.js에서 선언한 배열
 function setPageCount(bgmCount){
+    $('.pageNumber').empty();
     pageCount = Math.ceil(bgmCount / 10);
     for(let i = 1; i <= pageCount; i++){
         const pageBtn = $('<button>' + i + '</button>');
         $('.pageNumber').append(pageBtn);
     };
-    $('.pageNumber button').eq(0).css('color','red');
+    $('.pageNumber button').eq(pageNum).css('color','red');
 }
 
 function getBgmCount(){
@@ -126,6 +141,7 @@ function getBgmCount(){
         type: "GET",
         url: "/mini-hompi/user-bgm/count/" + hompiOwnerId,
         contentType: "application/json",
+        data: {searchStatus: searchStatus, search: search},
         dataType: "json",
         success: function(response){
             setPageCount(response);
@@ -146,15 +162,16 @@ function clickPage(pageNum){
              type: "GET",
              url: "/mini-hompi/user-bgm/" + hompiOwnerId,
              contentType: "application/json",
-             data: {offset: offset},
+             data: {offset: offset,searchStatus: searchStatus, search: search},
              dataType: "json",
              success: function(response){
                 setTableBgm(response);
+                getBgmCount();
              },
              error: function(error){
                   console.error(error);
              }
-         });
+        });
 }
 
 function setTableBgm(data){
@@ -195,6 +212,7 @@ function setBackGroundBgm(bgmIds){
                 return;
             }
             alert('BGM 플레이어에 저장 되었습니다');
+            $('#trackListWrap p').empty();
         },
         error: function(error){
             console.error(error);
