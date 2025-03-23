@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class HompiBgmService {
     private final HompiBgmMapper bgmMapper;
@@ -20,8 +21,8 @@ public class HompiBgmService {
         return bgmMapper.findBgmByBgmMap(bgmMap);
     }
 
-    public Integer getBgmCount(Long hompiId) {
-        return bgmMapper.selectBgmCount(hompiId);
+    public Integer getBgmCount(Map<String,Object> countMap) {
+        return bgmMapper.selectBgmCount(countMap);
     }
 
     @Transactional
