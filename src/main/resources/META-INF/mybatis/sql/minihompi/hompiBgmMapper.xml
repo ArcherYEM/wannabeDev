@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.HompiBgmMapper">
+    <select id="findBgmByBgmMap" parameterType="map" resultType="HompiBgmDTO">
+        SELECT
+            C.BGM_ID AS id,
+            C.BGM_NAME AS title,
+            C.ARTIST AS artist,
+            C.LYRICS AS lyrics,
+            D.FILE_PATH AS path
+        FROM
+            HOMPI A
+                INNER JOIN USER_ITEM_INVENTORY B
+                    ON A.OWNER_USER_ID = B.USER_ID
+                INNER JOIN BGM C
+                    ON B.ITEM_ID = C.BGM_ID
+                INNER JOIN ATTACH_FILE_MANAGE D
+                    ON C.BGM_FILE_ATTACH_ID = D.ATTACH_FILE_ID
+        WHERE 1=1
+            AND A.HOMPI_ID = #{hompiId}
+            AND B.ITEM_TYPE = 'M'
+            AND DATE_ADD(B.USE_START_DT, INTERVAL B.AVAIL_DAY DAY) &gt; NOW()
+        <if test="useYn != null">
+            AND B.USE_YN = #{useYn}
+        </if>
+        ORDER BY B.ORDER_ID
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="selectBgmCount" parameterType="Long" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            HOMPI A
+                INNER JOIN USER_ITEM_INVENTORY B
+                    ON A.OWNER_USER_ID = B.USER_ID
+                INNER JOIN BGM C
+                    ON B.ITEM_ID = C.BGM_ID
+                INNER JOIN ATTACH_FILE_MANAGE D
+                    ON C.BGM_FILE_ATTACH_ID = D.ATTACH_FILE_ID
+        WHERE 1=1
+            AND A.HOMPI_ID = #{hompiId}
+            AND B.ITEM_TYPE = 'M'
+            AND DATE_ADD(B.USE_START_DT, INTERVAL B.AVAIL_DAY DAY) &gt; NOW()
+    </select>
+
+    <update id="updateBackgroundBgm" parameterType="map">
+        UPDATE USER_ITEM_INVENTORY A
+            JOIN HOMPI B
+                ON B.OWNER_USER_ID = A.USER_ID
+            SET A.USE_YN = 'Y'
+        WHERE 1=1
+            AND B.OWNER_USER_ID = #{hompiId}
+            AND A.USE_YN = 'N'
+            AND A.ITEM_ID IN
+            <foreach collection="bgmIds" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </update>
+
+</mapper>
