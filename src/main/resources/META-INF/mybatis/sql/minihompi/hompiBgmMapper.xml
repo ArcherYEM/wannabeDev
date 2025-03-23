@@ -21,8 +21,14 @@
             AND A.HOMPI_ID = #{hompiId}
             AND B.ITEM_TYPE = 'M'
             AND DATE_ADD(B.USE_START_DT, INTERVAL B.AVAIL_DAY DAY) &gt; NOW()
-        <if test="useYn != null">
+        <if test="useYn != null and useYn != ''">
             AND B.USE_YN = #{useYn}
+        </if>
+        <if test="searchStatus == '가수명'">
+            AND C.ARTIST LIKE CONCAT('%', #{search}, '%')
+        </if>
+        <if test="searchStatus == '노래 제목'">
+            AND C.BGM_NAME LIKE CONCAT('%', #{search}, '%')
         </if>
         ORDER BY B.ORDER_ID
         <if test="offset != null and limit != null">
@@ -30,7 +36,7 @@
         </if>
     </select>
 
-    <select id="selectBgmCount" parameterType="Long" resultType="int">
+    <select id="selectBgmCount" parameterType="map" resultType="int">
         SELECT
             count(*)
         FROM
@@ -45,6 +51,12 @@
             AND A.HOMPI_ID = #{hompiId}
             AND B.ITEM_TYPE = 'M'
             AND DATE_ADD(B.USE_START_DT, INTERVAL B.AVAIL_DAY DAY) &gt; NOW()
+        <if test="searchStatus == '가수명'">
+            AND C.ARTIST LIKE CONCAT('%', #{search}, '%')
+        </if>
+        <if test="searchStatus == '노래 제목'">
+            AND C.BGM_NAME LIKE CONCAT('%', #{search}, '%')
+        </if>
     </select>
 
     <update id="updateBackgroundBgm" parameterType="map">
