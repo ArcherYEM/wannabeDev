@@ -21,6 +21,11 @@
 
 .tableContainer{
     height: 350px;
+    margin-top: 10px;
+}
+
+.tableContainer tr{
+    height: 30px;
 }
 
 .tableContainer td{

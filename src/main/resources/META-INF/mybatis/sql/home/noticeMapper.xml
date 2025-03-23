@@ -19,7 +19,6 @@
         FROM NOTICE n
         JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID  <!-- JOIN 조건 -->
         ORDER BY n.START_DATE DESC
-        LIMIT #{limit} OFFSET #{offset}
     </select>
 
 <!--    &lt;!&ndash; 공지사항 추가 &ndash;&gt;-->
