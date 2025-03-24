@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -17,10 +19,20 @@ public class NoticeService {
     @Autowired
     private NoticeMapper noticeMapper;
 
-    public List<NoticeDTO> getAllNotices() {
-        return noticeMapper.getNotices();  // Mapper를 호출하여 공지사항 목록을 가져옴
+//    public int getTotalNoticesCount(){
+//        return noticeMapper.getTotalNoticesCount();
+//    }
+//
+//    public List<NoticeDTO> getNoticesPage(Map<String, Object> params) {
+//        return noticeMapper.getNoticesPage(params);
+//    }
+
+    public List<NoticeDTO> getFilteredNotices(Map<String, Object> params) {
+        return noticeMapper.getFilteredNotices(params);
     }
 
-
+    public int getFilteredNoticesCount(Map<String, Object> params) {
+        return noticeMapper.getFilteredNoticesCount();
+    }
 }
 

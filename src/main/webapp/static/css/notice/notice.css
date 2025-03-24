@@ -46,11 +46,43 @@
 }
 
 /* 메인 바디*/
-#main{
+#main.default-style{
     width: 80%;
     height:800px;
     margin: 0 10% 0 10%;
     position: relative;
+}
+
+#main.compact-style{
+    width: 80%;
+    height:1200px;
+    margin: 0 10% 0 10%;
+    position: relative;
+
+}
+
+#main.mini-style{
+    width: 80%;
+    height:1850px;
+    margin: 0 10% 0 10%;
+    position: relative;
+}
+
+@media (max-width: 1123px){
+
+    #main.compact-style{
+        width: 80%;
+        height:1550px;
+        margin: 0 10% 0 10%;
+        position: relative;
+    }
+
+    #main.mini-style{
+        width: 80%;
+        height:2500px;
+        margin: 0 10% 0 10%;
+        position: relative;
+    }
 }
 
 #main .menu_title{
@@ -112,12 +144,12 @@
 }
 
 #main .notice .formal select:nth-of-type(2){
-    right: 200px;
+    right: 215px;
     width: 130px;
 }
 
 #main .notice .formal select:nth-of-type(3){
-    right: 340px;
+    right: 355px;
 }
 
 
@@ -129,11 +161,11 @@
     align-items: center;
 /*    border: 1px solid red;*/
     position:absolute;
-    right: 10;
+    right: 25px;
 
 }
 #main .notice .formal .search input{
-    padding:0 5px 0 15px;
+    padding:0 25px 0 15px;
     height:100%;
     position: relative;
     border:1px solid #a9a9a9cd;
@@ -146,7 +178,11 @@
 #main .notice .formal .search button{
 /*    border: 1px solid blue;*/
     position:absolute;
-    right: 0;
+    right: -20px;
+    height:100%;
+    width:20px;
+    background: url(/static/images/common/search.png) no-repeat top 50% right 23%;
+    background-size: 100%;
 }
 
 #main .notice .formal .search button img{
@@ -171,6 +207,40 @@
 #main .notice table .top th{
     font-weight: 600 !important;
 }
+
+#main .notice table .top th:nth-of-type(2){
+    position:relative;
+
+}
+
+
+#main .notice table .top th select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color:#ff800000;
+    border: 1px solid #ff800000;
+    font-size: 15px;
+    color: black;
+    font-weight: 700;
+    height: 100%;
+    background: url(/static/images/common/down.png) no-repeat top 50% right 23%;
+    background-size: 25px;
+
+    text-align: center;
+}
+
+/*#main .notice table .top th img{*/
+/*    width:30px;*/
+/*    height:30px;*/
+
+/*    position: absolute;*/
+/*    left: 75px;*/
+/*    bottom:5px;*/
+/*    z-index:100;*/
+/*}*/
+
+
 #main .notice div table tr{
     height:13px;
 }
@@ -186,9 +256,29 @@
     width: 5%;
 }
 
+tr.selected-row {
+    background-color: #e0f7fa; /* 연한 하늘색으로 강조 */
+}
+
+
 /* 분류 */
 #main .notice div table tr th:nth-of-type(2){
     width: 10%;
+}
+.bg-announcement { background-color: #fff9c4; } /* 연노랑 */
+.bg-event        { background-color: #c8e6c9; } /* 연초록 */
+.bg-popup        { background-color: #e1bee7; } /* 연보라 */
+.bg-note         { background-color: #b3e5fc; } /* 연파랑 */
+.bg-admin        { background-color: #eeeeee; } /* 연회색 */
+.bg-unknown      { background-color: #f5f5f5; } /* 기본 회색 */
+
+#main .notice div table tr th p{
+    width: 90% ;
+    height:50% ;
+    border-radius: 3px;
+    border:1px solid #0000000d ;
+    margin:4%;
+
 }
 
 /* 제목*/
@@ -233,7 +323,7 @@
 }
 
 /* 페이지 이동 버튼 */
-#main .notice .page span button{
+#main .notice .page span a{
     width: 18px;
     height: 18px;
     background-color: white;
@@ -247,26 +337,56 @@
     display: flex;
 }
 
-#main .notice .page span  .active{
+#main .notice .page span  a.active{
     background-color:#ff80004d;
 }
-#main .notice .page span  button:not(.next):not(.prev):hover{
+
+/*#main .notice .page a:not(.next):not(.prev):hover{*/
+/*    background-color:var(--color-basic);*/
+/*}*/
+
+#main .notice .page a:hover{
     background-color:var(--color-basic);
 }
 
 
 
-#main .notice .page span .next{
+#main .notice .page .next{
     background: #fff url(/static/images/common/next.png) no-repeat top -1px right -3px;
     background-size: 20px; /* 배경 이미지 크기 조절 (너비 12px, 높이 12px) */
     height: 18px;
     width: 18px;
+/*    background-color: red;*/
+    display:block;
 }
-#main .notice .page span .prev {
-    background: #fff url(/static/images/common/prev.png) no-repeat top -1px right -3px;
+
+#main .notice .page .prev {
+    background: #fff url(/static/images/common/prev.png) no-repeat center center;
+    background-size: 20px 20px; /* 배경 이미지 크기 조절 (너비 20px, 높이 20px) */
+    display: block;
+    height: 20px; /* 높이 20px */
+    width: 20px;  /* 너비 20px */
+    text-align: center;
+    line-height: 20px; /* 이미지가 수직으로 가운데 오게 하기 위한 설정 */
+    text-decoration: none; /* 링크의 기본 스타일 제거 */
+}
+
+#main .notice .page .first{
+    background: #fff url(/static/images/common/first.png) no-repeat top -1px right -3px;
     background-size: 20px; /* 배경 이미지 크기 조절 (너비 12px, 높이 12px) */
     height: 18px;
     width: 18px;
+    /*    background-color: red;*/
+    display:block;
+}
+
+#main .notice .page .last{
+    background: #fff url(/static/images/common/last.png) no-repeat top -1px right -3px;
+    background-size: 20px; /* 배경 이미지 크기 조절 (너비 12px, 높이 12px) */
+    height: 18px;
+    width: 18px;
+    /*    background-color: red;*/
+    display:block;
 }
 
 #main .notice .page .delete{
@@ -288,3 +408,5 @@
     border-radius: 5px;
     box-shadow: 0 1px 2px 0;
 }
+
+/*전체 선택*/
