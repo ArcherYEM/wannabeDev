@@ -38,6 +38,11 @@ public class HomeController {
         return "home/signup";
     }
 
+    @GetMapping("/recharge")
+    public String recharge(){
+        return "home/recharge";
+    }
+
     @GetMapping("/userInfo")
     public ResponseEntity<SessionUserDTO> userInfo(HttpServletRequest request){
         HttpSession session = request.getSession(false);
