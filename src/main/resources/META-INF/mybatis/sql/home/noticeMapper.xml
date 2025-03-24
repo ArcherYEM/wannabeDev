@@ -4,27 +4,144 @@
 
 <mapper namespace="com.dev.wannabe.domain.home.mapper.NoticeMapper">
 
-    <!-- 공지사항 목록 조회 -->
-    <select id="getNotices" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
-        SELECT
-        n.NOTICE_ID,
-        n.NOTICE_TYPE,
-        n.NOTICE_TITLE,
-        n.NOTICE_CONTENTS,
-        n.START_DATE,
-        n.END_DATE,
-        n.INSERT_DT,
-        n.INSERT_USER_ID,
-        u.LOGIN_ID  <!-- LOGIN_ID를 함께 조회 -->
-        FROM NOTICE n
-        JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID  <!-- JOIN 조건 -->
-        ORDER BY n.START_DATE DESC
+<!--    <select id="getNoticesPage" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">-->
+<!--        SELECT-->
+<!--        n.NOTICE_ID,-->
+<!--        n.NOTICE_TYPE,-->
+<!--        n.NOTICE_TITLE,-->
+<!--        n.NOTICE_CONTENTS,-->
+<!--        n.START_DATE,-->
+<!--        n.END_DATE,-->
+<!--        n.INSERT_DT,-->
+<!--        n.INSERT_USER_ID,-->
+<!--        u.LOGIN_ID  -->
+<!--        &lt;!&ndash; LOGIN_ID를 함께 조회 &ndash;&gt;-->
+<!--        FROM NOTICE n-->
+<!--        JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID  &lt;!&ndash; JOIN 조건 &ndash;&gt;-->
+<!--        ORDER BY n.START_DATE DESC-->
+<!--        LIMIT #{limit} OFFSET #{offset}-->
+<!--&lt;!&ndash;    limit: 10개씩 데이터를 출력 , offset: 인덱스(n) 부터 출력        &ndash;&gt;-->
+<!--    </select>-->
+
+<!--    <select id="getTotalNoticesCount" resultType="int">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM NOTICE-->
+<!--    </select>-->
+
+<!--    <select id="getNoticesPage" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">-->
+<!--        SELECT-->
+<!--        n.NOTICE_ID,-->
+<!--        n.NOTICE_TYPE,-->
+<!--        n.NOTICE_TITLE,-->
+<!--        n.NOTICE_CONTENTS,-->
+<!--        n.START_DATE,-->
+<!--        n.END_DATE,-->
+<!--        n.INSERT_DT,-->
+<!--        n.INSERT_USER_ID,-->
+<!--        u.LOGIN_ID-->
+<!--        FROM NOTICE n-->
+<!--        JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID-->
+<!--        WHERE 1 = 1-->
+<!--        <if test="noticeType != null and noticeType != ''">-->
+<!--            AND n.NOTICE_TYPE = #{noticeType}-->
+<!--        </if>-->
+<!--        <if test="field != null and keyword != null and keyword != ''">-->
+<!--            <choose>-->
+<!--                <when test="field == 'title'">-->
+<!--                    AND n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                </when>-->
+<!--                <when test="field == 'content'">-->
+<!--                    AND n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    AND (-->
+<!--                    n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%') OR-->
+<!--                    n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                    )-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--        ORDER BY n.START_DATE DESC-->
+<!--        LIMIT #{limit} OFFSET #{offset}-->
+<!--    </select>-->
+
+<!--    <select id="getTotalNoticesCount" resultType="int">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM NOTICE n-->
+<!--        WHERE 1 = 1-->
+<!--        <if test="noticeType != null and noticeType != ''">-->
+<!--            AND n.NOTICE_TYPE = #{noticeType}-->
+<!--        </if>-->
+<!--        <if test="field != null and keyword != null and keyword != ''">-->
+<!--            <choose>-->
+<!--                <when test="field == 'title'">-->
+<!--                    AND n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                </when>-->
+<!--                <when test="field == 'content'">-->
+<!--                    AND n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    AND (-->
+<!--                    n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%') OR-->
+<!--                    n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                    )-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--    </select>-->
+    <select id="getFilteredNotices" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
+        SELECT *
+        FROM NOTICE
+        WHERE 1 = 1
+        <if test="noticeType != null and noticeType != ''">
+            AND notice_type = #{noticeType}
+        </if>
+        <if test="field != null and field != '' and keyword != null and keyword != ''">
+            <choose>
+                <when test="field == 'title'">
+                    AND notice_title LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="field == 'content'">
+                    AND NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <otherwise>
+                    AND (
+                    notice_title LIKE CONCAT('%', #{keyword}, '%')
+                    OR NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+        ORDER BY insert_dt DESC
+        LIMIT #{limit} OFFSET #{offset}
     </select>
 
-<!--    &lt;!&ndash; 공지사항 추가 &ndash;&gt;-->
-<!--    <insert id="insertNotice" parameterType="com.dev.wannabe.domain.home.model.NoticeDTO">-->
-<!--        INSERT INTO NOTICE_TABLE (NOTICE_TYPE, NOTICE_TITLE, NOTICE_CONTENTS, START_DATE, END_DATE, INSERT_DATE, INSERT_USER_ID)-->
-<!--        VALUES (#{noticeType}, #{noticeTitle}, #{noticeContents}, #{startDate}, #{endDate}, #{insertDate}, #{insertUserId})-->
-<!--    </insert>-->
+    <select id="getFilteredNoticesCount" resultType="int">
+        SELECT COUNT(*)
+        FROM NOTICE
+        WHERE 1 = 1
+        <if test="noticeType != null and noticeType != ''">
+            AND notice_type = #{noticeType}
+        </if>
+        <if test="field != null and field != '' and keyword != null and keyword != ''">
+            <choose>
+                <when test="field == 'title'">
+                    AND notice_title LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="field == 'content'">
+                    AND notice_contents LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <otherwise>
+                    AND (
+                    notice_title LIKE CONCAT('%', #{keyword}, '%')
+                    OR notice_contents LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+
+
 
 </mapper>

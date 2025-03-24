@@ -25,4 +25,6 @@ public interface UserMapper {
 
     String findUserNameByUserId(Long UserId);
 
+    String findUserRoleByUserID(Long UserId);
+
 }

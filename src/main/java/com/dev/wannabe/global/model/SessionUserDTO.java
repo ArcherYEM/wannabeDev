@@ -14,6 +14,8 @@ public class SessionUserDTO {
     private Long userId;
     private String name;
 
+    private String role;
+
     // Hompi
     private Long hompiId;
     private String hompiURL;

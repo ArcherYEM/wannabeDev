@@ -4,6 +4,7 @@ import com.dev.wannabe.domain.home.mapper.LoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
+import com.dev.wannabe.domain.home.model.vo.UserRole;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO;
 import com.dev.wannabe.global.model.SessionUserDTO;
@@ -113,13 +114,16 @@ public class LoginService {
 
     private SessionUserDTO createSessionUserData(LoginLog loginLog) {
 
-        String userName = userMapper.findUserNameByUserId(loginLog.getUserId());
-        HompiBasicInfoDTO hompiBasicInfo = hompiMapper.findHompiBasicInfoByUserId(loginLog.getUserId());
+        Long userId = loginLog.getUserId();
+        String userName = userMapper.findUserNameByUserId(userId);
+        String userRoleCD = userMapper.findUserRoleByUserID(userId);
+        HompiBasicInfoDTO hompiBasicInfo = hompiMapper.findHompiBasicInfoByUserId(userId);
 
         return SessionUserDTO.builder()
                 .accessIp(loginLog.getAccessIp())
-                .userId(loginLog.getUserId())
+                .userId(userId)
                 .name(userName)
+                .role(userRoleCD)
                 .hompiId(hompiBasicInfo.getHompiId())
                 .hompiURL(hompiBasicInfo.getHompiURL())
                 .hompiTitle(hompiBasicInfo.getHompiTitle())

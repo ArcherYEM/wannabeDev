@@ -38,17 +38,24 @@ public class HomeController {
         return "home/signup";
     }
 
+    @GetMapping("/recharge")
+    public String recharge(){
+        return "home/recharge";
+    }
+
     @GetMapping("/userInfo")
     public ResponseEntity<SessionUserDTO> userInfo(HttpServletRequest request){
         HttpSession session = request.getSession(false);
-            if(session == null){
-                return ResponseEntity.ok(null);
-            }
-            SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
-            if(session.getAttribute("userData") == null) {
-                return ResponseEntity.ok(null);
-            }
-
-            return ResponseEntity.ok(userData);
+        SessionUserDTO sessionUser;
+        if(session == null){
+            sessionUser = SessionUserDTO.builder().build();
+            return ResponseEntity.ok(sessionUser);
+        }
+        if(session.getAttribute("userData") == null) {
+            sessionUser = SessionUserDTO.builder().build();
+            return ResponseEntity.ok(sessionUser);
+        }
+        sessionUser = (SessionUserDTO) session.getAttribute("userData");
+        return ResponseEntity.ok(sessionUser);
     }
 }
