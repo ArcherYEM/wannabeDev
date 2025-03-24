@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Random;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -98,4 +100,16 @@ public class UserService {
     public String findId(String name, String birthDate){
         return userMapper.findIdByNameAndBirthDate(name, birthDate);
     }
+
+    public Integer findUserIdByLoginIdAndEmail(String loginId, String email){ return userMapper.findUserIdByLoginIdAndEmail(loginId, email);}
+
+    public void saveAuthCode(Integer userId, String authCode){userMapper.saveAuthCode(userId, authCode);}
+
+    public Integer checkAuthCode(String authCode){ return userMapper.checkAuthCode(authCode);}
+
+    public Integer updateAuthStatus(String authId, String authCode){
+        return userMapper.updateAuthStatus(authId, authCode);
+    }
+
+    public String findAuthIdByAuthCode(String authCode){return userMapper.findAuthIdByAuthCode(authCode);}
 }

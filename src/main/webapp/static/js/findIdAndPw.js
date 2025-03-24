@@ -23,6 +23,17 @@ document.addEventListener("DOMContentLoaded",function() {
     const logoContainer = document.querySelector('.logoContainer');
     const findIdBtn = document.querySelector('.findIdBtn');
     const findPwBtn = document.querySelector('.findPwBtn');
+    const errorMessageDiv = document.querySelector('.errorMessageDiv');
+
+    const idInput = document.querySelector('.idInput');
+    const emailInput = document.querySelector('.emailInput');
+    const sendBtn = document.querySelector('.sendBtn');
+    const checkBtn = document.querySelector('.checkBtn');
+    const codeCheck = document.querySelector('.codeCheck');
+
+    const pwdChangeContainer = document.querySelector('.pwdChangeContainer');
+    const changePwdBtn = document.querySelector('.changePwdBtn');
+    const outBtn = document.querySelector('.outBtn');
 
     // 모달창 ON
     modalOpenBtn.addEventListener('click',function(){
@@ -30,16 +41,17 @@ document.addEventListener("DOMContentLoaded",function() {
     });
 
     // 모달창 OFF
-    modalCloseBtn.addEventListener('click',function(){
-        modal.classList.add('hidden');
-
-        document.querySelector("form").reset();
-    });
+//    modalCloseBtn.addEventListener('click',function(){
+//        modal.classList.add('hidden');
+//
+//        document.querySelector("form").reset();
+//    });
 
     const birthYearSelect = document.getElementById("birthYear");
     const birthMonthSelect = document.getElementById("birthMonth");
     const birthDaySelect = document.getElementById("birthDay");
 
+    //년도 설정
     for (let year = 2025; year >= 1940; year--) {
         let option = document.createElement("option");
         option.value = year;
@@ -47,6 +59,7 @@ document.addEventListener("DOMContentLoaded",function() {
         birthYearSelect.appendChild(option);
     }
 
+    //월 설정
     for (let month = 1; month <= 12; month++) {
         let option = document.createElement("option");
         option.value = month;
@@ -89,31 +102,33 @@ document.addEventListener("DOMContentLoaded",function() {
         }
     }
 
-
     //월이나 년도가 바뀔 때 일수 변경
     birthMonthSelect.addEventListener("change", updateBirthDays);
     birthYearSelect.addEventListener("change", updateBirthDays);
 
     updateBirthDays();
 
-    // 아이디 찾기 버튼 눌렀을 때
+    // 아이디 찾기 버튼
     idBtn.addEventListener('click',function(){
         document.querySelector("form").reset();
         pwBtn.style.backgroundColor = '#595959';
         idBtn.style.backgroundColor = '#FF8000';
         userInfoId.style.display = 'block';
         userInfoPw.style.display = 'none';
+        errorMessageDiv.style.display = 'none';
     });
 
-    // 비밀번호 찾기 버튼 눌렀을 때
+    // 비밀번호 찾기 버튼
     pwBtn.addEventListener('click',function(){
         document.querySelector("form").reset();
         userInfoId.style.display = 'none';
         pwBtn.style.backgroundColor = '#FF8000';
         idBtn.style.backgroundColor = '#595959';
         userInfoPw.style.display = 'block';
+        errorMessageDiv.style.display = 'none';
     });
 
+    // 아이디 찾고 후에 비밀번호 찾기 버튼
     pwBtn1.addEventListener('click',function(){
         showIdDiv.style.display = 'none';
         logoContainer.style.display = 'block';
@@ -121,58 +136,153 @@ document.addEventListener("DOMContentLoaded",function() {
         findPwBtn.style.display = 'block';
         cancelBtn.style.display = 'block';
         findBtn.style.display= 'block';
+        findIdBtn.style.backgroundColor = '#595959';
+        findPwBtn.style.backgroundColor = '#FF8000';
         userInfoPw.style.display = 'block';
+        errorMessageDiv.style.display = 'none';
     });
 
+    //취소 버튼 눌렀을 때 전체 초기화
+    function resetModalState(){
+        // 모달 창 닫기
+       modal.classList.add('hidden');
+
+       // 모든 폼 리셋
+       document.querySelectorAll("form").forEach(form => form.reset());
+
+       // idBtn을 클릭한 것처럼 상태 설정
+       pwBtn.style.backgroundColor = '#595959';
+       idBtn.style.backgroundColor = '#FF8000';
+       userInfoId.style.display = 'block';
+       userInfoPw.style.display = 'none';
+       errorMessageDiv.style.display = 'none';
+
+       // 다른 컨테이너들 초기화
+       showIdDiv.style.display = 'none';
+       logoContainer.style.display = 'block';
+       pwdChangeContainer.style.display = 'none';
+
+       // 버튼 상태 초기화
+       findIdBtn.style.display = 'block';
+       findPwBtn.style.display = 'block';
+       findBtn.style.display = 'block';
+       cancelBtn.style.display = 'block';
+       document.querySelector('.changePwdDiv').style.display = 'none';
+    }
+
+    // 모든 취소 버튼 초기화
+    outBtn.addEventListener('click', resetModalState);
+    modalCloseBtn.addEventListener('click', resetModalState);
+
+    // 찾기 버튼
     findBtn.addEventListener('click',function(){
         event.preventDefault();
+        if(userInfoId.style.display === "block"){
+            if(nameInput.value.trim() === ""){
+                alert('이름을 입력하세요');
+                return;
+            } else if(birthYear.value === "" || birthMonth.value === "" || birthDay.value === ""){
+                alert('생년월일을 선택해주세요');
+                return;
+            }
+            console.log('nameInput.value: ' + nameInput.value);
+            console.log('birthYear.value: ' + birthYear.value);
+            console.log('birthMonth.value: ' + birthMonth.value);
+            console.log('birthDay.value: ' + birthDay.value);
 
-        if(nameInput.value.trim() === ""){
-            alert('이름을 입력하세요');
-            return;
-        } else if(birthYear.value === "" || birthMonth.value === "" || birthDay.value === ""){
-            alert('생년월일을 선택해주세요');
-            return;
+            let birthDate = `${birthYear.value}${birthMonth.value.padStart(2, '0')}${birthDay.value.padStart(2, '0')}`;
+
+            $.ajax({
+                type:"POST",
+                url:"/api/user/findId",
+                async: true,
+                dataType:"json",
+                data:{
+                    name: nameInput.value,
+                    birthDate: birthDate
+                },
+                success: function(response){
+                    console.log("success response: ", response );
+                    if(response.id){
+                        showId.innerHTML=`${nameInput.value}님의 아이디는 <span style="color: #FF8800;"> ${response.id}</span>입니다!`;
+                        userInfoId.style.display = 'none';
+                        userInfoPw.style.display = 'none';
+                        logoContainer.style.display = 'none';
+                        findIdBtn.style.display = 'none';
+                        findPwBtn.style.display = 'none';
+                        cancelBtn.style.display = 'none';
+                        findBtn.style.display= 'none';
+
+                        showId.parentElement.style.display='block';
+                    }
+                },
+                error: function(xhr) {
+                    console.log("error response: ", xhr);
+                    const errorResponse = xhr.responseJSON;
+                    if (errorResponse && errorResponse.message) {
+                        errorMessageDiv.innerHTML = `<span style="color:  red;">${errorResponse.message}</span>`;
+                    } else {
+                        alert("서버 오류가 발생했습니다.");
+                    }
+                }
+            });
+        } else if (userInfoPw.style.display == "block"){
+            if(idInput.value.trim()===""){
+                alert('아이디를 입력해주세요.');
+                 return;
+            } else if(emailInput.value.trim()===""){
+                alert('이메일을 입력해주세요.');
+            }
         }
-        console.log('nameInput.value: ' + nameInput.value);
-        console.log('birthYear.value: ' + birthYear.value);
-        console.log('birthMonth.value: ' + birthMonth.value);
-        console.log('birthDay.value: ' + birthDay.value);
+    });
 
-        let birthDate = `${birthYear.value}${birthMonth.value.padStart(2, '0')}${birthDay.value.padStart(2, '0')}`;
+    //인증번호 전송 버튼
+    sendBtn.addEventListener('click',function(){
+        event.preventDefault();
+
+        console.log('idInput.value : ' + idInput.value);
+        console.log('emailInput.value : ' + emailInput.value);
 
         $.ajax({
             type:"POST",
-            url:"/api/user/findId",
+            url:"/api/user/sendCode",
             async: true,
             dataType:"json",
             data:{
-                name: nameInput.value,
-                birthDate: birthDate
+                loginId: idInput.value,
+                email: emailInput.value
             },
             success: function(response){
                 console.log("success response: ", response );
-                if(response.id){
-                    showId.innerHTML=`${nameInput.value}님의 아이디는 <span style="color: #FF8800;"> ${response.id}</span>입니다!`;
-                    userInfoId.style.display = 'none';
-                    userInfoPw.style.display = 'none';
-                    logoContainer.style.display = 'none';
-                    findIdBtn.style.display = 'none';
-                    findPwBtn.style.display = 'none';
-                    cancelBtn.style.display = 'none';
-                    findBtn.style.display= 'none';
-
-                    showId.parentElement.style.display='block';
-                }
+                alert('인증번호를 전송하였습니다.');
             },
             error: function(xhr) {
                 console.log("error response: ", xhr);
-                const errorResponse = xhr.responseJSON;
-                if (errorResponse && errorResponse.message) {
-                    alert(errorResponse.message);
-                } else {
-                    alert("서버 오류가 발생했습니다.");
-                }
+
+            }
+        });
+    });
+
+    checkBtn.addEventListener('click', function(){
+        event.preventDefault();
+
+        console.log('codeCheck.value: ' + codeCheck.value);
+
+        $.ajax({
+            type:"POST",
+            url:"/api/user/checkAuthCode",
+            async: true,
+            dataType:"json",
+            data:{
+                authCode: codeCheck.value
+            },
+            success: function(response){
+                console.log("success response: ", response );
+                alert('인증 성공하였습니다.');
+            },
+            error: function(xhr) {
+                console.log("error response: ", xhr);
+                alert('인증 실패하였습니다.');
             }
         });
     });

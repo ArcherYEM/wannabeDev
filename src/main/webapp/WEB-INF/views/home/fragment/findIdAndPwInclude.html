@@ -15,7 +15,7 @@
                     <button class="findPwBtn modalBtn">비밀번호 찾기</button>
                 </div>
             </div>
-            <form id="findIdForm">
+            <form>
                 <div class="userInfoId">
                     <div class="findIdUsername">
                         <label for="nameInput">이름</label>
@@ -35,9 +35,11 @@
                             </select>
                         </div>
                     </div>
+                    <div class="errorMessageDiv">
+
+                    </div>
                 </div>
             </form>
-            <form>
                 <div class="userInfoPw" style="display: none;">
                     <div class="findPwId">
                         <label for="idInput">아이디</label>
@@ -47,12 +49,12 @@
                         <div class="emailDiv">
                             <label for="emailInput">이메일</label><br>
                             <input class="emailInput" type="email" id="emailInput" name="emailInput" placeholder="이메일을 입력하세요">
-                            <button class="emailBth" type="button">인증번호 전송</button>
+                            <button class="emailBtn sendBtn" type="button">인증번호 전송</button>
                         </div>
                         <div class="codeCheckDiv">
                             <label for="codeCheck"></label>
                             <input class="codeCheck" type="text" id="codeCheck" name="codeCheck" placeholder="이메일로 발송된 인증번호를 입력해주세요">
-                            <button class="emailBth" type="button">인증번호 확인</button>
+                            <button class="emailBtn checkBtn" type="button">인증번호 확인</button>
                         </div>
                     </div>
                 </div>
@@ -73,9 +75,27 @@
                     </div>
                 </div>
             </div>
+            <div class="pwdChangeContainer" style="display: none;">
+                <div class="pwdChange">
+                    <span>비밀번호 변경</span>
+                </div>
+                <div class="pwdChangeDiv">
+                    <div class="emailDiv">
+                        <label for="pwdInput">새 비밀번호</label><br>
+                        <input class="pwdInput" type="text" id="pwdInput" name="pwdInput" placeholder="새 비밀번호를 입력해주세요.">
+                    </div>
+                    <div class="codeCheckDiv">
+                        <label for="pwdInputCheck">새 비밀번호 확인</label>
+                        <input class="pwdInputCheck" type="text" id="pwdInputCheck" name="pwdInputCheck" placeholder="새 비밀번호를 다시 입력하세요.">
+                    </div>
+                </div>
+            </div>
             <div class="bottom">
                 <div class="findBtnDiv">
                     <button class="findBtn modalBtn">찾기</button>
+                </div>
+                <div class="changePwdDiv" style="display: none;">
+                    <button class="changePwdBtn modalBtn">변경하기</button>
                 </div>
                 <div class="cancelBtnDiv">
                     <button class="cancelBtn modalBtn">취소</button>

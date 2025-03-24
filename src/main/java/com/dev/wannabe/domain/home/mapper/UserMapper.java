@@ -24,8 +24,19 @@ public interface UserMapper {
 
     UserBasic findUserBasicByUserId(Long UserId);
 
+    // 아이디 찾기
     String findIdByNameAndBirthDate(@Param("name") String name, @Param("birthDate") String birthDate);
 
     String findUserNameByUserId(Long UserId);
 
+    // 비밀번호 찾기
+    Integer findUserIdByLoginIdAndEmail(@Param("loginId")  String loginId, @Param("email") String email);
+
+    void saveAuthCode(@Param("userId") Integer userId,@Param("authCode") String authCode);
+
+    Integer checkAuthCode(@Param("authCode") String authCode);
+
+    Integer updateAuthStatus(@Param("authId") String authId, @Param("authCode") String authCode);
+
+    String findAuthIdByAuthCode(@Param("authCode") String authCode);
 }
