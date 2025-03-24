@@ -9,7 +9,9 @@ import java.util.Map;
 @Mapper
 public interface HompiBgmMapper {
     List<HompiBgmDTO> findBgmByBgmMap(Map<String,Object> bgmMap);
-    Integer selectBgmCount(Long hompiId);
+    Integer selectBgmCount(Map<String,Object> countMap);
 
     Integer updateBackgroundBgm(Map<String, Object> bgmIdMap);
+
+    List<HompiBgmDTO> findSearchJukebox(Map<String, Object> searchMap);
 }

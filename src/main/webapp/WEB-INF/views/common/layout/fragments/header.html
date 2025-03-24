@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header">
+    <!-- Swal -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
     <header>
         <!--헤더 시작-->
         <div id="header">
@@ -9,8 +13,8 @@
             </div>
             <div class="headerRight">
                 <ul>
-                    <li id="ip">접속 IP 확인불가</li>
-                    <li class="name">홍길동</li>
+                    <li class="ipDisplay">접속 IP 확인불가</li>
+                    <li class="nameDisplay">홍길동</li>
                     <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
                     <li><a href="/"><img src="/static/images/common/option.png"></a></li>
                     <li><a href="/" class="btn nobtn logoutBtn">로그아웃</a></li>
