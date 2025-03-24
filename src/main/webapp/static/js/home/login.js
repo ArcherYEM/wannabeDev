@@ -1,14 +1,18 @@
 $(document).ready(function(){
+    // login 상태에 따라서 페이지 변경
     loginCheck();
+
+    // login
     $(".loginBtn").on("click", function(){
         login();
     });
-    $("input[name='loginId'], input[name='password']").on("keydown", function(e){
+    $(".loginIdInput, .passwordInput").on("keydown", function(e){
         if (e.key == "Enter") {
             login();
         }
     });
 
+    // logout
     $(".logoutBtn").click(function () {
         $.ajax({
             type: "POST",
@@ -25,8 +29,8 @@ $(document).ready(function(){
 });
 
 function login() {
-    let loginId = $("input[name='loginId']");
-    let password = $("input[name='password']");
+    let loginId = $(".loginIdInput");
+    let password = $(".passwordInput");
 
     let loginData = {
         "loginId": loginId.val().trim(),
@@ -67,19 +71,21 @@ function loginCheck(){
         type: "GET",
         url: "userInfo",
         contentType: "application/json",
-        dataType: "json",
         success:function(response){
-            if(response === null){
+            if(response.accessIp === null){
                 $(".loginWrap.noLogin").show();
                 $(".loginWrap.yesLogin").hide();
+                $(".headerRight.noLogin").show();
+                $(".headerRight.yesLogin").hide();
                 return;
             }
             $(".loginWrap.noLogin").hide();
             $(".loginWrap.yesLogin").show();
+            $(".headerRight.noLogin").hide();
+            $(".headerRight.yesLogin").show();
             $(".username").text(response.name);
         },
         error:function(error){
-            console.error(error);
         }
     });
 }
