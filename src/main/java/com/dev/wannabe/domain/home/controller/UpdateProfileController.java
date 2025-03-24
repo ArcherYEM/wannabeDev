@@ -1,7 +1,6 @@
 package com.dev.wannabe.domain.home.controller;
 
 
-import com.dev.wannabe.domain.home.model.dto.LoginDataDTO;
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
 import com.dev.wannabe.domain.home.model.dto.UpdateDTO;
 import com.dev.wannabe.domain.home.service.UpdateProfileService;
@@ -48,9 +47,9 @@ public class UpdateProfileController {
 
         // Thymeleaf 템플릿에 데이터를 전달합니다.
         model.addAttribute("IP", ipAddress);
-        model.addAttribute("name", signupUserDTO.getname());
+        model.addAttribute("name", signupUserDTO.getName());
         model.addAttribute("LoginId", signupUserDTO.getLoginId());
-        model.addAttribute("username", signupUserDTO.getname());
+        model.addAttribute("username", signupUserDTO.getName());
         model.addAttribute("birthDate", signupUserDTO.getBirthDate());
         model.addAttribute("genderCode", signupUserDTO.getGenderCode());
         model.addAttribute("email", signupUserDTO.getEmail());

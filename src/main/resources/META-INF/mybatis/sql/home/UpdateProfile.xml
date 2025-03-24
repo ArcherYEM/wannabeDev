@@ -7,9 +7,9 @@
     <update id="updateUser" parameterType="com.dev.wannabe.domain.home.model.dto.UpdateDTO">
         UPDATE USER_BASIC
         SET
-        <if test="email != null">EMAIL = #{email},</if>
-        <if test="phoneNo != null">PHONE_NO = #{phoneNo},</if>
-        <if test="password != null">PASSWORD = #{password}</if>
+        <if test="email != null and email != ''">EMAIL = #{email},</if>
+        <if test="phoneNo != null and phoneNo != ''">PHONE_NO = #{phoneNo},</if>
+        <if test="password != null and password != ''">PASSWORD = #{password}</if>
         WHERE LOGIN_ID = #{loginId}
     </update>
 
