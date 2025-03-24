@@ -5,10 +5,13 @@
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/onlineStyle.css">
     <link rel="stylesheet" href="/static/css/weather.css">
+    <link rel="stylesheet" href="/static/css/imageSlide.css">
+
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
 <div id="wrap">
@@ -33,7 +36,23 @@
                 </div>
                 <!--login e-->
                 <div class="mainTopCenter">
-                    메인슬라이더
+                    <!--메인슬라이더-->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+
+                           <!--불러오기-->
+
+                        </div>
+                        <div class="swiper-button-next">&rtrif;</div>
+                        <div class="swiper-button-prev">&ltrif;</div>
+                        <div class="swiper-pagination"></div>
+                        <div class="autoplay-progress" style="display: none;">
+                            <svg viewBox="0 0 48 48">
+                                <circle cx="24" cy="24" r="20"></circle>
+                            </svg>
+                        <span></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="mainTopRight">
                     <div class="weather-container">
@@ -236,6 +255,9 @@
     <script src="/static/js/home/moveFromHome.js"></script>
     <script src="/static/js/home/weather.js"></script>
     <script src="/static/js/findIdAndPw.js"></script>
+    <script src="/static/js/home/imageSlide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </div>
 
 </body>
