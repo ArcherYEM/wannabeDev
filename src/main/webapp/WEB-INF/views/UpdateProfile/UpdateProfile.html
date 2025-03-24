@@ -4,41 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WANNABE 회원수정</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/reset.css">
-    <link rel="stylesheet" href="/static/css/onlineStyle.css">
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="/static/css/UpdateProfile.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
-    <!-- 헤더 -->
-    <header>
-        <div class="logo">
-            <a href="#" class="logo"><img src="/images/common/logo_full.png"></a>
-            <span>WANNABE</span>
-        </div>
-        <div class="header-right">
-            <ul>
-                <li class="IP" id="IP" th:text="${IP != null} ? '접속IP ' + IP : '접속IP 없음'">(접속IP 127.0.0.1)</li>
-                <li class="Name" id="Name" th:text="${name != null} ? name : '이름 없음'">홍길동</li>
-                <li><a href="#"><img src="/images/common/homeIcon.png"></a></li>
-                <li><a href="#"><img src="/images/common/option.png"></a></li>
-                <li><a th:href="@{/logout}" class="btn nobtn">로그아웃</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- 네비게이션 -->
-    <nav>
-        <ul>
-            <li><a href="#">내 미니홈피</a></li>
-            <li><a href="#">선물하기</a></li>
-            <li><a href="#">장바구니</a></li>
-            <li><a href="#">공지사항</a></li>
-            <li><a href="#">ABOUT US</a></li>
-        </ul>
-    </nav>
+    <!--헤더시작-->
+    <th:block th:replace="dev/header :: header"></th:block>
+    <!--헤더 끝-->
 
     <!-- 메인 콘텐츠 -->
     <main>
@@ -46,78 +20,136 @@
             <h1>회원가입 수정</h1>
 
             <!-- 수정불가한 정보 -->
-            <section>
-                <div>
-                    <label>아이디</label>
-                    <span class="LoginId" id="LoginId" th:text="${LoginId != null} ? LoginId : '아이디 없음'"></span>
+            <section class="section">
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>아이디</label>
+                        <span class="LoginId" id="LoginId" th:text="${LoginId != null} ? LoginId : '아이디 없음'">dev</span>
+                    </div>
+                    <div class="info-group">
+                        <label>이름</label>
+                        <span class="username" id="username" th:text="${username != null} ? username : '이름 없음'">홍길동</span>
+                    </div>
                 </div>
-                <div>
-                    <label>이름</label>
-                    <span class="username" id="username" th:text="${username != null} ? username : '이름 없음'"></span>
-                </div>
-                <div>
-                    <label>생년월일</label>
-                    <span class="birthDate" id="birthDate" th:text="${birthDate != null} ? birthDate : '생년월일 없음'"></span>
-                </div>
-                <div>
-                    <label>성별</label>
-                    <span class="genderCode" id="genderCode" th:text="${genderCode != null} ? genderCode : '성별 없음'"></span>
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>생년월일</label>
+                        <span class="birthDate" id="birthDate" th:text="${birthDate != null} ? birthDate : '생년월일 없음'">1994.01.25</span>
+                    </div>
+                    <div class="info-group">
+                        <label>성별</label>
+                        <span class="genderCode" id="genderCode" th:text="${genderCode != null} ? genderCode : '성별 없음'">남</span>
+                    </div>
                 </div>
             </section>
 
             <!-- 비밀번호 변경 -->
-            <div class="form-group">
-                <label>비밀번호 변경</label>
-                <div class="password-group">
-                    <label>현재 비밀번호</label><br>
-                    <input type="password" class="password" id="password" placeholder="현재 비밀번호"><br>
-                    <label>새 비밀번호</label><br>
-                    <input type="password" class="newpassword" id="newpassword" placeholder="새 비밀번호"><br>
-                    <label>새 비밀번호 다시 입력</label><br>
-                    <input type="password" class="newpassword" id="new_password" placeholder="비밀번호 다시 입력하여 주세요">
+            <section class="section">
+                <h2 class="section-title">비밀번호 변경</h2>
+                <div class="form-group">
+                    <div class="password-group">
+                        <label>현재 비밀번호</label>
+                        <input type="password" class="password" id="password" placeholder="현재 비밀번호">
+                    </div>
+                    <div class="password-group">
+                        <label>새 비밀번호</label>
+                        <input type="password" class="newpassword" id="newpassword" placeholder="새 비밀번호">
+                    </div>
+                    <div class="password-group">
+                        <label>새 비밀번호 다시 입력</label>
+                        <input type="password" class="newpassword" id="new_password" placeholder="비밀번호 다시 입력하여 주세요">
+                    </div>
                 </div>
-            </div>
+            </section>
 
             <!-- 개인정보 변경 -->
-            <div class="form-group">
-                <label>개인정보 변경</label>
-                <div class="join-date">
-                    <label>이메일</label>
-                    <input type="text" class="email" id="email" th:value="${email != null} ? email : ''">
-                    <a href="#" class="check-duplicate" data-type="email">중복확인</a>
+            <section class="section">
+                <h2 class="section-title">개인정보 변경</h2>
+                <div class="form-group">
+                    <div class="join-date">
+                        <label>이메일</label>
+                        <div class="input-group">
+                            <input type="text" class="email input-field" id="email" th:value="${email != null} ? email : ''" placeholder="이메일을 입력하여 주세요">
+                            <a href="#" class="check-duplicate input-btn" data-type="email">중복확인</a>
+                        </div>
+                    </div>
+                    <div class="join-date">
+                        <label>전화번호</label>
+                        <div class="input-group">
+                            <input type="text" class="PoneNo input-field" id="PoneNo" th:value="${phoneNo != null} ? phoneNo : ''" placeholder="전화번호를 입력하여 주세요" onkeypress="return (event.charCode != 45 && event.charCode >= 48 && event.charCode <= 57)">
+                            <a href="#" class="check-duplicate input-btn" data-type="phone">중복확인</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="join-date">
-                    <label>전화번호</label>
-                    <!-- 수정: placeholder 변경, 숫자만 입력 가능하도록 설정 -->
-                    <input type="text" class="PoneNo" id="PoneNo" th:value="${phoneNo != null} ? phoneNo : ''" placeholder="전화번호를 입력하여 주세요" onkeypress="return (event.charCode != 45 && event.charCode >= 48 && event.charCode <= 57)">
-                    <a href="#" class="check-duplicate btn di small" data-type="phone">중복확인</a>
-                </div>
-            </div>
+            </section>
 
             <!-- 수정 완료 버튼 -->
-            <div class="form-group">
-                <button class="submit-btn" id="submitBtn">수정 완료</button>
-            </div>
+            <section class="section">
+                <div class="form-group">
+                    <button class="submit-btn" id="submitBtn">수정 완료</button>
+                </div>
+            </section>
         </section>
     </main>
 
-    <!-- 푸터 -->
-    <footer>
-        <div class="footer-left">
-            <span>TEAM_WANNABEDev</span>
-            <span>SINCE. 2025.2.24-</span>
+    <!-- 팝업창 -->
+    <div class="popup" id="successPopup">
+        <div class="popup-content">
+            <h3>수정 완료</h3>
+            <p>회원정보가 성공적으로 수정되었습니다.</p>
+            <button class="popup-btn" id="goToMainBtn">메인으로 이동</button>
         </div>
-        <div class="footer-right">
-            <ul>
-                <li><a href="#">내 미니홈피</a></li>
-                <li><a href="#">선물하기</a></li>
-                <li><a href="#">장바구니</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">ABOUT US</a></li>
-            </ul>
-        </div>
-    </footer>
+    </div>
+
+    <!--푸터시작-->
+    <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
+    <!--푸터 끝-->
 </div>
 <script src="/static/js/home/UpdateProfile.js"></script>
+
+<script>
+    // 페이지 로드 시 팝업창 숨김
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('successPopup').style.display = 'none';
+    });
+
+    // 수정 완료 버튼 클릭 시 유효성 검사 및 팝업창 표시
+    document.getElementById('submitBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        // 입력값 가져오기
+        const currentPassword = document.getElementById('password').value.trim();
+        const newPassword = document.getElementById('newpassword').value.trim();
+        const confirmNewPassword = document.getElementById('new_password').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phoneNo = document.getElementById('PoneNo').value.trim();
+
+        // 에러 메시지 영역
+        const errorMessage = document.getElementById('errorMessage');
+
+        // 유효성 검사
+        if (!currentPassword || !newPassword || !confirmNewPassword || !email || !phoneNo) {
+            errorMessage.textContent = '모든 필수 입력란을 채워주세요.';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // 새 비밀번호와 새 비밀번호 확인 일치 여부 검사
+        if (newPassword !== confirmNewPassword) {
+            errorMessage.textContent = '새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // 모든 유효성 검사를 통과하면 팝업창 표시
+        errorMessage.style.display = 'none'; // 에러 메시지 숨김
+        document.getElementById('successPopup').style.display = 'block'; // 팝업창 표시
+    });
+
+    // 메인으로 이동 버튼 클릭 시 페이지 이동
+    document.getElementById('goToMainBtn').addEventListener('click', function() {
+        window.location.href = '/'; // 메인 페이지로 이동 (루트 경로로 가정)
+    });
+</script>
 </body>
 </html>

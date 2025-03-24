@@ -1,5 +1,5 @@
 /* General Reset and Base Styles */
-* {
+/** {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,17 +9,17 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f5f5f5;
     color: #333;
-}
+}*/
 
 /* Container */
-.container {
+/*.container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-}
+}*/
 
 /* Header */
-header {
+/*header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -68,10 +68,10 @@ header .header-right ul li .btn {
     border: 1px solid white;
     padding: 5px 10px;
     border-radius: 5px;
-}
+}*/
 
 /* Navigation */
-nav {
+/*nav {
     background-color: #ff8c00;
     padding: 10px 0;
 }
@@ -87,7 +87,7 @@ nav ul li {
     color: white;
     font-size: 16px;
     cursor: pointer;
-}
+}*/
 
 /* Main Content */
 main {
@@ -110,39 +110,54 @@ main {
     margin-bottom: 30px;
 }
 
-/* Uneditable Information Section */
-.signup-form section {
-    margin-bottom: 30px;
+/* Section Titles (①, ②, ③, ④) */
+.section {
+    margin-bottom: 40px;
 }
 
-.signup-form section div {
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff8c00;
+    margin-bottom: 20px;
+}
+
+/* Uneditable Information Section */
+.info-row {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     margin-bottom: 15px;
 }
 
-.signup-form section label {
-    width: 150px;
-    font-size: 16px;
-    color: #666;
+.info-group {
+    flex: 1;
 }
 
-.signup-form section span {
+.info-group:last-child {
+    margin-right: 0;
+}
+
+.info-group label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.info-group span {
     font-size: 16px;
     color: #333;
+    margin-left: 80px;
 }
 
 /* Form Groups (Password and Personal Info) */
 .form-group {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
-.form-group label {
-    font-size: 18px;
-    font-weight: bold;
+.password-group,
+.join-date {
     margin-bottom: 15px;
-    display: block;
-    color: #ff8c00;
 }
 
 .password-group label,
@@ -157,29 +172,64 @@ main {
 .join-date input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
 }
 
 .join-date {
-    display: flex;
-    align-items: center;
+    display: block; /* 수직 배치 */
 }
 
-.join-date input {
-    flex: 1;
-    margin-right: 10px;
+/* 입력란과 버튼을 감싸는 컨테이너 */
+.input-group {
+    position: relative;
+    display: inline-block;
+    width: 100%;
 }
 
-.join-date a {
-    background-color: #ff8c00;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
+/* 입력란 스타일 */
+.input-field {
+    width: 100%;
+    padding: 10px 100px 10px 10px; /* 버튼 공간 확보를 위해 오른쪽 패딩 조정 */
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
+    line-height: 1.5; /* 입력란의 높이를 일정하게 유지 */
+    box-sizing: border-box;
+    height: 40px; /* 입력란 높이 고정 */
+}
+
+/* 버튼 스타일 */
+.input-btn {
+    position: absolute;
+    top: 38%;
+    right: 5px;
+    transform: translateY(-50%);
+    padding: 5px 10px;
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1; /* 버튼의 세로 크기 조정 */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 26px; /* 버튼 높이를 입력란과 맞춤 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-btn:hover {
+    background-color: #e07b00;
+}
+
+/* 기존 join-date a 스타일 제거 */
+.join-date a {
+    margin-top: 0;
 }
 
 /* Submit Button */
@@ -197,6 +247,60 @@ main {
 }
 
 .submit-btn:hover {
+    background-color: #e07b00;
+}
+
+/* Popup Styles */
+.popup {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시되도록 */
+}
+
+.popup-content {
+    position: absolute;
+    top: 10%; /* 화면 상단에서 10% 위치 */
+    left: 50%;
+    transform: translateX(-50%); /* 가로 중앙 정렬 */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.popup-content h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ff8c00;
+}
+
+.popup-content p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.popup-btn {
+    padding: 10px 20px;
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.popup-btn:hover {
     background-color: #e07b00;
 }
 
