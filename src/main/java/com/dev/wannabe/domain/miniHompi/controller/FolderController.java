@@ -3,6 +3,7 @@ package com.dev.wannabe.domain.minihompi.controller;
 import com.dev.wannabe.domain.minihompi.model.dto.FolderContentsDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.FolderDTO;
 import com.dev.wannabe.domain.minihompi.service.FolderService;
+import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/folder")
+@RequestMapping("/folder")
 public class FolderController {
 
     private final FolderService folderService;
@@ -23,21 +25,38 @@ public class FolderController {
     @PostMapping("/save/{folderName}/{contentsType}")
     @ResponseBody
     public ResponseEntity<Void> save(@PathVariable String folderName, @PathVariable String contentsType, HttpServletRequest request) {
-        folderService.saveFolder(folderName, contentsType, request);
-        return ResponseEntity.ok().build();
+        Object userData = request.getSession().getAttribute("userData");
+        if (userData == null) {
+            return ResponseEntity.noContent().build();
+        }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+        if (folderService.saveFolder(folderName, contentsType, sessionUser)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/getFolders/{contentsType}")
+    @GetMapping("/read/{contentsType}")
     @ResponseBody
     public ResponseEntity<List<FolderDTO>> getFolder(@PathVariable String contentsType, HttpServletRequest request) {
-        List<FolderDTO> folders = folderService.getFolder(contentsType, request);
+        Object userData = request.getSession().getAttribute("userData");
+        if (userData == null) {
+            return ResponseEntity.noContent().build();
+        }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+        List<FolderDTO> folders = folderService.getFolder(contentsType, sessionUser);
         return ResponseEntity.ok(folders);
     }
 
-    @GetMapping("/getFolderContents/{folderId}/{contentsType}")
+    @GetMapping("/read/{contentsType}/{folderId}")
     @ResponseBody
-    public ResponseEntity<List<FolderContentsDTO>> getFolderContents(@PathVariable Long folderId, @PathVariable String contentsType, HttpServletRequest request) {
-        List<FolderContentsDTO> contents = folderService.getFolderContents(folderId, contentsType, request);
+    public ResponseEntity<List<FolderContentsDTO>> getFolderContents(@PathVariable String contentsType, @PathVariable Long folderId, HttpServletRequest request) {
+        Object userData = request.getSession().getAttribute("userData");
+        if (userData == null) {
+            return ResponseEntity.noContent().build();
+        }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+        List<FolderContentsDTO> contents = folderService.getFolderContents(folderId, contentsType, sessionUser);
         return ResponseEntity.ok(contents);
     }
 

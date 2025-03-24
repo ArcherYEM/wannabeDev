@@ -11,36 +11,38 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class FolderService {
 
     private final FolderMapper folderMapper;
 
     @Transactional
-    public void saveFolder(String folderName, String contentType,  HttpServletRequest request) {
+    public Boolean saveFolder(String folderName, String contentType, SessionUserDTO sessionUser) {
+        try {
+            Long userId = sessionUser.getUserId();
+            Long hompiId = sessionUser.getHompiId();
 
-        SessionUserDTO sessionUser = (SessionUserDTO) request.getSession().getAttribute("userData");
-        Long userId = sessionUser.getUserId();
-        Long hompiId = sessionUser.getHompiId();
+            HompiFolder hompiFolder = HompiFolder.builder()
+                    .hompiId(hompiId)
+                    .folderName(folderName)
+                    .contentType(contentType)
+                    .insertUserId(userId)
+                    .build();
 
-        HompiFolder hompiFolder = HompiFolder.builder()
-                .hompiId(hompiId)
-                .folderName(folderName)
-                .contentType(contentType)
-                .insertUserId(userId)
-                .build();
+            folderMapper.saveFolder(hompiFolder);
+            return true;
 
-        folderMapper.saveFolder(hompiFolder);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    @Transactional
-    public List<FolderDTO> getFolder(String contentsType, HttpServletRequest request) {
-        SessionUserDTO sessionUser = (SessionUserDTO) request.getSession().getAttribute("userData");
+    public List<FolderDTO> getFolder(String contentsType, SessionUserDTO sessionUser) {
         Long hompiId = sessionUser.getHompiId();
 
         FolderFindDTO folderFind = FolderFindDTO.builder()
@@ -51,9 +53,7 @@ public class FolderService {
         return folderMapper.findAllFolderByFolderFind(folderFind);
     }
 
-    @Transactional
-    public List<FolderContentsDTO> getFolderContents(Long folderId, String contentsType, HttpServletRequest request) {
-        SessionUserDTO sessionUser = (SessionUserDTO) request.getSession().getAttribute("userData");
+    public List<FolderContentsDTO> getFolderContents(Long folderId, String contentsType, SessionUserDTO sessionUser) {
         Long hompiId = sessionUser.getHompiId();
 
         FolderFindDTO folderFind = FolderFindDTO.builder()
