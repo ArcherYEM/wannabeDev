@@ -27,23 +27,7 @@
                 <!--login s-->
                 <div class="mainTopLeft">
                     <div class="loginWrap noLogin">
-                        <div class="loginWrapTop">
-                            <div class="loginInputWrap">
-                                <ul>
-                                    <li><input type="text" name="loginId"></li>
-                                    <li><input type="password" name="password"></li>
-                                </ul>
-                            </div>
-                            <div class="loginBtnWrap">
-                                <a href="#" class="loginBtn btn">로그인</a>
-                            </div>
-                        </div>
-                        <div class="loginWrapBot">
-                            <ul>
-                                <li><a href="#" class="signupBtn btn">회원가입</a></li>
-                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
-                            </ul>
-                        </div>
+                        <th:block th:include="/home/fragment/noLoginInclude :: noLoginFragment"></th:block>
                     </div>
                     <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
                 </div>

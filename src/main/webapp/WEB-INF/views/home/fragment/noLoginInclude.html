@@ -4,17 +4,17 @@
     <div class="loginWrapTop">
         <div class="loginInputWrap">
             <ul>
-                <li><input type="text" name="loginId" id="loginId"></li>
-                <li><input type="password" name="password" id="password"></li>
+                <li><input type="text" name="loginId" id="loginIdFragment" placeholder="아이디"></li>
+                <li><input type="password" name="password" id="passwordFragment" placeholder="비밀번호"></li>
             </ul>
         </div>
         <div class="loginBtnWrap">
-            <a href="#" id="loginBtn" class="btn loginBtn">로그인</a>
+            <a href="#" id="loginBtnFragment" class="btn">로그인</a>
         </div>
     </div>
     <div class="loginWrapBot">
         <ul>
-            <li><a href="#" class="btn signupBtn">회원가입</a></li>
+            <li><a href="#" id="logoutBtnFragment" class="btn signupBtn">회원가입</a></li>
             <li><a href="#" class="btn">ID찾기 / 비밀번호찾기</a></li>
         </ul>
     </div>
@@ -22,10 +22,10 @@
 </div>
     <div th:fragment="noLoginHeader">
         <ul>
-            <li><input type="text" name="loginId" class="loginIdInput" placeholder="아이디"></li>
-            <li><input type="password" name="password" class="passwordInput" placeholder="비밀번호"></li>
-            <li><a href="#" class="btn loginBtn">로그인</a></li>
-            <li><a href="#" class="btn signupBtn">회원가입</a></li>
+            <li><input type="text" name="loginIdHeader" id="loginIdHeader" class="loginIdInput" placeholder="아이디"></li>
+            <li><input type="password" name="passwordHeader" id="passwordHeader" class="passwordInput" placeholder="비밀번호"></li>
+            <li><a href="#" id="loginBtnHeader" class="btn loginBtn">로그인</a></li>
+            <li><a href="#" id="logoutBtnHeader" class="btn signupBtn">회원가입</a></li>
         </ul>
     </div>
 </div>
