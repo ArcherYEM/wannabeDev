@@ -7,8 +7,11 @@ import lombok.Data;
 @Builder
 public class HompiBgmDTO {
 
-    private String bgmName;
+    private Long id;
+    private String title;
     private String artist;
-    private String bgmPath;
+    private String lyrics;
+    private String path;
+
 
 }

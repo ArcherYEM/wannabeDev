@@ -39,4 +39,8 @@ public interface UserMapper {
     Integer updateAuthStatus(@Param("authId") String authId, @Param("authCode") String authCode);
 
     String findAuthIdByAuthCode(@Param("authCode") String authCode);
+
+    String findUserRoleByUserID(Long UserId);
+
+
 }

@@ -76,7 +76,7 @@
     </select>
 
     <select id="findUserNameByUserId" parameterType="Long" resultType="String">
-        Select NAME
+        SELECT NAME
         FROM USER_BASIC
         WHERE USER_ID = #{userId}
     </select>
@@ -136,5 +136,9 @@
         SELECT AUTH_ID
           FROM EMAIL_AUTH
          WHERE EMAIL_AUTH_CODE = #{authCode}
+    <select id="findUserRoleByUserID" parameterType="Long" resultType="String">
+        SELECT ROLE_CD
+        FROM USER_ROLE
+        WHERE USER_ID = #{userId}
     </select>
 </mapper>

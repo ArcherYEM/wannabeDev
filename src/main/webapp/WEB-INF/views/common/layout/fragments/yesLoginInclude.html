@@ -7,7 +7,7 @@
         <div>
             <ul>
                 <li><a class="btn small">내정보수정</a></li>
-                <li><a class="btn small nobtn">로그아웃</a></li>
+                <li><a class="btn small nobtn logoutBtn">로그아웃</a></li>
             </ul>
         </div>
     </div>
@@ -37,13 +37,14 @@
                 </li>
                 <li>
                     <span class="title">보유도토리</span>
-                    <span class="text"><img src="/static/images/common/dotori.png"> <span class="text">720</span> <a class="btn small di">충전</a></span>
+                    <span class="text"><img src="/static/images/common/dotori.png"> <span class="text">720</span> <a class="btn small di rechargePageBtn">충전</a></span>
                 </li>
 
             </ul>
         </div>
     </div>
-    <a class="btn">내 미니홈피 바로가기</a>
+    <a class="btn" onclick="openPop()">내 미니홈피 바로가기</a>
 </div>
+<script type="text/javascript" th:src="@{/static/js/common.js}"></script>
 </div>
 </html>

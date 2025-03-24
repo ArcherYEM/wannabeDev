@@ -27,7 +27,7 @@ import java.util.Map;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final UserService userManageService;
+    private final UserService userService;
     private final HompiService hompiManageService;
     private final MiniroomService miniroomService;
     private final MinimiService minimiService;
@@ -42,7 +42,7 @@ public class UserController {
      */
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@RequestBody SignupUserDTO signupUser) {
-        Long userId = userManageService.signUpUser(signupUser);
+        Long userId = userService.signUpUser(signupUser);
         if (userId == 0L) {
             return ResponseEntity.badRequest().build();
         }
@@ -83,7 +83,7 @@ public class UserController {
      */
     @PostMapping("/checkLoginId/{loginId}")
     public ResponseEntity<Void> checkLoginId(@PathVariable String loginId) {
-        if (userManageService.isUserExist(loginId)) {
+        if (userService.isUserExist(loginId)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
@@ -96,7 +96,7 @@ public class UserController {
      */
     @PostMapping("/checkEmail/{email}")
     public ResponseEntity<Void> checkEmail(@PathVariable String email) {
-        if (userManageService.isUserExist(email)) {
+        if (userService.isUserExist(email)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
@@ -109,7 +109,7 @@ public class UserController {
      */
     @PostMapping("/checkPhoneNo/{phoneNo}")
     public ResponseEntity<Void> checkPhoneNo(@PathVariable String phoneNo) {
-        if (userManageService.isUserExist(phoneNo)) {
+        if (userService.isUserExist(phoneNo)) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
