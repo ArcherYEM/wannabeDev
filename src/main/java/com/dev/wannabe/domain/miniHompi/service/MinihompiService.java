@@ -87,7 +87,7 @@ public class MinihompiService {
     }
 
 
-    public Map<String, Object> updateMinihompiTitle(SessionUserDTO userData, String title) {
+    public Map<String, Object> updateMinihompiTitle(Long hompiId, String title) {
         Map<String, Object> response = new HashMap<>();
         if (title == null || title.trim().isEmpty()) {
             response.put("status", "fail");
@@ -96,7 +96,7 @@ public class MinihompiService {
         }
 
         Map<String, Object> param = new HashMap<>();
-        param.put("hompiId", userData.getHompiId());
+        param.put("hompiId", hompiId);
         param.put("title", title);
 
         int result = minihompiMapper.updateTitle(param);
@@ -121,5 +121,21 @@ public class MinihompiService {
         param.put("mood", mood);
 
         return minihompiMapper.moodSave(param);
+    }
+
+
+    public Map<String, Object> updateHompiConfig(Long hompiId, String introduction, String filePath) {
+        Map<String, Object> response = new HashMap<>();
+        if (introduction == null || introduction.trim().isEmpty()) {
+            response.put("status", "fail");
+            response.put("message", "자기소개는 비어있을 수 없습니다.");
+            return response;
+        }
+        Map<String, Object> param = new HashMap<>();
+        param.put("introduction", introduction);
+        param.put("hompiId", hompiId);
+        param.put("filePath", filePath);
+
+        return minihompiMapper.updateHompiConfig(param);
     }
 }

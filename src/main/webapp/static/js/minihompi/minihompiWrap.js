@@ -2,10 +2,7 @@ $(document).ready(function () {
     getminihompiDataList(); // JSON 데이터 가져오기
     openminihompi(); // HTML 데이터 가져오기
 });
-
-const hompiId = 9; // 홈피 ID
-const hompMain_url = '/mini-hompi/hompiMain'; // 메인 URL
-const hompSub_url = `/mini-hompi/api/${hompiId}`; // 서브 URL
+const hompMain_url = '/mini-hompi/hompiMain';
 
 // HTML 데이터를 가져오는 함수
 function openminihompi() {
@@ -19,43 +16,66 @@ function openminihompi() {
             $("#mainWrapBackground").html(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error("화면 로딩 실패:", errorThrown);
         }
     });
 }
 
-// JSON 데이터를 가져오는 함수
+// json 데이터를 가져오는 함수
 function getminihompiDataList() {
+    const url = window.location.pathname;
+    const hompiId = url.split('/').pop();
+    const hompiDataUrl = `/mini-hompi/api/${hompiId}`;
     $.ajax({
         type: "GET",
-        url: hompSub_url,
+        url: hompiDataUrl,
         dataType: "json",
-        success: function (response) {
-            // JSON 데이터를 화면에 렌더링
-            renderminihompi(response);
+        success: function (data) {
+            renderminihompi(data); // 화면 렌더링
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function () {
+            alert("미니홈피 데이터를 가져오는 데 실패했습니다.");
         }
     });
 }
+
 
 // JSON 데이터를 화면에 렌더링하는 함수
 function renderminihompi(data) {
     const minihompi = data.minihompi;
-    console.log("myHompi" + data.myHompi);
     const myHompi = data.myHompi;
 
-    // 화면에 데이터 삽입
-    $("#mainTitle").text(minihompi.hompiTitle);
-    $("#total").text(minihompi.totalCnt);
-    $("#today").text(minihompi.todayCnt);
-    $("#hompiUrl").text(minihompi.hompiUrl);
+    $("#mainTitle").text(minihompi.hompiTitle ?? "제목이 없습니다.");
+    $("#total").text(minihompi.totalCnt ?? "-");
+    $("#today").text(minihompi.todayCnt ?? "-");
+    $("#hompiUrl").text(minihompi.hompiUrl ?? "홈피 주소 없음");
+    $(".introduction").text(minihompi.introduction ?? "자기소개가 작성되지 않았습니다.");
+    $(".name").text(minihompi.name ?? "이름없음");
+    $(".nameEmail").text(minihompi.email ?? "null@com");
+    if (minihompi.mood != null) {
+        $('#mood').val(minihompi.mood).prop('selected', true);
+    } else {
+        $('#mood').val("angry").prop('selected', true);
+    }
 
+    if (minihompi.profileImage) {
+        $(".mainImg > img").attr("src", minihompi.profileImage);
+    }
+    if (minihompi.genderCode == "M") {
+        $(".nameSymbol").text("♂");
+    } else if (minihompi.genderCode == "F") {
+        $(".nameSymbol").text("♀");
+    } else {
+        $(".nameSymbol").text("n");
+    }
+
+
+    //권한에 따라 관리 버튼 숨김
     if (myHompi != 0) {
         $("#moveSetting").hide();
         $(".editImg").hide();
         $("#editBtn").hide();
         $("#titleBtn").hide();
+        $("select#mood").prop("disabled", true);
     }
-
 }
+

@@ -15,6 +15,9 @@
         hp.TOTAL_CNT,
         hc.HOMPI_CONFIG_CODE,
         hc.HOMPI_CONFIG_CONTENT,
+        ub.NAME,
+        ub.EMAIL,
+        ub.GENDER_CODE,
         MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '01' THEN hc.HOMPI_CONFIG_CONTENT END) AS PROFILE_IMAGE,
         MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '02' THEN hc.HOMPI_CONFIG_CONTENT END) AS INTRODUCTION,
         MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '03' THEN hc.HOMPI_CONFIG_CONTENT END) AS FRIENDS_COMMENT_YN,
@@ -23,9 +26,11 @@
         FROM HOMPI hp
         LEFT OUTER JOIN HOMPI_DAILY_STATS hds
         ON hp.HOMPI_ID = hds.HOMPI_ID
-        AND hds.DAY_STATS_DATE = #{today}
+        AND hds.DAY_STATS_DATE = '20250323'
         LEFT OUTER JOIN HOMPI_CONFIG hc
         ON hp.HOMPI_ID = hc.HOMPI_ID
+        LEFT OUTER JOIN USER_BASIC ub
+        ON hp.OWNER_USER_ID = ub.USER_ID
         <where>
             <if test="userId == ownerUserId">
                 hp.HOMPI_ID = #{hompiId}
@@ -85,5 +90,22 @@
         (HOMPI_ID, DAY_STATS_DATE, TODAY_CNT, REMARKS, INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT)
         VALUES (#{hompiId}, #{today}, 1, NULL, #{userId}, NOW(), #{userId}, NOW())
     </insert>
+
+    <update id="updateHompiConfig" parameterType="map">
+
+        UPDATE HOMPI_CONFIG
+        <set>
+            <if test='introduction != null introduction != ""'>
+                HOMPI_CONFIG_CONTENT = #{introduction}
+                WHERE HOMPI_CONFIG_CODE = '02'
+            </if>
+            <if test='filePath != null filePath != ""'>
+                HOMPI_CONFIG_CONTENT = #{filePath}
+                WHERE HOMPI_CONFIG_CODE = '02'
+            </if>
+        </set>
+        AND WHERE HOMPI_ID = #{hompiId}
+
+    </update>
 
 </mapper>

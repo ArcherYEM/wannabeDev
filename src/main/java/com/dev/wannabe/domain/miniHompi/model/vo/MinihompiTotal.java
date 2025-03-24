@@ -39,4 +39,8 @@ public class MinihompiTotal {
     private String mood; //기분
     private String hompiLang; //홈피 소개글 언어
 
+    private String name; //이름
+    private String genderCode; //성별
+    private String email; //이메일
+
 }
