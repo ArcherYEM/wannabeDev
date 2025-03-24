@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>onlineMain</title>
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/onlineStyle.css">
-    <link rel="stylesheet" href="/static/css/signup.css">
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
+    <!-- Swal -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <!-- Custom -->
+    <link rel="stylesheet" href="/static/css/signup.css">
+    <link rel="stylesheet" href="/static/css/modal.css">
 </head>
 <body>
 <div id="wrap">
@@ -61,6 +66,7 @@
                             </select>
                         </li>
                     </ul>
+                    <p class="checkMatch birth"></p>
                 </div>
 
                 <p class="joinTitle">성별</p>
@@ -86,13 +92,7 @@
                     <p class="checkMatch phoneNo"></p>
                 </div>
 
-                <div class="joinInputWrap btn" style="display: flex;">
-                    <div id="confirm1Wrap">
-                        <input type="checkbox" id="confirm1" class="checkbox">
-                        <label for="confirm1">개인정보 수집 및 이용동의</label>
-                        <a href="#" id="showConfirm">내용보기</a>
-                    </div>
-                </div>
+                <div th:replace="/home/fragment/modal :: modalFragment"></div>
 
                 <div class="joinInputWrap">
                     <button id="signUpBtn" class="btn">회원가입</button>
@@ -106,8 +106,7 @@
     <!--푸터 시작-->
     <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
     <!--푸터 끝-->
-
-    <div th:replace="/home/fragment/modal :: modalFragment"></div>
+  
 </div>
 <script src="/static/js/home/login.js"></script>
 <script src="/static/js/home/signup.js"></script>

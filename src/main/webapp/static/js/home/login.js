@@ -1,28 +1,44 @@
 $(document).ready(function(){
     loginCheck();
     $(".loginBtn").click(function(){
+        
+        let loginCheckDisplayText = $("#loginCheckDisplayText")
 
-        const loginId = $("input[name='loginId']").val().trim();
-        const password = $("input[name='password']").val().trim();
+        let loginId = $("input[name='loginId']");
+        let password = $("input[name='password']");
 
-        if (loginId && password) {
-            $.ajax({
-                type: "POST",
-                url: "/api/user/login",
-                contentType: "application/json",
-                data: JSON.stringify({loginId,password}),
-                success:function(response){
-                    loginCheck();
-                    location.href ="/"
-                },
-                error: function(error){
-                    console.error(error);
-                }
-            });
+        let loginData = {
+            "loginId": loginId.val().trim(),
+            "password": password.val().trim(),
         }
+
+        $.ajax({
+            type: "POST",
+            url: "/api/user/login",
+            contentType: "application/json",
+            data: JSON.stringify(loginData),
+            success:function(response){
+                loginCheck();
+                Swal.fire(
+                    '로그인 성공!',
+                    '환영합니다 :)',
+                    'success'
+                ).then(() => {
+                    location.href = "/";
+                });
+                loginCheckDisplayText.text("")
+            },
+            error: function(error){
+                loginId.val("")
+                password.val("")
+                loginCheckDisplayText.text("아이디 혹은 비밀번호를 다시 입력해주세요").css({
+                    "color": "red"
+                })
+            }
+        });
     });
 
-    $(".btn.small.nobtn").click(function () {
+    $(".logoutBtn").click(function () {
         $.ajax({
             type: "POST",
             url: "/api/user/logout",

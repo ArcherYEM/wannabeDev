@@ -9,12 +9,13 @@
             </ul>
         </div>
         <div class="loginBtnWrap">
-            <a href="#" id="loginBtn" class="btn">로그인</a>
+            <a href="#" id="loginBtn" class="btn loginBtn">로그인</a>
         </div>
     </div>
+    <div id="loginCheckDisplay"><p id="loginCheckDisplayText"></p></div>
     <div class="loginWrapBot">
         <ul>
-            <li><a href="#" class="btn">회원가입</a></li>
+            <li><a href="#" class="btn signupBtn">회원가입</a></li>
             <li><a href="#" class="btn">ID찾기 / 비밀번호찾기</a></li>
         </ul>
     </div>
@@ -22,10 +23,10 @@
 </div>
     <div th:fragment="noLoginHeader">
         <ul>
-            <li><input type="text" name="loginId" id="" placeholder="아이디"></li>
-            <li><input type="password" name="password" id="" placeholder="비밀번호"></li>
-            <li><a href="#" class="btn">로그인</a></li>
-            <li><a href="#" class="btn">회원가입</a></li>
+            <li><input type="text" name="loginId" placeholder="아이디"></li>
+            <li><input type="password" name="password" placeholder="비밀번호"></li>
+            <li><a href="#" class="btn loginBtn">로그인</a></li>
+            <li><a href="#" class="btn signupBtn">회원가입</a></li>
         </ul>
     </div>
 </div>

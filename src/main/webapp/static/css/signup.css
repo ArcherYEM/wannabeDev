@@ -2,12 +2,8 @@
     appearance: auto;
 }
 .rightNotation {
-    text-align: right;
-    padding-right: 0;
-}
-.leftNotation {
-    text-align: left;
-    padding-right: 0;
+    padding-right: 20px;
+    box-sizing: border-box;
 }
 
 .checkDuplicate {
@@ -17,6 +13,12 @@
 .checkedDuplicate {
     background-color: var(--color-gray);
     color: white;
+}
+
+#birthSelectList select {
+    max-height: 250px;
+    position: relative;
+    z-index: 1;
 }
 
 #confirm1Wrap {
