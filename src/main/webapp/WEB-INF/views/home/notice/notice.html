@@ -41,34 +41,45 @@
                 <div class="notice">
                     <div class="formal">
                         <select id="data-limit">
-                            <option value="10">10개씩 보기</option>
-                            <option value="30">30개씩 보기</option>
-                            <option value="50">50개씩 보기</option>
+                            <option value="10" th:selected="${limit == 10}">10개씩 보기</option>
+                            <option value="30" th:selected="${limit == 30}">30개씩 보기</option>
+                            <option value="50" th:selected="${limit == 50}">50개씩 보기</option>
                         </select>
-                        <select>
-                            <option>분류 선택</option>
-                            <option>키워드입력 후 검색</option>
-                            <option>검색 대상 선택</option>
+                        <select id = "filter-field">
+                            <option value="all">제목 + 내용</option>
+                            <option value="content">내용</option>
+                            <option value="title">제목</option>
                         </select>
-                        <select>
-                            <option>제목 + 내용</option>
-                            <option>내용</option>
-                            <option>제목</option>
+                        <select  id="filter-type" class="filterSelect">
+                            <option value="" th:selected="${noticeType == null or noticeType == ''}">분류(전체)</option>
+                            <option value="01" th:selected="${noticeType == '01'}">공지사항</option>
+                            <option value="02" th:selected="${noticeType == '02'}">이벤트</option>
+                            <option value="03" th:selected="${noticeType == '03'}">팝업</option>
+                            <option value="04" th:selected="${noticeType == '04'}">전체 쪽지</option>
+                            <option value="05" th:selected="${noticeType == '05'}">관리자 쪽지</option>
                         </select>
                         <div class="search">
-                            <input type="search" placeholder="입력창">
-<!--                            <button>-->
-<!--                                <img src="/static/images/common/close.png">-->
-<!--                            </button>-->
+                            <input type="search" placeholder="입력창" id="search-keyword" th:value="${keyword}">
+                            <button id="search-btn"></button>
                         </div>
                     </div>
                     <div>
                         <table>
-                            <tr class="top">
+                            <tr class="top" >
                                 <th>
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="selectAll">
                                 </th>
-                                <th>분류(전체)</th>
+                                <th>
+                                    <select class="filterSelect">
+                                        <option value="">분류(전체)</option>
+                                        <option value="01">공지</option>
+                                        <option value="02">이벤트</option>
+                                        <option value="03">팝업</option>
+                                        <option value="04">전체 쪽지</option>
+                                        <option value="05">관리자 쪽지</option>
+                                    </select>
+
+                                    </th>
                                 <th>제목</th>
                                 <th>게시일</th>
                                 <th>작성일</th>
@@ -76,9 +87,9 @@
                             </tr>
                             <tr th:each="notice : ${notices}">
                                 <th>
-                                    <input type="checkbox"></input>
+                                    <input type="checkbox" class="rowCheckbox">
                                 </th>
-                                <th th:text="${notice.noticeType}">공지 사항</th>
+                                <th><p th:text="${notice.getNoticeTypeName}" th:classappend="${notice.getNoticeTypeCssClass}">공지 사항</p></th>
                                 <th><a th:text="${notice.noticeTitle}">취업하고 놀고 싶다~!!</a></th>
                                 <th th:text="${notice.getDateRange}">2025.03.19~2025.03.21</th>
                                 <th th:text="${notice.insertDT}">2025.03.19</th>
@@ -88,19 +99,30 @@
                     </div>
                     <div class="page">
                         <button class="delete">선택 삭제</button>
-                        <span id="page-numbers">
-                            <button id="prev-btn" class="prev"></button>
-                            <button>1</button>
-                            <button class="active">2</button>
-                            <button>3</button>
-                            <button>4</button>
-                            <button>5</button>
-                            <button>6</button>
-                            <button>7</button>
-                            <button>8</button>
-                            <button>9</button>
-                            <button>10</button>
-                            <button id="next-btn" class="next"></button>
+                        <span>
+                            <!-- 첫 번째 페이지 버튼 -->
+                            <a th:if="${currentPage > 1}"
+                            th:href="@{|?limit=${limit}&offset=0|}"
+                            class="first"></a>
+                                                    <!-- 이전 페이지 버튼 -->
+                            <a th:if="${startPage > 1}"
+                               th:href="@{|?limit=${limit}&offset=${(startPage - 2) * limit}|}"
+                               class="prev"></a>
+
+                                                    <!-- 페이지 번호 버튼들 -->
+                            <span th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                                 <a th:href="@{|?limit=${limit}&offset=${(page - 1) * limit}|}"
+                                    th:text="${page}"
+                                    th:classappend="${page == currentPage} ? 'active' : ''"></a>
+                            </span>
+
+                                                    <!-- 다음 페이지 버튼 -->
+                            <a th:if="${endPage < totalPages}"
+                               th:href="@{|?limit=${limit}&offset=${endPage * limit}|}" class="next"></a>
+
+                                                    <!-- 마지막 페이지 버튼 -->
+                            <a th:unless="${currentPage == totalPages}"
+                               th:href="@{|?limit=${limit}&offset=${(totalPages - 1) * limit}|}" class="last"></a>
                         </span>
                         <button class="create">등록</button>
                     </div>
@@ -116,6 +138,7 @@
 
 
 </div>
+<script src="/static/js/home/notice.js"></script>
 </body>
 </html>
 
