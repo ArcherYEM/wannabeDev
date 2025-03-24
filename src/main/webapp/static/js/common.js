@@ -1,20 +1,3 @@
-$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "userInfo",
-        contentType: "application/json",
-        dataType: "json",
-        success:function(response){
-            $(".ipDisplay").text(response.accessIp);
-            $(".nameDisplay").text(response.name);
-        },
-        error:function(error){
-            console.error(error);
-        }
-    });
-
-})
-
 $(function (){
 
 });

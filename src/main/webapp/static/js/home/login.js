@@ -60,7 +60,6 @@ function login(loginId, password) {
         contentType: "application/json",
         data: JSON.stringify(loginData),
         success:function(response){
-            loginCheck();
             Swal.fire(
                 '로그인 성공!',
                 '환영합니다',
@@ -96,13 +95,13 @@ function loginCheck(){
             }
             $(".loginWrap.noLogin").hide();
             $(".loginWrap.yesLogin").show();
+            $(".username").text(response.name);
             $(".headerRight.noLogin").hide();
             $(".headerRight.yesLogin").show();
-            $(".username").text(response.name);
+            $("#ipDisplayHeader").text(response.accessIp);
+            $("#nameDisplayHeader").text(response.name);
         },
         error:function(error){
         }
     });
 }
-
-
