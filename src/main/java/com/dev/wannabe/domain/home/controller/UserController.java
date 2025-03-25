@@ -188,16 +188,17 @@ public class UserController {
 
         System.out.println("expTime: " + expTime);
         System.out.println("insertTime: " + insertTime);
-
+        
+        //TODO: DB 시간(?) 안정화되면 만료 테스트해보기
         if(insertTime.isBefore(expTime)){
             // 인증 상태 1 - > 3 (대기 -> 만료)
             System.out.println("1 -> 3 시작");
             userService.expireAuthStatus(String.valueOf(authInfo.getAuthId()), authInfo.getAuthCode(), expTime);
             System.out.println("1 -> 3 끝");
+
+            //return resposne.........
         }
-
-
-
+        
         //인증 여부 확인
         int flag = userService.checkAuthCode(authCode, String.valueOf(userId));
 

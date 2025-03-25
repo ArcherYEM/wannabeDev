@@ -48,13 +48,6 @@ document.addEventListener("DOMContentLoaded",function() {
         modal.classList.remove('hidden');
     });
 
-    // 모달창 OFF
-//    modalCloseBtn.addEventListener('click',function(){
-//        modal.classList.add('hidden');
-//
-//        document.querySelector("form").reset();
-//    });
-
     const birthYearSelect = document.getElementById("birthYear");
     const birthMonthSelect = document.getElementById("birthMonth");
     const birthDaySelect = document.getElementById("birthDay");
@@ -200,7 +193,11 @@ document.addEventListener("DOMContentLoaded",function() {
         event.preventDefault();
         if(userInfoId.style.display === "block"){
             if(nameInput.value.trim() === ""){
-                alert('이름을 입력하세요');
+                Swal.fire({
+                      icon: 'success',
+                      title: 'Alert가 실행되었습니다.',
+                      text: '이곳은 내용이 나타나는 곳입니다.',
+                });
                 return;
             } else if(birthYear.value === "" || birthMonth.value === "" || birthDay.value === ""){
                 alert('생년월일을 선택해주세요');
@@ -363,7 +360,3 @@ document.addEventListener("DOMContentLoaded",function() {
         }
     });
 });
-
-
-
-
