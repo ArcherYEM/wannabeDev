@@ -1,0 +1,143 @@
+.userUpdateWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 16px;
+
+    input {
+        border: solid 1px var(--color-gray);
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    input:focus {
+        border: solid 1px var(--color-basic);
+        outline: none;
+    }
+
+    button{
+        border-radius: 5px;
+        font-size: 14px;
+        color: #fff;
+        background-color: var(--color-basic);
+    }
+}
+
+.userInfoModify {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    > h2 {
+        font-size:36px;
+        font-weight: bold;
+        text-align: left;
+        color: var(--color-basic);
+    }
+
+    > .userBox {
+        border-top: solid 1px var(--color-gray);
+        padding: 20px 0px;
+        margin-bottom: 20px;
+    }
+}
+
+.subTitle {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.defaultInfoBox {
+    display: flex;
+    border-bottom: solid 1px var(--color-gray);
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 16px;
+    }
+}
+
+.defaultInfoBox > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.defaultKey {
+    width: 150px;
+    font-weight: bold;
+}
+
+.changePwdBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    label {
+        font-weight: bold;
+    }
+}
+
+.checkPwdWrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+
+    span {
+        font-size: 12px;
+    }
+}
+
+.changeInfoBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    input {
+        height: 40px;
+        padding: 0 10px;
+        vertical-align: middle;
+        background-color: #fff;
+        box-sizing: border-box;
+    }
+}
+
+.inputButtonBox {
+    position: relative;
+    display: flex;
+
+    input {
+        width: 100%;
+    }
+
+    button{
+        position: absolute;
+        padding: 0px 10px;
+        top: 5px;
+        bottom: 5px;
+        right: 5px;
+    }
+}
+
+.buttonWrap {
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+
+    button {
+        padding: 10px 40px;
+    }
+}
