@@ -193,14 +193,18 @@ document.addEventListener("DOMContentLoaded",function() {
         event.preventDefault();
         if(userInfoId.style.display === "block"){
             if(nameInput.value.trim() === ""){
-                Swal.fire({
-                      icon: 'success',
-                      title: 'Alert가 실행되었습니다.',
-                      text: '이곳은 내용이 나타나는 곳입니다.',
-                });
+               Swal.fire({
+                    icon: 'error ',
+                    title: '아이디 찾기 실패!',
+                    text: '이름을 입력해주세요.'
+               });
                 return;
             } else if(birthYear.value === "" || birthMonth.value === "" || birthDay.value === ""){
-                alert('생년월일을 선택해주세요');
+                Swal.fire({
+                    icon: 'error ',
+                    title: '아이디 찾기 실패!',
+                    text: '생년월일을 선택해주세요.'
+                });
                 return;
             }
             console.log('nameInput.value: ' + nameInput.value);
@@ -240,7 +244,11 @@ document.addEventListener("DOMContentLoaded",function() {
                     if (errorResponse && errorResponse.message) {
                         errorMessageDiv.innerHTML = `<span style="color:  red;">${errorResponse.message}</span>`;
                     } else {
-                        alert("서버 오류가 발생했습니다.");
+                        Swal.fire({
+                            icon: 'error ',
+                            title: '아이디 찾기 실패!',
+                            text: '다시 시도해주세요.'
+                       });
                     }
                 }
             });
@@ -256,7 +264,11 @@ document.addEventListener("DOMContentLoaded",function() {
                 changePwdBtn.style.display = 'block';
                 userInfoPw.style.display ='none';
             } else {
-                alert('이메일 인증이 필요합니다.')
+                Swal.fire({
+                    icon: 'error ',
+                    title: '비밀번호  찾기 실패!',
+                    text: '다시 시도해주세요.'
+               });
             }
         }
     });
@@ -279,7 +291,11 @@ document.addEventListener("DOMContentLoaded",function() {
             },
             success: function(response){
                 console.log("success response: ", response );
-                alert('인증번호를 전송하였습니다.');
+                Swal.fire({
+                    icon: 'success ',
+                    title: '인증번호 전송 성공!',
+                    text: '이메일을 확인해주세요.'
+               });
                 loginIdInputHidden.value = idInput.value;
                 emailInputHidden.value = emailInput.value;
                 hideLoadingSpinner();
@@ -287,6 +303,11 @@ document.addEventListener("DOMContentLoaded",function() {
             error: function(xhr) {
                 hideLoadingSpinner();
                 console.log("error response: ", xhr);
+                Swal.fire({
+                    icon: 'error ',
+                    title: '인증번호 전송 실패!',
+                    text: '다시 시도해주세요.'
+               });
             }
         });
     });
@@ -311,21 +332,27 @@ document.addEventListener("DOMContentLoaded",function() {
             },
             success: function(response){
                 console.log("success response: ", response );
-                alert('인증 성공하였습니다.');
+                Swal.fire({
+                    icon: 'success ',
+                    title: '인증 성공!',
+                    text: '비밀번호를 변경해주세요.'
+               });
                 isChecked = 1;
                 console.log('isChecked: '+ isChecked);
             },
             error: function(xhr) {
                 console.log("error response: ", xhr);
-                alert('인증 실패하였습니다.');
+                Swal.fire({
+                    icon: 'error ',
+                    title: '인증 실패!',
+                    text: '다시 시도해주세요.'
+               });
                 loginIdInputHidden.value = '';
                 emailInputHidden.value = '';
             }
         });
     });
 
-    //TODO: 찾기 버튼 나눠보기(위에서 else if로 나누지 말고)
-    //TODO: form hidden에 id값 넣어보기
     changePwdBtn.addEventListener('click', function(){
         event.preventDefault();
 
@@ -347,17 +374,29 @@ document.addEventListener("DOMContentLoaded",function() {
                 },
                 success: function(response){
                     console.log("success response: ", response );
-                    if(confirm("비밀번호 변경 성공하였습니다.")){
-                        resetModalState();
-                    }
+                    Swal.fire({
+                        icon: 'success ',
+                        title: '비밀번호 변경 성공!'
+                   });
+                    pwdInput.value = '';
+                    pwdInputCheck.value = '';
+                    resetModalState();
                 },
                 error: function(xhr) {
                     console.log("error response: ", xhr);
-                    alert('비밀번호 변경 실패하였습니다.');
+                    Swal.fire({
+                        icon: 'error ',
+                        title: '비밀번호 변경 실패!',
+                        text: '다시 시도해주세요.'
+                   });
                 }
             });
         } else {
-            alert('비밀번호가 일치하지 않습니다.');
+            Swal.fire({
+                icon: 'error ',
+                title: '비밀번호 변경 실패!',
+                text: '비밀번호가 일치하지 않습니다.'
+           });
             return;
         }
     });
