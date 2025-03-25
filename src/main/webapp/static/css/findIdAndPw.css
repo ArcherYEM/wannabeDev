@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 99;
 }
 
 #idPwModalContents {
@@ -51,12 +51,12 @@
     border-radius: 10px;
 }
 
-.findIdBtn, .findBtn, .findPwBtn1 {
-    background-color: #FF8000;
+.findIdBtn, .findBtn, .findPwBtn1, .changePwdBtn {
+    background-color:  var(--color-basic);
 }
 
 .findPwBtn, .cancelBtn {
-    background-color: #595959;
+    background-color: var(--color-gray);
 }
 
 .userInfoId, .userInfoPw {
@@ -67,7 +67,7 @@
     gap:10px;
 }
 
-.findIdUsername, .userDOB, .findPwId, .emailContainer{
+.findIdUsername, .userDOB, .findPwId, .emailContainer, .pwdInputDiv, .pwdInputCheckDiv {
     display: flex;
     flex-direction: column;
     font-size:18px;
@@ -90,9 +90,9 @@
     gap: 10px;
 }
 
-.nameInput, .userDOB select, .idInput, .emailInput, .codeCheck {
+.nameInput, .userDOB select, .idInput, .emailInput, .codeCheck, .pwdInput, .pwdInputCheck {
     height:30px !important;
-    border: 1px solid #FF8000 !important;
+    border: 1px solid  var(--color-basic) !important;
     border-radius: 5px;
 }
 
@@ -125,24 +125,6 @@ input[type=email] {
     width:80px;
 }
 
-/*.logoDiv {
-    display: flex;
-    justify-content: center;
-}
-
-.showId {
-    display: flex;
-    justify-content: center;
-    font-size: 20px;
-}
-
-.menuBtnDiv {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap:10px;
-    margin-top: 150px;
-}*/
-
 .showIdDiv {
     display: none;
     position: relative; /* 자식 요소의 절대 위치 기준 */
@@ -169,6 +151,30 @@ input[type=email] {
     top: 110px;
 }
 
+.pwdChange {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pwdChange span {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--color-basic);
+}
+.pwdChangeContainer {
+    height: 300px;
+}
+
+.pwdInputCheckDiv {
+    margin-top: 10px;
+}
+
+.pwdChangeDiv {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
 
 
 

@@ -2,6 +2,7 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
+import com.dev.wannabe.domain.home.model.vo.EmailAuth;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.model.vo.UserDetail;
 import com.dev.wannabe.domain.home.model.vo.UserRole;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Slf4j
@@ -105,11 +107,18 @@ public class UserService {
 
     public void saveAuthCode(Integer userId, String authCode){userMapper.saveAuthCode(userId, authCode);}
 
-    public Integer checkAuthCode(String authCode){ return userMapper.checkAuthCode(authCode);}
+    public Integer checkAuthCode(String authCode, String userId){ return userMapper.checkAuthCode(authCode, userId);}
 
-    public Integer updateAuthStatus(String authId, String authCode){
-        return userMapper.updateAuthStatus(authId, authCode);
-    }
+    public Integer updateAuthStatus(String authId, String authCode){ return userMapper.updateAuthStatus(authId, authCode);}
 
     public String findAuthIdByAuthCode(String authCode){return userMapper.findAuthIdByAuthCode(authCode);}
+
+    public Integer updatePassword(String loginId, String email, String password){
+        String changePassword = passwordEncoder.encode(password);
+        return userMapper.updatePassword(loginId, email, changePassword);
+    }
+
+    public EmailAuth findAuthByUserIdAndAuthCode(Integer userId, String authCode){ return userMapper.findAuthByUserIdAndAuthCode(userId, authCode);}
+
+    public void expireAuthStatus(String authId, String authCode, LocalDateTime expTime){ userMapper.expireAuthStatus(authId, authCode, expTime);}
 }

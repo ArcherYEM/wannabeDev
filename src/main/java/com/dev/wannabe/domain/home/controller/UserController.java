@@ -2,6 +2,7 @@ package com.dev.wannabe.domain.home.controller;
 
 
 import com.dev.wannabe.domain.home.model.dto.SignupUserDTO;
+import com.dev.wannabe.domain.home.model.vo.EmailAuth;
 import com.dev.wannabe.domain.home.service.EmailService;
 import com.dev.wannabe.domain.home.service.UserService;
 import com.dev.wannabe.domain.minihompi.model.dto.CreateHompiDTO;
@@ -13,12 +14,15 @@ import com.dev.wannabe.domain.minihompi.service.HompiService;
 import com.dev.wannabe.domain.minihompi.service.MinimiService;
 import com.dev.wannabe.domain.minihompi.service.MiniroomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +37,6 @@ public class UserController {
     private final MinimiService minimiService;
     private final FriendService friendService;
     private final EmailService emailService;
-
 
     /*
      *  uri : /api/user/signup
@@ -121,7 +124,7 @@ public class UserController {
     public ResponseEntity<Map<String, String>> findId(@RequestParam String name, @RequestParam String birthDate) {
 
         // 이름과 생년월일을 통해 찾은 loginId
-        String foundId = userManageService.findId(name, birthDate);
+        String foundId = userService.findId(name, birthDate);
 
         Map<String, String> response = new HashMap<>();
 
@@ -137,11 +140,14 @@ public class UserController {
     @PostMapping("/sendCode")
     public ResponseEntity<Map<String, String>> sendAuthCode(@RequestParam String loginId, @RequestParam String email){
 
-        Integer userId = userManageService.findUserIdByLoginIdAndEmail(loginId, email);
+        Integer userId = userService.findUserIdByLoginIdAndEmail(loginId, email);
 
         String authCode = emailService.generateAuthCode();
 
-        userManageService.saveAuthCode(userId, authCode);
+        userService.saveAuthCode(userId, authCode);
+
+        System.out.println("authCode: " + authCode);
+        System.out.println("현재 시간: " + LocalDateTime.now());
 
         Map<String, String> response = new HashMap<>();
 
@@ -166,20 +172,38 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    //TODO: 1일 때 AUTH_STATUS 업데이트시켜주는 쿼리 후, 인증 성공했습니다 후, 비밀번호 변경 창
     @PostMapping("/checkAuthCode")
-    public ResponseEntity<Map<String, String>> checkAuthCode(@RequestParam String authCode){
-
-        System.out.println("authCode: " + authCode);
-        int flag = userManageService.checkAuthCode(authCode);
-        System.out.println("flag: " + flag);
-        String authId = userManageService.findAuthIdByAuthCode(authCode);
-        System.out.println("authId: " + authId);
+    public ResponseEntity<Map<String, String>> checkAuthCode(@RequestParam String authCode, @RequestParam String loginId, @RequestParam String email){
 
         Map<String, String> response = new HashMap<>();
 
+        Integer userId = userService.findUserIdByLoginIdAndEmail(loginId,email);
+
+        EmailAuth authInfo = userService.findAuthByUserIdAndAuthCode(userId, authCode);
+
+        LocalDateTime expTime = LocalDateTime.now().plusMinutes(3);
+        LocalDateTime insertTime = authInfo.getInsertDt().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+
+        System.out.println("expTime: " + expTime);
+        System.out.println("insertTime: " + insertTime);
+
+        if(insertTime.isBefore(expTime)){
+            // 인증 상태 1 - > 3 (대기 -> 만료)
+            System.out.println("1 -> 3 시작");
+            userService.expireAuthStatus(String.valueOf(authInfo.getAuthId()), authInfo.getAuthCode(), expTime);
+            System.out.println("1 -> 3 끝");
+        }
+
+
+
+        //인증 여부 확인
+        int flag = userService.checkAuthCode(authCode, String.valueOf(userId));
+
         if(flag == 1){
-            int updateFlag = userManageService.updateAuthStatus(authId, authCode);
+            // 인증 상태 1 - > 2 (대기 -> 성공)
+            int updateFlag = userService.updateAuthStatus(String.valueOf(authInfo.getAuthId()), authCode);
             System.out.println("updateFlag: " + updateFlag);
 
             if(updateFlag == 2){
@@ -197,4 +221,28 @@ public class UserController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<Map<String, String>> changePassword(@RequestParam String loginId, @RequestParam String email, @RequestParam String password){
+
+        int flag = userService.updatePassword(loginId,email,password);
+        System.out.println("flag: " + flag);
+
+        Map<String, String> response = new HashMap<>();
+
+        if(flag == 1){
+            response.put("status", "success");
+            response.put("messasge", "비밀번호 변경 성공");
+        } else if(flag == 0){
+            response.put("status", "error");
+            response.put("message", "비밀번호 변경 실패");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } else {
+            response.put("status", "error");
+            response.put("message", "비밀번호 변경 실패");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
 }
+

@@ -35,6 +35,14 @@ document.addEventListener("DOMContentLoaded",function() {
     const changePwdBtn = document.querySelector('.changePwdBtn');
     const outBtn = document.querySelector('.outBtn');
 
+    const pwdInput = document.querySelector('.pwdInput');
+    const pwdInputCheck = document.querySelector('.pwdInputCheck');
+
+    const loginIdInputHidden = document.querySelector('.loginIdInputHidden');
+    const emailInputHidden = document.querySelector('.emailInputHidden');
+
+    let isChecked = 0;
+
     // 모달창 ON
     modalOpenBtn.addEventListener('click',function(){
         modal.classList.remove('hidden');
@@ -50,7 +58,7 @@ document.addEventListener("DOMContentLoaded",function() {
     const birthYearSelect = document.getElementById("birthYear");
     const birthMonthSelect = document.getElementById("birthMonth");
     const birthDaySelect = document.getElementById("birthDay");
-
+    console.log('isChecked: '+ isChecked);
     //년도 설정
     for (let year = 2025; year >= 1940; year--) {
         let option = document.createElement("option");
@@ -116,6 +124,9 @@ document.addEventListener("DOMContentLoaded",function() {
         userInfoId.style.display = 'block';
         userInfoPw.style.display = 'none';
         errorMessageDiv.style.display = 'none';
+        idInput.value='';
+        emailInput.value='';
+        codeCheck.value='';
     });
 
     // 비밀번호 찾기 버튼
@@ -130,8 +141,9 @@ document.addEventListener("DOMContentLoaded",function() {
 
     // 아이디 찾고 후에 비밀번호 찾기 버튼
     pwBtn1.addEventListener('click',function(){
+        document.querySelector("form").reset();
         showIdDiv.style.display = 'none';
-        logoContainer.style.display = 'block';
+        logoContainer.style.display = 'flex';
         findIdBtn.style.display = 'block';
         findPwBtn.style.display = 'block';
         cancelBtn.style.display = 'block';
@@ -140,6 +152,10 @@ document.addEventListener("DOMContentLoaded",function() {
         findPwBtn.style.backgroundColor = '#FF8000';
         userInfoPw.style.display = 'block';
         errorMessageDiv.style.display = 'none';
+    });
+
+    cancelBtn.addEventListener('click', function(){
+        findBtn.style.display= 'block';
     });
 
     //취소 버튼 눌렀을 때 전체 초기화
@@ -159,15 +175,20 @@ document.addEventListener("DOMContentLoaded",function() {
 
        // 다른 컨테이너들 초기화
        showIdDiv.style.display = 'none';
-       logoContainer.style.display = 'block';
+       logoContainer.style.display = 'flex';
        pwdChangeContainer.style.display = 'none';
 
        // 버튼 상태 초기화
        findIdBtn.style.display = 'block';
        findPwBtn.style.display = 'block';
+       document.querySelector('.findBtnDiv').style.display = 'block';
        findBtn.style.display = 'block';
        cancelBtn.style.display = 'block';
        document.querySelector('.changePwdDiv').style.display = 'none';
+
+       idInput.value='';
+       emailInput.value='';
+       codeCheck.value='';
     }
 
     // 모든 취소 버튼 초기화
@@ -227,11 +248,18 @@ document.addEventListener("DOMContentLoaded",function() {
                 }
             });
         } else if (userInfoPw.style.display == "block"){
-            if(idInput.value.trim()===""){
-                alert('아이디를 입력해주세요.');
-                 return;
-            } else if(emailInput.value.trim()===""){
-                alert('이메일을 입력해주세요.');
+
+            if(isChecked == 1){
+                findIdBtn.style.display = 'none';
+                findPwBtn.style.display = 'none';
+                pwdChangeContainer.style.display = 'block';
+                document.querySelector('.findBtnDiv').style.display = 'none';
+                findBtn.style.display = 'none';
+                document.querySelector('.changePwdDiv').style.display = 'block';
+                changePwdBtn.style.display = 'block';
+                userInfoPw.style.display ='none';
+            } else {
+                alert('이메일 인증이 필요합니다.')
             }
         }
     });
@@ -255,18 +283,22 @@ document.addEventListener("DOMContentLoaded",function() {
             success: function(response){
                 console.log("success response: ", response );
                 alert('인증번호를 전송하였습니다.');
+                loginIdInputHidden.value = idInput.value;
+                emailInputHidden.value = emailInput.value;
             },
             error: function(xhr) {
                 console.log("error response: ", xhr);
-
             }
         });
     });
 
+    //이메일 인증 확인 버튼
     checkBtn.addEventListener('click', function(){
         event.preventDefault();
 
         console.log('codeCheck.value: ' + codeCheck.value);
+        console.log('idInput.value : ' + idInput.value);
+        console.log('emailInput.value : ' + emailInput.value);
 
         $.ajax({
             type:"POST",
@@ -274,17 +306,61 @@ document.addEventListener("DOMContentLoaded",function() {
             async: true,
             dataType:"json",
             data:{
-                authCode: codeCheck.value
+                authCode: codeCheck.value,
+                loginId: idInput.value,
+                email: emailInput.value
             },
             success: function(response){
                 console.log("success response: ", response );
                 alert('인증 성공하였습니다.');
+                isChecked = 1;
+                console.log('isChecked: '+ isChecked);
             },
             error: function(xhr) {
                 console.log("error response: ", xhr);
                 alert('인증 실패하였습니다.');
+                loginIdInputHidden.value = '';
+                emailInputHidden.value = '';
             }
         });
+    });
+
+    //TODO: 찾기 버튼 나눠보기(위에서 else if로 나누지 말고)
+    //TODO: form hidden에 id값 넣어보기
+    changePwdBtn.addEventListener('click', function(){
+        event.preventDefault();
+
+        console.log('pwdInput: ' + pwdInput.value);
+        console.log('pwdInputCheck: ' + pwdInputCheck.value);
+        console.log('loginIdInputHidden: ' + loginIdInputHidden.value);
+        console.log('emailInputHidden: ' + emailInputHidden.value);
+
+        if(pwdInput.value === pwdInputCheck.value){
+             $.ajax({
+                type:"POST",
+                url:"/api/user/changePassword",
+                async: true,
+                dataType:"json",
+                data:{
+                    password: pwdInput.value,
+                    loginId: loginIdInputHidden.value,
+                    email: emailInputHidden.value
+                },
+                success: function(response){
+                    console.log("success response: ", response );
+                    if(confirm("비밀번호 변경 성공하였습니다.")){
+                        resetModalState();
+                    }
+                },
+                error: function(xhr) {
+                    console.log("error response: ", xhr);
+                    alert('비밀번호 변경 실패하였습니다.');
+                }
+            });
+        } else {
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
     });
 });
 
