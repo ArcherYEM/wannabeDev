@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded",function() {
     const birthYearSelect = document.getElementById("birthYear");
     const birthMonthSelect = document.getElementById("birthMonth");
     const birthDaySelect = document.getElementById("birthDay");
-    console.log('isChecked: '+ isChecked);
+
     //년도 설정
     for (let year = 2025; year >= 1940; year--) {
         let option = document.createElement("option");
@@ -207,10 +207,6 @@ document.addEventListener("DOMContentLoaded",function() {
                 });
                 return;
             }
-            console.log('nameInput.value: ' + nameInput.value);
-            console.log('birthYear.value: ' + birthYear.value);
-            console.log('birthMonth.value: ' + birthMonth.value);
-            console.log('birthDay.value: ' + birthDay.value);
 
             let birthDate = `${birthYear.value}${birthMonth.value.padStart(2, '0')}${birthDay.value.padStart(2, '0')}`;
 
@@ -224,7 +220,6 @@ document.addEventListener("DOMContentLoaded",function() {
                     birthDate: birthDate
                 },
                 success: function(response){
-                    console.log("success response: ", response );
                     if(response.id){
                         showId.innerHTML=`${nameInput.value}님의 아이디는 <span style="color: #FF8800;"> ${response.id}</span>입니다!`;
                         userInfoId.style.display = 'none';
@@ -239,7 +234,6 @@ document.addEventListener("DOMContentLoaded",function() {
                     }
                 },
                 error: function(xhr) {
-                    console.log("error response: ", xhr);
                     const errorResponse = xhr.responseJSON;
                     if (errorResponse && errorResponse.message) {
                         errorMessageDiv.innerHTML = `<span style="color:  red;">${errorResponse.message}</span>`;
@@ -276,9 +270,6 @@ document.addEventListener("DOMContentLoaded",function() {
     //인증번호 전송 버튼
     sendBtn.addEventListener('click',function(){
         event.preventDefault();
-
-        console.log('idInput.value : ' + idInput.value);
-        console.log('emailInput.value : ' + emailInput.value);
         showLoadingSpinner();
         $.ajax({
             type:"POST",
@@ -290,7 +281,6 @@ document.addEventListener("DOMContentLoaded",function() {
                 email: emailInput.value
             },
             success: function(response){
-                console.log("success response: ", response );
                 Swal.fire({
                     icon: 'success ',
                     title: '인증번호 전송 성공!',
@@ -302,7 +292,6 @@ document.addEventListener("DOMContentLoaded",function() {
             },
             error: function(xhr) {
                 hideLoadingSpinner();
-                console.log("error response: ", xhr);
                 Swal.fire({
                     icon: 'error ',
                     title: '인증번호 전송 실패!',
@@ -316,10 +305,6 @@ document.addEventListener("DOMContentLoaded",function() {
     checkBtn.addEventListener('click', function(){
         event.preventDefault();
 
-        console.log('codeCheck.value: ' + codeCheck.value);
-        console.log('idInput.value : ' + idInput.value);
-        console.log('emailInput.value : ' + emailInput.value);
-
         $.ajax({
             type:"POST",
             url:"/api/user/checkAuthCode",
@@ -331,17 +316,14 @@ document.addEventListener("DOMContentLoaded",function() {
                 email: emailInput.value
             },
             success: function(response){
-                console.log("success response: ", response );
                 Swal.fire({
                     icon: 'success ',
                     title: '인증 성공!',
                     text: '비밀번호를 변경해주세요.'
                });
                 isChecked = 1;
-                console.log('isChecked: '+ isChecked);
             },
             error: function(xhr) {
-                console.log("error response: ", xhr);
                 Swal.fire({
                     icon: 'error ',
                     title: '인증 실패!',
@@ -356,11 +338,6 @@ document.addEventListener("DOMContentLoaded",function() {
     changePwdBtn.addEventListener('click', function(){
         event.preventDefault();
 
-        console.log('pwdInput: ' + pwdInput.value);
-        console.log('pwdInputCheck: ' + pwdInputCheck.value);
-        console.log('loginIdInputHidden: ' + loginIdInputHidden.value);
-        console.log('emailInputHidden: ' + emailInputHidden.value);
-
         if(pwdInput.value === pwdInputCheck.value){
              $.ajax({
                 type:"POST",
@@ -373,7 +350,6 @@ document.addEventListener("DOMContentLoaded",function() {
                     email: emailInputHidden.value
                 },
                 success: function(response){
-                    console.log("success response: ", response );
                     Swal.fire({
                         icon: 'success ',
                         title: '비밀번호 변경 성공!'
@@ -383,7 +359,6 @@ document.addEventListener("DOMContentLoaded",function() {
                     resetModalState();
                 },
                 error: function(xhr) {
-                    console.log("error response: ", xhr);
                     Swal.fire({
                         icon: 'error ',
                         title: '비밀번호 변경 실패!',
