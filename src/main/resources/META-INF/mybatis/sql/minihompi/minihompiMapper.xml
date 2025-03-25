@@ -15,6 +15,9 @@
         hp.TOTAL_CNT,
         hc.HOMPI_CONFIG_CODE,
         hc.HOMPI_CONFIG_CONTENT,
+        ub.NAME,
+        ub.EMAIL,
+        ub.GENDER_CODE,
         MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '01' THEN hc.HOMPI_CONFIG_CONTENT END) AS PROFILE_IMAGE,
         MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '02' THEN hc.HOMPI_CONFIG_CONTENT END) AS INTRODUCTION,
         MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '03' THEN hc.HOMPI_CONFIG_CONTENT END) AS FRIENDS_COMMENT_YN,
@@ -23,15 +26,17 @@
         FROM HOMPI hp
         LEFT OUTER JOIN HOMPI_DAILY_STATS hds
         ON hp.HOMPI_ID = hds.HOMPI_ID
-        AND hds.DAY_STATS_DATE = CURDATE()
+        AND hds.DAY_STATS_DATE = '20250323'
         LEFT OUTER JOIN HOMPI_CONFIG hc
         ON hp.HOMPI_ID = hc.HOMPI_ID
+        LEFT OUTER JOIN USER_BASIC ub
+        ON hp.OWNER_USER_ID = ub.USER_ID
         <where>
-            <if test="hompiId == userId">
+            <if test="userId == ownerUserId">
                 hp.HOMPI_ID = #{hompiId}
-                AND hp.OWNER_USER_ID = #{userId}
+                AND hp.OWNER_USER_ID = #{ownerUserId}
             </if>
-            <if test="userId == null or userId != hompiId ">
+            <if test="userId == null or userId != ownerUserId ">
                 hp.HOMPI_ID = #{hompiId}
             </if>
         </where>
@@ -50,4 +55,57 @@
           AND HOMPI_ID = #{hompiId}
 
     </update>
+
+    <select id="findOwnerUserId" parameterType="Long"
+            resultType="com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal">
+        SELECT OWNER_USER_ID
+        FROM HOMPI
+        WHERE HOMPI_ID = #{hompiId}
+    </select>
+
+    <select id="selectTodayCount" parameterType="map">
+        SELECT COUNT(*)
+        FROM HOMPI_DAILY_STATS
+        WHERE DAY_STATS_DATE = #{today}
+          AND HOMPI_ID = #{hompiId}
+    </select>
+
+    <update id="updateTodayCount" parameterType="map">
+        UPDATE HOMPI_DAILY_STATS hds
+            JOIN HOMPI hp
+        ON hds.HOMPI_ID = hp.HOMPI_ID
+            SET hds.TODAY_CNT = hds.TODAY_CNT+1, hp.TOTAL_CNT = hp.TOTAL_CNT+1
+        WHERE hds.HOMPI_ID = #{hompiId}
+          AND hds.DAY_STATS_DATE = #{today}
+    </update>
+
+    <update id="updateTotalCount" parameterType="map">
+        UPDATE HOMPI
+        SET TOTAL_CNT = TOTAL_CNT + 1
+        WHERE HOMPI_ID = #{hompiId}
+    </update>
+
+    <insert id="insertTodayCount" parameterType="map">
+        INSERT INTO wannabe_dev.HOMPI_DAILY_STATS
+        (HOMPI_ID, DAY_STATS_DATE, TODAY_CNT, REMARKS, INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID, UPDATE_DT)
+        VALUES (#{hompiId}, #{today}, 1, NULL, #{userId}, NOW(), #{userId}, NOW())
+    </insert>
+
+    <update id="updateHompiConfig" parameterType="map">
+
+        UPDATE HOMPI_CONFIG
+        <set>
+            <if test='introduction != null introduction != ""'>
+                HOMPI_CONFIG_CONTENT = #{introduction}
+                WHERE HOMPI_CONFIG_CODE = '02'
+            </if>
+            <if test='filePath != null filePath != ""'>
+                HOMPI_CONFIG_CONTENT = #{filePath}
+                WHERE HOMPI_CONFIG_CODE = '02'
+            </if>
+        </set>
+        AND WHERE HOMPI_ID = #{hompiId}
+
+    </update>
+
 </mapper>

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/onlineStyle.css">
     <link rel="stylesheet" href="/static/css/weather.css">
+     <link rel="stylesheet" href="/static/css/movie.css">
     <link rel="stylesheet" href="/static/css/imageSlide.css">
 
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
@@ -227,19 +228,25 @@
                         </ul>
                     </div>
                     <div class="bot">
-                        <p class="mainTitleText">실시간뉴스</span></p>
+                        <p class="mainTitleText">실시간뉴스</p>
                         <ul id="newsList"> </ul> <!-- 동적으로 생성 -->
                     </div>
                 </div>
                 <div class="mainBotRight">
                     <div class="top">
-                        <p class="mainTitleText">오늘의 운세</span></p>
+                        <p class="mainTitleText">오늘의 운세</p>
                         <div class="todayLuckyFrame">
                             <p class="todayLucky"></p>
                         </div>
                     </div>
                     <div class="bot">
-                        <p class="mainTitleText">영화추천</span></p>
+                        <p class="movie">영화추천</p>
+                        <span class="todayMovie">
+
+                        </span>
+
+                        <div  class="movieWrapper" id="movieWrapper">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -255,6 +262,7 @@
     <script src="/static/js/home/moveFromHome.js"></script>
     <script src="/static/js/home/weather.js"></script>
     <script src="/static/js/findIdAndPw.js"></script>
+    <script src="/static/js/home/movie.js"></script>
     <script src="/static/js/home/imageSlide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
