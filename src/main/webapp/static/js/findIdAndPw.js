@@ -48,13 +48,6 @@ document.addEventListener("DOMContentLoaded",function() {
         modal.classList.remove('hidden');
     });
 
-    // 모달창 OFF
-//    modalCloseBtn.addEventListener('click',function(){
-//        modal.classList.add('hidden');
-//
-//        document.querySelector("form").reset();
-//    });
-
     const birthYearSelect = document.getElementById("birthYear");
     const birthMonthSelect = document.getElementById("birthMonth");
     const birthDaySelect = document.getElementById("birthDay");
@@ -200,7 +193,11 @@ document.addEventListener("DOMContentLoaded",function() {
         event.preventDefault();
         if(userInfoId.style.display === "block"){
             if(nameInput.value.trim() === ""){
-                alert('이름을 입력하세요');
+                Swal.fire({
+                      icon: 'success',
+                      title: 'Alert가 실행되었습니다.',
+                      text: '이곳은 내용이 나타나는 곳입니다.',
+                });
                 return;
             } else if(birthYear.value === "" || birthMonth.value === "" || birthDay.value === ""){
                 alert('생년월일을 선택해주세요');
@@ -270,7 +267,7 @@ document.addEventListener("DOMContentLoaded",function() {
 
         console.log('idInput.value : ' + idInput.value);
         console.log('emailInput.value : ' + emailInput.value);
-
+        showLoadingSpinner();
         $.ajax({
             type:"POST",
             url:"/api/user/sendCode",
@@ -285,8 +282,10 @@ document.addEventListener("DOMContentLoaded",function() {
                 alert('인증번호를 전송하였습니다.');
                 loginIdInputHidden.value = idInput.value;
                 emailInputHidden.value = emailInput.value;
+                hideLoadingSpinner();
             },
             error: function(xhr) {
+                hideLoadingSpinner();
                 console.log("error response: ", xhr);
             }
         });
@@ -363,7 +362,3 @@ document.addEventListener("DOMContentLoaded",function() {
         }
     });
 });
-
-
-
-
