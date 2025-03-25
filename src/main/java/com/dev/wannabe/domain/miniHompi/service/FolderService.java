@@ -22,39 +22,31 @@ public class FolderService {
     private final FolderMapper folderMapper;
 
     @Transactional
-    public Boolean saveFolder(String folderName, String contentType, SessionUserDTO sessionUser) {
-        try {
-            Long userId = sessionUser.getUserId();
-            Long hompiId = sessionUser.getHompiId();
+    public void saveFolder(String folderName, String contentType, String availStatus, SessionUserDTO sessionUser) {
 
-            HompiFolder hompiFolder = HompiFolder.builder()
-                    .hompiId(hompiId)
-                    .folderName(folderName)
-                    .contentType(contentType)
-                    .insertUserId(userId)
-                    .build();
+        HompiFolder hompiFolder = HompiFolder.builder()
+                .hompiId(sessionUser.getHompiId())
+                .folderName(folderName)
+                .contentsType(contentType)
+                .availStatus(availStatus)
+                .insertUserId(sessionUser.getUserId())
+                .build();
 
-            folderMapper.saveFolder(hompiFolder);
-            return true;
-
-        } catch (Exception e) {
-            return false;
-        }
+        folderMapper.saveFolder(hompiFolder);
     }
 
-    public List<FolderDTO> getFolder(String contentsType, SessionUserDTO sessionUser) {
-        Long hompiId = sessionUser.getHompiId();
+    public List<FolderDTO> getFolders(Long hompiId, String contentsType, String availStatus) {
 
         FolderFindDTO folderFind = FolderFindDTO.builder()
                 .hompiId(hompiId)
                 .contentsType(contentsType)
+                .availStatus(availStatus)
                 .build();
 
         return folderMapper.findAllFolderByFolderFind(folderFind);
     }
 
-    public List<FolderContentsDTO> getFolderContents(Long folderId, String contentsType, SessionUserDTO sessionUser) {
-        Long hompiId = sessionUser.getHompiId();
+    public List<FolderContentsDTO> getFolderContents(Long hompiId, String contentsType, Long folderId) {
 
         FolderFindDTO folderFind = FolderFindDTO.builder()
                 .hompiId(hompiId)
@@ -65,4 +57,26 @@ public class FolderService {
         return folderMapper.findAllFolderContentByFolderFind(folderFind);
     }
 
+    public Void updateFolder(Long updateFolderId, String updateFolderName) {
+
+        FolderDTO updateFolder = FolderDTO.builder()
+                .folderId(updateFolderId)
+                .folderName(updateFolderName)
+                .build();
+
+        folderMapper.updateFolder(updateFolder);
+        return null;
+    }
+
+    public Void updateFolderContents(Long updateFolderId, Long contentId, String contentsType) {
+
+        FolderContentsDTO updateFolderContents = FolderContentsDTO.builder()
+                .folderId(updateFolderId)
+                .contentsId(contentId)
+                .contentsType(contentsType)
+                .build();
+
+        folderMapper.updateFolderContent(updateFolderContents);
+        return null;
+    }
 }
