@@ -3,13 +3,42 @@
 <th:block th:fragment="footer">
     <footer id="footer">
         <div class="footerWrap">
-            <div>
-                <p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
-                <p>Since.2025.2.24~</p>
+            <div class="footerTop">
+                <img src="/static/images/common/logo_full_w.png">
+                <div class="keywordBox">
+                    <p>
+                        MY WORLD,
+                    </p>
+                    <p>
+                        FRIENDSHIP,
+                    </p>
+                    <p>
+                        MEMORIES.
+                    </p>
+                </div>
+            </div>
+            <div class="footerBottom">
+                <div class="footerNav">
+                    <ul>
+                        <li><a target="_blank" onclick="openPop()">내 미니홈피</a></li>
+                        <li><a href="/giftShop/main">선물가게</a></li>
+                        <li><a href="#">장바구니</a></li>
+                        <li><a href="/notice">공지사항</a></li>
+                        <li><a href="#">ABOUT US</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <p>
+                        <span>ⓒ2025.Team.</span>
+                        <span class="teamName">WannabeDev</span>
+                        <span>All rights reserved.</span>
+                    </p>
+                    <p>Since 2025.02.24</p>
+                </div>
             </div>
         </div>
     </footer>
-
     <link rel="stylesheet" href="/static/css/footer.css">
+    <script type="text/javascript" th:src="@{/static/js/common.js}"></script>
 </th:block>
 </html>
