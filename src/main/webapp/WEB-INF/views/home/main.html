@@ -34,7 +34,23 @@
                 <!--login s-->
                 <div class="mainTopLeft">
                     <div class="loginWrap noLogin">
-                        <th:block th:include="/home/fragment/noLoginInclude :: noLoginFragment"></th:block>
+                        <div class="loginWrapTop">
+                            <div class="loginInputWrap">
+                                <ul>
+                                    <li><input type="text" name="loginId"></li>
+                                    <li><input type="password" name="password"></li>
+                                </ul>
+                            </div>
+                            <div class="loginBtnWrap">
+                                <a href="#" class="loginBtn btn">로그인</a>
+                            </div>
+                        </div>
+                        <div class="loginWrapBot">
+                            <ul>
+                                <li><a href="#" class="signupBtn btn">회원가입</a></li>
+                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
                 </div>
@@ -244,7 +260,7 @@
                     </div>
                     <div class="bot">
                         <p class="movie">영화추천</p>
-                        <span class="todayMovie">
+                        <span class="movie_todayMovie">
 
                         </span>
 
@@ -263,15 +279,9 @@
     <!--푸터 시작-->
     <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
     <!--푸터 끝-->
-    <script src="/static/js/home/fortune.js"></script>
-    <script src="/static/js/home/newsSection.js"></script>
-    <script src="/static/js/home/moveFromHome.js"></script>
-    <script src="/static/js/home/weather.js"></script>
+    <script src="/static/js/home/mainHome.js"></script>
     <script src="/static/js/findIdAndPw.js"></script>
-    <script src="/static/js/home/movie.js"></script>
-    <script src="/static/js/home/imageSlide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 </div>
 
 </body>
