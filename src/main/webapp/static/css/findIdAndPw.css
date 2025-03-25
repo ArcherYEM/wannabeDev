@@ -12,13 +12,13 @@
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 99;
 }
 
 #idPwModalContents {
     position: absolute;
     background-color: #ffffff;
-    width: 500px;
+    width: 520px;
     height: 400px;
     padding: 15px;
     border-radius: 10px;
@@ -51,15 +51,15 @@
     border-radius: 10px;
 }
 
-.findIdBtn, .findBtn {
-    background-color: #FF8000;
+.findIdBtn, .findBtn, .findPwBtn1, .changePwdBtn {
+    background-color:  var(--color-basic);
 }
 
 .findPwBtn, .cancelBtn {
-    background-color: #595959;
+    background-color: var(--color-gray);
 }
 
-.userInfoId {
+.userInfoId, .userInfoPw {
     display: flex;
     flex-direction: column;
     width: 65%;
@@ -67,7 +67,7 @@
     gap:10px;
 }
 
-.username, .userDOB {
+.findIdUsername, .userDOB, .findPwId, .emailContainer, .pwdInputDiv, .pwdInputCheckDiv {
     display: flex;
     flex-direction: column;
     font-size:18px;
@@ -90,12 +90,97 @@
     gap: 10px;
 }
 
-.nameInput, .userDOB select {
+.nameInput, .userDOB select, .idInput, .emailInput, .codeCheck, .pwdInput, .pwdInputCheck {
     height:30px !important;
-    border: 1px solid #FF8000 !important;
+    border: 1px solid  var(--color-basic) !important;
     border-radius: 5px;
+}
+
+.userDOB select {
+    all: revert;
+}
+
+.emailInput, .codeCheck {
+    width:233px;
 }
 
 .userDOB select {
     width: 100%;
 }
+
+input[type=email] {
+    padding: 0 10px;
+}
+
+.emailContainer, .codeCheckDiv {
+    margin-bottom: 10px;
+}
+
+.emailBtn {
+    background-color: blue;
+    color: #ffffff;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: 600;
+    width:80px;
+}
+
+.showIdDiv {
+    display: none;
+    position: relative; /* 자식 요소의 절대 위치 기준 */
+    padding: 0;
+}
+
+.logoDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.showId {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.menuBtnDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    position: relative;
+    top: 110px;
+}
+
+.pwdChange {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pwdChange span {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--color-basic);
+}
+.pwdChangeContainer {
+    height: 300px;
+}
+
+.pwdInputCheckDiv {
+    margin-top: 10px;
+}
+
+.pwdChangeDiv {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
