@@ -1,7 +1,5 @@
 /** 이벤트 리스너 등록 **/
 $(document).ready(function () {
-
-    console.log("✅ minihompiMain.js가 로드되고 실행됨!");
     getminihompiDataList();
 
     const popuoMain = $("#popupMain");
@@ -33,8 +31,7 @@ $(document).ready(function () {
     const photo_url = "/mini-hompi/photo";
     const board_url = "/mini-hompi/board";
     const visitor_url = "/mini-hompi/visitor";
-    const minihompiUp = "/mini-hompi/titleUpdate"
-
+    const minihompiUp = "/mini-hompi/titleUpdate";
 
     const droupdown = $("#nameWrap");
     const dropbtn = droupdown.find(".name");
@@ -121,21 +118,6 @@ $(document).ready(function () {
 
     /** 함수 등록 **/
 
-    function movePage(url) {
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "html",
-            success: function (data) {
-                $("#rightWrap .rightMainWrap").children().remove();
-                $("#rightWrap .rightMainWrap").html(data);
-            },
-            error: function (xhr, status, error) {
-                alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-            }
-        });
-    }
-
     function moveHomePageCgColor(e, url, menuName) {
         console.log(e.currentTarget);
         $.ajax({
@@ -175,11 +157,11 @@ $(document).ready(function () {
             droupdown.find("#name-droupdown").slideUp();
         }
     });
-
-
     // 미니홈피 타이틀 변경
     $(".rightMenu").on("click", "#titleBtn", function () {
         const btn = $(this);
+        const url = window.location.pathname;
+        const hompiId = url.split('/').pop();
 
         if (btn.val() === '수정') {
             const title = $("#mainTitle");
@@ -200,11 +182,9 @@ $(document).ready(function () {
             // AJAX 요청으로 서버에 업데이트 요청
             $.ajax({
                 type: "POST",
-                url: "/mini-hompi/updateTitle", // 타이틀 업데이트를 처리하는 서버 URL
+                url: `/mini-hompi/updateTitle/${hompiId}`, // 타이틀 업데이트를 처리하는 서버 URL
                 data: {title: newTitle},
                 success: function (response) {
-                    console.log("업데이트 성공:", response);
-
                     // 서버 응답 처리
                     if (response.status === "success") {
                         alert(response.message); // 성공 메시지 출력
@@ -223,7 +203,6 @@ $(document).ready(function () {
                 },
                 error: function (xhr) {
                     const errorResponse = JSON.parse(xhr.responseText);
-                    console.error("업데이트 실패:", errorResponse.message);
                     alert("업데이트 실패: " + errorResponse.message);
                 }
             });
@@ -231,42 +210,57 @@ $(document).ready(function () {
     });
 
 
-// JSON 데이터를 가져오는 함수
+// json 데이터를 가져오는 함수
     function getminihompiDataList() {
-        const hompiId = 0; // 홈피 ID
-        const hompSub_url = `/mini-hompi/api/${hompiId}`;
-
+        const url = window.location.pathname;
+        const hompiId = url.split('/').pop();
+        const hompiDataUrl = `/mini-hompi/api/${hompiId}`
         $.ajax({
             type: "GET",
-            url: hompSub_url,
+            url: hompiDataUrl,
             dataType: "json",
-            success: function (response) {
-                console.log("JSON 데이터 로딩 성공:", response);
-
-                // JSON 데이터를 화면에 렌더링
-                renderminihompi(response);
+            success: function (data) {
+                renderminihompi(data); // 화면 렌더링
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error("JSON 로딩 실패:", errorThrown);
+            error: function () {
+                alert("미니홈피 데이터를 가져오는 데 실패했습니다.");
             }
         });
     }
+
 
 // JSON 데이터를 화면에 렌더링하는 함수
     function renderminihompi(data) {
         const minihompi = data.minihompi;
         const myHompi = data.myHompi;
 
-        // 화면에 데이터 삽입
-        $("#mainTitle").text(minihompi.hompiTitle);
-        $("#total").text(minihompi.totalCnt);
-        $("#today").text(minihompi.todayCnt);
-        $("#hompiUrl").text(minihompi.hompiUrl);
-        $(".introduction").text(minihompi.introduction);
-        $('#mood').val(minihompi.mood).prop('selected', true);
+        $("#mainTitle").text(minihompi.hompiTitle ?? "제목이 없습니다.");
+        $("#total").text(minihompi.totalCnt ?? "-");
+        $("#today").text(minihompi.todayCnt ?? "-");
+        $("#hompiUrl").text(minihompi.hompiUrl ?? "홈피 주소 없음");
+        $(".introduction").text(minihompi.introduction ?? "자기소개가 작성되지 않았습니다.");
+        $(".name").text(minihompi.name ?? "이름없음");
+        $(".nameEmail").text(minihompi.email ?? "null@com");
+        if (minihompi.mood != null) {
+            $('#mood').val(minihompi.mood).prop('selected', true);
+        } else {
+            $('#mood').val("angry").prop('selected', true);
+        }
+
+        if (minihompi.profileImage) {
+            $(".mainImg > img").attr("src", minihompi.profileImage);
+        }
+        if (minihompi.genderCode == "M") {
+            $(".nameSymbol").text("♂");
+        } else if (minihompi.genderCode == "F") {
+            $(".nameSymbol").text("♀");
+        } else {
+            $(".nameSymbol").text("n");
+        }
+
 
         //권한에 따라 관리 버튼 숨김
-        if (myHompi == 1 || myHompi == 2) {
+        if (myHompi != 0) {
             $("#moveSetting").hide();
             $(".editImg").hide();
             $("#editBtn").hide();
@@ -275,80 +269,180 @@ $(document).ready(function () {
         }
     }
 
-});
 
-/** 쪽지 팝업창 설정 **/
-function onpneMessage() {
-    var popupW = 500;
-    var popupH = 500;
-    var left = Math.ceil((window.screen.width - popupW) / 2);
-    var top = Math.ceil((window.screen.height - popupH) / 2);
+    /** 쪽지 팝업창 설정 **/
+    function onpneMessage() {
+        var popupW = 500;
+        var popupH = 500;
+        var left = Math.ceil((window.screen.width - popupW) / 2);
+        var top = Math.ceil((window.screen.height - popupH) / 2);
 
-    var popup = window.open('/mini-hompi/newmessage',
-        '쪽지 보내기',
-        'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
-}
+        var popup = window.open('/mini-hompi/newmessage',
+            '쪽지 보내기',
+            'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
+    }
 
-/** 홈 화면으로 이동, js 중복실행 방지 **/
-$(document).on("click", "#moveHome", function (e) {
-    e.preventDefault();
 
-    if (window.ajaxCheck) return;
-    window.ajaxCheck = true;
+    /** 홈 화면으로 이동, js 중복실행 방지 **/
+    $(document).on("click", "#moveHome", function (e) {
+        e.preventDefault();
 
-    $.ajax({
-        type: "GET",
-        url: "/mini-hompi/hompiMain",
-        dataType: "html",
-        success: function (data) {
-            executeScriptsFromHTML(data);
+        if (window.ajaxCheck) return;
+        window.ajaxCheck = true;
 
-            //`minihompiMain.js`가 항상 다시 로드되도록 설정
-            $.getScript("/static/js/minihompi/minihompiMain.js")
-                .done(() => {
-                    console.log("minihompiMain.js 로드 완료");
-                    delete window.isminihompiMainLoaded;  // 다시 로드 가능하도록 초기화
-                })
-                .fail((jqxhr, settings, exception) => console.error("minihompiMain.js 로드 실패:", exception));
+        $.ajax({
+            type: "GET",
+            url: "/mini-hompi/hompiMain",
+            dataType: "html",
+            success: function (data) {
+                executeScriptsFromHTML(data);
 
-            setTimeout(() => {
+                //`minihompiMain.js`가 항상 다시 로드되도록 설정
+                $.getScript("/static/js/minihompi/minihompiMain.js")
+                    .done(() => {
+                        console.log("minihompiMain.js 로드 완료");
+                        delete window.isminihompiMainLoaded;  // 다시 로드 가능하도록 초기화
+                    })
+                    .fail((jqxhr, settings, exception) => console.error("minihompiMain.js 로드 실패:", exception));
+
+                setTimeout(() => {
+                    window.ajaxCheck = false;
+                }, 500);
+            },
+            error: function (xhr, status, error) {
+                alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
                 window.ajaxCheck = false;
-            }, 500);
-        },
-        error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-            window.ajaxCheck = false;
+            }
+        });
+    });
+
+    window.executeScriptsFromHTML = function (html) {
+        const $html = $("<div>").append($.parseHTML(html));
+        $("#mainWrapBackground").children().remove().end().append($html);
+
+        // src 없는 인라인 스크립트만 실행 (eval)
+        $html.find("script").each(function () {
+            const scriptSrc = $(this).attr("src");
+            if (!scriptSrc) {
+                eval($(this).text());
+            }
+        });
+    };
+
+    /** 기분 저장하기 **/
+    $(document).on("change", "#mood", function () {
+        const selectMood = $(this).val();
+        const url = window.location.pathname;
+        const hompiId = url.split('/').pop();
+        const moodUrl = `/mini-hompi/api/mood-save/${hompiId}`
+        $.ajax({
+            type: "POST",
+            url: moodUrl,
+            dataType: "TEXT",
+            data: selectMood,
+            success: function () {
+            },
+            error: function () {
+            }
+        });
+    });
+
+    /** 에딧 버튼 관련 (자기소개, 프로필 이미지 변경) **/
+    let originalIntro = ''; // 자기소개 롤백용
+    let originalImgSrc = ''; // 이미지 롤백용
+    let newImageFile = null; // 새 이미지 저장용
+
+// 에딧 버튼 클릭
+    $('#editBtn').on('click', function () {
+        const container = $('#profileContainer');
+        const editText = $(this).find('a');
+        const introBox = $('.introText');
+
+        container.toggleClass('editing');
+
+        if (container.hasClass('editing')) {
+            // --- 자기소개 텍스트 → textarea
+            originalIntro = introBox.find('.introduction').text().trim();
+            const textarea = $(`<textarea class="introductionInput" rows="4" maxlength="300">${originalIntro}</textarea>`);
+            introBox.find('.introduction').replaceWith(textarea);
+
+            // --- 프로필 이미지 원본 저장
+            originalImgSrc = $('#profileImg').attr('src');
+            newImageFile = null; // 초기화
+
+            editText.text('저장');
+        } else {
+            const newIntro = $('.introductionInput').val().trim();
+
+            if (newIntro === '') {
+                alert('자기소개를 입력해주세요.');
+                $('.introductionInput').focus();
+                $('#profileContainer').addClass('editing');
+                return;
+            }
+            // FormData로 이미지 + 텍스트 전송
+            const url = window.location.pathname;
+            const hompiId = url.split('/').pop();
+            const hompiConfigUrl = `/mini-hompi/api/updateProfile/${hompiId}`;
+            const formData = new FormData();
+            formData.append('introduction', newIntro);
+
+            console.log("intro:", newIntro);
+            for (let [k, v] of formData.entries()) {
+                console.log("formData:", k, v);
+            }
+
+
+            if (newImageFile) {
+                formData.append('profileImage', newImageFile);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: hompiConfigUrl,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log("hompiConfigUrl 성공:", hompiConfigUrl);
+                    const newP = $(`<p class="introduction">${newIntro}</p>`);
+                    $('.introductionInput').replaceWith(newP);
+                    $('#editBtn a').text('EDIT');
+                },
+                error: function () {
+                    console.log("hompiConfigUrl 실패:", hompiConfigUrl);
+                    alert('저장 실패.');
+
+                    const rollbackP = $(`<p class="introduction">${originalIntro}</p>`);
+                    $('.introductionInput').replaceWith(rollbackP);
+                    $('#profileImg').attr('src', originalImgSrc);
+                    $('#profileContainer').removeClass('editing');
+                    $('#editBtn a').text('EDIT');
+                }
+            });
+        }
+    });
+// 사진 변경 버튼 클릭 → 파일 input 열기
+    $('#changePhotoBtn').on('click', function () {
+        $('#profileImage').click();
+    });
+// 파일 선택 시 미리보기 처리
+    $('#profileImage').on('change', function (e) {
+        const file = e.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profileImg').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+            newImageFile = file; // 저장용으로 설정
+        } else {
+            alert('이미지 파일만 선택 가능합니다.');
         }
     });
 });
 
-window.executeScriptsFromHTML = function (html) {
-    const $html = $("<div>").append($.parseHTML(html));
-    $("#mainWrapBackground").children().remove().end().append($html);
-
-    // src 없는 인라인 스크립트만 실행 (eval)
-    $html.find("script").each(function () {
-        const scriptSrc = $(this).attr("src");
-        if (!scriptSrc) {
-            eval($(this).text());
-        }
-    });
-};
-
-/** 기분 저장하기 **/
-$(document).on("change", "#mood", function () {
-    const selectMood = $(this).val();
-    const hompiId = 0;
-    const url = `/mini-hompi/api/mood/save/${hompiId}`
-    $.ajax({
-        type: "POST",
-        url: url,
-        dataType: "TEXT",
-        data: selectMood,
-        success: function () {
-        },
-        error: function () {
-        }
-    });
-});
 

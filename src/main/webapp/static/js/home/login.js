@@ -1,14 +1,37 @@
 $(document).ready(function(){
+    // login 상태에 따라서 페이지 변경
     loginCheck();
-    $(".loginBtn").on("click", function(){
-        login();
+
+    // login
+    // header
+    $("#loginBtnHeader").on("click", function(){
+        let loginId = $("#loginIdHeader");
+        let password = $("#passwordHeader");
+        login(loginId, password);
     });
-    $("input[name='loginId'], input[name='password']").on("keydown", function(e){
+    $("#loginIdHeader, #passwordHeader").on("keydown", function(e){
         if (e.key == "Enter") {
-            login();
+            let loginId = $("#loginIdHeader");
+            let password = $("#passwordHeader");
+            login(loginId, password);
         }
     });
 
+    // content
+    $("#loginBtnFragment").on("click", function(){
+        let loginId = $("#loginIdFragment");
+        let password = $("#passwordFragment");
+        login(loginId, password);
+    });
+    $("#loginIdFragment, #passwordFragment").on("keydown", function(e){
+        if (e.key == "Enter") {
+            let loginId = $("#loginIdFragment");
+            let password = $("#passwordFragment");
+            login(loginId, password);
+        }
+    });
+
+    // logout
     $(".logoutBtn").click(function () {
         $.ajax({
             type: "POST",
@@ -24,9 +47,7 @@ $(document).ready(function(){
 
 });
 
-function login() {
-    let loginId = $("input[name='loginId']");
-    let password = $("input[name='password']");
+function login(loginId, password) {
 
     let loginData = {
         "loginId": loginId.val().trim(),
@@ -55,9 +76,7 @@ function login() {
                 '로그인 실패',
                 '아이디 혹은 비밀번호를 다시 입력해주세요',
                 'error'
-            ).then(() => {
-                location.href = "/";
-            });
+            );
         }
     });
 }
@@ -67,19 +86,21 @@ function loginCheck(){
         type: "GET",
         url: "userInfo",
         contentType: "application/json",
-        dataType: "json",
         success:function(response){
-            if(response === null){
+            if(response.accessIp === null){
                 $(".loginWrap.noLogin").show();
                 $(".loginWrap.yesLogin").hide();
+                $(".headerRight.noLogin").show();
+                $(".headerRight.yesLogin").hide();
                 return;
             }
             $(".loginWrap.noLogin").hide();
             $(".loginWrap.yesLogin").show();
+            $(".headerRight.noLogin").hide();
+            $(".headerRight.yesLogin").show();
             $(".username").text(response.name);
         },
         error:function(error){
-            console.error(error);
         }
     });
 }
