@@ -1221,6 +1221,38 @@ CREATE TABLE FORTUNE_TELLING_LOG (
 * ==============================================END==============================================
 */
 
+
+
+
+/**
+* NAME     : EMAIL_AUTH
+* TYPE     : TABLE
+* AUTHOR   : AOH
+* DATE     : 2025-03-23
+* DESC     : 이메일 인증 테이블 생성 스크립트.
+* =============================================START=============================================
+*/
+CREATE TABLE EMAIL_AUTH (
+                                    AUTH_ID BIGINT AUTO_INCREMENT COMMENT '인증번호 ID',
+                                    USER_ID BIGINT COMMENT '회원 ID',
+                                    EMAIL_AUTH_CODE VARCHAR(6) COMMENT '인증번호',
+                                    AUTH_STATUS VARCHAR(1) COMMENT '인증 상태',
+                                    EXPIRED_DT DATETIME COMMENT '만료 일시',
+                                    REMARKS VARCHAR(500) COMMENT '비고',
+                                    INSERT_USER_ID BIGINT COMMENT '등록자 ID',
+                                    INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+                                    UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
+                                    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
+                                    PRIMARY KEY (AUTH_ID)
+) COMMENT='이메일 인증';
+/**
+* ==============================================END==============================================
+*/
+
+
+
+
+
 DELIMITER $$
 
 -- 공통 코드 이름 조회

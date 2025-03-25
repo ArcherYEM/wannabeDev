@@ -10,8 +10,20 @@ public interface MinihompiMapper {
 
     MinihompiTotal findMyhompi(Map<String, Object> map);
 
-    int updateTitle(Map<String, Object> miniHompi);
+    int updateTitle(Map<String, Object> minihompi);
 
-    Map<String, Object> moodSave(Map<String, Object> mood);
+    Map<String, Object> moodSave(Map<String, Object> param);
+
+    MinihompiTotal findOwnerUserId(Long hompiId);
+
+    int selectTodayCount(Map<String, Object> map);
+
+    int updateTodayCount(Map<String, Object> map);
+
+    void insertTodayCount(Map<String, Object> map);
+
+    void updateTotalCount(Map<String, Object> map);
+
+    Map<String, Object> updateHompiConfig(Map<String, Object> param);
 }
 

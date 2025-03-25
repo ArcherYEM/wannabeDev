@@ -48,7 +48,7 @@ $(document).ready(function(){
 });
 
 function login(loginId, password) {
-
+    showLoadingSpinner();
     let loginData = {
         "loginId": loginId.val().trim(),
         "password": password.val().trim(),
@@ -67,6 +67,7 @@ function login(loginId, password) {
             ).then(() => {
                 location.href = "/";
             });
+            hideLoadingSpinner();
         },
         error: function(error){
             loginId.val("")
@@ -76,6 +77,7 @@ function login(loginId, password) {
                 '아이디 혹은 비밀번호를 다시 입력해주세요',
                 'error'
             );
+            hideLoadingSpinner();
         }
     });
 }
