@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded",function() {
 
         console.log('idInput.value : ' + idInput.value);
         console.log('emailInput.value : ' + emailInput.value);
-
+        showLoadingSpinner();
         $.ajax({
             type:"POST",
             url:"/api/user/sendCode",
@@ -282,8 +282,10 @@ document.addEventListener("DOMContentLoaded",function() {
                 alert('인증번호를 전송하였습니다.');
                 loginIdInputHidden.value = idInput.value;
                 emailInputHidden.value = emailInput.value;
+                hideLoadingSpinner();
             },
             error: function(xhr) {
+                hideLoadingSpinner();
                 console.log("error response: ", xhr);
             }
         });
