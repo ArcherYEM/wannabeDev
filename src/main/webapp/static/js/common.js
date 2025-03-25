@@ -16,7 +16,6 @@ $(document).ready(function () {
 })
 
 $(function () {
-
 });
 
 /** 미니홈피 팝업창 설정 **/
@@ -47,4 +46,16 @@ function openPop() {
             });
         }
     });
+}
+
+// 스피너 on
+function showLoadingSpinner() {
+    $('.spinner-background').show();
+    $('.loading-spinner-spin').show();
+}
+
+// 스피너 off
+function hideLoadingSpinner() {
+    $('.spinner-background').hide();
+    $('.loading-spinner-spin').hide();
 }

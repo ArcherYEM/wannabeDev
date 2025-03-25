@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/css/onlineStyle.css">
     <link rel="stylesheet" href="/static/css/weather.css">
      <link rel="stylesheet" href="/static/css/movie.css">
+     <link rel="stylesheet" href="/static/css/common/common.css">
     <link rel="stylesheet" href="/static/css/imageSlide.css">
 
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
@@ -253,6 +254,9 @@
         </div>
     </div>
     <!--메인 끝-->
+
+    <!-- 로딩 스피너 -->
+    <th:block th:replace="common/layout/fragments/loading :: loadingSpinner"/>
 
     <!--푸터 시작-->
     <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>

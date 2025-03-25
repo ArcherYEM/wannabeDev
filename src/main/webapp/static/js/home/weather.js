@@ -17,11 +17,11 @@ $(document).ready(function () {
             method: 'GET',
             data: { lat: lat, lon: lon },
             success: function (data) {
-                console.log("🌤️ 서버에서 받아온 날씨 데이터:", data);
+                // console.log("🌤️ 서버에서 받아온 날씨 데이터:", data);
                 updateWeatherUI(data, lat, lon);
             },
             error: function (error) {
-                console.error("❌ 서버에서 날씨 데이터를 가져오는 중 오류 발생:", error);
+                // console.error("❌ 서버에서 날씨 데이터를 가져오는 중 오류 발생:", error);
             }
         });
     }
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 $('#location').text(`${translatedCity} 날씨`);
             })
             .catch(error => {
-                console.error("❌ 지역 정보를 가져오는 중 오류 발생:", error);
+                // console.error("❌ 지역 정보를 가져오는 중 오류 발생:", error);
                 $('#location').text(`현재 위치 날씨`);
             });
     }
