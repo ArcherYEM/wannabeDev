@@ -708,6 +708,7 @@ CREATE TABLE HOMPI_FOLDER (
                               FOLDER_ID BIGINT AUTO_INCREMENT UNIQUE COMMENT '폴더 ID',
                               FOLDER_NAME VARCHAR(500) COMMENT '폴더 이름',
                               CONTENTS_TYPE VARCHAR(2) COMMENT '콘텐츠 종류',
+                              ACCESS_CD VARCHAR(2) COMMENT '사용자별 폴더 접근권한 코드',
                               REMARKS VARCHAR(500) COMMENT '비고',
                               INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                               INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
