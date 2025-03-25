@@ -1,11 +1,13 @@
 package com.dev.wannabe.domain.minihompi.model.dto;
 
+import lombok.Data;
 import lombok.Builder;
-import lombok.Getter;
 
-@Getter
+@Data
 @Builder
 public class FolderContentsDTO {
     private Long contentsId;
     private String contentsName;
+    private String contentsType;
+    private Long folderId;
 }
