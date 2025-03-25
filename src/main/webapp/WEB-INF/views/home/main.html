@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/onlineStyle.css">
     <link rel="stylesheet" href="/static/css/weather.css">
+     <link rel="stylesheet" href="/static/css/movie.css">
+     <link rel="stylesheet" href="/static/css/common/common.css">
     <link rel="stylesheet" href="/static/css/imageSlide.css">
 
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
@@ -32,23 +34,7 @@
                 <!--login s-->
                 <div class="mainTopLeft">
                     <div class="loginWrap noLogin">
-                        <div class="loginWrapTop">
-                            <div class="loginInputWrap">
-                                <ul>
-                                    <li><input type="text" name="loginId"></li>
-                                    <li><input type="password" name="password"></li>
-                                </ul>
-                            </div>
-                            <div class="loginBtnWrap">
-                                <a href="#" class="loginBtn btn">로그인</a>
-                            </div>
-                        </div>
-                        <div class="loginWrapBot">
-                            <ul>
-                                <li><a href="#" class="signupBtn btn">회원가입</a></li>
-                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
-                            </ul>
-                        </div>
+                        <th:block th:include="/home/fragment/noLoginInclude :: noLoginFragment"></th:block>
                     </div>
                     <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
                 </div>
@@ -245,25 +231,34 @@
                         </ul>
                     </div>
                     <div class="bot">
-                        <p class="mainTitleText">실시간뉴스</span></p>
+                        <p class="mainTitleText">실시간뉴스</p>
                         <ul id="newsList"> </ul> <!-- 동적으로 생성 -->
                     </div>
                 </div>
                 <div class="mainBotRight">
                     <div class="top">
-                        <p class="mainTitleText">오늘의 운세</span></p>
+                        <p class="mainTitleText">오늘의 운세</p>
                         <div class="todayLuckyFrame">
                             <p class="todayLucky"></p>
                         </div>
                     </div>
                     <div class="bot">
-                        <p class="mainTitleText">영화추천</span></p>
+                        <p class="movie">영화추천</p>
+                        <span class="todayMovie">
+
+                        </span>
+
+                        <div  class="movieWrapper" id="movieWrapper">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!--메인 끝-->
+
+    <!-- 로딩 스피너 -->
+    <th:block th:replace="common/layout/fragments/loading :: loadingSpinner"/>
 
     <!--푸터 시작-->
     <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
@@ -273,6 +268,7 @@
     <script src="/static/js/home/moveFromHome.js"></script>
     <script src="/static/js/home/weather.js"></script>
     <script src="/static/js/findIdAndPw.js"></script>
+    <script src="/static/js/home/movie.js"></script>
     <script src="/static/js/home/imageSlide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 

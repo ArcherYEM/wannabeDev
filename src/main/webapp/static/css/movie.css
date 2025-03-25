@@ -1,0 +1,51 @@
+#movieWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+#movieWrapper img {
+    width: 100%;
+    height: auto;
+}
+
+#movieFinal {
+    display: inline-block;
+    width: 30%;
+    height: 180px;
+    color: var(--color-basic);
+    font-weight: bold;
+}
+
+.movieTitleHome {
+    display: inline-block;
+    position: absolute;
+    color: var(--color-basic);
+
+}
+
+.flowingText {
+    animation: scroll-left 5s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+.movieTitleBox {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 20px;
+}
+
+.movie {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-basic);
+}
