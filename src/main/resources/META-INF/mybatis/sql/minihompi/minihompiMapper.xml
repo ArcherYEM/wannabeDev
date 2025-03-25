@@ -5,7 +5,6 @@
 
     <select id="findMyhompi" parameterType="map"
             resultType="com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal">
-
         SELECT
         hp.HOMPI_ID,
         hp.HOMPI_URL,
@@ -71,7 +70,8 @@
     </select>
 
     <update id="updateTodayCount" parameterType="map">
-        UPDATE HOMPI_DAILY_STATS hds
+        UPDATE
+            HOMPI_DAILY_STATS hds
             JOIN HOMPI hp
         ON hds.HOMPI_ID = hp.HOMPI_ID
             SET hds.TODAY_CNT = hds.TODAY_CNT+1, hp.TOTAL_CNT = hp.TOTAL_CNT+1
@@ -80,7 +80,8 @@
     </update>
 
     <update id="updateTotalCount" parameterType="map">
-        UPDATE HOMPI
+        UPDATE
+            HOMPI
         SET TOTAL_CNT = TOTAL_CNT + 1
         WHERE HOMPI_ID = #{hompiId}
     </update>
@@ -93,7 +94,8 @@
 
     <update id="updateHompiConfig" parameterType="map">
 
-        UPDATE HOMPI_CONFIG
+        UPDATE
+        HOMPI_CONFIG
         <set>
             <if test='introduction != null introduction != ""'>
                 HOMPI_CONFIG_CONTENT = #{introduction}
@@ -107,5 +109,37 @@
         AND WHERE HOMPI_ID = #{hompiId}
 
     </update>
+
+    <select id="getFriendComment" parameterType="Long"
+            resultType="com.dev.wannabe.domain.minihompi.model.dto.FriendCommentDTO">
+        SELECT fi.USER_ID,
+               fi.USER_NICKNAME,
+               fi.FRIEND_USER_ID,
+               fi.FRIEND_USER_NICKNAME,
+               hfc.HOMPI_ID,
+               hfc.WRITE_USER_ID,
+               hfc.FRIEND_COMMENTS,
+               hfc.FIXED_YN,
+               ub.NAME,
+               DATE_FORMAT(hfc.INSERT_DT, '%Y-%m-%d') AS INSERT_DT
+        FROM FRIEND_INFO fi
+                 JOIN HOMPI_FRIEND_COMMENT hfc
+                      ON fi.FRIEND_USER_ID = hfc.WRITE_USER_ID
+                 JOIN USER_BASIC ub
+                      ON hfc.WRITE_USER_ID = ub.USER_ID
+        WHERE fi.USER_ID = (SELECT OWNER_USER_ID
+                            FROM HOMPI
+                            WHERE HOMPI_ID = #{hompiId})
+          AND hfc.FRIEND_COMMENTS IS NOT NULL
+        ORDER BY INSERT_DT DESC
+    </select>
+
+    <select id="friendCheck" resultType="int" parameterType="map">
+        SELECT COUNT(*)
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId}
+          AND FRIEND_USER_ID = #{ownerUserId}
+
+    </select>
 
 </mapper>

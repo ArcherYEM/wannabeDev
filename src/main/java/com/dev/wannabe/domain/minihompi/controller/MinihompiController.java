@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.minihompi.controller;
 
+import com.dev.wannabe.domain.minihompi.model.dto.FriendCommentDTO;
 import com.dev.wannabe.domain.minihompi.service.MinihompiService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,6 +43,14 @@ public class MinihompiController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("api/myHompiCheck/{hompiId}")
+    public ResponseEntity<Map<String, Object>> myHompiCheck(@PathVariable Long hompiId, HttpServletRequest request, HttpSession session) {
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        Map<String, Object> result = minihompiService.myHompiCheck(hompiId, userData, session);
+        return ResponseEntity.ok(result);
+
+    }
+
     @GetMapping("/main/{hompiId}")
     public String minihompiWrap(@PathVariable Long hompiId) {
         return "minihompi/minihompiWrap";
@@ -61,12 +71,11 @@ public class MinihompiController {
     @PostMapping("/api/updateProfile/{hompiId}")
     public ResponseEntity<Map<String, Object>> updateProfile(@PathVariable Long hompiId,
                                                              @RequestParam("introduction") String introduction,
-                                                             @RequestPart(value = "profileImage", required = false)
+                                                             @RequestParam(value = "profileImage", required = false)
                                                              MultipartFile profileImage) {
-
         try {
             // 경로 설정
-            String savePath = new ClassPathResource("static/images/personal").getFile().getAbsolutePath();
+            String savePath = new ClassPathResource("static/images/personal/").getFile().getAbsolutePath();
             String fileName = "profile" + hompiId + ".jpg";
             String filePath = savePath + File.separator + fileName;
             File dest = new File(savePath, fileName);
@@ -81,8 +90,18 @@ public class MinihompiController {
             return ResponseEntity.ok(result);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("status", "fail", "message", "파일 저장 중 오류가 발생했습니다."));
+                    .body(Map.of("status", "fail"));
         }
+    }
+
+    @GetMapping("/api/FriendComment/{hompiId}")
+    public ResponseEntity<List<FriendCommentDTO>> friendComment
+            (@PathVariable Long hompiId,
+             HttpServletRequest request,
+             HttpSession session) {
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        List<FriendCommentDTO> result = minihompiService.getFriendComment(hompiId);
+        return ResponseEntity.ok(result);
     }
 
 
