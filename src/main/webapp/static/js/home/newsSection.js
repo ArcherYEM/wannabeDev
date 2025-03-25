@@ -5,7 +5,7 @@ $(document).ready(function(){
         timeout: 2000,
         success: function (response) {
             $("#newsList").empty();
-            console.log(response)
+            // console.log(response)
 
             $.each(response, function (index, newsData){
                 let listItem = $("<li></li>");
