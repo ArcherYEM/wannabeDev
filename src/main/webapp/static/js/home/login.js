@@ -3,12 +3,31 @@ $(document).ready(function(){
     loginCheck();
 
     // login
-    $(".loginBtn").on("click", function(){
-        login();
+    // header
+    $("#loginBtnHeader").on("click", function(){
+        let loginId = $("#loginIdHeader");
+        let password = $("#passwordHeader");
+        login(loginId, password);
     });
-    $(".loginIdInput, .passwordInput").on("keydown", function(e){
+    $("#loginIdHeader, #passwordHeader").on("keydown", function(e){
         if (e.key == "Enter") {
-            login();
+            let loginId = $("#loginIdHeader");
+            let password = $("#passwordHeader");
+            login(loginId, password);
+        }
+    });
+
+    // content
+    $("#loginBtnFragment").on("click", function(){
+        let loginId = $("#loginIdFragment");
+        let password = $("#passwordFragment");
+        login(loginId, password);
+    });
+    $("#loginIdFragment, #passwordFragment").on("keydown", function(e){
+        if (e.key == "Enter") {
+            let loginId = $("#loginIdFragment");
+            let password = $("#passwordFragment");
+            login(loginId, password);
         }
     });
 
@@ -28,9 +47,7 @@ $(document).ready(function(){
 
 });
 
-function login() {
-    let loginId = $(".loginIdInput");
-    let password = $(".passwordInput");
+function login(loginId, password) {
 
     let loginData = {
         "loginId": loginId.val().trim(),
@@ -59,9 +76,7 @@ function login() {
                 '로그인 실패',
                 '아이디 혹은 비밀번호를 다시 입력해주세요',
                 'error'
-            ).then(() => {
-                location.href = "/";
-            });
+            );
         }
     });
 }
