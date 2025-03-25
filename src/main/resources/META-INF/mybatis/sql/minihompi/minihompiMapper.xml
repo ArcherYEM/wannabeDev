@@ -25,7 +25,7 @@
         FROM HOMPI hp
         LEFT OUTER JOIN HOMPI_DAILY_STATS hds
         ON hp.HOMPI_ID = hds.HOMPI_ID
-        AND hds.DAY_STATS_DATE = '20250323'
+        AND hds.DAY_STATS_DATE = #{today}
         LEFT OUTER JOIN HOMPI_CONFIG hc
         ON hp.HOMPI_ID = hc.HOMPI_ID
         LEFT OUTER JOIN USER_BASIC ub
@@ -121,17 +121,18 @@
                hfc.FRIEND_COMMENTS,
                hfc.FIXED_YN,
                ub.NAME,
-               DATE_FORMAT(hfc.INSERT_DT, '%Y-%m-%d') AS INSERT_DT
-        FROM FRIEND_INFO fi
-                 JOIN HOMPI_FRIEND_COMMENT hfc
+               DATE_FORMAT(hfc.INSERT_DT, '%Y-%m-%d') AS UPDATE_DT
+        FROM HOMPI_FRIEND_COMMENT hfc
+                 JOIN FRIEND_INFO fi
                       ON fi.FRIEND_USER_ID = hfc.WRITE_USER_ID
                  JOIN USER_BASIC ub
                       ON hfc.WRITE_USER_ID = ub.USER_ID
-        WHERE fi.USER_ID = (SELECT OWNER_USER_ID
-                            FROM HOMPI
-                            WHERE HOMPI_ID = #{hompiId})
+        WHERE hfc.HOMPI_ID = #{hompId}
           AND hfc.FRIEND_COMMENTS IS NOT NULL
-        ORDER BY INSERT_DT DESC
+          AND fi.USER_ID = (SELECT OWNER_USER_ID
+                            FROM HOMPI
+                            WHERE HOMPI_ID = #{hompId})
+        ORDER BY hfc.UPDATE_USER_ID DESC
     </select>
 
     <select id="friendCheck" resultType="int" parameterType="map">
@@ -142,4 +143,15 @@
 
     </select>
 
+    <insert id="insertFriendComment" parameterType="map">
+        INSERT INTO HOMPI_FRIEND_COMMENT
+        (HOMPI_ID, WRITE_USER_ID, FRIEND_COMMENTS, FIXED_YN, REMARKS, INSERT_USER_ID, INSERT_DT, UPDATE_USER_ID,
+         UPDATE_DT)
+        VALUES (#{hompiId}, #{userId}, #{fcContent}, 'N', NULL, #{userId}, CURRENT_TIMESTAMP(), NULL,
+                CURRENT_TIMESTAMP()) ON DUPLICATE KEY
+        UPDATE
+            FRIEND_COMMENTS = #{fcContent},
+            UPDATE_USER_ID = #{userId},
+            UPDATE_DT = CURRENT_TIMESTAMP ()
+    </insert>
 </mapper>

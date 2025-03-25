@@ -104,6 +104,18 @@ public class MinihompiController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/api/insertFriendComment/{hompiId}")
+    public ResponseEntity<Integer> insertFriendComment(@PathVariable Long hompiId,
+                                                       @RequestParam("fcContent") String fcContent,
+                                                       HttpServletRequest request,
+                                                       HttpSession session) {
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        int result = minihompiService.insertFriendComment(hompiId, userData, fcContent, session);
+        if (result == 1) {
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.badRequest().build();
+    }
 
     @GetMapping("/profile")
     public String Profile() {
