@@ -28,14 +28,14 @@
 }
 
 @keyframes scroll-left {
-    from {
-        transform: translateX(0%);
+    0% {
+        transform: translateX(100%);
     }
-
-    to {
+    100% {
         transform: translateX(-100%);
     }
 }
+
 
 .movieTitleBox {
     position: relative;
