@@ -825,7 +825,7 @@ CREATE TABLE PRODUCT (
                          ATTACH_FILE_ID BIGINT NOT NULL COMMENT '첨부파일 ID',
                          REMARKS VARCHAR(500) COMMENT '비고',
                          INSERT_USER_ID BIGINT COMMENT '등록자 ID',
-                         INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+                         INSERT_DT DATETIME NOT NULL COMMENT '등록일시',
                          UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
                          UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
                          PRIMARY KEY (PRODUCT_ID)
