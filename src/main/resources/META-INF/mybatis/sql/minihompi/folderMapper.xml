@@ -3,13 +3,14 @@
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.FolderMapper">
     <insert id="saveFolder" parameterType="HompiFolder">
         INSERT INTO HOMPI_FOLDER (
-            HOMPI_ID, FOLDER_NAME, CONTENTS_TYPE,
+            HOMPI_ID, FOLDER_NAME, CONTENTS_TYPE, AVAIL_STATUS,
             INSERT_USER_ID
         )
         VALUES (
             #{hompiId},
             #{folderName},
             #{contentsType},
+            #{availStatus},
             #{insertUserId}
         )
         ON DUPLICATE KEY UPDATE
@@ -21,12 +22,23 @@
         SELECT FOLDER_ID, FOLDER_NAME
         FROM HOMPI_FOLDER
         WHERE HOMPI_ID = #{hompiId} AND CONTENTS_TYPE = #{contentsType}
+        <choose>
+            <when test="availStatus == '31'">
+                AND AVAIL_STATUS IN ('31', '32', '33')
+            </when>
+            <when test="availStatus == '32'">
+                AND AVAIL_STATUS IN ('32', '33')
+            </when>
+            <otherwise>
+                AND AVAIL_STATUS = #{availStatus}
+            </otherwise>
+        </choose>
     </select>
 
     <select id="findAllFolderContentByFolderFind" parameterType="FolderFindDTO" resultType="FolderContentsDTO">
         <choose>
             <when test="contentsType == '01'"> <!--> 다이어리 <-->
-                SELECT DIARY_ID AS CONTENT_ID, DIARY_NAME AS CONTENT_NAME
+                SELECT DIARY_ID AS CONTENT_ID, DATE_FORMAT(INSERT_DT, '%Y%m%d') AS CONTENT_NAME
                 FROM HOMPI_DIARY
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
@@ -43,5 +55,30 @@
         </choose>
     </select>
 
+    <update id="updateFolder" parameterType="FolderDTO">
+        UPDATE HOMPI_FOLDER
+        SET FOLDER_NAME = #{folderName}
+        WHERE FOLDER_ID = #{folderId}
+    </update>
+
+    <update id="updateFolderContent" parameterType="FolderContentsDTO">
+        <choose>
+            <when test="contentsType == '01'"> <!--> 다이어리 <-->
+                UPDATE HOMPI_DIARY
+                SET FOLDER_ID = #{folderId}
+                WHERE DIARY_ID = #{contentsId}
+            </when>
+            <when test="contentsType == '02'"> <!--> 사진첩 <-->
+                UPDATE HOMPI_ALBUM
+                SET FOLDER_ID = #{folderId}
+                WHERE ALBUM_ID = #{contentsId}
+            </when>
+            <when test="contentsType == '03'"> <!--> 게시판 <-->
+                UPDATE HOMPI_BOARD
+                SET FOLDER_ID = #{folderId}
+                WHERE BOARD_ID = #{contentsId}
+            </when>
+        </choose>
+    </update>
 
 </mapper>

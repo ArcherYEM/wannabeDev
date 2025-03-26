@@ -1,37 +1,46 @@
-<html lang="ko">
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>onlineMain</title>
-    <link rel="stylesheet" href="/static/css/reset.css">
-    <link rel="stylesheet" href="/static/css/onlineStyle.css">
-    <link rel="stylesheet" href="/static/css/weather.css">
-     <link rel="stylesheet" href="/static/css/movie.css">
-    <link rel="stylesheet" href="/static/css/imageSlide.css">
-
-    <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <title layout:fragment="title">워너비</title>
+    <!-- 메인 페이지 전용 스타일 -->
+    <link rel="stylesheet" th:href="@{/static/css/weather.css}" layout:fragment="styles"/>
+    <link rel="stylesheet" th:href="@{/static/css/movie.css}" layout:fragment="styles"/>
+    <link rel="stylesheet" th:href="@{/static/css/imageSlide.css}" layout:fragment="styles"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+          layout:fragment="styles"/>
 </head>
 <body>
-<div id="wrap">
-    <!--헤더 시작-->
-    <th:block th:include="/common/layout/fragments/header :: header"></th:block>
-    <!--헤더 끝-->
-
-    <!--모달 테스트-->
+<div layout:fragment="content">
+    <!-- 모달 -->
     <th:block th:include="/home/fragment/findIdAndPwInclude :: myModal"></th:block>
-    <!--모달 끝-->
-
-    <!--메인 시작-->
     <div id="container">
         <div class="containerWrap">
             <div class="mainTop">
                 <!--login s-->
                 <div class="mainTopLeft">
                     <div class="loginWrap noLogin">
-                        <th:block th:include="/home/fragment/noLoginInclude :: noLoginFragment"></th:block>
+                        <div class="loginWrapTop">
+                            <div class="loginInputWrap">
+                                <ul>
+                                    <li><input type="text" name="loginId"></li>
+                                    <li><input type="password" name="password"></li>
+                                </ul>
+                            </div>
+                            <div class="loginBtnWrap">
+                                <a href="#" class="loginBtn btn">로그인</a>
+                            </div>
+                        </div>
+                        <div class="loginWrapBot">
+                            <ul>
+                                <li><a href="#" class="signupBtn btn">회원가입</a></li>
+                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
                 </div>
@@ -40,9 +49,7 @@
                     <!--메인슬라이더-->
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
-
-                           <!--불러오기-->
-
+                            <!--불러오기-->
                         </div>
                         <div class="swiper-button-next">&rtrif;</div>
                         <div class="swiper-button-prev">&ltrif;</div>
@@ -51,7 +58,7 @@
                             <svg viewBox="0 0 48 48">
                                 <circle cx="24" cy="24" r="20"></circle>
                             </svg>
-                        <span></span>
+                            <span></span>
                         </div>
                     </div>
                 </div>
@@ -229,7 +236,7 @@
                     </div>
                     <div class="bot">
                         <p class="mainTitleText">실시간뉴스</p>
-                        <ul id="newsList"> </ul> <!-- 동적으로 생성 -->
+                        <ul id="newsList"></ul> <!-- 동적으로 생성 -->
                     </div>
                 </div>
                 <div class="mainBotRight">
@@ -241,12 +248,8 @@
                     </div>
                     <div class="bot">
                         <p class="movie">영화추천</p>
-                        <span class="todayMovie">
-
-                        </span>
-
-                        <div  class="movieWrapper" id="movieWrapper">
-                        </div>
+                        <span class="movie_todayMovie"></span>
+                        <div class="movieWrapper" id="movieWrapper"></div>
                     </div>
                 </div>
             </div>
@@ -254,19 +257,17 @@
     </div>
     <!--메인 끝-->
 
-    <!--푸터 시작-->
-    <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
-    <!--푸터 끝-->
+    <!-- 로딩 스피너 -->
+    <th:block th:replace="common/layout/fragments/loading :: loadingSpinner"/>
+    <script src="/static/js/home/mainHome.js"></script>
+</div>
+<!-- 메인 페이지 전용 JS -->
+<th:block layout:fragment="scripts">
     <script src="/static/js/home/fortune.js"></script>
     <script src="/static/js/home/newsSection.js"></script>
-    <script src="/static/js/home/moveFromHome.js"></script>
     <script src="/static/js/home/weather.js"></script>
     <script src="/static/js/findIdAndPw.js"></script>
-    <script src="/static/js/home/movie.js"></script>
-    <script src="/static/js/home/imageSlide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-</div>
-
+</th:block>
 </body>
 </html>

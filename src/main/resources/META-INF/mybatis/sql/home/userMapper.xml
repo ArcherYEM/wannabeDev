@@ -77,13 +77,114 @@
 
     <select id="findUserNameByUserId" parameterType="Long" resultType="String">
         SELECT NAME
-        FROM USER_BASIC
-        WHERE USER_ID = #{userId}
+          FROM USER_BASIC
+         WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="findIdByNameAndBirthDate" parameterType="Map" resultType="String">
+        SELECT LOGIN_ID
+          FROM USER_BASIC
+         WHERE NAME = #{name}
+           AND BIRTH_DATE = #{birthDate}
+    </select>
+
+    <select id="findUserIdByLoginIdAndEmail" parameterType="Map" resultType="Integer">
+        SELECT USER_ID
+          FROM USER_BASIC
+         WHERE LOGIN_ID = #{loginId}
+           AND EMAIL = #{email}
+    </select>
+
+    <insert id="saveAuthCode" parameterType="Map">
+        INSERT INTO EMAIL_AUTH
+        (USER_ID, EMAIL_AUTH_CODE, AUTH_STATUS, EXPIRED_DT, REMARKS, INSERT_USER_ID, UPDATE_USER_ID)
+        VALUES (
+        #{userId},
+        #{authCode},
+        '1',
+        NULL,
+        NULL,
+        NULL,
+        NULL
+        )
+    </insert>
+
+    <select id="checkAuthCode" parameterType="Map" resultType="Integer">
+        SELECT COUNT(*)
+          FROM EMAIL_AUTH
+         WHERE EMAIL_AUTH_CODE = #{authCode}
+           AND USER_ID = #{userId}
+    </select>
+
+    <insert id="updateAuthStatus" parameterType="String">
+        INSERT INTO EMAIL_AUTH (
+            AUTH_ID, EMAIL_AUTH_CODE, AUTH_STATUS, EXPIRED_DT, REMARKS, INSERT_USER_ID, UPDATE_USER_ID
+            )
+        VALUES (
+            #{authId},
+            #{authCode},
+            '1',
+            NULL,
+            NULL,
+            NULL,
+            NULL
+        )
+        ON DUPLICATE KEY UPDATE
+        AUTH_STATUS = 2;
+    </insert>
+
+    <select id="findAuthIdByAuthCode" parameterType="String" resultType="String">
+        SELECT AUTH_ID
+          FROM EMAIL_AUTH
+         WHERE EMAIL_AUTH_CODE = #{authCode}
     </select>
 
     <select id="findUserRoleByUserID" parameterType="Long" resultType="String">
         SELECT ROLE_CD
-        FROM USER_ROLE
-        WHERE USER_ID = #{userId}
+          FROM USER_ROLE
+         WHERE USER_ID = #{userId}
     </select>
+
+    <update id="updatePassword">
+        UPDATE USER_BASIC
+           SET PASSWORD = #{changePassword}
+         WHERE LOGIN_ID = #{loginId}
+           AND EMAIL = #{email}
+    </update>
+
+    <select id="findAuthByUserIdAndAuthCode" parameterType="Map" resultType="EmailAuth">
+        SELECT
+            AUTH_ID,
+            USER_ID,
+            EMAIL_AUTH_CODE,
+            AUTH_STATUS,
+            EXPIRED_DT,
+            REMARKS,
+            INSERT_USER_ID,
+            INSERT_DT,
+            UPDATE_USER_ID,
+            UPDATE_DT
+          FROM EMAIL_AUTH
+         WHERE USER_ID = #{userId}
+           AND EMAIL_AUTH_CODE = #{authCode}
+    </select>
+
+    <update id="expireAuthStatus">
+        INSERT INTO EMAIL_AUTH (
+        AUTH_ID, EMAIL_AUTH_CODE, AUTH_STATUS, EXPIRED_DT, REMARKS, INSERT_USER_ID, UPDATE_USER_ID
+        )
+        VALUES (
+        #{authId},
+        #{authCode},
+        '1',
+        NULL,
+        NULL,
+        NULL,
+        NULL
+        )
+        ON DUPLICATE KEY UPDATE
+        AUTH_STATUS = 3,
+        EXPIRED_DT = #{expTime};
+    </update>
+
 </mapper>
