@@ -1,6 +1,7 @@
 package com.dev.wannabe.domain.minihompi.service;
 
 import com.dev.wannabe.domain.minihompi.mapper.MinihompiMapper;
+import com.dev.wannabe.domain.minihompi.model.dto.FriendCommentDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +13,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -137,5 +135,47 @@ public class MinihompiService {
         param.put("filePath", filePath);
 
         return minihompiMapper.updateHompiConfig(param);
+    }
+
+    public List<FriendCommentDTO> getFriendComment(Long hompiId) {
+        List<FriendCommentDTO> getFriendComment = minihompiMapper.getFriendComment(hompiId);
+        return getFriendComment;
+
+    }
+
+    public Map<String, Object> myHompiCheck(Long hompiId, SessionUserDTO userData, HttpSession session) {
+        Long userId = (userData != null) ? userData.getUserId() : null;
+
+        // 홈피 주인 조회
+        MinihompiTotal ownerUser = minihompiMapper.findOwnerUserId(hompiId);
+        Long ownerId = (ownerUser != null) ? ownerUser.getOwnerUserId() : null;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("ownerUserId", ownerId);
+        map.put("userId", userId);
+        map.put("hompiId", hompiId);
+        MinihompiTotal minihompi = minihompiMapper.findMyhompi(map);
+
+
+        String myHompi;
+
+        if (userData == null) {
+            myHompi = "1"; // 비로그인
+        } else if (userId.equals(ownerId)) {
+            myHompi = "0"; // 내 미니홈피
+        } else {
+            myHompi = "2"; // 남의 미니홈피
+        }
+        if (myHompi.equals("2")) {
+            int myHompiCheck = minihompiMapper.friendCheck(map);
+
+            if (myHompiCheck == 1) {
+                myHompi = "3"; //일촌
+            } else myHompi = "2"; //남의 미니홈피
+        }
+        session.setAttribute("myHompiCheck", myHompi);
+        Map<String, Object> result = new HashMap<>();
+        result.put("myHompiCheck", myHompi);
+        return result;
     }
 }
