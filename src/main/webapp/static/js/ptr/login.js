@@ -7,33 +7,44 @@ import { getAjax, postAjax, putAjax, deleteAjax } from "./ajax.js";
 import { swalPopup } from "./swal.js";
 
 // =========== 변수 레이어 ===========
-const loginId = $('#loginId');
-const password = $('#password');
-const loginBtn = $('#loginBtn');
-const logoutBtn = $('#logoutBtn');
+const loginButtons = $('#loginBtn, #loginBtn2');
+const logoutButtons = $('#logoutBtn, #logoutBtn2');
+
+const loginFields = {
+    loginBtn: {
+        loginId: $('#loginId'),
+        password: $('#password')
+    },
+    loginBtn2: {
+        loginId: $('#loginId2'),
+        password: $('#password2')
+    }
+};
 
 // =========== 프로세스 레이어 ===========
 $(document).ready(function() {
-
-    loginBtn.click(function() {
-        login();
+    // 로그인 버튼 이벤트 (두 영역 통합)
+    loginButtons.click(function() {
+        const btnId = $(this).attr('id');
+        const loginIdValue = loginFields[btnId].loginId.val();
+        const passwordValue = loginFields[btnId].password.val();
+        login(loginIdValue, passwordValue);
     });
 
-    logoutBtn.click(function() {
+    // 로그아웃 버튼 이벤트 (두 영역 통합)
+    logoutButtons.click(function() {
         logout();
     });
-
-
 });
 
-// =========== 함수 정의 레이어 ===========
 
+// =========== 함수 정의 레이어 ===========
 // 로그인
-function login() {
+function login(loginIdValue, passwordValue) {
 
     const LoginDTO = JSON.stringify({
-        loginId: loginId.val(),
-        password: password.val()
+        loginId: loginIdValue,
+        password: passwordValue
     });
 
     postAjax(API.LOGIN, LoginDTO, function(response) {

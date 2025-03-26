@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" th:href="@{/static/css/common/reset.css}" />
     <link rel="stylesheet" th:href="@{/static/css/common/onlineStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" />
     <link rel="stylesheet" th:href="@{/static/css/common/common.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/common/header-old.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" />
     <link rel="stylesheet" th:href="@{/static/css/weather.css}" />
     <link rel="stylesheet" th:href="@{/static/css/movie.css}" />
     <link rel="stylesheet" th:href="@{/static/css/imageSlide.css}" />
@@ -42,6 +42,7 @@
                     <li><input type="text" id="loginId" placeholder="아이디"></li>
                     <li><input type="password" id="password" placeholder="비밀번호"></li>
                     <li><a href="#" id="loginBtn" class="btn loginBtn">로그인</a></li>
+                    <li><a href="#" id="signupBtn" class="signupBtn btn">회원가입</a></li>
                 </ul>
             </div>
         </div>
@@ -66,29 +67,79 @@
     <div id="container">
         <div class="containerWrap">
             <div class="mainTop">
-                <!--login s-->
                 <div class="mainTopLeft">
-                    <div class="loginWrap noLogin">
-                        <div class="loginWrapTop">
-                            <div class="loginInputWrap">
+                    <!-- 로그인 된 상태 -->
+                    <div th:if="${session.userData != null}">
+                        <div class="loginWrap yesLogin">
+                            <div class="yesLoginDiv1">
+                                <div id="loginName2" class="nameDisplay" th:text="${session.userData.name}">이름</div>
+                                <div>
+                                    <ul>
+                                        <li><a class="btn small">내정보수정</a></li>
+                                        <li><a href="#" id="logoutBtn2" class="btn nobtn logoutBtn">로그아웃</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="yesLoginDiv2">
+                                <div><img src="/static/images/common/minimi/exNewItemImage2.png"/></div>
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <span class="title">일촌ON</span>
+                                            <span class="text">11</span>
+                                        </li>
+                                        <li>
+                                            <span class="title">쪽지</span>
+                                            <span class="text">30</span>
+                                        </li>
+                                        <li>
+                                            <span class="title">오늘 방문자</span>
+                                            <span class="text">113</span>
+                                        </li>
+                                        <li>
+                                            <span class="title">새 게시물</span>
+                                            <span class="text">2</span>
+                                        </li>
+                                        <li>
+                                            <span class="title">일촌신청</span>
+                                            <span class="text">4</span>
+                                        </li>
+                                        <li>
+                                            <span class="title">보유도토리</span>
+                                            <span class="text"><img src="/static/images/common/dotori.png"> <span class="text">720</span> <a class="btn small di rechargePageBtn">충전</a></span>
+                                        </li>
+                                    
+                                    </ul>
+                                </div>
+                            </div>
+                            <a class="btn">내 미니홈피 바로가기</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 로그인 전 상태 -->
+                    <div th:if="${session.userData == null}">
+                        <div class="loginWrap noLogin">
+                            <div class="loginWrapTop">
+                                <div class="loginInputWrap">
+                                    <ul>
+                                        <li><input type="text" id="loginId2" placeholder="아이디"></li>
+                                        <li><input type="password" id="password2" placeholder="비밀번호"></li>
+                                    </ul>
+                                </div>
+                                <div class="loginBtnWrap">
+                                    <a href="#" id="loginBtn2" class="loginBtn btn">로그인</a>
+                                </div>
+                            </div>
+                            <div class="loginWrapBot">
                                 <ul>
-                                    <li><input type="text" id="loginId2"></li>
-                                    <li><input type="password" id="password2"></li>
+                                    <li><a href="#" id="signupBtn2" class="signupBtn btn">회원가입</a></li>
+                                    <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
                                 </ul>
                             </div>
-                            <div class="loginBtnWrap">
-                                <a href="#" id="loginBtn2" class="loginBtn btn">로그인</a>
-                            </div>
-                        </div>
-                        <div class="loginWrapBot">
-                            <ul>
-                                <li><a href="#" id="signupBtn" class="signupBtn btn">회원가입</a></li>
-                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
-                <!--login e-->
+                
                 <div class="mainTopCenter">
                     <!--메인슬라이더-->
                     <div class="swiper mySwiper">
@@ -299,8 +350,49 @@
             </div>
         </div>
     </div>
-    <!--메인 끝-->
-
+    <!-- 메인 끝 -->
+    <!-- 푸터 시작 -->
+    
+    <footer id="footer">
+        <div class="footerTopWrap">
+            <div class="footerTop">
+                <img src="/static/images/common/logo_full_w.png">
+                <div class="keywordBox">
+                    <p>
+                        MY WORLD,
+                    </p>
+                    <p>
+                        FRIENDSHIP,
+                    </p>
+                    <p>
+                        MEMORIES.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footerBotWrap">
+            <div class="footerBottom">
+                <div class="footerNav">
+                    <ul>
+                        <li><a target="_blank" onclick="openPop()">내 미니홈피</a></li>
+                        <li><a href="/giftShop/main">선물가게</a></li>
+                        <li><a href="#">장바구니</a></li>
+                        <li><a href="/notice">공지사항</a></li>
+                        <li><a href="#">ABOUT US</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <p>
+                        <span>ⓒ2025.Team.</span>
+                        <span class="teamName">WannabeDev</span>
+                        <span>All rights reserved.</span>
+                    </p>
+                    <p>Since 2025.02.24</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- 푸터 끝 -->
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
