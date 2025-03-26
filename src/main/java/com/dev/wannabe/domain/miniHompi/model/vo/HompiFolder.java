@@ -12,7 +12,8 @@ public class HompiFolder {
     private Long hompiId;
     private Long folderId;
     private String folderName;
-    private String contentType;
+    private String contentsType;
+    private String availStatus;
 
     private Long insertUserId;
     private LocalDateTime insertDt;
