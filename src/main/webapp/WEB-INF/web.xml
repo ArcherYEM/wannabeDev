@@ -64,6 +64,12 @@
     <location>/WEB-INF/views/common/error/error.html</location>
   </error-page>
 
+  <!-- js MIME TYPE -->
+  <mime-mapping>
+    <extension>js</extension>
+    <mime-type>application/javascript</mime-type>
+  </mime-mapping>
+
   <welcome-file-list>
     <welcome-file>home/main.html</welcome-file>
   </welcome-file-list>
