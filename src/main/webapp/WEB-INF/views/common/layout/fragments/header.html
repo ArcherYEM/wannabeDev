@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header">
-    <!-- Swal -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
-
     <header>
         <!--헤더 시작-->
         <div id="header">
@@ -27,7 +23,6 @@
             </div>
         </div>
         <!--헤더 끝-->
-
         <!--gnb 시작-->
         <div id="gnb">
             <div>
@@ -43,7 +38,5 @@
         <!--gnb 끝-->
         <link rel="stylesheet" href="/static/css/header.css">
     </header>
-    <script type="text/javascript" th:src="@{/static/js/common.js}"></script>
-    <script src="/static/js/home/login.js"></script>
 </th:block>
 </html>
