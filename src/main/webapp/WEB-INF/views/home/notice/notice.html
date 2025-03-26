@@ -28,7 +28,7 @@
     <!--메인 시작-->
     <div id="container">
         <div class="containerWrap">
-            <div id="menu">
+            <div id="menu" th:if="${userRole != '01'}">
                 <a> 공지 관리</a>
                 <a> 배너 관리</a>
             </div>
@@ -55,8 +55,8 @@
                             <option value="01" th:selected="${noticeType == '01'}">공지사항</option>
                             <option value="02" th:selected="${noticeType == '02'}">이벤트</option>
                             <option value="03" th:selected="${noticeType == '03'}">팝업</option>
-                            <option value="04" th:selected="${noticeType == '04'}">전체 쪽지</option>
-                            <option value="05" th:selected="${noticeType == '05'}">관리자 쪽지</option>
+                            <option value="04" th:selected="${noticeType == '04'}" th:if="${userRole != '01'}">전체 쪽지</option>
+                            <option value="05" th:selected="${noticeType == '05'}" th:if="${userRole != '01'}">관리자 쪽지</option>
                         </select>
                         <div class="search">
                             <input type="search" placeholder="입력창" id="search-keyword" th:value="${keyword}">
@@ -70,61 +70,60 @@
                                     <input type="checkbox" id="selectAll">
                                 </th>
                                 <th>
-                                    <select class="filterSelect">
+                                    <select class="filterSelect" id="change-filter">
                                         <option value="">분류(전체)</option>
-                                        <option value="01">공지</option>
+                                        <option value="01">공지사항</option>
                                         <option value="02">이벤트</option>
                                         <option value="03">팝업</option>
-                                        <option value="04">전체 쪽지</option>
-                                        <option value="05">관리자 쪽지</option>
+                                        <option th:if="${userRole != '01'}" value="04">전체 쪽지</option>
+                                        <option th:if="${userRole != '01'}" value="05">관리자 쪽지</option>
                                     </select>
-
-                                    </th>
+                                </th>
                                 <th>제목</th>
-                                <th>게시일</th>
+                                <th th:if="${userRole != '01'}">게시일</th>
                                 <th>작성일</th>
                                 <th>작성자</th>
                             </tr>
-                            <tr th:each="notice : ${notices}">
+                            <tr th:each="notice : ${notice}">
                                 <th>
                                     <input type="checkbox" class="rowCheckbox">
                                 </th>
                                 <th><p th:text="${notice.getNoticeTypeName}" th:classappend="${notice.getNoticeTypeCssClass}">공지 사항</p></th>
-                                <th><a th:text="${notice.noticeTitle}">취업하고 놀고 싶다~!!</a></th>
-                                <th th:text="${notice.getDateRange}">2025.03.19~2025.03.21</th>
+                                <th><a th:text="${notice.noticeTitle}" href="/notice/view">취업하고 놀고 싶다~!!</a></th>
+                                <th th:if="${userRole != '01'}" th:text="${notice.getDateRange}">2025.03.19~2025.03.21</th>
                                 <th th:text="${notice.insertDT}">2025.03.19</th>
                                 <th th:text="${notice.loginId}">산토끼</th>
                             </tr>
                         </table>
                     </div>
                     <div class="page">
-                        <button class="delete">선택 삭제</button>
+                        <button class="delete" th:if="${userRole != '01'}">선택 삭제</button>
                         <span>
                             <!-- 첫 번째 페이지 버튼 -->
                             <a th:if="${currentPage > 1}"
-                            th:href="@{|?limit=${limit}&offset=0|}"
+                            th:href="@{|?limit=${limit}&offset=0&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
                             class="first"></a>
                                                     <!-- 이전 페이지 버튼 -->
                             <a th:if="${startPage > 1}"
-                               th:href="@{|?limit=${limit}&offset=${(startPage - 2) * limit}|}"
+                               th:href="@{|?limit=${limit}&offset=${(startPage - 2) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
                                class="prev"></a>
 
                                                     <!-- 페이지 번호 버튼들 -->
                             <span th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                                 <a th:href="@{|?limit=${limit}&offset=${(page - 1) * limit}|}"
+                                 <a th:href="@{|?limit=${limit}&offset=${(page - 1) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
                                     th:text="${page}"
                                     th:classappend="${page == currentPage} ? 'active' : ''"></a>
                             </span>
 
-                                                    <!-- 다음 페이지 버튼 -->
+                            <!-- 다음 페이지 버튼 -->
                             <a th:if="${endPage < totalPages}"
-                               th:href="@{|?limit=${limit}&offset=${endPage * limit}|}" class="next"></a>
+                               th:href="@{|?limit=${limit}&offset=${endPage * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="next"></a>
 
                                                     <!-- 마지막 페이지 버튼 -->
-                            <a th:unless="${currentPage == totalPages}"
-                               th:href="@{|?limit=${limit}&offset=${(totalPages - 1) * limit}|}" class="last"></a>
+                            <a th:unless="${endPage == 1 || currentPage == totalPages}"
+                               th:href="@{|?limit=${limit}&offset=${(totalPages - 1) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="last"></a>
                         </span>
-                        <button class="create">등록</button>
+                        <button class="create" th:if="${userRole != '01'}">등록</button>
                     </div>
                 </div>
             </div>
