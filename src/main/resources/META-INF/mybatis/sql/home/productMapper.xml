@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- productMapper.xml -->
+<!-- ProductMapper.xml -->
 <mapper namespace="com.dev.wannabe.domain.home.mapper.ProductMapper">
-    <!--id 값이 큰 상품 ->id 값이 작은 상품 순으로 1분씩 감소한 시간으로 설정-->
-    <update id="updateInsertDtWithInterval">
-<![CDATA[
-        UPDATE product p
-            JOIN (
-            SELECT product_id,
-            ROW_NUMBER() OVER (ORDER BY product_id DESC) AS rn
-            FROM product
-            WHERE product_id <= 51
-            ) ranked
-        ON p.product_id = ranked.product_id
-            SET p.insert_dt = DATE_SUB(NOW(), INTERVAL (ranked.rn - 1) MINUTE);
-        ]]>
-</update>
 
-    <select id="selectTop3ByProductType" resultType="com.dev.wannabe.domain.home.model.dto.ProductDTO">
-    <![CDATA[
-        SELECT *
-        FROM (
-        SELECT *,
-        ROW_NUMBER() OVER (PARTITION BY product_type ORDER BY insert_dt DESC) AS rn
-        FROM product
-        WHERE use_yn = 'Y'
-        ) ranked
-        WHERE rn <= 3
-        ]]>
+    <select id="selectTop3ByProductTypeSortedByInsertDt" resultType="com.dev.wannabe.domain.home.model.dto.ProductDTO">
+        SELECT
+            P.PRODUCT_ID,
+            P.PRODUCT_NAME,
+            P.PRODUCT_TYPE,
+            F.FILE_PATH,
+            F.FILE_NAME
+        FROM PRODUCT P
+                 JOIN ATTACH_FILE_MANAGE F ON P.ATTACH_FILE_ID = F.ATTACH_FILE_ID
+        WHERE P.PRODUCT_TYPE = #{productType}
+        ORDER BY P.INSERT_DT DESC
+            LIMIT 3
     </select>
 
 </mapper>
