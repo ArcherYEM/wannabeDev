@@ -24,7 +24,7 @@ function openminihompi() {
 function getminihompiDataList() {
     const url = window.location.pathname;
     const hompiId = url.split('/').pop();
-    const hompiDataUrl = `/mini-hompi/api/${hompiId}`;
+    const hompiDataUrl = `/api/minihompi/${hompiId}`;
     $.ajax({
         type: "GET",
         url: hompiDataUrl,
