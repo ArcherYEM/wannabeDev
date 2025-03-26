@@ -14,7 +14,7 @@ public class ProductService {
     private ProductMapper productMapper;
 
     // 상품 분류별 최신 3개 상품 조회
-    public List<ProductDTO> getTop3ProductsByType(String productType) {
-        return productMapper.selectTop3ByProductTypeSortedByInsertDt(productType);
+    public List<ProductDTO> getTop6ProductsByType(String productType) {
+        return productMapper.selectTop6ByProductTypeSortedByInsertDt(productType);
     }
 }
