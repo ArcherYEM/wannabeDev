@@ -54,13 +54,26 @@ public class LoginController {
      * 로그아웃 성공 시 200 Ok 반환
      * 로그아웃 실패 시 400 Bad Request 반환
      */
-    @PostMapping("/logout")
+/*    @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
 
         if (loginService.logout()) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
+        }
+    }*/
+    
+    @PostMapping("/logout")
+    public ResponseEntity<LoginResponse> logout() {
+        try {
+            if (loginService.logout()) {
+                return ResponseEntity.status(HttpStatus.OK).body(LoginResponse.success());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(LoginResponse.notFound());
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(LoginResponse.serverError());
         }
     }
 

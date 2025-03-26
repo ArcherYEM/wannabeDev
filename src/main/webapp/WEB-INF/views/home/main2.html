@@ -26,11 +26,24 @@
             <a href="/" class="logo"><img src="/static/images/common/logo_full.png"></a>
         </div>
         <div class="headerRight">
-            <ul>
-                <li><input type="text" id="loginId" placeholder="아이디"></li>
-                <li><input type="password" id="password" placeholder="비밀번호"></li>
-                <li><a href="#" id="loginBtn" class="btn loginBtn">로그인</a></li>
-            </ul>
+            <!-- 로그인 된 상태 -->
+            <div th:if="${session.userData != null}">
+                <ul>
+                    <li id="loginIp" class="ipDisplay" th:text="${session.userData.accessIp}">아이피</li>
+                    <li id="loginName" class="nameDisplay" th:text="${session.userData.name}">이름</li>
+                    <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
+                    <li><a href="/userUpdate"><img src="/static/images/common/option.png"></a></li>
+                    <li><a href="#" id="logoutBtn" class="btn nobtn logoutBtn">로그아웃</a></li>
+                </ul>
+            </div>
+            <!-- 로그인 전 상태 -->
+            <div th:if="${session.userData == null}">
+                <ul>
+                    <li><input type="text" id="loginId" placeholder="아이디"></li>
+                    <li><input type="password" id="password" placeholder="비밀번호"></li>
+                    <li><a href="#" id="loginBtn" class="btn loginBtn">로그인</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <!--헤더 끝-->
