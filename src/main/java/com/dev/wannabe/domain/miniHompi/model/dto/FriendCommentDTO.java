@@ -15,6 +15,7 @@ public class FriendCommentDTO {
     private String friendComments; //일촌평 내용
     private String fixedYn; //고정여부
     private String insertDt; //작성일
+    private String updateDt; //업데이트일
 
     private String name; //이름
 
