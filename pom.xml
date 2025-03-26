@@ -47,7 +47,6 @@
             </exclusions>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -121,7 +120,6 @@
             <artifactId>guava</artifactId>
             <version>30.1.1-jre</version>
         </dependency>
-
 
         <!-- SLF4J API -->
         <dependency>
@@ -202,9 +200,23 @@
             <version>5.8.5</version>
         </dependency>
 
-
-
 <!--외부API관련-->
+
+        <!-- 이메일 인증 -->
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!-- 이메일 인증 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
         <!-- Spring WebFlux 관련 의존성 -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -241,6 +253,7 @@
             <classifier>osx-aarch_64</classifier>
             <scope>runtime</scope>
         </dependency>
+
         <!-- JSON 도구 -->
         <dependency>
             <groupId>org.json</groupId>

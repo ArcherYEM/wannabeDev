@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="header">
-    <!-- Swal -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!--    <script src="sweetalert2.all.min.js"></script>-->
+
 
     <header>
         <!--헤더 시작-->
         <div id="header">
             <div class="headerLeft">
-                <a href="#" class="logo"><img src="/static/images/common/logo_full.png"></a>
+                <a href="/" class="logo"><img src="/static/images/common/logo_full.png"></a>
             </div>
             <div class="headerRight yesLogin">
                 <ul>
-                    <li class="ipDisplay">접속 IP 확인불가</li>
-                    <li class="nameDisplay">홍길동</li>
+                    <li id="ipDisplayHeader" class="ipDisplay">접속 IP 확인불가</li>
+                    <li id="nameDisplayHeader" class="nameDisplay">홍길동</li>
                     <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
-                    <li><a href="/"><img src="/static/images/common/option.png"></a></li>
+                    <!-- 회원정보 수정 -->
+                    <li><a href="/userUpdate"><img src="/static/images/common/option.png"></a></li>
                     <li><a href="/" class="btn nobtn logoutBtn">로그아웃</a></li>
                 </ul>
             </div>
@@ -25,7 +24,6 @@
             </div>
         </div>
         <!--헤더 끝-->
-
         <!--gnb 시작-->
         <div id="gnb">
             <div>
@@ -41,7 +39,5 @@
         <!--gnb 끝-->
         <link rel="stylesheet" href="/static/css/header.css">
     </header>
-    <script type="text/javascript" th:src="@{/static/js/common.js}"></script>
-    <script src="/static/js/home/login.js"></script>
 </th:block>
 </html>
