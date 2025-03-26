@@ -9,6 +9,7 @@ public class FolderFindDTO {
 
     private Long hompiId;
     private String contentsType;
+    private String availStatus;
     private Long folderId;
 
 }
