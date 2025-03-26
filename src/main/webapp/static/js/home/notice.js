@@ -32,112 +32,87 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// select 선택에 따라 limit 변경 및 main 높이 설정
+// select 선택에 따라 limit 변경
 document.addEventListener("DOMContentLoaded", function () {
     const select = document.getElementById("data-limit");
-    const mainDiv = document.getElementById("main");
 
-    // 현재 선택된 값 기준 class 설정
-    function applyMainClass(limit) {
-        mainDiv.classList.remove("default-style", "compact-style", "mini-style");
-
-        if (limit == 10) mainDiv.classList.add("default-style");
-        else if (limit == 30) mainDiv.classList.add("compact-style");
-        else if (limit == 50) mainDiv.classList.add("mini-style");
-    }
-
-    // 페이지 로드시 초기 class 설정
-    applyMainClass(select.value);
-
-    // limit 변경 시 class 갱신 + 페이지 이동
+    // 페이지 로드시 limit 값으로 페이지 리로드
     select.addEventListener("change", function () {
         const selectedLimit = this.value;
-        applyMainClass(selectedLimit);
 
         // 페이지 리로드
         const url = new URL(window.location.href);
         url.searchParams.set("limit", selectedLimit);
-        url.searchParams.set("offset", 0);
+        url.searchParams.set("offset", 0);  // 페이지 번호를 1로 초기화
         window.location.href = url.toString();
     });
 });
 
-
-// select 연동하기
+//검색 기능
 document.addEventListener("DOMContentLoaded", function () {
-    // 모든 .sync-select 클래스를 가진 select 요소들을 선택
-    const selects = document.querySelectorAll(".filterSelect");
+    const filterType = document.getElementById("filter-type");  // filter-type select
+    const changeFilter = document.getElementById("change-filter");  // change-filter select
+    const searchKeyword = document.getElementById("search-keyword");  // 검색어 input
+    const selectLimit = document.getElementById("data-limit");  // limit select
 
-    // 양방향 연동 함수
-    function syncSelect(fromSelect, toSelect) {
-        toSelect.value = fromSelect.value;
+    // URL에서 `type` 값을 가져와서 filter-type과 change-filter의 값을 동기화
+    const urlParams = new URLSearchParams(window.location.search);
+    const typeFromUrl = urlParams.get("Type");
+
+    if (typeFromUrl) {
+        filterType.value = typeFromUrl;
+        changeFilter.value = typeFromUrl;  // change-filter의 값도 `type`에 맞게 설정
     }
 
-    // 각 select에 대해 이벤트 리스너를 추가하여 서로 동기화
-    selects.forEach(select => {
-        select.addEventListener("change", function () {
-            // 변경된 select의 값을 다른 모든 select에 동기화
-            selects.forEach(otherSelect => {
-                if (otherSelect !== select) {
-                    syncSelect(select, otherSelect);
-                }
-            });
-        });
+    // filter-type 값 변경 시 change-filter 값 동기화
+    filterType.addEventListener("change", function () {
+        changeFilter.value = this.value;  // filter-type의 값을 change-filter로 설정
+        executeSearch();  // 자동으로 검색 실행
     });
-});
 
-// 검색 기능
-document.addEventListener("DOMContentLoaded", function () {
-    const select = document.getElementById("data-limit");
-    const mainDiv = document.getElementById("main");
-
-    function applyMainClass(limit) {
-        mainDiv.classList.remove("default-style", "compact-style", "mini-style");
-        if (limit == 10) mainDiv.classList.add("default-style");
-        else if (limit == 30) mainDiv.classList.add("compact-style");
-        else if (limit == 50) mainDiv.classList.add("mini-style");
-    }
-
-    // 초기 스타일 적용
-    applyMainClass(select.value);
-
-    // limit 변경 시 스타일 및 페이지 이동
-    select.addEventListener("change", function () {
-        const selectedLimit = this.value;
-        applyMainClass(selectedLimit);
-
-        const url = new URL(window.location.href);
-        url.searchParams.set("limit", selectedLimit);
-        url.searchParams.set("offset", 0);
-        window.location.href = url.toString();
+    // change-filter 값 변경 시 filter-type 값 동기화 및 자동 검색
+    changeFilter.addEventListener("change", function () {
+        filterType.value = this.value;  // change-filter의 값을 filter-type으로 설정
+        executeSearch();  // 자동으로 검색 실행
     });
 
     // 공통 검색 실행 함수
     function executeSearch() {
-        const type = document.getElementById("filter-type").value;
-        const field = document.getElementById("filter-field").value;
-        const keyword = document.getElementById("search-keyword").value;
-        const limit = document.getElementById("data-limit").value;
+        const type = document.getElementById("filter-type").value;  // filter-type의 value 값
+        const field = document.getElementById("filter-field").value;  // filter-field의 value 값
+        const keyword = document.getElementById("search-keyword").value;  // 검색어
+        const limit = document.getElementById("data-limit").value;  // limit 값
 
         let url = "/notice?";
-        if (type) url += `noticeType=${type}&`;
-        if (field) url += `field=${field}&`;
-        if (keyword) url += `keyword=${encodeURIComponent(keyword)}&`;
-        url += `limit=${limit}&offset=0`;
+        url += `limit=${limit}&offset=0&`;  // offset은 기본적으로 0으로 설정 (첫 페이지)
+        if (field) url += `field=${field}&`;  // field가 있으면 추가
+        if (type) url += `Type=${type}&`;  // type이 있으면 추가
+        if (keyword) url += `keyword=${encodeURIComponent(keyword)}`;  // keyword가 있으면 추가
 
         window.location.href = url;
     }
 
-    // 검색 버튼 클릭
+    // 검색 버튼 클릭 시 executeSearch 함수 실행
     document.getElementById("search-btn").addEventListener("click", executeSearch);
 
-    // 검색 input에서 Enter 입력
+    // 검색 input에서 Enter 입력 시 executeSearch 함수 실행
     document.getElementById("search-keyword").addEventListener("keypress", function (e) {
         if (e.key === 'Enter') {
-            e.preventDefault();
-            executeSearch();
+            e.preventDefault();  // Enter 키 기본 동작 방지
+            executeSearch();  // 검색 실행
         }
     });
+
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const fieldSelect = document.getElementById("filter-field");
+    const urlParams = new URLSearchParams(window.location.search);
+    const fieldFromUrl = urlParams.get("field");
 
+    if (fieldFromUrl) {
+        fieldSelect.value = fieldFromUrl;  // URL에서 가져온 값을 filter-field에 설정
+    } else {
+        fieldSelect.value = 'all';  // URL에 값이 없으면 기본값을 'all'로 설정
+    }
+});

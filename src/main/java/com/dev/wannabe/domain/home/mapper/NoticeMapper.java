@@ -10,7 +10,7 @@ import java.util.Map;
 public interface NoticeMapper {
 
 //    // 공지사항 목록 조회
-    int getFilteredNoticesCount();
+    Integer getFilteredNoticesCount(Map<String, Object> params);
 
     List<NoticeDTO> getFilteredNotices(Map<String, Object> params);
 }
