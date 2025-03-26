@@ -1,21 +1,4 @@
-$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "userInfo",
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response) {
-            $(".ipDisplay").text(response.accessIp);
-            $(".nameDisplay").text(response.name);
-        },
-        error: function (error) {
-            console.error(error);
-        }
-    });
-
-})
-
-$(function () {
+$(function (){
 
 });
 
@@ -47,4 +30,16 @@ function openPop() {
             });
         }
     });
+}
+
+// 스피너 on
+function showLoadingSpinner() {
+    $('.spinner-background').show();
+    $('.loading-spinner-spin').show();
+}
+
+// 스피너 off
+function hideLoadingSpinner() {
+    $('.spinner-background').hide();
+    $('.loading-spinner-spin').hide();
 }

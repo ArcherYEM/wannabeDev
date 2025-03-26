@@ -4,11 +4,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/layout}">
 <head>
+    <meta charset="UTF-8">
+    <title>onlineMain</title>
     <title layout:fragment="title">워너비</title>
     <!-- 메인 페이지 전용 스타일 -->
     <link rel="stylesheet" th:href="@{/static/css/weather.css}" layout:fragment="styles"/>
     <link rel="stylesheet" th:href="@{/static/css/movie.css}" layout:fragment="styles"/>
     <link rel="stylesheet" th:href="@{/static/css/imageSlide.css}" layout:fragment="styles"/>
+    <link rel="stylesheet" th:href="@{/static/css/common/common.css"} layout:fragment="styles" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
           layout:fragment="styles"/>
 </head>
@@ -22,7 +25,23 @@
                 <!--login s-->
                 <div class="mainTopLeft">
                     <div class="loginWrap noLogin">
-                        <th:block th:include="/home/fragment/noLoginInclude :: noLoginFragment"></th:block>
+                        <div class="loginWrapTop">
+                            <div class="loginInputWrap">
+                                <ul>
+                                    <li><input type="text" name="loginId"></li>
+                                    <li><input type="password" name="password"></li>
+                                </ul>
+                            </div>
+                            <div class="loginBtnWrap">
+                                <a href="#" class="loginBtn btn">로그인</a>
+                            </div>
+                        </div>
+                        <div class="loginWrapBot">
+                            <ul>
+                                <li><a href="#" class="signupBtn btn">회원가입</a></li>
+                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
                 </div>
@@ -230,17 +249,18 @@
                     </div>
                     <div class="bot">
                         <p class="movie">영화추천</p>
-                        <span class="todayMovie">
-
-                        </span>
-
-                        <div class="movieWrapper" id="movieWrapper">
-                        </div>
+                        <span class="movie_todayMovie"></span>
+                        <div class="movieWrapper" id="movieWrapper"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!--메인 끝-->
+
+    <!-- 로딩 스피너 -->
+    <th:block th:replace="common/layout/fragments/loading :: loadingSpinner"/>
+    <script src="/static/js/home/mainHome.js"></script>
 </div>
 <!-- 메인 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
@@ -248,8 +268,6 @@
     <script src="/static/js/home/newsSection.js"></script>
     <script src="/static/js/home/weather.js"></script>
     <script src="/static/js/findIdAndPw.js"></script>
-    <script src="/static/js/home/movie.js"></script>
-    <script src="/static/js/home/imageSlide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </th:block>
 </body>

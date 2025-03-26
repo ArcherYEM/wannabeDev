@@ -29,6 +29,8 @@ public interface HompiMapper {
     // userId로 hompiId 추출
     Long findHompiIdByUserId(Long userId);
 
+    Long findUserIdByHompiId(Long hompiId);
+
     Hompi findHompiByUserId(Long userId);
 
     HompiBasicInfoDTO findHompiBasicInfoByUserId(Long userId);
