@@ -18,7 +18,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class NoticeService {
-
     @Autowired
     private NoticeMapper noticeMapper;
 
@@ -43,8 +42,6 @@ public class NoticeService {
             }
         }
 
-
-
         // 파라미터 구성
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
@@ -59,14 +56,11 @@ public class NoticeService {
             params.put("excludeNoticeTypes", new String[] {"04", "05"});
         }
 
-
-
         // 데이터 조회
         List<NoticeDTO> notice = noticeMapper.getFilteredNotices(params);
         int totalNoticesCount = noticeMapper.getFilteredNoticesCount(params);
 
-        System.out.println(notice);
-
+//        System.out.println(notice);
         // 4. 날짜 가공
         for (NoticeDTO noticeday : notice) {
             noticeday.getDateRange();
@@ -77,7 +71,6 @@ public class NoticeService {
         int currentPage = offset / limit + 1;
         int startPage = ((currentPage - 1) / 10) * 10 + 1;
         int endPage = totalPages == 0 ? 1 : Math.min(startPage + 9, totalPages);
-
 
         // 결과 반환
         Map<String, Object> result = new HashMap<>();

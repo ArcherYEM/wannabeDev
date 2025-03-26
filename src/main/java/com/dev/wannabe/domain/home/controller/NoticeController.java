@@ -38,7 +38,10 @@ public class NoticeController {
 
         // 유저 권한 정보
         SessionUserDTO user = (SessionUserDTO) session.getAttribute("userData");
-        String userRole = user.getRole();
+        String userRole = "01"; // default role
+        if (user != null){
+            userRole = user.getRole();
+        }
 
         // Service에 모든 로직 위임
         Map<String, Object> result = noticeService.getNoticePage(limit, offset, noticeType, field, keyword, userRole);
