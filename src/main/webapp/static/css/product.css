@@ -1,0 +1,35 @@
+#product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.product-card {
+    width: calc(33.33% - 13.33px); /* 3개씩 배치 */
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* 살짝 확대 */
+}
+
+.product-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.product-name {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
