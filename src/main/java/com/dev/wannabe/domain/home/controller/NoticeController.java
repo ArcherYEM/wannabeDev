@@ -32,13 +32,13 @@ public class NoticeController {
                          @RequestParam(name = "Type", required = false) String noticeType,
                          @RequestParam(name = "field", required = false) String field,
                          @RequestParam(name = "keyword", required = false) String keyword) {
+        // DB에 검색 데이터 가 없으면 offset 이 음수로 나와서 오류발생 offset 음수 방지함수
+        if (offset < 0) offset = 0;
 
-        if (offset < 0) offset = 0;  // offset 음수 방지
 
-
-
+        // 유저 권한 정보
         SessionUserDTO user = (SessionUserDTO) session.getAttribute("userData");
-        String userRole = user.getRole();  // 유저 권한 정보
+        String userRole = user.getRole();
 
         // Service에 모든 로직 위임
         Map<String, Object> result = noticeService.getNoticePage(limit, offset, noticeType, field, keyword, userRole);
