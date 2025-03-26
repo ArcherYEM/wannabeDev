@@ -113,7 +113,7 @@ input[readonly] {background-color: #f3f3f3 !important; color: #6c6d73; border-co
 input.disabled {background-color: #f3f3f3 !important; color: #6c6d73; border-color: #ccc !important}
 
 button {vertical-align:middle; cursor:pointer;outline: none;}
-button:focus {outline: 1px dotted #111 !important;}
+button:focus {outline: none;}
 
 textarea {border: 1px solid #ccc; padding: 10px; resize: none; vertical-align: middle; line-height: 22px; box-sizing: border-box;}
 textarea::placeholder {font-size: 13px !important}
@@ -125,7 +125,7 @@ strong{font-weight:bold;/*font-family:NotoKR-Bold;*/}
 input:focus,
 select:focus,
 textarea:focus {
-    outline: 1px dotted #111;
+    outline: none;
 }
 
 ::placeholder {color: #666;opacity: 1}
