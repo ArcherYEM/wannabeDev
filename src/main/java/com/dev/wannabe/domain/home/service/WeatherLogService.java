@@ -34,7 +34,6 @@ public class WeatherLogService {
         }
     }
 
-    // 최초 접속 시 데이터가 없으면 서울 날씨를 저장 (옵션)
     public void saveInitialWeatherData(String city) {
         if (weatherLogMapper.getLatestWeatherLog() == null) {
             saveWeatherData(city);
@@ -121,7 +120,6 @@ public class WeatherLogService {
                     ZoneId.of("Asia/Seoul")
             );
 
-            // 🔥 DTO에 시간을 반드시 설정해줘야 함! 🔥
             weatherLogDTO.setInsertDt(koreaTime);
             weatherLogDTO.setUpdateDt(koreaTime);
 
