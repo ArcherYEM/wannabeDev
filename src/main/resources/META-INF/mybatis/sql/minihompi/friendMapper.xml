@@ -20,4 +20,29 @@
              READ_YN = #{readYN},
              UPDATE_USER_ID = #{updateUserId}
     </insert>
+
+    <insert id="saveFriendInfo" parameterType="FriendInfo">
+        INSERT INTO FRIEND_INFO (
+            USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME
+        )
+        VALUES (
+            #{userId},
+            #{friendUserId},
+            #{userNickname},
+            #{friendUserNickname}
+        )
+    </insert>
+
+    <select id="existsByUserIdAndFriendId" parameterType="Map" resultType="Boolean">
+        SELECT COUNT(*) > 0
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId}
+            AND FRIEND_USER_ID = #{friendId}
+    </select>
+
+    <select id="findAllFriendInfoByUserId" parameterType="Long" resultType="FriendInfo">
+        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId}
+    </select>
 </mapper>

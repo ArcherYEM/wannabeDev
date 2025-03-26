@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <th:block th:fragment="myModal">
-
 <div id="idPwModal" class="hidden">
     <div id="idPwModalContents">
         <div class="logoContainer">
@@ -18,33 +17,89 @@
             </div>
             <form>
                 <div class="userInfoId">
-                    <div class="username">
-                        <label for="name">이름</label>
-                        <input class="nameInput" type="text" id="name" name="name">
+                    <div class="findIdUsername">
+                        <label for="nameInput">이름</label>
+                        <input class="nameInput" type="text" id="nameInput" name="nameInput" placeholder="이름을 입력하세요">
                     </div>
                     <div class="userDOB">
                         <label>생년월일</label>
                         <div class="selectDiv">
-                            <select id="birthYear" name="birthYear"></select>
-                            <select id="birthMonth" name="birthMonth"></select>
-                            <select id="birthDay" name="birthDay"></select>
+                            <select id="birthYear" name="birthYear">
+                                <option value="" selected disabled hidden>년</option>
+                            </select>
+                            <select id="birthMonth" name="birthMonth">
+                                <option value="" selected disabled hidden>월</option>
+                            </select>
+                            <select id="birthDay" name="birthDay">
+                                <option value="" selected disabled hidden>일</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="errorMessageDiv">
+
+                    </div>
+                </div>
+            </form>
+                <div class="userInfoPw" style="display: none;">
+                    <div class="findPwId">
+                        <label for="idInput">아이디</label>
+                        <input class="idInput" type="text" id="idInput" name="idInput" placeholder="아이디를 입력하세요">
+                    </div>
+                    <div class="emailContainer">
+                        <div class="emailDiv">
+                            <label for="emailInput">이메일</label><br>
+                            <input class="emailInput" type="email" id="emailInput" name="emailInput" placeholder="이메일을 입력하세요">
+                            <button class="emailBtn sendBtn" type="button">인증번호 전송</button>
+                        </div>
+                        <div class="codeCheckDiv">
+                            <label for="codeCheck"></label>
+                            <input class="codeCheck" type="text" id="codeCheck" name="codeCheck" placeholder="이메일로 발송된 인증번호를 입력해주세요">
+                            <button class="emailBtn checkBtn" type="button">인증번호 확인</button>
                         </div>
                     </div>
                 </div>
             </form>
-            <form>
-                <div class="userInfoPw" style="display: none;">
-                    <div>
-                        아이디
+            <div class="showIdDiv" style="display: none;">
+                <div class="logoDiv">
+                    <img src="/static/images/common/logo.png">
+                </div>
+                <div class="showId">
+
+                </div>
+                <div class="menuBtnDiv">
+                    <div class="findPwBtnContainer">
+                        <button class="findPwBtn1 modalBtn">비밀번호 찾기</button>
                     </div>
-                    <div>
-                        이메일
+                    <div class="cancelBtnContainer">
+                        <button class="outBtn modalBtn">취소</button>
                     </div>
                 </div>
-            </form>
+            </div>
+            <div class="pwdChangeContainer" style="display: none;">
+                <div class="hiddenDiv" style="display:none;">
+                    <input class="loginIdInputHidden">
+                    <input class ="emailInputHidden">
+                </div>
+                <div class="pwdChange">
+                    <span>비밀번호 변경</span>
+                </div>
+                <div class="pwdChangeDiv">
+                    <div class="pwdInputDiv">
+                        <label for="pwdInput">새 비밀번호</label>
+                        <input class="pwdInput" type="text" id="pwdInput" name="pwdInput" placeholder="새 비밀번호를 입력해주세요.">
+                    </div>
+                    <div class="pwdInputCheckDiv">
+                        <label for="pwdInputCheck">새 비밀번호 확인</label>
+                        <input class="pwdInputCheck" type="text" id="pwdInputCheck" name="pwdInputCheck" placeholder="새 비밀번호를 다시 입력하세요.">
+                    </div>
+                </div>
+            </div>
             <div class="bottom">
                 <div class="findBtnDiv">
                     <button class="findBtn modalBtn">찾기</button>
+                </div>
+                <div class="changePwdDiv" style="display: none;">
+                    <button class="changePwdBtn modalBtn">변경하기</button>
                 </div>
                 <div class="cancelBtnDiv">
                     <button class="cancelBtn modalBtn">취소</button>
@@ -53,7 +108,7 @@
         </div>
     </div>
 </div>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="/static/css/findIdAndPw.css">
 </th:block>
 </html>

@@ -5,6 +5,21 @@ wannabe:
     username: admin
     password: wannabe0224
 
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: wannabedevplease@gmail.com
+  password: attndoggdrzuohmz
+  properties:
+    mail.smtp.ssl.trust: smtp.gmail.com
+    mail.smtp.ssl.protocols: TLSv1.2
+    mail.smtp.auth: true
+    mail.smtp.starttls.enable: true
+    mail.smtp.starttls.required: true
+    mail.smtp.connectiontimeout: 10000
+    mail.smtp.timeout: 10000
+    mail.smtp.writetimeout: 10000
+    mail.debug: false
 
 spring:
   config:

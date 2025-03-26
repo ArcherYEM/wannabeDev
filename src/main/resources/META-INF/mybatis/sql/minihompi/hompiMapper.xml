@@ -48,13 +48,13 @@
         )
         VALUES (
             #{hompiId},
-            #{hompiConfigCode},
-            #{hompiConfigContent},
-            #{insertUserId}
+        #{hompiConfigCode},
+        #{hompiConfigContent},
+        #{insertUserId}
         )
         ON DUPLICATE KEY UPDATE
-            HOMPI_CONFIG_CONTENT = #{hompiConfigContent},
-            UPDATE_USER_ID = #{updateUserId}
+        HOMPI_CONFIG_CONTENT = #{hompiConfigContent},
+        UPDATE_USER_ID = #{updateUserId}
     </insert>
 
     <insert id="saveAllHompiMenu" parameterType="HompiMenu">
@@ -123,10 +123,16 @@
         FROM HOMPI
         WHERE OWNER_USER_ID = #{userId}
     </select>
-    
+
     <select id="findHompiBasicInfoByUserId" parameterType="Long">
         SELECT HOMPI_ID, HOMPI_URL, HOMPI_TITLE
         FROM HOMPI
         WHERE OWNER_USER_ID = #{userId}
+    </select>
+
+    <select id="findUserIdByHompiId" parameterType="Long" resultType="Long">
+        SELECT OWNER_USER_ID
+        FROM HOMPI
+        WHERE HOMPI_ID = #{hompiId}
     </select>
 </mapper>

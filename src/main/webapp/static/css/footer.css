@@ -1,35 +1,78 @@
 #footer{
     width:100%;
-    overflow:hidden;
-    padding:20px 30px;
+    height: 200px;
     box-sizing:border-box;
-    position:relative;
-    bottom: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    background-color: #534439;
+    color: #DFE0DF;
 }
 
-#footer div.footerWrap{
+#footer .footerWrap {
+    width: 100%;
     max-width:1280px;
-    margin:0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#footer div.footerWrap div{
-    max-width:1280px;
-    height:30px;
-    margin:0 auto;
-    border-top:1px solid var(--color-gray);
-/*    border-bottom:1px solid var(--color-gray);*/
+.footerTop{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px;
+    gap: 5px;
 
+    img {
+        width: 150px;
+    }
 }
 
-#footer div.footerWrap p{
-    text-align:center;
-    font-size:14px;
+.keywordBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    p {
+        font-size: 18px;
+    }
 }
 
-#footer div.footerWrap span{
-    color:var(--color-gray);
-    font-size:18px;
-    font-weight:bold;
-}
+.footerBottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-top: solid 1px #DFE0DF;
+    padding: 10px 0px;
 
-#footer div.footerWrap span.basic{color:var(--color-basic);}
+    ul {
+        display: flex;
+        gap: 10px;
+        font-size:14px;
+
+        li {
+            cursor: pointer;
+        }
+    }
+
+    a {
+        color: #DFE0DF;
+        text-decoration: none;
+    }
+
+    p {
+        text-align:right;
+        font-size:14px;
+    }
+
+    span.teamName{
+        font-weight:bold;
+        color:var(--color-basic);
+    }
+}
