@@ -18,4 +18,8 @@ public interface FolderMapper {
 
     List<FolderContentsDTO> findAllFolderContentByFolderFind(FolderFindDTO folderFind);
 
+    void updateFolder(FolderDTO folder);
+
+    void updateFolderContent(FolderContentsDTO folderContentsDTO);
+
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/layout}">
+<head>
+    <title layout:fragment="title">회원정보 수정</title>
+    <!-- 회원정보수정 페이지 전용 스타일 -->
+    <link rel="stylesheet" th:href="@{static/css/userUpdate.css}" layout:fragment="styles">
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- 회원정보 수정 -->
+    <div id="container">
+        <div class="containerWrap">
+            <div class="userUpdateWrap">
+                <div class="userInfoModify">
+                    <h2>회원정보 수정</h2>
+                    <p class="subTitle">기본정보</p>
+                    <div class="userBox defaultInfoBox">
+                        <div class="defaultKey">
+                            <span>아이디</span>
+                            <span>이름</span>
+                            <span>생년월일</span>
+                            <span>성별</span>
+                        </div>
+                        <div class="defaultValue">
+                            <span>login_test</span>
+                            <span>김마요</span>
+                            <span>1999.01.01</span>
+                            <span>남성</span>
+                        </div>
+                    </div>
+                    <p class="subTitle">비밀번호 변경</p>
+                    <div class="userBox changePwdBox">
+                        <div class="inputWrap">
+                            <label for="oldPwd">현재 비밀번호</label>
+                            <input id="oldPwd" type="password" placeholder="비밀번호를 입력하세요"/>
+                        </div>
+                        <div class="inputWrap">
+                            <label for="newPwd">새 비밀번호</label>
+                            <input id="newPwd" type="password" placeholder="비밀번호를 입력하세요"/>
+                        </div>
+                        <div class="inputWrap">
+                            <div class="checkPwdWrap">
+                                <label for="checkPwd">새 비밀번호 확인</label>
+                                <span id="pwdMatchMsg" class="pwd-match-msg"></span>
+                            </div>
+                            <input id="checkPwd" type="password" placeholder="비밀번호를 재입력하세요"/>
+                        </div>
+                    </div>
+                    <p class="subTitle">개인정보 변경</p>
+                    <div class="userBox changeInfoBox">
+                        <div class="inputWrap">
+                            <label for="email">이메일 변경</label>
+                            <div class="inputButtonBox">
+                                <input id="email" type="email" placeholder="이메일을 입력하세요"/>
+                                <button class="checkButton">중복확인</button>
+                            </div>
+
+                        </div>
+                        <div class="inputWrap">
+                            <label for="phone">휴대폰 번호 변경</label>
+                            <div class="inputButtonBox">
+                                <input id="phone" type="tel" placeholder="번호를 입력하세요"/>
+                                <button class="checkButton">중복확인</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttonWrap">
+                        <button>수정완료</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- 회원정보수정 페이지 전용 JS -->
+<th:block layout:fragment="scripts">
+    <script src="/static/js/home/userUpdate.js"></script>
+</th:block>
+</body>
+</html>
