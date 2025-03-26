@@ -31,5 +31,9 @@ public interface MinihompiMapper {
     List<FriendCommentDTO> getFriendComment(Long hompiId);
 
     int friendCheck(Map<String, Object> map);
+
+    int insertFriendComment(Map<String, Object> param);
+
+    int deleteFriendComment(Map<String, Object> param);
 }
 

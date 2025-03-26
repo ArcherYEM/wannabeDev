@@ -154,9 +154,6 @@ public class MinihompiService {
         map.put("ownerUserId", ownerId);
         map.put("userId", userId);
         map.put("hompiId", hompiId);
-        MinihompiTotal minihompi = minihompiMapper.findMyhompi(map);
-
-
         String myHompi;
 
         if (userData == null) {
@@ -166,16 +163,46 @@ public class MinihompiService {
         } else {
             myHompi = "2"; // 남의 미니홈피
         }
+
         if (myHompi.equals("2")) {
             int myHompiCheck = minihompiMapper.friendCheck(map);
-
             if (myHompiCheck == 1) {
-                myHompi = "3"; //일촌
-            } else myHompi = "2"; //남의 미니홈피
+                myHompi = "3"; // 일촌
+            }
         }
+
         session.setAttribute("myHompiCheck", myHompi);
+        session.setAttribute("userId", userId);
+
         Map<String, Object> result = new HashMap<>();
         result.put("myHompiCheck", myHompi);
+        result.put("userId", userId);
         return result;
+    }
+
+    public int insertFriendComment(Long hompiId, SessionUserDTO userData, String fcContent, HttpSession session) {
+
+        Long userId = (userData != null) ? userData.getUserId() : null;
+
+        session.setAttribute("userId", userId);
+        String myHompi = (String) session.getAttribute("myHompiCheck");
+        int result = 0;
+        Map<String, Object> param = new HashMap<>();
+        param.put("hompiId", hompiId);
+        param.put("userId", userId);
+        param.put("fcContent", fcContent);
+        if (myHompi.equals("3")) {
+            result = minihompiMapper.insertFriendComment(param);
+            return result;
+        }
+        return result;
+    }
+
+    public int deleteFriendComment(Long hompiId, Long commentId) {
+        System.out.println("commentId:" + commentId);
+        Map<String, Object> param = new HashMap<>();
+        param.put("hompiId", hompiId);
+        param.put("commentId", commentId);
+        return minihompiMapper.deleteFriendComment(param);
     }
 }

@@ -111,10 +111,21 @@ public class MinihompiController {
                                                        HttpSession session) {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
         int result = minihompiService.insertFriendComment(hompiId, userData, fcContent, session);
-        if (result == 1) {
+        System.out.println("insert 결과: " + result);
+        if (result == 1 | result == 2) {
             return ResponseEntity.ok(result);
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/api/friendCommentDelete/{hompiId}/{commentId}")
+    public ResponseEntity<Integer> deleteFriendComment(@PathVariable Long hompiId, @PathVariable Long commentId) {
+        int result = minihompiService.deleteFriendComment(hompiId, commentId);
+        if (result == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/profile")
