@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/layout}">
+<head>
+  <!-- title 모듈화 필요 -->
+  <title layout:fragment="title">장바구니</title>
+  <link rel="stylesheet" th:href="@{static/css/notice/notice.css}" layout:fragment="styles">
+
+  <!--추후에 CSS 파일로 분리 필요-->
+  <style>
+    .cart_check_group {margin-top: 50px; padding-bottom: 5px; border-bottom: 2px solid #FF8000; display: flex; align-items: center; gap:5px;}
+    .cart_check_group span {font-size: 16px;}
+    .cart_check_group input {margin-left: 20px;}
+    .cart_container { display: flex; width: 100%; gap: 10px; margin:20px 0px 50px 0px;}
+    .left_boxes { width: 65%; display: flex; flex-direction: column; gap: 10px; }
+    .cart_box1, .cart_box2, .cart_box3 { border: 1px solid #9a9a9a; border-radius: 5px; padding: 15px; }
+    .cart_box1, .cart_box2 { min-height:250px; }
+    .cart_box3 { width: 35%; min-height: 500px; }
+    .cart_mini_title { font-size: 20px; font-weight: bold; color: #333; }
+    .cart_mini_title_left { border-bottom: 1px solid #9a9a9a; padding: 10px; }
+    .cart_item_group { display: flex; align-items: center; gap:10px; padding:20px 0px; border-bottom: 1px solid #cfcfcf; }
+    .cart_item_chk { flex: 1; }
+    .cart_item_img { flex: 3; text-align: center; }
+    .cart_item_info { flex: 5; }
+    .cart_item_btn { flex: 2; text-align: center; }
+    .cart_item_img img { height: 130px; }
+    .cart_item_btn img { height: 20px; }
+    .cart_item_info_ctgr { color:#595959; }
+    .cart_item_info_name { color:#333; font-size: 16px; font-weight: 600; margin: 10px 0px}
+  </style>
+
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <!-- 공지사항 -->
+    <div id="container">
+      <div class="containerWrap">
+        <div id="main">
+
+          <div class="menu_title">
+            <h1> 장바구니 </h1>
+          </div>
+
+          <div class="cart_check_group">
+            <input type="checkbox"/>
+            <span>전체선택</span>
+            |
+            <span>선택삭제</span>
+          </div>
+
+          <div class="cart_container">
+            <div class="left_boxes">
+
+              <!-- 미니홈피 아이템 장바구니 리스트 -->
+              <div class="cart_box1">
+                <p class="cart_mini_title cart_mini_title_left">미니홈피 아이템</p>
+                <!-- 리스트 출력부 -->
+                <div class="cart_item_group">
+                  <div class="cart_item_chk">
+                    <input type="checkbox">
+                  </div>
+                  <div class="cart_item_img">
+                    <img src="/static/images/common/minimi/human.png">
+                  </div>
+                  <div class="cart_item_info">
+                    <p class="cart_item_info_ctgr">미니미</p>
+                    <p class="cart_item_info_name">반팔 입은 머왕</p>
+                    <select>
+                      <option value="1" selected>1</option>
+                      <option value="7">7</option>
+                      <option value="30">30</option>
+                      <option value="90">90</option>
+                      <option value="365">365</option>
+                    </select>
+                  </div>
+                  <div class="cart_item_btn">
+                    <img src="/static/images/common/close.png">
+                  </div>
+                </div>
+                <!-- s: 더미데이터 -->
+                <div class="cart_item_group">
+                  <div class="cart_item_chk">
+                    <input type="checkbox">
+                  </div>
+                  <div class="cart_item_img">
+                    <img src="/static/images/common/minimi/human.png">
+                  </div>
+                  <div class="cart_item_info">
+                    <p class="cart_item_info_ctgr">미니미</p>
+                    <p class="cart_item_info_name">반팔 입은 머왕</p>
+                    <select>
+                      <option value="1" selected>1</option>
+                      <option value="7">7</option>
+                      <option value="30">30</option>
+                      <option value="90">90</option>
+                      <option value="365">365</option>
+                    </select>
+                  </div>
+                  <div class="cart_item_btn">
+                    <img src="/static/images/common/close.png">
+                  </div>
+                </div>
+                <div class="cart_item_group">
+                  <div class="cart_item_chk">
+                    <input type="checkbox">
+                  </div>
+                  <div class="cart_item_img">
+                    <img src="/static/images/common/minimi/human.png">
+                  </div>
+                  <div class="cart_item_info">
+                    <p class="cart_item_info_ctgr">미니미</p>
+                    <p class="cart_item_info_name">반팔 입은 머왕</p>
+                    <select>
+                      <option value="1" selected>1</option>
+                      <option value="7">7</option>
+                      <option value="30">30</option>
+                      <option value="90">90</option>
+                      <option value="365">365</option>
+                    </select>
+                  </div>
+                  <div class="cart_item_btn">
+                    <img src="/static/images/common/close.png">
+                  </div>
+                </div>
+                <!-- e: 더미데이터 -->
+              </div>
+
+              <!-- 음반가게 BGM 장바구니 리스트 -->
+              <div class="cart_box2">
+                <p class="cart_mini_title cart_mini_title_left">음반가게 BGM</p>
+                <!-- 리스트 출력부 -->
+                <div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 선택한 장바구니 리스트 합계 -->
+            <div class="cart_box3">
+              <p class="cart_mini_title">합계</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block layout:fragment="scripts">
+    <script src="/static/js/home/cart.js"></script>
+  </th:block>
+</body>
+
+</html>
