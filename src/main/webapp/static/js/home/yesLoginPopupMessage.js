@@ -10,13 +10,14 @@ $(document).ready(function () {
         success:function(response){
             userId = response.userId;
             console.log("userId :: " + userId);
+            $("#popupMessageMain").load("/popupMessage/MessageList?userId="+userId);
         },
         error:function(error){
             alert("비 정상적인 접근 입니다.");
         }
     });
 
-    $("#popupMessageMain").load("/popupMessage/MessageList");
+
     $(".receiveMsgbox>a").css({"color": "#ff8000"});
 
     $(".navClick").click(function () {

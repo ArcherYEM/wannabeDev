@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.dev.wannabe.domain.home.mapper.ImageSlideMapper">
+<mapper namespace="com.dev.wannabe.domain.home.mapper.PopupMessageMapper">
 
-<!--    <select id="getImageSlide" resultType="com.dev.wannabe.domain.home.model.dto.ImageSlideDTO">
+    <select id="getMessageList" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
         SELECT *
-        FROM ATTACH_FILE_MANAGE
-        WHERE FILE_ORIGIN_NAME LIKE #{imgFileName}
-    </select>-->
+        from FRIEND_MESSAGE
+        WHERE USER_ID = #{userId};
+    </select>
     <!--        <select id="getImageSlide" resultType="java.util.Map">
                 SELECT
                     ATTACH_FILE_ID,
