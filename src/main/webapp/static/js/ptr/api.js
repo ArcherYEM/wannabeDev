@@ -12,6 +12,7 @@ const API = {
     WEATHER: `/weather/location`,
     PRODUCT: `${API_URL}/products/top6`,
     NEWS: "/api/news/googleNews",
+    SLIDE_BANNER: "/imageSlide2",
 
 
 };

@@ -1,45 +1,45 @@
 // main home.js
+
 import API from './api.js';
 import VIEW from "./page.js";
 import { getAjax, postAjax, putAjax, deleteAjax, fetchThen } from "./ajax.js";
 import { swalPopup } from "./swal.js";
+import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
 
 // =========== 변수 레이어 ===========
 
 // 메뉴 관련 요소
-const miniHompi = $("#miniHompi, #miniHompi2");
-const giftPage = $("#giftPage, #giftPage2");
-const cartPage = $("#cartPage, #cartPage2");
-const noticePage = $("#noticePage, #noticePage2");
-const aboutUsPage = $("#aboutUsPage, #aboutUsPage2");
-const signUpButtons = $("#signupBtn, #signupBtn2");
-const dotoriRechargeBtn = $("#rechargePageBtn");
+const miniHompi             = $("#miniHompi,    #miniHompi2");
+const giftPage              = $("#giftPage,     #giftPage2");
+const cartPage              = $("#cartPage,     #cartPage2");
+const noticePage            = $("#noticePage,   #noticePage2");
+const aboutUsPage           = $("#aboutUsPage,  #aboutUsPage2");
+const signUpButtons         = $("#signupBtn,    #signupBtn2");
+const dotoriRechargeBtn     = $("#rechargePageBtn");
 
-// 슬라이드 배너
-const slideBanner = $("#slideBanner");
 
 // 미니홈피 팝업 스펙
-const HOMPI_WIDTH = 1280;
-const HOMPI_HEIGHT = 720;
-const HOMPI_LEFT = Math.ceil((window.screen.width - HOMPI_WIDTH) / 2);
-const HOMPI_TOP = Math.ceil((window.screen.height - HOMPI_HEIGHT) / 2);
+const HOMPI_WIDTH   = 1280;
+const HOMPI_HEIGHT  = 720;
+const HOMPI_LEFT    = Math.ceil((window.screen.width - HOMPI_WIDTH) / 2);
+const HOMPI_TOP     = Math.ceil((window.screen.height - HOMPI_HEIGHT) / 2);
 
 // 오늘의 운세
-const todayLucky = $("#todayLucky");
+const todayLucky            = $("#todayLucky");
 
 // 날씨 관련 요소
-const weatherIcon = $('#weatherIcon');
-const locationEl = $('#location');
-const weatherText = $('#weather-text');
-const rain = $('#rain');
-const temperature = $('#temperature');
+const weatherIcon           = $('#weatherIcon');
+const locationEl            = $('#location');
+const weatherText           = $('#weather-text');
+const rain                  = $('#rain');
+const temperature           = $('#temperature');
 
 // 영화 영역
-const movieWrapper = $('#movieWrapper');
+const movieWrapper          = $('#movieWrapper');
 
 // 상품 영역
-const productContainer = $('#product-container');
-const categoryButtons = $('.categoryBtn');
+const productContainer      = $('#product-container');
+const categoryButtons       = $('.categoryBtn');
 let currentCategory = '01'; // 기본 카테고리 (미니미)
 
 // 뉴스 영역
@@ -48,11 +48,13 @@ const newsList = $('#newsList');
 // 영화 템플릿
 const movieTemplate = `
 <div class="movie">
+    <div class="rank">
+        <p>{rank}</p>
+    </div>
     <div class="movie_poster">
         <img src="{poster}" alt="{title}">
     </div>
     <div class="movie_info">
-        <p>{rank}</p>
         <h3>{title}</h3>
         <p>{genre}</p>
         <p>{directorNm}</p>
@@ -75,8 +77,10 @@ $(document).ready(() => {
     // 날씨 조회
     getWeather();
 
+    // 뉴스 조회
     fetchNews();
 
+    // 영화 조회
     void getMovie();
 
     // 카테고리 버튼 이벤트 (active 클래스 유지 및 상품 조회)
@@ -95,13 +99,13 @@ $(document).ready(() => {
 
 // 메뉴 클릭 이벤트: 각 요소 클릭 시 지정된 페이지로 이동하거나 기능 실행
 function componentClickEvent() {
-    miniHompi.click(() => openPop());
-    giftPage.click(() => (location.href = VIEW.GIFT_SHOP));
-    cartPage.click(() => (location.href = VIEW.CART));
-    noticePage.click(() => (location.href = VIEW.NOTICE));
-    aboutUsPage.click(() => (location.href = VIEW.ABOUT_US));
-    signUpButtons.click(() => (location.href = VIEW.SIGN_UP));
-    dotoriRechargeBtn.click(() => (location.href = VIEW.RECHARGE));
+    miniHompi.click(()          => openPop());
+    giftPage.click(()           => (location.href = VIEW.GIFT_SHOP));
+    cartPage.click(()           => (location.href = VIEW.CART));
+    noticePage.click(()         => (location.href = VIEW.NOTICE));
+    aboutUsPage.click(()        => (location.href = VIEW.ABOUT_US));
+    signUpButtons.click(()      => (location.href = VIEW.SIGN_UP));
+    dotoriRechargeBtn.click(()  => (location.href = VIEW.RECHARGE));
 }
 
 // 미니홈피 팝업 오픈 함수
@@ -127,8 +131,48 @@ function openPop() {
 
 // 슬라이드 배너 로드
 function renderSlideBanner() {
-    slideBanner.load("imageSlide");
+    getAjax(
+        API.SLIDE_BANNER,
+        (response) => {
+            if (response.length === 0) {
+                $('.swiper-wrapper').html('<p>배너가 없습니다.</p>');
+                return;
+            }
+            let slidesHtml = '';
+            response.forEach((banner) => {
+                slidesHtml += `
+                    <div class="swiper-slide">
+                        <img class="slideshow-image" src="${banner.filePath}" alt="${banner.title}">
+                    </div>
+                `;
+            });
+
+            $('.swiper .swiper-wrapper').html(slidesHtml);
+
+            new Swiper('.swiper', {
+                spaceBetween: 30,
+                centeredSlides: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        },
+        (error) => {
+            console.error("AJAX 요청 실패:", error);
+            $('.swiper-wrapper').html('<p>배너를 불러오는데 실패했습니다.</p>');
+        }
+    );
 }
+
 
 // 오늘의 운세 조회
 function getFortune() {
