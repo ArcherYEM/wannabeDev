@@ -10,5 +10,5 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
     // 기존의 쿼리 수정
-    List<ProductDTO> selectTop3ByProductTypeSortedByInsertDt(@Param("productType") String category);
+    List<ProductDTO> selectTop6ByProductTypeSortedByInsertDt(@Param("productType") String category);
 }
