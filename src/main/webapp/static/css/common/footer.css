@@ -1,0 +1,88 @@
+#footer{
+    width:100%;
+    height: 150px;
+    box-sizing:border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: auto;
+    background-color: var(--color-black);
+}
+
+.footerTopWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-white);
+    background-color: var(--color-basic);
+}
+
+.footerTop{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    gap: 5px;
+
+    img {
+        width: 150px;
+    }
+}
+
+.keywordBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    p {
+        font-size: 16px;
+    }
+}
+
+.footerBotWrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 10px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.footerBottom {
+    width: 1280px;
+    display: flex;
+    justify-content: space-between;
+
+    ul {
+        display: flex;
+        gap: 10px;
+        font-size:14px;
+
+        li {
+            cursor: pointer;
+        }
+    }
+
+    a {
+        color: var(--color-white);
+        text-decoration: none;
+    }
+
+    p {
+        text-align:right;
+        font-size:14px;
+    }
+
+    span.teamName{
+        font-weight:bold;
+        color:var(--color-basic);
+    }
+}

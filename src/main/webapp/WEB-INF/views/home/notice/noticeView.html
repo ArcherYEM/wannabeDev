@@ -40,37 +40,45 @@
                     <button> 목록</button>
                 </div>
                 <div class="notice">
-                    <div class="notice_top">
-                        <span class="notice_title">
-                            <select>
-                                <option>공지</option>
-                                <option>이벤트</option>
-                                <option>점검</option>
-                            </select>
-                            <p>3/7긴급 점검 안내 완료 및 보상 안내</p>
-                        </span>
-                        <div>
-                            <p class="day">25.03.19 01:25~25.03.21 20:25~22:01</p>
-                            <p class="state">(게시중)</p>
-                            <p class="time">2025.03.20</p>
+                    <form>
+                        <div class="notice_top">
+                            <span class="notice_title">
+                                <select>
+                                    <option>공지</option>
+                                    <option>이벤트</option>
+                                    <option>점검</option>
+                                </select>
+                                <p><input>3/7긴급 점검 안내 완료 및 보상 안내</p>
+                            </span>
+                            <div>
+                                <div>
+                                    <label>
+                                        <input class="startDay" th:value="${startTime}">
+                                        ~
+                                        <input class="lastDay" th:value="">
+                                    </label>
+                                </div>
+                                <p class="state">(게시중)</p>
+                                <input class="time">2025.03.20</input>
+                            </div>
                         </div>
-                    </div>
-                    <div class="notice-body">
-                        안녕하세요. 워너비 팀입니다.<br>
-                        2025년 3월 20일, 서비스 안정화를 위해 긴급 점검을 진행하였으며
-                        현재 정상적으로 완료 되었습니다.<br>
-                        점검 기간 동안 서비스를 이용하지 못하신 점에 대해 깊이 사과드립니다.<br>
-                        <br>
-                        이에 대한 보상으로 도토리 5개를 지급해드렸습니다.<br>
-                        보상을 확인하시려면 쪽시함을 확인해 주세요.<br>
-                        <br>
-                        저희 워너비팀은 앞으로 더욱 안정적인 서비스를 제공하기 위해 최선을 다하겠습니다.<br>
-                        이용해 주셔서 감사합니다.<br>
-                        <br>
-                        워너비 팀 드림<br><br>
+                        <div class="notice-body">
+                            안녕하세요. 워너비 팀입니다.<br>
+                            2025년 3월 20일, 서비스 안정화를 위해 긴급 점검을 진행하였으며
+                            현재 정상적으로 완료 되었습니다.<br>
+                            점검 기간 동안 서비스를 이용하지 못하신 점에 대해 깊이 사과드립니다.<br>
+                            <br>
+                            이에 대한 보상으로 도토리 5개를 지급해드렸습니다.<br>
+                            보상을 확인하시려면 쪽시함을 확인해 주세요.<br>
+                            <br>
+                            저희 워너비팀은 앞으로 더욱 안정적인 서비스를 제공하기 위해 최선을 다하겠습니다.<br>
+                            이용해 주셔서 감사합니다.<br>
+                            <br>
+                            워너비 팀 드림<br><br>
 
-                        <button> 수정 </button>
-                    </div>
+                            <button> 수정 </button>
+                        </div>
+                    </form>
                     <div class="notice-bottom">
                         <div class="next">
                             <a href="/"></a>

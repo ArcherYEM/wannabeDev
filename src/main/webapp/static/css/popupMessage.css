@@ -9,14 +9,6 @@
 .btn.btnBlue{background:var(--color-blue); border:1px solid var(--color-blue);}
 .btn.btnGray{background:var(--color-gray); border:1px solid var(--color-gray); }
 #popupMessageNav ul li a:hover{color:var(--color-basic)}
-/*기본색 s*/
-:root {
-	--color-basic: #FF8000;
-	--color-red: #ff4f4f;
-	--color-green: #00a336d9 ;
-	--color-blue: #3700ffc7 ;
-	--color-gray: #595959;
-}
 
 .dFlex {
     display: flex;

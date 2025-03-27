@@ -4,94 +4,59 @@
 
 <mapper namespace="com.dev.wannabe.domain.home.mapper.NoticeMapper">
 
-<!--    <select id="getNoticesPage" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">-->
-<!--        SELECT-->
-<!--        n.NOTICE_ID,-->
-<!--        n.NOTICE_TYPE,-->
-<!--        n.NOTICE_TITLE,-->
-<!--        n.NOTICE_CONTENTS,-->
-<!--        n.START_DATE,-->
-<!--        n.END_DATE,-->
-<!--        n.INSERT_DT,-->
-<!--        n.INSERT_USER_ID,-->
-<!--        u.LOGIN_ID  -->
-<!--        &lt;!&ndash; LOGIN_ID를 함께 조회 &ndash;&gt;-->
-<!--        FROM NOTICE n-->
-<!--        JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID  &lt;!&ndash; JOIN 조건 &ndash;&gt;-->
-<!--        ORDER BY n.START_DATE DESC-->
-<!--        LIMIT #{limit} OFFSET #{offset}-->
-<!--&lt;!&ndash;    limit: 10개씩 데이터를 출력 , offset: 인덱스(n) 부터 출력        &ndash;&gt;-->
-<!--    </select>-->
-
-<!--    <select id="getTotalNoticesCount" resultType="int">-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM NOTICE-->
-<!--    </select>-->
-
-<!--    <select id="getNoticesPage" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">-->
-<!--        SELECT-->
-<!--        n.NOTICE_ID,-->
-<!--        n.NOTICE_TYPE,-->
-<!--        n.NOTICE_TITLE,-->
-<!--        n.NOTICE_CONTENTS,-->
-<!--        n.START_DATE,-->
-<!--        n.END_DATE,-->
-<!--        n.INSERT_DT,-->
-<!--        n.INSERT_USER_ID,-->
-<!--        u.LOGIN_ID-->
-<!--        FROM NOTICE n-->
-<!--        JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID-->
-<!--        WHERE 1 = 1-->
-<!--        <if test="noticeType != null and noticeType != ''">-->
-<!--            AND n.NOTICE_TYPE = #{noticeType}-->
-<!--        </if>-->
-<!--        <if test="field != null and keyword != null and keyword != ''">-->
-<!--            <choose>-->
-<!--                <when test="field == 'title'">-->
-<!--                    AND n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                </when>-->
-<!--                <when test="field == 'content'">-->
-<!--                    AND n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                </when>-->
-<!--                <otherwise>-->
-<!--                    AND (-->
-<!--                    n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%') OR-->
-<!--                    n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                    )-->
-<!--                </otherwise>-->
-<!--            </choose>-->
-<!--        </if>-->
-<!--        ORDER BY n.START_DATE DESC-->
-<!--        LIMIT #{limit} OFFSET #{offset}-->
-<!--    </select>-->
-
-<!--    <select id="getTotalNoticesCount" resultType="int">-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM NOTICE n-->
-<!--        WHERE 1 = 1-->
-<!--        <if test="noticeType != null and noticeType != ''">-->
-<!--            AND n.NOTICE_TYPE = #{noticeType}-->
-<!--        </if>-->
-<!--        <if test="field != null and keyword != null and keyword != ''">-->
-<!--            <choose>-->
-<!--                <when test="field == 'title'">-->
-<!--                    AND n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                </when>-->
-<!--                <when test="field == 'content'">-->
-<!--                    AND n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                </when>-->
-<!--                <otherwise>-->
-<!--                    AND (-->
-<!--                    n.NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%') OR-->
-<!--                    n.NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                    )-->
-<!--                </otherwise>-->
-<!--            </choose>-->
-<!--        </if>-->
-<!--    </select>-->
     <select id="getFilteredNotices" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
-        SELECT *
-        FROM NOTICE
+        SELECT n.*,
+        u.LOGIN_ID,
+        <!--    STR_TO_DATE= 날짜 형태로 형식 변환 코드  CONCAT = 문자열 합체(년월일 + 시간)    -->
+        STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i') AS START_DATETIME,
+        STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i')AS END_DATETIME
+        FROM NOTICE n
+        LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
+        WHERE 1 = 1
+        <if test="noticeType != null and noticeType != ''">
+            AND notice_type = #{noticeType}
+        </if>
+        <if test="field != null and field != '' and keyword != null and keyword != ''">
+            <choose> <!-- 여러 조건 중 하나만 사용 (switch 와 비슷) -->
+                <!-- test 조건이 true인 <when> 태그 하나만 실행됩니다.
+                여러 개의 <when> 중 가장 처음으로 조건이 true인 것 하나만 실행됨.-->
+                <when test="field == 'title'">
+                    AND notice_title LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <when test="field == 'content'">
+                    AND NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+                </when>
+                <otherwise>
+                    AND (
+                    notice_title LIKE CONCAT('%', #{keyword}, '%')
+                    OR NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+
+        <!-- 권한이 01일 경우 '04'와 '05'를 제외 -->
+        <if test="excludeNoticeTypes != null">
+            AND notice_type NOT IN
+            <foreach item="item" collection="excludeNoticeTypes" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <!-- 권한이 '01'일 경우, 현재 날짜가 startDate와 endDate 사이인 항목만 조회 -->
+        <if test="userRole == '01'">
+            AND STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i') &lt;= NOW()
+            AND STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i') &gt;= NOW()
+        </if>
+
+        ORDER BY insert_dt DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 페이징 처리 카운트   -->
+    <select id="getFilteredNoticesCount" resultType="Integer">
+        SELECT COALESCE(COUNT(*), 0)  <!-- COUNT(*)에 COALESCE 적용 -->
+        FROM NOTICE n
+        LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
         WHERE 1 = 1
         <if test="noticeType != null and noticeType != ''">
             AND notice_type = #{noticeType}
@@ -112,36 +77,24 @@
                 </otherwise>
             </choose>
         </if>
-        ORDER BY insert_dt DESC
-        LIMIT #{limit} OFFSET #{offset}
-    </select>
 
-    <select id="getFilteredNoticesCount" resultType="int">
-        SELECT COUNT(*)
-        FROM NOTICE
-        WHERE 1 = 1
-        <if test="noticeType != null and noticeType != ''">
-            AND notice_type = #{noticeType}
+        <!-- 권한이 '01'일 경우 '04'와 '05'를 제외 -->
+        <if test="excludeNoticeTypes != null">
+            AND notice_type NOT IN
+            <foreach item="item" collection="excludeNoticeTypes" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
         </if>
-        <if test="field != null and field != '' and keyword != null and keyword != ''">
-            <choose>
-                <when test="field == 'title'">
-                    AND notice_title LIKE CONCAT('%', #{keyword}, '%')
-                </when>
-                <when test="field == 'content'">
-                    AND notice_contents LIKE CONCAT('%', #{keyword}, '%')
-                </when>
-                <otherwise>
-                    AND (
-                    notice_title LIKE CONCAT('%', #{keyword}, '%')
-                    OR notice_contents LIKE CONCAT('%', #{keyword}, '%')
-                    )
-                </otherwise>
-            </choose>
+
+        <!-- 권한이 '01'일 경우, 현재 날짜가 startDate와 endDate 사이인 항목만 조회 -->
+        <if test="userRole == '01'">
+            AND NOW() BETWEEN n.START_DATE AND n.END_DATE
+        </if>
+        <!-- 권한이 '01'일 경우, 현재 날짜가 startDate와 endDate 사이인 항목만 조회 -->
+        <if test="userRole == '01'">
+            AND STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i') &lt;= NOW()
+            AND STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i') &gt;= NOW()
         </if>
     </select>
-
-
-
 
 </mapper>

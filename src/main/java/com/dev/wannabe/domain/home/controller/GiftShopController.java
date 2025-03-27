@@ -14,6 +14,6 @@ public class GiftShopController {
 
     @GetMapping("/main")
     public String giftShop(){
-        return "giftShop/giftShopMain";
+        return "home/giftShop/giftShopMain";
     }
 }

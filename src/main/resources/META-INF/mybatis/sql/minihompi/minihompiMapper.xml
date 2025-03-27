@@ -5,33 +5,37 @@
 
     <select id="findMyhompi" parameterType="map"
             resultType="com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal">
-
         SELECT
-        hp.HOMPI_ID,
-        hp.HOMPI_URL,
-        hp.HOMPI_TITLE,
-        hp.OWNER_USER_ID,
-        IFNULL(hds.TODAY_CNT, 0) AS TODAY_CNT,
-        hp.TOTAL_CNT,
-        hc.HOMPI_CONFIG_CODE,
-        hc.HOMPI_CONFIG_CONTENT,
-        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '01' THEN hc.HOMPI_CONFIG_CONTENT END) AS PROFILE_IMAGE,
-        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '02' THEN hc.HOMPI_CONFIG_CONTENT END) AS INTRODUCTION,
-        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '03' THEN hc.HOMPI_CONFIG_CONTENT END) AS FRIENDS_COMMENT_YN,
-        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '04' THEN hc.HOMPI_CONFIG_CONTENT END) AS MOOD,
-        MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '05' THEN hc.HOMPI_CONFIG_CONTENT END) AS HOMPI_LANG
+        hp.HOMPI_ID
+        ,hp.HOMPI_URL
+        ,hp.HOMPI_TITLE
+        ,hp.OWNER_USER_ID
+        ,IFNULL(hds.TODAY_CNT, 0) AS TODAY_CNT
+        ,hp.TOTAL_CNT
+        ,hc.HOMPI_CONFIG_CODE
+        ,hc.HOMPI_CONFIG_CONTENT
+        ,ub.NAME
+        ,ub.EMAIL
+        ,ub.GENDER_CODE
+        ,MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '01' THEN hc.HOMPI_CONFIG_CONTENT END) AS PROFILE_IMAGE
+        ,MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '02' THEN hc.HOMPI_CONFIG_CONTENT END) AS INTRODUCTION
+        ,MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '03' THEN hc.HOMPI_CONFIG_CONTENT END) AS FRIENDS_COMMENT_YN
+        ,MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '04' THEN hc.HOMPI_CONFIG_CONTENT END) AS MOOD
+        ,MAX(CASE WHEN hc.HOMPI_CONFIG_CODE = '05' THEN hc.HOMPI_CONFIG_CONTENT END) AS HOMPI_LANG
         FROM HOMPI hp
         LEFT OUTER JOIN HOMPI_DAILY_STATS hds
         ON hp.HOMPI_ID = hds.HOMPI_ID
-        AND hds.DAY_STATS_DATE = CURDATE()
+        AND hds.DAY_STATS_DATE = #{today}
         LEFT OUTER JOIN HOMPI_CONFIG hc
         ON hp.HOMPI_ID = hc.HOMPI_ID
+        LEFT OUTER JOIN USER_BASIC ub
+        ON hp.OWNER_USER_ID = ub.USER_ID
         <where>
-            <if test="hompiId == userId">
+            <if test="userId == ownerUserId">
                 hp.HOMPI_ID = #{hompiId}
-                AND hp.OWNER_USER_ID = #{userId}
+                AND hp.OWNER_USER_ID = #{ownerUserId}
             </if>
-            <if test="userId == null or userId != hompiId ">
+            <if test="userId == null or userId != ownerUserId ">
                 hp.HOMPI_ID = #{hompiId}
             </if>
         </where>
@@ -48,6 +52,141 @@
         SET HOMPI_CONFIG_CONTENT = #{mood}
         WHERE HOMPI_CONFIG_CODE = '04'
           AND HOMPI_ID = #{hompiId}
+
+    </update>
+
+    <select id="findOwnerUserId" parameterType="Long"
+            resultType="com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal">
+        SELECT OWNER_USER_ID
+        FROM HOMPI
+        WHERE HOMPI_ID = #{hompiId}
+    </select>
+
+    <select id="selectTodayCount" parameterType="map">
+        SELECT COUNT(*)
+        FROM HOMPI_DAILY_STATS
+        WHERE DAY_STATS_DATE = #{today}
+          AND HOMPI_ID = #{hompiId}
+    </select>
+
+    <update id="updateTodayCount" parameterType="map">
+        UPDATE
+            HOMPI_DAILY_STATS hds
+            JOIN HOMPI hp
+        ON hds.HOMPI_ID = hp.HOMPI_ID
+            SET hds.TODAY_CNT = hds.TODAY_CNT+1, hp.TOTAL_CNT = hp.TOTAL_CNT+1
+        WHERE hds.HOMPI_ID = #{hompiId}
+          AND hds.DAY_STATS_DATE = #{today}
+    </update>
+
+    <update id="updateTotalCount" parameterType="map">
+        UPDATE
+            HOMPI
+        SET TOTAL_CNT = TOTAL_CNT + 1
+        WHERE HOMPI_ID = #{hompiId}
+    </update>
+
+    <insert id="insertTodayCount" parameterType="map">
+        INSERT INTO wannabe_dev.HOMPI_DAILY_STATS
+        ( HOMPI_ID
+        , DAY_STATS_DATE
+        , TODAY_CNT
+        , REMARKS
+        , INSERT_USER_ID
+        , INSERT_DT
+        , UPDATE_USER_ID
+        , UPDATE_DT)
+        VALUES (#{hompiId}, #{today}, 1, NULL, #{userId}, NOW(), #{userId}, NOW())
+    </insert>
+
+    <update id="updateIntro" parameterType="map">
+        UPDATE HOMPI_CONFIG
+        <set>
+            <if test="introduction != null and introduction != ''">
+                HOMPI_CONFIG_CONTENT = #{introduction}
+            </if>
+        </set>
+        WHERE HOMPI_CONFIG_CODE = '02'
+        AND HOMPI_ID = #{hompiId}
+    </update>
+
+    <select id="getFriendComment" parameterType="Long"
+            resultType="com.dev.wannabe.domain.minihompi.model.dto.FriendCommentDTO">
+        SELECT fi.USER_ID
+             , fi.USER_NICKNAME
+             , fi.FRIEND_USER_ID
+             , fi.FRIEND_USER_NICKNAME
+             , hfc.HOMPI_ID
+             , hfc.WRITE_USER_ID
+             , hfc.FRIEND_COMMENTS
+             , hfc.FIXED_YN
+             , ub.NAME
+             , DATE_FORMAT(hfc.INSERT_DT, '%Y-%m-%d') AS UPDATE_DT
+        FROM HOMPI_FRIEND_COMMENT hfc
+                 JOIN FRIEND_INFO fi
+                      ON fi.FRIEND_USER_ID = hfc.WRITE_USER_ID
+                 JOIN USER_BASIC ub
+                      ON hfc.WRITE_USER_ID = ub.USER_ID
+        WHERE hfc.HOMPI_ID = #{hompId}
+          AND hfc.FRIEND_COMMENTS IS NOT NULL
+          AND fi.USER_ID = (SELECT OWNER_USER_ID
+                            FROM HOMPI
+                            WHERE HOMPI_ID = #{hompId})
+        ORDER BY hfc.UPDATE_USER_ID DESC
+    </select>
+
+    <select id="friendCheck" resultType="int" parameterType="map">
+        SELECT COUNT(*)
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId}
+          AND FRIEND_USER_ID = #{ownerUserId}
+
+    </select>
+
+    <insert id="insertFriendComment" parameterType="map">
+        INSERT INTO HOMPI_FRIEND_COMMENT
+        ( HOMPI_ID
+        , WRITE_USER_ID
+        , FRIEND_COMMENTS
+        , FIXED_YN
+        , REMARKS
+        , INSERT_USER_ID
+        , INSERT_DT
+        , UPDATE_USER_ID
+        , UPDATE_DT)
+        VALUES ( #{hompiId}
+               , #{userId}
+               , #{fcContent}
+               , 'N'
+               , NULL
+               , #{userId}
+               , CURRENT_TIMESTAMP()
+               , NULL
+               , CURRENT_TIMESTAMP()) ON DUPLICATE KEY
+        UPDATE
+            FRIEND_COMMENTS = #{fcContent}
+            ,UPDATE_USER_ID = #{userId}
+            ,UPDATE_DT = CURRENT_TIMESTAMP ()
+    </insert>
+
+    <delete id="deleteFriendComment" parameterType="map">
+        DELETE
+        FROM wannabe_dev.HOMPI_FRIEND_COMMENT
+        WHERE HOMPI_ID = #{hompiId}
+          AND WRITE_USER_ID = #{commentId}
+    </delete>
+
+    <update id="updateprofileImg" parameterType="map">
+
+        UPDATE HOMPI_CONFIG
+        <set>
+            <if test="filePath != null and filePath != ''">
+                HOMPI_CONFIG_CONTENT = #{filePath}
+            </if>
+        </set>
+        WHERE HOMPI_CONFIG_CODE = '01'
+        AND HOMPI_ID = #{hompiId}
+
 
     </update>
 </mapper>

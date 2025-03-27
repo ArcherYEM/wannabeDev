@@ -8,9 +8,13 @@
 	</div>
 	<div id="leftWrap">
 		<div id="leftTop">
+		<div id="profileContainer">
 			<div class="mainImg">
-				<img src="/static/images/common/main.jpg">
+				<img id="profileImg" src="/static/images/common/loding.jpg">
+				<input type="file" id="profileImage" name="profileImage" accept="image/*" style="display:none;" />
 			</div>
+			  <button id="changePhotoBtn">사진 변경</button>
+            </div>
 
 			<div id="moodDiv">
 				<label>
@@ -31,18 +35,18 @@
 			<div class="editSet">
 				<div class="editImg">
 					<img src="/static/images/common/edit.png"></div>
-				<span id="editBtn"><a >EDIT</a></span>
+				<span id="editBtn"><a  href="#">EDIT</a></span>
 			</div>
 			<br>
 			<div id="nameWrap">
-				<span class="name"> 고라파덕</span>
+				<span class="name"></span>
 				<div id="name-droupdown">
 					<a href="#">일촌 신청</a>
 					<a target="_blank" onclick="onpneMessage()">쪽지 보내기</a>
 					<a href="#">일촌 끊기</a>
 				</div>
 				<span class="nameSymbol">♂</span>
-				<span class="nameEmail">paduck@korea.co.kr</span>
+				<span class="nameEmail"></span>
 			</div>
 			<div id="padoWrap">
 				<select>
@@ -146,61 +150,16 @@
 									<p class="fcWb">일촌평</p>
 								</td>
 								<td>
-									<input type="text" placeholder="일촌과 나누고 싶은 이야기를 남겨보세요~!">
+									<input type="text" id="fcContent" placeholder="일촌과 나누고 싶은 이야기를 남겨보세요~!">
 								</td>
 								<td>
-									<button type="button">확인</button>
+									<button type="button" id="fcBtn" >확인</button>
 								</td>
 							</tr>
 							</tbody>
 						</table>
 					</div>
 					<ul class="commentList">
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -242,13 +201,14 @@
 	if (!window.jQuery) {
 		document.write('<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>');
 	}
+
 </script>
 <!-- CDN 라이브러리 끝 -->
-
 
 <script type="module" src="/static/js/common.js"></script>
 <!-- 푸터 인클루드 끝 부분 -->
 
 <script type="module" src="/static/js/minihompi/minihompiMain.js"></script>
+
 
 
