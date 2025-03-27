@@ -122,9 +122,7 @@ public class MinihompiService {
     }
 
 
-    public Map<String, Object> updateprofileImg(Long hompiId, String filePath) {
-        Map<String, Object> response = new HashMap<>();
-
+    public int updateprofileImg(Long hompiId, String filePath) {
         Map<String, Object> param = new HashMap<>();
         param.put("hompiId", hompiId);
         param.put("filePath", filePath);

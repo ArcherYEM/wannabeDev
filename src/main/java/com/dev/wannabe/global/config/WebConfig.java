@@ -24,9 +24,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("/static/", "file:src/main/webapp/static/");
+
+        registry.addResourceHandler("/images/personal/**")
+                .addResourceLocations("file:" + System.getProperty("user.dir") + "/uploads/images/personal/");
     }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -42,4 +47,5 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setDefaultEncoding("utf-8");
         return resolver;
     }
+
 }

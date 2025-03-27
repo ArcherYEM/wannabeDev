@@ -36,6 +36,6 @@ public interface MinihompiMapper {
 
     int updateIntro(Map<String, Object> param);
 
-    Map<String, Object> updateprofileImg(Map<String, Object> param);
+    int updateprofileImg(Map<String, Object> param);
 }
 

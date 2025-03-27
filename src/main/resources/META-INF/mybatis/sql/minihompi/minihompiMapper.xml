@@ -184,7 +184,7 @@
                 HOMPI_CONFIG_CONTENT = #{filePath}
             </if>
         </set>
-        WHERE HOMPI_CONFIG_CODE = '02'
+        WHERE HOMPI_CONFIG_CODE = '01'
         AND HOMPI_ID = #{hompiId}
 
 

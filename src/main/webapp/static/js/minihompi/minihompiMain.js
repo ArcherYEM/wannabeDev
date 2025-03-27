@@ -435,13 +435,35 @@ $(document).ready(function () {
     let originalImgSrc = ''; // 이미지 롤백용
     let newImageFile = null; // 새 이미지 저장용
 
-// 프로필 이미지 업로드 요청
-    function updateProfileImage() {
-        if (!newImageFile) {
-            alert('이미지 파일을 선택해주세요.');
-            return;
-        }
+// 사진 변경 버튼 클릭 → 파일 input 열기
+    $('#changePhotoBtn').on('click', function () {
+        $('#profileImage').click();
+    });
 
+// 파일 선택 시 미리보기 + 자동 업로드
+    $('#profileImage').on('change', function (e) {
+        const file = e.target.files[0];
+
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                originalImgSrc = $('#profileImg').attr('src'); // 롤백용 저장
+                $('#profileImg').attr('src', e.target.result); // 미리보기 반영
+            };
+
+            reader.readAsDataURL(file);
+            newImageFile = file;
+
+            updateProfileImage(); // 자동 업로드
+        } else {
+            alert('이미지 파일만 선택 가능합니다.');
+            $('#profileImage').val('');
+        }
+    });
+
+// 서버로 이미지 전송
+    function updateProfileImage() {
         const imageFormData = new FormData();
         imageFormData.append('profileImage', newImageFile);
 
@@ -453,46 +475,19 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (res) {
-                console.log('프로필 이미지 업데이트 성공');
+                alert('프로필 이미지 저장 성공');
             },
             error: function () {
                 alert('프로필 이미지 저장 실패');
-                $('#profileImg').attr('src', originalImgSrc); // 실패 시 원래 이미지로 롤백
+                $('#profileImg').attr('src', originalImgSrc); // 롤백
             }
         });
     }
 
-// 사진 변경 버튼 클릭 → 파일 input 열기
-    $('#changePhotoBtn').on('click', function () {
-        $('#profileImage').click();
-    });
-
-// 파일 선택 시 미리보기 처리
-    $('#profileImage').on('change', function (e) {
-        const file = e.target.files[0];
-
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#profileImg').attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(file);
-            newImageFile = file; // 저장용으로 설정
-
-            // 원본 이미지 URL을 저장 (롤백용)
-            originalImgSrc = $('#profileImg').attr('src');
-        } else {
-            alert('이미지 파일만 선택 가능합니다.');
-            $('#profileImage').val(''); // 입력 필드 초기화
-        }
-    });
-
-
-    /** 일촌평 데이터 가져오기**/
+    /** 일촌평 데이터 가져오기 **/
     function getMinihompiFriendCommentList() {
         const hompiDataUrl = `/api/minihompi/FriendComment/${hompiId}`;
+
         $.ajax({
             type: "GET",
             url: hompiDataUrl,
@@ -512,21 +507,22 @@ $(document).ready(function () {
 
             data.forEach(function (FriendCommentDTO) {
                 html += `
-        <li>
-            <span class="comment">${FriendCommentDTO.friendComments}</span>
-            <span class="star">(
-                <span class="nickName fcWb">${FriendCommentDTO.name}</span>
-                ${FriendCommentDTO.userNickname})
-                <span class="todayDate">${FriendCommentDTO.updateDt}</span>
-                <div id="fcWUser" style="display: none">${FriendCommentDTO.writeUserId}</div>
-                ${FriendCommentDTO.writeUserId == viewUserId | hompiAuth == "0" ?
+                <li>
+                    <span class="comment">${FriendCommentDTO.friendComments}</span>
+                    <span class="star">(
+                        <span class="nickName fcWb">${FriendCommentDTO.name}</span>
+                        ${FriendCommentDTO.userNickname})
+                        <span class="todayDate">${FriendCommentDTO.updateDt}</span>
+                        <div id="fcWUser" style="display: none">${FriendCommentDTO.writeUserId}</div>
+                        ${FriendCommentDTO.writeUserId == viewUserId || hompiAuth == "0" ?
                     '<div class="deleteImg">' +
                     '<img src="/static/images/common/delete.png" class="deleteBtn"></div>'
                     : ''}
-            </span>
-        </li>
-    `;
+                    </span>
+                </li>
+            `;
             });
+
             $('.commentList').html(html);
         }
     }
@@ -534,7 +530,6 @@ $(document).ready(function () {
     /** 일촌평 작성 **/
     $('#fcBtn').on('click', function () {
         let fcContent = $("#fcContent").val();
-        ;
         const hompiDataUrl = `/api/minihompi/insertFriendComment/${hompiId}`;
 
         if (!fcContent.trim()) {
@@ -559,14 +554,15 @@ $(document).ready(function () {
         });
     });
 
+    /** 일촌평 삭제 **/
     $(document).on("click", ".deleteBtn", function () {
         const commentId = $(this).closest("li").find("#fcWUser").text();
-        console.log("commentId:" + commentId);
         const hompiDataUrl = `/mini-hompi/api/friendCommentDelete/${hompiId}/${commentId}`;
 
         if (!confirm("정말 삭제하시겠습니까?")) {
             return;
         }
+
         $.ajax({
             type: "DELETE",
             url: hompiDataUrl,
@@ -580,7 +576,4 @@ $(document).ready(function () {
             }
         });
     });
-
-
 });
-
