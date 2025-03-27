@@ -1,0 +1,10 @@
+메세지리스트
+<div id="popMsgList" th:each="msgList : ${msgList}">
+    <input type="checkbox">
+    <span class="username" th:text="${msgList.userId}"></span>
+    <span class="popMsg-Msg">name</span>
+    <span class="birthdate">birthdate</span>
+    <span class="gender">gender</span>
+
+</div>
+
