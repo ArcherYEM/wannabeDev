@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.AlbumMapper">
+
+    <!-- 파라미터에 DTO를 파야함-->
+<!--<insert id="saveAlbum" parameterType="">
+    INSERT INTO wannabe_dev.HOMPI_ALBUM(
+    HOMPI_ID
+    , FOLDER_ID
+    , ALBUM_NAME
+    , AVAIL_STATUS
+    , REMARKS
+    , INSERT_USER_ID
+    , INSERT_DT
+    , UPDATE_USER_ID
+    , UPDATE_DT
+    )
+    VALUES(
+      #{hompiId}
+    , #{folderId}
+    , #{albumName}
+    , #{availStatus}
+    , NULL
+    , #{userId}
+    , current_timestamp()
+    , NULL
+    , NULL
+    );
+</insert>-->
+
+</mapper>
