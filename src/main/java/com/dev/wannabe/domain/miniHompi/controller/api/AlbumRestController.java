@@ -36,18 +36,13 @@ public class AlbumRestController {
         log.info("userData.getUserId: " + userData.getUserId());
         log.info("albumData.getAlbumTitle()" + albumData.getAlbumTitle());
 
+        //여기서 파일 받기 처리
 //        try {
 //            if( )
 //        }
 
-
+        //매개변수 담기
         albumService.saveAlbum();
-
         return null;
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return "test.html";
     }
 }

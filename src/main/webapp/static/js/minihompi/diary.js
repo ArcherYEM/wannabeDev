@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $(document).on('click','#gnb li',function(){
-    //임시 왼쪽 구역 할당
+        //임시 왼쪽 구역 할당
         if(!$(this).is('#moveDairy1')){
             getLeftWrap();
             return;
