@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/layout}">
+      <th:block th:replace="common/layout/fragments/favicon :: favicon"></th:block>
 <head>
   <!-- title 모듈화 필요 -->
   <title layout:fragment="title">장바구니</title>
