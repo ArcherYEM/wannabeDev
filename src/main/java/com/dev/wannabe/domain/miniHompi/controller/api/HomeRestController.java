@@ -25,7 +25,7 @@ import java.util.Map;
 public class HomeRestController {
     private final MinihompiService minihompiService;
 
-//    /* 미니홈피 열기 */
+    //    /* 미니홈피 열기 */
     @GetMapping("/{hompiId}")
     public ResponseEntity<Map<String, Object>> miniHompiPopup(@PathVariable Long hompiId, HttpServletRequest request, HttpSession session) {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
@@ -45,13 +45,21 @@ public class HomeRestController {
 
     /* 기분 상태값 저장하기 */
     @PostMapping("/mood-save/{hompiId}")
-    public ResponseEntity<Map<String, Object>> saveMood(@PathVariable Long hompiId, @RequestBody String mood) {
+    public ResponseEntity<Map<String, Object>> saveMood(@PathVariable Long hompiId, @RequestParam String mood) {
         Map<String, Object> result = minihompiService.saveMood(hompiId, mood);
 
         return ResponseEntity.ok(result);
     }
 
-    /* 타이틀 제거 */
+    /* 타이틀 업데이트 */
+    @PostMapping("/updateIntro/{hompiId}")
+    public ResponseEntity<Map<String, Object>> updateIntro(@PathVariable Long hompiId, @RequestParam String introduction) {
+        Map<String, Object> result = minihompiService.updateIntro(hompiId, introduction);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /* 자기소개 업데이트 */
     @PostMapping("/updateTitle/{hompiId}")
     public ResponseEntity<Map<String, Object>> updateTitle(@PathVariable Long hompiId, @RequestParam String title) {
         Map<String, Object> result = minihompiService.updateMinihompiTitle(hompiId, title);
@@ -59,10 +67,9 @@ public class HomeRestController {
         return ResponseEntity.ok(result);
     }
 
-    /* 프로필 변경 */
-    @PostMapping("/updateProfile/{hompiId}")
+    /* 프로필 이미지 변경 */
+    @PostMapping("/updateProfileImage/${hompiId}")
     public ResponseEntity<Map<String, Object>> updateProfile(@PathVariable Long hompiId,
-                                                             @RequestParam("introduction") String introduction,
                                                              @RequestParam(value = "profileImage", required = false)
                                                              MultipartFile profileImage) {
         try {
@@ -77,7 +84,7 @@ public class HomeRestController {
                 profileImage.transferTo(dest);
             }
 
-            Map<String, Object> result = minihompiService.updateHompiConfig(hompiId, introduction, filePath);
+            Map<String, Object> result = minihompiService.updateprofileImg(hompiId, filePath);
 
             return ResponseEntity.ok(result);
         } catch (IOException e) {
@@ -88,9 +95,9 @@ public class HomeRestController {
 
     /* 일촌평 조회 */
     @GetMapping("/FriendComment/{hompiId}")
-    public ResponseEntity<List<FriendCommentDTO>> friendComment (@PathVariable Long hompiId,
-                                                                 HttpServletRequest request,
-                                                                 HttpSession session) {
+    public ResponseEntity<List<FriendCommentDTO>> friendComment(@PathVariable Long hompiId,
+                                                                HttpServletRequest request,
+                                                                HttpSession session) {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
         List<FriendCommentDTO> result = minihompiService.getFriendComment(hompiId);
         return ResponseEntity.ok(result);

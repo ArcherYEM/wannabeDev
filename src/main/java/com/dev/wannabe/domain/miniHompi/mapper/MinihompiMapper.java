@@ -26,8 +26,6 @@ public interface MinihompiMapper {
 
     void updateTotalCount(Map<String, Object> map);
 
-    Map<String, Object> updateHompiConfig(Map<String, Object> param);
-
     List<FriendCommentDTO> getFriendComment(Long hompiId);
 
     int friendCheck(Map<String, Object> map);
@@ -35,5 +33,9 @@ public interface MinihompiMapper {
     int insertFriendComment(Map<String, Object> param);
 
     int deleteFriendComment(Map<String, Object> param);
+
+    int updateIntro(Map<String, Object> param);
+
+    Map<String, Object> updateprofileImg(Map<String, Object> param);
 }
 
