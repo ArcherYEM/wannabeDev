@@ -282,7 +282,7 @@ async function getMovie() {
         let rank = 1;
 
         // 향상된 for문 (for-of) 를 이용해 상위 movieCount 만큼 순회
-        for (const movie of movieList.slice(-1, movieCount)) {
+        for (const movie of movieList.slice(0, movieCount)) {
             const movieOpenDay = movie.openDt.replaceAll('-', '');
             const movieName = movie.movieNm;
 

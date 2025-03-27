@@ -118,31 +118,156 @@
     border: solid 2px var(--color-basic);
     height: 200px;
     border-radius: 15px;
-    position: relative;
     overflow: hidden;
-}
-
-.profileInfoWrap {
-    width: 100%;
+    background: linear-gradient(var(--color-basic) 80px, transparent 80px);
     display: flex;
+    flex-direction: column;
 }
 
-.profileImgWrap {
-    width: 40px;
-    height: 100%;
-    background: var(--color-basic);
+.profileInfoTop {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: flex-end;
+    line-height: 1;
 
-    &.profileImg {
-        background:tomato;
-        height:120px;
-        width:120px;
-        padding:5px;
-        border-radius:50%;
-        transform:translate(105px,90px);
+    .personalWrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+
+        .personalFeat {
+            display: flex;
+            gap: 10px;
+            color: var(--color-white);
+
+            span {
+                cursor:pointer;
+            }
+
+            span:hover{
+                color: var(--color-brown);
+            }
+        }
+
+        .nameDisplay {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-white);
+        }
     }
 }
 
+.profileImgWrap {
+    .profileImg {
+        background:var(--color-basic);
+        height:80px;
+        width:80px;
+        padding: 5px;
+        border: solid 3px var(--color-white);
+        border-radius:50%;
+        transform:translate(0px,20px);
+    }
 
+    img{
+    	height:64px;
+    	width:64px;
+    	border-radius:50%;
+    }
+}
+
+.profileInfoBot {
+    flex: 1;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .infoWrap {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .infoOnline {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .infoData {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .alignBox {
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        line-height:1;
+
+        .stat {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            text-align: right;
+
+                img {
+                    width: 14px;
+                    height: 14px;
+                }
+
+                .text.new {
+                    font-weight: 700;
+                }
+        }
+    }
+
+    .stateDotori{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: solid 1px var(--color-basic);
+        border-radius: 15px;
+        padding: 2px;
+        line-height: 1;
+
+        .dotoriTitleWrap {
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
+            gap: 5px;
+
+            img {
+                width: 20px;
+                height: auto;
+            }
+        }
+
+        .chargeWrap {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .text {
+                font-weight: 700;
+            }
+        }
+
+        .rechargePageBtn {
+            padding: 5px 15px;
+            border-radius: 15px;
+            color: var(--color-white);
+            background-color: var(--color-basic);
+        }
+    }
+}
 
 /* 좌측 프로필 영역 끝 */
 
@@ -276,6 +401,7 @@
     margin: 0 auto 10px;
     height: 230px;
     border-radius: 15px;
+    padding: 0px 5px;
 }
 
 .swiper {
@@ -494,12 +620,12 @@
 .newsList {
     margin: 5px 0px 20px;
 
-    li {
+    .news-item {
         padding: 5px 0px;
         border-bottom: solid 1px var(--color-lgray);
     }
 
-    li:last-child {
+    .news-item:last-child {
         border: none;
     }
 }
@@ -594,7 +720,7 @@
     height: 150px;
 }
 
-.movieFinal {
+.movie {
     margin-top:10px;
     position: relative;
     width: calc(33% - 5px);
@@ -618,7 +744,7 @@
     font-weight: 700;
 }
 
-.movieImgWrap {
+.movie_poster {
     width: 100%;
 
     img {
