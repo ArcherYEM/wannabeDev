@@ -186,5 +186,4 @@
         AUTH_STATUS = 3,
         EXPIRED_DT = #{expTime};
     </update>
-
 </mapper>
