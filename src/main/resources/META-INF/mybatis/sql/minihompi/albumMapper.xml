@@ -7,7 +7,7 @@
     INSERT INTO wannabe_dev.HOMPI_ALBUM(
     HOMPI_ID
     , FOLDER_ID
-    , ALBUM_NAME
+    , ALBUM_TITLE
     , AVAIL_STATUS
     , REMARKS
     , INSERT_USER_ID
@@ -18,7 +18,7 @@
     VALUES(
       #{hompiId}
     , #{folderId}
-    , #{albumName}
+    , #{albumTitle}
     , #{availStatus}
     , NULL
     , #{userId}

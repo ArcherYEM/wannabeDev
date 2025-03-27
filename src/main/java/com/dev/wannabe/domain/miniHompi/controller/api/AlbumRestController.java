@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -24,6 +25,8 @@ public class AlbumRestController {
     public ResponseEntity<Map<String, String>> saveAlbum(@PathVariable Long hompiId,
                                     //@PathVariable Long folderId,
                                     @RequestBody SaveAlbumDTO albumData,
+                                    @RequestParam(value="image", required = false)
+                                    MultipartFile image,
                                     HttpSession session){
         SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
         log.info("hompiId: "+ hompiId);
@@ -31,6 +34,12 @@ public class AlbumRestController {
         log.info("albumData: "+ albumData);
         log.info("userData: "+ userData);
         log.info("userData.getUserId: " + userData.getUserId());
+        log.info("albumData.getAlbumTitle()" + albumData.getAlbumTitle());
+
+//        try {
+//            if( )
+//        }
+
 
         albumService.saveAlbum();
 

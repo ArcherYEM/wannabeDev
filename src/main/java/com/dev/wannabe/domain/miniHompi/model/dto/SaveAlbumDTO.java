@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class SaveAlbumDTO {
 
-    private String albumName;
+    private String albumTitle;
     private String availStatus;
-
+    private String contents;
 }
