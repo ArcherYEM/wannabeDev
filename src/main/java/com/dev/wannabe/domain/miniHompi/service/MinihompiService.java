@@ -224,4 +224,9 @@ public class MinihompiService {
         }
         return response;
     }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> getMiniroom(Long hompiId) {
+        return minihompiMapper.getMiniroom(hompiId);
+    }
 }
