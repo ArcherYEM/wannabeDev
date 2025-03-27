@@ -6,12 +6,13 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@Builder(toBuilder = true)
-public class HompiFolder {
+@Builder
+public class HompiDiary {
+
+    private Long diaryId;
     private Long hompiId;
     private Long folderId;
-    private String folderName;
-    private String contentsType;
+    private String diaryContent;
     private String availStatus;
 
     private Long insertUserId;
