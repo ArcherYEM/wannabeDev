@@ -7,11 +7,39 @@
   <!-- title 모듈화 필요 -->
   <title layout:fragment="title">장바구니</title>
   <link rel="stylesheet" th:href="@{static/css/notice/notice.css}" layout:fragment="styles">
+
+  <!--추후에 CSS 파일로 분리 필요-->
+  <style>
+    .cart_check_group{margin-top:50px; padding-bottom: 5px; border-bottom: 1px solid #FF8000; display: flex; align-items: center; gap:5px;}
+    .cart_check_group span{font-size: 16px;}
+    .cart_check_group input{margin-left: 20px;}
+  </style>
+
 </head>
 
 <body>
-  <h2>장바구니</h2>
-  
+  <div layout:fragment="content">
+    <!-- 공지사항 -->
+    <div id="container">
+      <div class="containerWrap">
+        <div id="main">
+
+          <div class="menu_title">
+            <h1> 장바구니 </h1>
+          </div>
+
+          <div class="cart_check_group">
+            <input type="checkbox"/>
+            <span>전체선택</span>
+            |
+            <span>전체선택</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <th:block layout:fragment="scripts">
     <script src="/static/js/home/cart.js"></script>
   </th:block>
