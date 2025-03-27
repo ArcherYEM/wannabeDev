@@ -99,22 +99,15 @@
         VALUES (#{hompiId}, #{today}, 1, NULL, #{userId}, NOW(), #{userId}, NOW())
     </insert>
 
-    <update id="updateHompiConfig" parameterType="map">
-
-        UPDATE
-        HOMPI_CONFIG
+    <update id="updateIntro" parameterType="map">
+        UPDATE HOMPI_CONFIG
         <set>
-            <if test='introduction != null introduction != ""'>
+            <if test="introduction != null and introduction != ''">
                 HOMPI_CONFIG_CONTENT = #{introduction}
-                WHERE HOMPI_CONFIG_CODE = '02'
-            </if>
-            <if test='filePath != null filePath != ""'>
-                HOMPI_CONFIG_CONTENT = #{filePath}
-                WHERE HOMPI_CONFIG_CODE = '02'
             </if>
         </set>
-        AND WHERE HOMPI_ID = #{hompiId}
-
+        WHERE HOMPI_CONFIG_CODE = '02'
+        AND HOMPI_ID = #{hompiId}
     </update>
 
     <select id="getFriendComment" parameterType="Long"
@@ -182,4 +175,18 @@
         WHERE HOMPI_ID = #{hompiId}
           AND WRITE_USER_ID = #{commentId}
     </delete>
+
+    <update id="updateprofileImg" parameterType="map">
+
+        UPDATE HOMPI_CONFIG
+        <set>
+            <if test="filePath != null and filePath != ''">
+                HOMPI_CONFIG_CONTENT = #{filePath}
+            </if>
+        </set>
+        WHERE HOMPI_CONFIG_CODE = '01'
+        AND HOMPI_ID = #{hompiId}
+
+
+    </update>
 </mapper>

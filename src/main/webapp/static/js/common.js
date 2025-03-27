@@ -11,7 +11,7 @@ function openPop() {
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
-            hompiId = response.hompiId;
+            let hompiId = response.hompiId;
             window.open(`/mini-hompi/main/${hompiId}`,
                 'mini-hompi',
                 'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
