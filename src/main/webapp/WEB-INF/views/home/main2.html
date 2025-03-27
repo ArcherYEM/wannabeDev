@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <title>워너비</title>
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" th:href="@{/static/css/common/reset.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/onlineStyle.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/common.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/header.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/footer.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/home.css}"/>
+    
+    <style type="text/css">
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #ff0000; /* 원하는 색상 */
+            font-size: 2rem; /* 크기 조정 */
+        }
+    </style>
 </head>
 <body>
 <div id="wrap">
@@ -101,7 +109,7 @@
                                                 <a id="rechargePageBtn" class="btn small di rechargePageBtn">충전</a>
                                             </span>
                                         </li>
-
+                                    
                                     </ul>
                                 </div>
                             </div>
@@ -156,13 +164,11 @@
             <div class="mainCenter">
                 <!--메인슬라이더-->
                 <div class="mainCenterTop">
-                    <div class="swiper mySwiper">
-                        <div id="slideBanner" class="swiper-wrapper">
-                            <!--불러오기-->
-                        </div>
-                        <div class="swiper-button-next">&rtrif;</div>
-                        <div class="swiper-button-prev">&ltrif;</div>
+                    <div class="swiper">
+                        <div class="swiper-wrapper"></div>
                         <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev">&#9668;</div> <!-- 왼쪽 화살표 -->
+                        <div class="swiper-button-next">&#9658;</div> <!-- 오른쪽 화살표 -->
                         <div class="autoplay-progress" style="display: none;">
                             <svg viewBox="0 0 48 48">
                                 <circle cx="24" cy="24" r="20"></circle>
@@ -393,7 +399,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="todayLucyWrap">
                     <p class="mainTitleText">오늘의 운세🍀</p>
                     <div class="todayLuckyFrame">
@@ -454,7 +460,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script th:type="module" th:src="@{/static/js/ptr/api.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/page.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/httpStatus.js}"></script>
