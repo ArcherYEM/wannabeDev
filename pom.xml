@@ -200,7 +200,7 @@
             <version>5.8.5</version>
         </dependency>
 
-<!--외부API관련-->
+        <!--외부API관련-->
 
         <!-- 이메일 인증 -->
         <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
@@ -260,6 +260,19 @@
             <artifactId>json</artifactId>
             <version>20250107</version>
 
+        </dependency>
+
+        <!-- 파일 업로드 처리를 위한 라이브러리 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
         </dependency>
 
     </dependencies>
