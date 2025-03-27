@@ -21,7 +21,7 @@ public class MinihompiService {
 
     private final MinihompiMapper minihompiMapper;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Map<String, Object> getMinihompiPopup(Long hompiId, SessionUserDTO userData, HttpSession session) {
         Map<String, Object> result = new HashMap<>();
         LocalDate now = LocalDate.now();
@@ -122,27 +122,22 @@ public class MinihompiService {
     }
 
 
-    public Map<String, Object> updateHompiConfig(Long hompiId, String introduction, String filePath) {
-        Map<String, Object> response = new HashMap<>();
-        if (introduction == null || introduction.trim().isEmpty()) {
-            response.put("status", "fail");
-            response.put("message", "자기소개는 비어있을 수 없습니다.");
-            return response;
-        }
+    public int updateprofileImg(Long hompiId, String filePath) {
         Map<String, Object> param = new HashMap<>();
-        param.put("introduction", introduction);
         param.put("hompiId", hompiId);
         param.put("filePath", filePath);
 
-        return minihompiMapper.updateHompiConfig(param);
+        return minihompiMapper.updateprofileImg(param);
     }
 
+    @Transactional(readOnly = true)
     public List<FriendCommentDTO> getFriendComment(Long hompiId) {
         List<FriendCommentDTO> getFriendComment = minihompiMapper.getFriendComment(hompiId);
         return getFriendComment;
 
     }
 
+    @Transactional(readOnly = true)
     public Map<String, Object> myHompiCheck(Long hompiId, SessionUserDTO userData, HttpSession session) {
         Long userId = (userData != null) ? userData.getUserId() : null;
 
@@ -204,5 +199,29 @@ public class MinihompiService {
         param.put("hompiId", hompiId);
         param.put("commentId", commentId);
         return minihompiMapper.deleteFriendComment(param);
+    }
+
+    public Map<String, Object> updateIntro(Long hompiId, String introduction) {
+        Map<String, Object> response = new HashMap<>();
+        if (introduction == null || introduction.trim().isEmpty()) {
+            response.put("status", "fail");
+            response.put("message", "자기소개는 비어있을 수 없습니다.");
+            return response;
+        }
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("hompiId", hompiId);
+        param.put("introduction", introduction);
+
+        int result = minihompiMapper.updateIntro(param);
+
+        if (result == 0) {
+            response.put("status", "fail");
+            response.put("message", "자기소개 변경에 실패했습니다.");
+        } else {
+            response.put("status", "success");
+            response.put("message", "자기소개 변경 성공");
+        }
+        return response;
     }
 }

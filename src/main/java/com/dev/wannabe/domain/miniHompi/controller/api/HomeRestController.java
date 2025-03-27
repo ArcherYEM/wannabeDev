@@ -5,8 +5,6 @@ import com.dev.wannabe.domain.minihompi.service.MinihompiService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +23,7 @@ import java.util.Map;
 public class HomeRestController {
     private final MinihompiService minihompiService;
 
-//    /* 미니홈피 열기 */
+    //    /* 미니홈피 열기 */
     @GetMapping("/{hompiId}")
     public ResponseEntity<Map<String, Object>> miniHompiPopup(@PathVariable Long hompiId, HttpServletRequest request, HttpSession session) {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
@@ -45,13 +43,21 @@ public class HomeRestController {
 
     /* 기분 상태값 저장하기 */
     @PostMapping("/mood-save/{hompiId}")
-    public ResponseEntity<Map<String, Object>> saveMood(@PathVariable Long hompiId, @RequestBody String mood) {
+    public ResponseEntity<Map<String, Object>> saveMood(@PathVariable Long hompiId, @RequestParam String mood) {
         Map<String, Object> result = minihompiService.saveMood(hompiId, mood);
 
         return ResponseEntity.ok(result);
     }
 
-    /* 타이틀 제거 */
+    /* 타이틀 업데이트 */
+    @PostMapping("/updateIntro/{hompiId}")
+    public ResponseEntity<Map<String, Object>> updateIntro(@PathVariable Long hompiId, @RequestParam String introduction) {
+        Map<String, Object> result = minihompiService.updateIntro(hompiId, introduction);
+
+        return ResponseEntity.ok(result);
+    }
+
+    /* 자기소개 업데이트 */
     @PostMapping("/updateTitle/{hompiId}")
     public ResponseEntity<Map<String, Object>> updateTitle(@PathVariable Long hompiId, @RequestParam String title) {
         Map<String, Object> result = minihompiService.updateMinihompiTitle(hompiId, title);
@@ -59,38 +65,44 @@ public class HomeRestController {
         return ResponseEntity.ok(result);
     }
 
-    /* 프로필 변경 */
-    @PostMapping("/updateProfile/{hompiId}")
-    public ResponseEntity<Map<String, Object>> updateProfile(@PathVariable Long hompiId,
-                                                             @RequestParam("introduction") String introduction,
-                                                             @RequestParam(value = "profileImage", required = false)
-                                                             MultipartFile profileImage) {
+    @PostMapping("/updateProfileImage/{hompiId}")
+    public ResponseEntity<Integer> updateProfile(@PathVariable Long hompiId,
+                                                 @RequestParam(value = "profileImage", required = false)
+                                                 MultipartFile profileImage) {
         try {
-            // 경로 설정
-            String savePath = new ClassPathResource("static/images/personal/").getFile().getAbsolutePath();
-            String fileName = "profile" + hompiId + ".jpg";
-            String filePath = savePath + File.separator + fileName;
-            File dest = new File(savePath, fileName);
-
-            // 이미지 저장
-            if (profileImage != null && !profileImage.isEmpty()) {
-                profileImage.transferTo(dest);
+            if (profileImage == null || profileImage.isEmpty()) {
+                return ResponseEntity.badRequest().build();
             }
 
-            Map<String, Object> result = minihompiService.updateHompiConfig(hompiId, introduction, filePath);
+            // 1. 저장 경로 설정 (외부 경로로 변경)
+            String uploadDir = System.getProperty("user.dir") + "/uploads/images/personal";
+            File folder = new File(uploadDir);
+            if (!folder.exists()) folder.mkdirs(); // 디렉토리 없으면 생성
+
+            // 2. 파일 이름 및 저장 경로 구성
+            String fileName = "profile" + hompiId + ".jpg";
+            File dest = new File(folder, fileName);
+
+            // 3. 파일 저장
+            profileImage.transferTo(dest);
+            log.info("Saved profile image to: {}", dest.getAbsolutePath());
+            // 4. DB 또는 서비스에 반영 (저장 경로 전달)
+            String relativePath = "/images/personal/" + fileName;
+            int result = minihompiService.updateprofileImg(hompiId, relativePath);
 
             return ResponseEntity.ok(result);
+
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("status", "fail"));
+            return ResponseEntity.badRequest().build();
         }
     }
 
+
     /* 일촌평 조회 */
     @GetMapping("/FriendComment/{hompiId}")
-    public ResponseEntity<List<FriendCommentDTO>> friendComment (@PathVariable Long hompiId,
-                                                                 HttpServletRequest request,
-                                                                 HttpSession session) {
+    public ResponseEntity<List<FriendCommentDTO>> friendComment(@PathVariable Long hompiId,
+                                                                HttpServletRequest request,
+                                                                HttpSession session) {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
         List<FriendCommentDTO> result = minihompiService.getFriendComment(hompiId);
         return ResponseEntity.ok(result);
