@@ -47,27 +47,43 @@
                                 <span>홍길동</span>
                                 <img src="/static/images/common/option.png">
                             </div>
-                            <div class="userInfo2">
-                                <span>쪽지    30</span>
-                            </div>
-                            <div class="userInfo3">
-                                <span>일촌ON    11</span>
+                            <div class="user-info2-wrap">
+                                <div class="userInfo2 space-between">
+                                    <span>쪽지</span>
+                                    <span class="bold">30</span>
+                                </div>
+
+                                <div class="userInfo3 space-between">
+                                    <span>일촌ON</span>
+                                    <span class="bold">30</span>
+                                </div>
                             </div>
                             <div class="logout">
-                                <span>로그아웃</span>
+                                <a href >로그아웃</a>
                             </div>
                         </div>
                     </div>
                     <div class="hompiInfo">
-                        <div>
-                            <span>오늘 방문자    113</span>
+                        <div class="space-between">
+                            <span>오늘 방문자</span>
+                            <span class="bold">30</span>
+                            <div class="gift-shop-new-badge">
+                                <img src="/static/images/common/new.png">
+                            </div>
                         </div>
-                        <div class="newArticles">
-                            <span>새 게시물    2</span>
-                            <img src="/static/images/common/new.png">
+                        <div class="newArticles space-between">
+                            <span>새 게시물</span>
+                            <span class="bold" >30</span>
+                            <div class="gift-shop-new-badge">
+                                <img src="/static/images/common/new.png">
+                            </div>
                         </div>
-                        <div>
-                            <span>일촌 신청    4</span>
+                        <div class="space-between">
+                            <span>일촌 신청</span>
+                            <span class="bold">30</span>
+                            <div class="gift-shop-new-badge">
+                                <img src="/static/images/common/new.png">
+                            </div>
                         </div>
                     </div>
                     <div class="bottom">
@@ -76,24 +92,33 @@
                 </div>
                 <div class="menuminihompi">
                     <h2>미니홈피</h2>
-                    <li><a href="#">전체보기</a></li>
-                    <li><a href="#">미니미</a></li>
-                    <li><a href="#">미니룸</a></li>
-                    <li><a href="#">미니홈피 스킨</a></li>
-                    <li><a href="#">메뉴 스킨</a></li>
-                    <li><a href="#">글자 스킨</a></li>
+                    <ul class="menu-ul">
+                        <li><a href="#" class="active">전체보기</a></li>
+                        <li><a href="#">미니미</a></li>
+                        <li><a href="#">미니룸</a></li>
+                        <li><a href="#">미니홈피 스킨</a></li>
+                        <li><a href="#">메뉴 스킨</a></li>
+                        <li><a href="#">글자 스킨</a></li>
+                    </ul>
                 </div>
-                <div class="menuBgm">
+                <div class="menuminihompi menuBgm">
                     <h2>음반가게</h2>
-                    <a href="#">BGM</a>
+                    <ul class="menu-ul">
+                        <a href="#">BGM</a>
+                    </ul>
                 </div>
                 <div class="menuRecentItems">
                     <h2>최근 아이템</h2>
                     <div class="upArrow">
                         <i class="bi bi-caret-up-fill"></i>
                     </div>
-                    <div class="recentItem">
-                        <img src="/static/images/common/good.png">
+                    <div class="recent-item-wrap">
+                        <div th:each="i : ${#numbers.sequence(1, 3)}" class="recentItem">
+                            <a class="recent-item-link" href="">
+                                <img src="/static/images/common/good.png">
+                            </a>
+                            <button id="delete-recent-item" class="delete-recent-item"><i class="xi-close-min"></i></button>
+                        </div>
                     </div>
                     <div class="downArrow">
                         <i class="bi bi-caret-down-fill"></i>
