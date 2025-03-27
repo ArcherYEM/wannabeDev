@@ -3,7 +3,7 @@ let currentCategory = '01'; // 기본값 미니미
 function fetchTopProducts(productType) {
     currentCategory = productType;
 
-    fetch(`/api/products/top3?productType=${productType}`)
+    fetch(`/api/products/top6?productType=${productType}`)
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById('product-container');

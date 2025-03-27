@@ -16,8 +16,8 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/top3")
-    public List<ProductDTO> getTop3ByType(@RequestParam String productType) {
-        return productService.getTop3ProductsByType(productType);
+    @GetMapping("/top6")
+    public List<ProductDTO> getTop6ByType(@RequestParam String productType) {
+        return productService.getTop6ProductsByType(productType);
     }
 }

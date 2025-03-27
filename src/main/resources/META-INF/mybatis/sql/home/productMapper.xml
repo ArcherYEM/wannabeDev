@@ -5,7 +5,7 @@
 <!-- ProductMapper.xml -->
 <mapper namespace="com.dev.wannabe.domain.home.mapper.ProductMapper">
 
-    <select id="selectTop3ByProductTypeSortedByInsertDt" resultType="com.dev.wannabe.domain.home.model.dto.ProductDTO">
+    <select id="selectTop6ByProductTypeSortedByInsertDt" resultType="com.dev.wannabe.domain.home.model.dto.ProductDTO">
         SELECT
             P.PRODUCT_ID,
             P.PRODUCT_NAME,
@@ -16,7 +16,7 @@
                  JOIN ATTACH_FILE_MANAGE F ON P.ATTACH_FILE_ID = F.ATTACH_FILE_ID
         WHERE P.PRODUCT_TYPE = #{productType}
         ORDER BY P.INSERT_DT DESC
-            LIMIT 3
+            LIMIT 6
     </select>
 
 </mapper>

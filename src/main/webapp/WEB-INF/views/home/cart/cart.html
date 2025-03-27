@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/layout}">
+<head>
+  <!-- title 모듈화 필요 -->
+  <title layout:fragment="title">장바구니</title>
+  <link rel="stylesheet" th:href="@{static/css/notice/notice.css}" layout:fragment="styles">
+</head>
+
+<body>
+  <h2>장바구니</h2>
+  
+  <th:block layout:fragment="scripts">
+    <script src="/static/js/home/cart.js"></script>
+  </th:block>
+</body>
+
+</html>
