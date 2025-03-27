@@ -32,7 +32,10 @@ $(document).ready(function () {
         /* 쪽지 보내기*/
         if (className === "sendMsgFrm") { $("#popupMessageMain").load("/popupMessage/SendMessage"); }
         /* 받은 쪽지함*/
-        if (className === "receiveMsgbox") { $("#popupMessageMain").load("/popupMessage/ReciveMessageBox"); }
+        if (className === "receiveMsgbox") {
+            /*$("#popupMessageMain").load("/popupMessage/ReciveMessageBox"); 상세보기? */
+            $("#popupMessageMain").load("/popupMessage/MessageList?userId="+userId);
+        }
         /* 보낸 쪽지함*/
         if (className === "sendMsgBox") {
             $("#popupMessageMain").load("/popupMessage/SendMessageBox");
