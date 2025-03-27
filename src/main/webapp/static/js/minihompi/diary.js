@@ -1,18 +1,18 @@
 $(document).ready(function(){
-    $(document).on('click','#gnb li',function(){
-    //임시 왼쪽 구역 할당
-        if(!$(this).is('#moveDairy1')){
-            getLeftWrap();
-            return;
-        }
-        clickMenu(this);
+    $(document).on('click','#moveDairy1',function(){
+        $('#gnb li').removeClass();
+        $(this).addClass('on');
         moveDiary();
         moveDiaryLeft();
         getDiaryFolder();
         getDiaryContent(0);
-        checkStatus();
         // 가장 오래된 CONTENT 가져오기
     });
+    $(document).on('click', '#gnb li', function(){
+        if(!$(this).is('#movieDiary')){
+            $('#movieDiary').removeClass();
+        }
+    })
     $(document).on('click', '#day td',function(){
         alert($(this).text());
     });
@@ -84,11 +84,6 @@ let today;
 let diaryText;
 let month;
 let dayName = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
-function clickMenu(li){
-    const clickLi = li;
-    $(clickLi).addClass('on');
-    $('#mainWrapBackground li').not(li).removeClass('on');
-}
 
 function moveDiary() {
      $.ajax({
@@ -98,6 +93,7 @@ function moveDiary() {
          success: function (data) {
              $("#rightWrap .rightMainWrap").empty();
              $("#rightWrap .rightMainWrap").html(data);
+             checkStatus();
              getMonthDate();
          },
          error: function (xhr, status, error) {
@@ -233,6 +229,10 @@ function getFolderContents(folderId ,btn){
 }
 
 function addDiaryContent(folderId, diaryContent){
+    if(!folderId){
+        alert('폴더를 선택해주세요');
+        return;
+    }
     const availStatus = $('#diaryStatus').val();
     $.ajax({
         type: 'POST',
@@ -257,7 +257,7 @@ function getDiaryContent(diaryId){
         dataType: 'json',
         success: function(response){
             $('.post-container').append(`
-                <div data-avail="${response.availStatus}" class="diaryContent">${response.diaryContent}</div>
+                <div data-id="${response.diaryId}" data-avail="${response.availStatus}" class="diaryContent">${response.diaryContent}</div>
             `)
         },
         error: function(error){
@@ -273,8 +273,9 @@ function checkStatus(){
         dataType: 'json',
         success: function(response){
             if(response === false){
+                console.log(response);
                 $('#registerBtn').remove();
-                $('.post-actions').remove();
+                $('.post-actions').hide();
             }
         },
             error: function(error){
