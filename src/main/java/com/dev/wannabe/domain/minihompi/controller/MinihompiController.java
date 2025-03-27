@@ -18,8 +18,10 @@ public class MinihompiController {
     @GetMapping("/profile")
     public String Profile() {return "minihompi/profile/minihompiProfile";}
 
-    @GetMapping("/dairy")
-    public String Dairy() {return "minihompi/dairy/minihompiDairy";}
+    @GetMapping("/diary")
+    public String Dairy() {
+        return "minihompi/dairy/minihompiDairy";
+    }
 
     @GetMapping("/jukebox")
     public String Jukebox() {return "minihompi/jukebox/minihompiJukebox";}

@@ -2,20 +2,21 @@ package com.dev.wannabe.domain.minihompi.model.vo;
 
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Builder(toBuilder = true)
-public class HompiFolder {
+public class Album {
+
+    private Long albumId;
     private Long hompiId;
     private Long folderId;
-    private String folderName;
-    private String contentsType;
+    private String albumName;
     private String availStatus;
 
     private Long insertUserId;
-    private LocalDateTime insertDt;
+    private Date insertDt;
     private Long updateUserId;
-    private LocalDateTime updateDt;
+    private Date updateDt;
+
 }

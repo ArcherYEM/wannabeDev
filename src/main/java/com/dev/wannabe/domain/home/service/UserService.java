@@ -105,14 +105,17 @@ public class UserService {
 
     public Integer findUserIdByLoginIdAndEmail(String loginId, String email){ return userMapper.findUserIdByLoginIdAndEmail(loginId, email);}
 
+    @Transactional
     public void saveAuthCode(Integer userId, String authCode){userMapper.saveAuthCode(userId, authCode);}
 
     public Integer checkAuthCode(String authCode, String userId){ return userMapper.checkAuthCode(authCode, userId);}
 
+    @Transactional
     public Integer updateAuthStatus(String authId, String authCode){ return userMapper.updateAuthStatus(authId, authCode);}
 
     public String findAuthIdByAuthCode(String authCode){return userMapper.findAuthIdByAuthCode(authCode);}
 
+    @Transactional
     public Integer updatePassword(String loginId, String email, String password){
         String changePassword = passwordEncoder.encode(password);
         return userMapper.updatePassword(loginId, email, changePassword);
@@ -120,5 +123,6 @@ public class UserService {
 
     public EmailAuth findAuthByUserIdAndAuthCode(Integer userId, String authCode){ return userMapper.findAuthByUserIdAndAuthCode(userId, authCode);}
 
+    @Transactional
     public void expireAuthStatus(String authId, String authCode, LocalDateTime expTime){ userMapper.expireAuthStatus(authId, authCode, expTime);}
 }
