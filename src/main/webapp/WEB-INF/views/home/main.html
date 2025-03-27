@@ -5,7 +5,6 @@
       layout:decorate="~{/common/layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>onlineMain</title>
     <title layout:fragment="title">워너비</title>
     <!-- 메인 페이지 전용 스타일 -->
     <link rel="stylesheet" th:href="@{/static/css/weather.css}" layout:fragment="styles"/>
@@ -14,6 +13,7 @@
     <link rel="stylesheet" th:href="@{/static/css/product.css}" layout:fragment="styles"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
           layout:fragment="styles"/>
+   <th:block th:replace="common/layout/fragments/favicon :: favicon"></th:block>
 </head>
 <body>
 <div layout:fragment="content">
