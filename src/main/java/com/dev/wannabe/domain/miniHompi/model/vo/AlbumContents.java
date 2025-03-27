@@ -7,12 +7,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder(toBuilder = true)
-public class HompiFolder {
-    private Long hompiId;
-    private Long folderId;
-    private String folderName;
-    private String contentsType;
-    private String availStatus;
+public class AlbumContents {
+    private Long contentsId;
+    private Long albumId;
+    private String albumTitle;
+    private String albumContents;
 
     private Long insertUserId;
     private LocalDateTime insertDt;
