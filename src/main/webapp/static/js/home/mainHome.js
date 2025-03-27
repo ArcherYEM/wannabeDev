@@ -213,7 +213,7 @@ function getMovie(){
                             const posterurl = tempString ? tempString.split('|') : [];
                             let movieFinal = "";
 
-                            movieFinal += "<div id='movieFinal' class='movieFinal' ><div>" + (i + 1) + "위</div>"
+                            movieFinal += "<div id='movieFinal' class='movieFinal' ><div class='movieRank'>" + (i + 1) + "위</div>"
                             movieFinal += "<div class='movieInfoWrap'>"
 
                             if (posterurl[0]) {

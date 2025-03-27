@@ -54,20 +54,37 @@
         <!--gnb 끝-->
     </header>
     <div id="container" class="mainContainer">
+        <!--메인슬라이더-->
+        <div class="mainCenterTop">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!--불러오기-->
+                </div>
+                <div class="swiper-button-next">&rtrif;</div>
+                <div class="swiper-button-prev">&ltrif;</div>
+                <div class="swiper-pagination"></div>
+                <div class="autoplay-progress" style="display: none;">
+                    <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20"></circle>
+                    </svg>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <!--메인슬라이더 끝-->
         <div class="containerWrap">
             <!-- 좌측 영역 -->
             <div class="mainLeft">
                 <div class="mainLeftTop">
                     <!-- 로그인 된 상태 -->
                     <div th:if="${session.userData != null}">
-                        <div class="loginWrap yesLogin">
-                            <div class="yesLoginDiv1">
+                        <div class="profileWrap">
+                            <div class="halfCircle"></div>
+                            <div class="profileInfoWrap">
                                 <div id="loginName2" class="nameDisplay" th:text="${session.userData.name}">이름</div>
                                 <div>
-                                    <ul>
-                                        <li><a class="btn small">내정보수정</a></li>
-                                        <li><a href="#" id="logoutBtn2" class="btn nobtn logoutBtn">로그아웃</a></li>
-                                    </ul>
+                                    <span class="modifyInfo">내정보수정</span>
+                                    <span id="logoutBtn2" class="logoutBtn">로그아웃</span>
                                 </div>
                             </div>
                             <div class="yesLoginDiv2">
@@ -153,24 +170,6 @@
             <!-- 좌측 영역 끝 -->
             <!-- 중앙 영역 -->
             <div class="mainCenter">
-                <!--메인슬라이더-->
-                <div class="mainCenterTop">
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <!--불러오기-->
-                        </div>
-                        <div class="swiper-button-next">&rtrif;</div>
-                        <div class="swiper-button-prev">&ltrif;</div>
-                        <div class="swiper-pagination"></div>
-                        <div class="autoplay-progress" style="display: none;">
-                            <svg viewBox="0 0 48 48">
-                                <circle cx="24" cy="24" r="20"></circle>
-                            </svg>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-                <!--메인슬라이더 끝-->
                 <!--급상승유저-->
                 <div class="topUserWrap">
                     <div class="topUserTitle">
@@ -387,7 +386,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="todayLucyWrap">
                     <p class="mainTitleText">오늘의 운세🍀</p>
                     <div class="todayLuckyFrame">
