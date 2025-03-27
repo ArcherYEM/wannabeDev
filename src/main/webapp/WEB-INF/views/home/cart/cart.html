@@ -10,9 +10,16 @@
 
   <!--추후에 CSS 파일로 분리 필요-->
   <style>
-    .cart_check_group{margin-top:50px; padding-bottom: 5px; border-bottom: 1px solid #FF8000; display: flex; align-items: center; gap:5px;}
-    .cart_check_group span{font-size: 16px;}
-    .cart_check_group input{margin-left: 20px;}
+    .cart_check_group {margin-top: 50px; padding-bottom: 5px; border-bottom: 1px solid #FF8000; display: flex; align-items: center; gap:5px;}
+    .cart_check_group span {font-size: 16px;}
+    .cart_check_group input {margin-left: 20px;}
+    .cart_container { display: flex; width: 100%; gap: 10px; margin:20px 0px 50px 0px;}
+    .left_boxes { width: 65%; display: flex; flex-direction: column; gap: 10px; }
+    .cart_box1, .cart_box2, .cart_box3 { border: 1px solid #9a9a9a; border-radius: 5px; padding: 15px; }
+    .cart_box1, .cart_box2 { min-height:250px; }
+    .cart_box3 { width: 35%; min-height: 500px; }
+    .cart_mini_title { font-size: 20px; font-weight: bold; color: #333; }
+    .cart_mini_title_left { border-bottom: 1px solid #9a9a9a; padding: 10px; }
   </style>
 
 </head>
@@ -32,7 +39,29 @@
             <input type="checkbox"/>
             <span>전체선택</span>
             |
-            <span>전체선택</span>
+            <span>선택삭제</span>
+          </div>
+
+          <div class="cart_container">
+            <div class="left_boxes">
+
+              <!-- 미니홈피 아이템 장바구니 리스트 -->
+              <div class="cart_box1">
+                <p class="cart_mini_title cart_mini_title_left">미니홈피 아이템</p>
+              </div>
+
+              <!-- 음반가게 BGM 장바구니 리스트 -->
+              <div class="cart_box2">
+                <p class="cart_mini_title cart_mini_title_left">음반가게 BGM</p>
+              </div>
+
+            </div>
+
+            <!-- 선택한 장바구니 리스트 합계 -->
+            <div class="cart_box3">
+              <p class="cart_mini_title">합계</p>
+            </div>
+
           </div>
 
         </div>
