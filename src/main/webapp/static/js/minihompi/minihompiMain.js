@@ -139,6 +139,7 @@ $(document).ready(function () {
 
                 getMinihompiFriendCommentList();
                 getMinihompiDataList();
+                getMiniroomDataList();
             },
             error: function () {
                 console.log("권한 확인 실패");
@@ -576,4 +577,22 @@ $(document).ready(function () {
             }
         });
     });
+
+    /* 미니룸 가져오기 */
+    function getMiniroomDataList() {
+        const hompiDataUrl = `/api/minihompi/miniroom/${hompiId}`
+        $.ajax({
+            type: "GET",
+            url: hompiDataUrl,
+            dataType: "json",
+            success: function (data) {
+                $(".miniRoom").css("background-image", `url('${data.FILE_PATH}')`);
+            },
+            error: function () {
+                alert("미니룸 데이터를 가져오는 데 실패했습니다.");
+            }
+        });
+    }
+
+
 });
