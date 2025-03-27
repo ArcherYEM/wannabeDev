@@ -48,11 +48,13 @@ const newsList = $('#newsList');
 // 영화 템플릿
 const movieTemplate = `
 <div class="movie">
+    <div class="rank">
+        <p>{rank}</p>
+    </div>
     <div class="movie_poster">
         <img src="{poster}" alt="{title}">
     </div>
     <div class="movie_info">
-        <p>{rank}</p>
         <h3>{title}</h3>
         <p>{genre}</p>
         <p>{directorNm}</p>
