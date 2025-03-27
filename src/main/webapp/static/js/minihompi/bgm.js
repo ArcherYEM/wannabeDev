@@ -2,7 +2,7 @@ $(document).ready(function(){
        setBgmList();
       $('#trackListWrap').on('click','p', function(){
         const index = $('#trackListWrap p').index(this);
-        $('#pauseBtn img').attr('src','/static/images/common/minimi/pauseBtn.png');
+        $('#pauseBtn img').attr('src','/static/images/common/minihompi/bgm/pauseBtn.png');
         bgmIndex = index;
         playSong(index);
         if(!audio.paused){
@@ -13,13 +13,13 @@ $(document).ready(function(){
         if(audio.paused){
           checkJukeboxPlay();
           audio.play();
-          $(this).attr('src','/static/images/common/minimi/pauseBtn.png');
+          $(this).attr('src','/static/images/common/minihompi/bgm/pauseBtn.png');
           startRotation();
           playCheckBgm();
         } else {
           audio.pause();
           $('#recordImg').stop(true, true);
-          $(this).attr('src','/static/images/common/minimi/playBtn.png');
+          $(this).attr('src','/static/images/common/minihompi/bgm/playBtn.png');
         }
       });
       //노래 재생 끝날 시 다음 bgmList 다음 index 노래 실행
@@ -52,15 +52,15 @@ $(document).ready(function(){
         audio.pause();
         audio.currentTime = 0;
         $('#recordImg').stop(true, true);
-        $('#pauseBtn img').attr('src','/static/images/common/minimi/playBtn.png');
+        $('#pauseBtn img').attr('src','/static/images/common/minihompi/bgm/playBtn.png');
       });
 
       $('#volumeSlider').on('input change', function(){
         audio.volume = $(this).val();
         if(audio.volume === 0){
-            $('#volumeBtn img').attr('src','/static/images/common/minimi/volume0.png')
+            $('#volumeBtn img').attr('src','/static/images/common/minihompi/bgm/volume0.png')
         }else{
-            $('#volumeBtn img').attr('src','/static/images/common/minimi/volume.png')
+            $('#volumeBtn img').attr('src','/static/images/common/minihompi/bgm/volume.png')
         }
       });
 
@@ -70,11 +70,11 @@ $(document).ready(function(){
          if(audio.volume === 0){
             $('#volumeSlider').val(tmp);
             audio.volume = tmp;
-            $('#volumeBtn img').attr('src','/static/images/common/minimi/volume.png')
+            $('#volumeBtn img').attr('src','/static/images/common/minihompi/bgm/volume.png')
          } else {
             tmp = vol;
             $('#volumeSlider').val(0);
-            $('#volumeBtn img').attr('src','/static/images/common/minimi/volume0.png')
+            $('#volumeBtn img').attr('src','/static/images/common/minihompi/bgm/volume0.png')
             audio.volume = 0;
          }
       });
@@ -177,7 +177,7 @@ $(document).ready(function(){
         playCheckBgm();
         changeLyrics();
         checkJukeboxPlay();
-        $('#pauseBtn img').attr('src','/static/images/common/minimi/pauseBtn.png');
+        $('#pauseBtn img').attr('src','/static/images/common/minihompi/bgm/pauseBtn.png');
         $('#bgmTitle').text(track.artist +"-"+ track.title);
     }
 
