@@ -20,12 +20,15 @@
     .cart_box3 { width: 35%; min-height: 500px; }
     .cart_mini_title { font-size: 20px; font-weight: bold; color: #333; }
     .cart_mini_title_left { border-bottom: 1px solid #9a9a9a; padding: 10px; }
-    .cart_item_group { display: flex; align-items: center; gap:10px; padding-top:15px; }
+    .cart_item_group { display: flex; align-items: center; gap:10px; padding:20px 0px; border-bottom: 1px solid #cfcfcf; }
     .cart_item_chk { flex: 1; }
-    .cart_item_img { flex: 2; }
+    .cart_item_img { flex: 3; text-align: center; }
     .cart_item_info { flex: 5; }
-    .cart_item_btn { flex: 2; }
+    .cart_item_btn { flex: 2; text-align: center; }
     .cart_item_img img { height: 130px; }
+    .cart_item_btn img { height: 20px; }
+    .cart_item_info_ctgr { color:#595959; }
+    .cart_item_info_name { color:#333; font-size: 16px; font-weight: 600; margin: 10px 0px}
   </style>
 
 </head>
@@ -63,8 +66,8 @@
                     <img src="/static/images/common/minimi/human.png">
                   </div>
                   <div class="cart_item_info">
-                    <p>미니미</p>
-                    <p>반팔 입은 머왕</p>
+                    <p class="cart_item_info_ctgr">미니미</p>
+                    <p class="cart_item_info_name">반팔 입은 머왕</p>
                     <select>
                       <option value="1" selected>1</option>
                       <option value="7">7</option>
@@ -74,9 +77,55 @@
                     </select>
                   </div>
                   <div class="cart_item_btn">
-                    x
+                    <img src="/static/images/common/close.png">
                   </div>
                 </div>
+                <!-- s: 더미데이터 -->
+                <div class="cart_item_group">
+                  <div class="cart_item_chk">
+                    <input type="checkbox">
+                  </div>
+                  <div class="cart_item_img">
+                    <img src="/static/images/common/minimi/human.png">
+                  </div>
+                  <div class="cart_item_info">
+                    <p class="cart_item_info_ctgr">미니미</p>
+                    <p class="cart_item_info_name">반팔 입은 머왕</p>
+                    <select>
+                      <option value="1" selected>1</option>
+                      <option value="7">7</option>
+                      <option value="30">30</option>
+                      <option value="90">90</option>
+                      <option value="365">365</option>
+                    </select>
+                  </div>
+                  <div class="cart_item_btn">
+                    <img src="/static/images/common/close.png">
+                  </div>
+                </div>
+                <div class="cart_item_group">
+                  <div class="cart_item_chk">
+                    <input type="checkbox">
+                  </div>
+                  <div class="cart_item_img">
+                    <img src="/static/images/common/minimi/human.png">
+                  </div>
+                  <div class="cart_item_info">
+                    <p class="cart_item_info_ctgr">미니미</p>
+                    <p class="cart_item_info_name">반팔 입은 머왕</p>
+                    <select>
+                      <option value="1" selected>1</option>
+                      <option value="7">7</option>
+                      <option value="30">30</option>
+                      <option value="90">90</option>
+                      <option value="365">365</option>
+                    </select>
+                  </div>
+                  <div class="cart_item_btn">
+                    <img src="/static/images/common/close.png">
+                  </div>
+                </div>
+                <!-- e: 더미데이터 -->
               </div>
 
               <!-- 음반가게 BGM 장바구니 리스트 -->
