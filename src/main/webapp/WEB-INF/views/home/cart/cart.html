@@ -15,14 +15,15 @@
     .cart_check_group {margin-top: 50px; padding-bottom: 5px; border-bottom: 2px solid #FF8000; display: flex; align-items: center; gap:5px;}
     .cart_check_group span {font-size: 16px;}
     .cart_check_group input {margin-left: 20px;}
-    .cart_container { display: flex; width: 100%; gap: 10px; margin:20px 0px 50px 0px;}
+    .cart_container { display: flex; width: 100%; gap: 10px; margin:20px 0 50px 0px;}
     .left_boxes { width: 65%; display: flex; flex-direction: column; gap: 10px; }
     .cart_box1, .cart_box2, .cart_box3 { border: 1px solid #9a9a9a; border-radius: 5px; padding: 15px; }
-    .cart_box1, .cart_box2 { min-height:250px; }
-    .cart_box3 { width: 35%; min-height: 500px; }
-    .cart_mini_title { font-size: 20px; font-weight: bold; color: #333; }
+    .cart_box1, .cart_box2 { min-height:250px; max-height: 500px; }
+    .cart_box3 { height: 500px; top: 288px; position:sticky; right: 23%; width:350px; }
+    .cart_mini_title { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 20px; }
     .cart_mini_title_left { border-bottom: 1px solid #9a9a9a; padding: 10px; }
-    .cart_item_group { display: flex; align-items: center; gap:10px; padding:20px 0px; border-bottom: 1px solid #cfcfcf; }
+    .cart_item_group { display: flex; align-items: center; gap:10px; padding:20px 0; border-bottom: 1px solid #cfcfcf; }
+    .overflow { overflow-x: hidden; overflow-y: auto; height: 400px; }
     .cart_item_chk { flex: 1; }
     .cart_item_img { flex: 3; text-align: center; }
     .cart_item_info { flex: 5; margin-left: 20px; }
@@ -33,7 +34,6 @@
     .cart_item_info_name { color:#333; font-size: 16px; font-weight: 600; margin: 10px 0 }
     .cart_date { padding-right: 20px; box-sizing: border-box; }
   </style>
-
 </head>
 
 <body>
@@ -61,71 +61,74 @@
               <div class="cart_box1">
                 <p class="cart_mini_title cart_mini_title_left">미니홈피 아이템</p>
                 <!-- 리스트 출력부 -->
-                <div class="cart_item_group">
-                  <div class="cart_item_chk">
-                    <input type="checkbox">
+                <div class="overflow">
+                  <div class="cart_item_group">
+                    <div class="cart_item_chk">
+                      <input type="checkbox">
+                    </div>
+                    <div class="cart_item_img">
+                      <img src="/static/images/common/minimi/human.png">
+                    </div>
+                    <div class="cart_item_info">
+                      <p class="cart_item_info_ctgr">미니미</p>
+                      <p class="cart_item_info_name">반팔 입은 머왕</p>
+                      <select class="cart_date">
+                        <option value="1" selected>1</option>
+                        <option value="7">7</option>
+                        <option value="30">30</option>
+                        <option value="90">90</option>
+                        <option value="365">365</option>
+                      </select>
+                    </div>
+                    <div class="cart_item_btn">
+                      <img src="/static/images/common/delete.png" alt="">
+                    </div>
                   </div>
-                  <div class="cart_item_img">
-                    <img src="/static/images/common/minimi/human.png">
+
+                  <!-- s: 더미데이터 -->
+                  <div class="cart_item_group">
+                    <div class="cart_item_chk">
+                      <input type="checkbox">
+                    </div>
+                    <div class="cart_item_img">
+                      <img src="/static/images/common/minimi/human.png">
+                    </div>
+                    <div class="cart_item_info">
+                      <p class="cart_item_info_ctgr">미니미</p>
+                      <p class="cart_item_info_name">반팔 입은 머왕</p>
+                      <select class="cart_date">
+                        <option value="1" selected>1</option>
+                        <option value="7">7</option>
+                        <option value="30">30</option>
+                        <option value="90">90</option>
+                        <option value="365">365</option>
+                      </select>
+                    </div>
+                    <div class="cart_item_btn">
+                      <img src="/static/images/common/delete.png" alt="">
+                    </div>
                   </div>
-                  <div class="cart_item_info">
-                    <p class="cart_item_info_ctgr">미니미</p>
-                    <p class="cart_item_info_name">반팔 입은 머왕</p>
-                    <select class="cart_date">
-                      <option value="1" selected>1</option>
-                      <option value="7">7</option>
-                      <option value="30">30</option>
-                      <option value="90">90</option>
-                      <option value="365">365</option>
-                    </select>
-                  </div>
-                  <div class="cart_item_btn">
-                    <img src="/static/images/common/delete.png" alt="">
-                  </div>
-                </div>
-                <!-- s: 더미데이터 -->
-                <div class="cart_item_group">
-                  <div class="cart_item_chk">
-                    <input type="checkbox">
-                  </div>
-                  <div class="cart_item_img">
-                    <img src="/static/images/common/minimi/human.png">
-                  </div>
-                  <div class="cart_item_info">
-                    <p class="cart_item_info_ctgr">미니미</p>
-                    <p class="cart_item_info_name">반팔 입은 머왕</p>
-                    <select class="cart_date">
-                      <option value="1" selected>1</option>
-                      <option value="7">7</option>
-                      <option value="30">30</option>
-                      <option value="90">90</option>
-                      <option value="365">365</option>
-                    </select>
-                  </div>
-                  <div class="cart_item_btn">
-                    <img src="/static/images/common/delete.png" alt="">
-                  </div>
-                </div>
-                <div class="cart_item_group">
-                  <div class="cart_item_chk">
-                    <input type="checkbox">
-                  </div>
-                  <div class="cart_item_img">
-                    <img src="/static/images/common/minimi/human.png">
-                  </div>
-                  <div class="cart_item_info">
-                    <p class="cart_item_info_ctgr">미니미</p>
-                    <p class="cart_item_info_name">반팔 입은 머왕</p>
-                    <select class="cart_date">
-                      <option value="1" selected>1</option>
-                      <option value="7">7</option>
-                      <option value="30">30</option>
-                      <option value="90">90</option>
-                      <option value="365">365</option>
-                    </select>
-                  </div>
-                  <div class="cart_item_btn">
-                    <img src="/static/images/common/delete.png" alt="">
+                  <div class="cart_item_group">
+                    <div class="cart_item_chk">
+                      <input type="checkbox">
+                    </div>
+                    <div class="cart_item_img">
+                      <img src="/static/images/common/minimi/human.png">
+                    </div>
+                    <div class="cart_item_info">
+                      <p class="cart_item_info_ctgr">미니미</p>
+                      <p class="cart_item_info_name">반팔 입은 머왕</p>
+                      <select class="cart_date">
+                        <option value="1" selected>1</option>
+                        <option value="7">7</option>
+                        <option value="30">30</option>
+                        <option value="90">90</option>
+                        <option value="365">365</option>
+                      </select>
+                    </div>
+                    <div class="cart_item_btn">
+                      <img src="/static/images/common/delete.png" alt="">
+                    </div>
                   </div>
                 </div>
                 <!-- e: 더미데이터 -->
@@ -135,72 +138,73 @@
               <div class="cart_box2">
                 <p class="cart_mini_title cart_mini_title_left">음반가게 BGM</p>
                 <!-- 리스트 출력부 -->
-                <!-- 리스트 출력부 -->
-                <div class="cart_item_group">
-                  <div class="cart_item_chk">
-                    <input type="checkbox">
+                <div class="overflow">
+                  <div class="cart_item_group">
+                    <div class="cart_item_chk">
+                      <input type="checkbox">
+                    </div>
+                    <div class="cart_item_img">
+                      <img src="/static/images/common/song_album_temp.png">
+                    </div>
+                    <div class="cart_item_info">
+                      <p class="cart_item_info_ctgr">BGM</p>
+                      <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
+                      <select class="cart_date">
+                        <option value="1" selected>1</option>
+                        <option value="7">7</option>
+                        <option value="30">30</option>
+                        <option value="90">90</option>
+                        <option value="365">365</option>
+                      </select>
+                    </div>
+                    <div class="cart_item_btn">
+                      <img src="/static/images/common/delete.png" alt="">
+                    </div>
                   </div>
-                  <div class="cart_item_img">
-                    <img src="/static/images/common/song_album_temp.png">
+                  <!-- s: 더미데이터 -->
+                  <div class="cart_item_group">
+                    <div class="cart_item_chk">
+                      <input type="checkbox">
+                    </div>
+                    <div class="cart_item_img">
+                      <img src="/static/images/common/song_album_temp.png">
+                    </div>
+                    <div class="cart_item_info">
+                      <p class="cart_item_info_ctgr">BGM</p>
+                      <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
+                      <select class="cart_date">
+                        <option value="1" selected>1</option>
+                        <option value="7">7</option>
+                        <option value="30">30</option>
+                        <option value="90">90</option>
+                        <option value="365">365</option>
+                      </select>
+                    </div>
+                    <div class="cart_item_btn">
+                      <img src="/static/images/common/delete.png" alt="">
+                    </div>
                   </div>
-                  <div class="cart_item_info">
-                    <p class="cart_item_info_ctgr">BGM</p>
-                    <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
-                    <select class="cart_date">
-                      <option value="1" selected>1</option>
-                      <option value="7">7</option>
-                      <option value="30">30</option>
-                      <option value="90">90</option>
-                      <option value="365">365</option>
-                    </select>
-                  </div>
-                  <div class="cart_item_btn">
-                    <img src="/static/images/common/delete.png" alt="">
-                  </div>
-                </div>
-                <!-- s: 더미데이터 -->
-                <div class="cart_item_group">
-                  <div class="cart_item_chk">
-                    <input type="checkbox">
-                  </div>
-                  <div class="cart_item_img">
-                    <img src="/static/images/common/song_album_temp.png">
-                  </div>
-                  <div class="cart_item_info">
-                    <p class="cart_item_info_ctgr">BGM</p>
-                    <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
-                    <select class="cart_date">
-                      <option value="1" selected>1</option>
-                      <option value="7">7</option>
-                      <option value="30">30</option>
-                      <option value="90">90</option>
-                      <option value="365">365</option>
-                    </select>
-                  </div>
-                  <div class="cart_item_btn">
-                    <img src="/static/images/common/delete.png" alt="">
-                  </div>
-                </div>
-                <div class="cart_item_group">
-                  <div class="cart_item_chk">
-                    <input type="checkbox">
-                  </div>
-                  <div class="cart_item_img">
-                    <img src="/static/images/common/song_album_temp.png">
-                  </div>
-                  <div class="cart_item_info">
-                    <p class="cart_item_info_ctgr">BGM</p>
-                    <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
-                    <select class="cart_date">
-                      <option value="1" selected>1</option>
-                      <option value="7">7</option>
-                      <option value="30">30</option>
-                      <option value="90">90</option>
-                      <option value="365">365</option>
-                    </select>
-                  </div>
-                  <div class="cart_item_btn">
-                    <img src="/static/images/common/delete.png" alt="">
+                  <div class="cart_item_group">
+                    <div class="cart_item_chk">
+                      <input type="checkbox">
+                    </div>
+                    <div class="cart_item_img">
+                      <img src="/static/images/common/song_album_temp.png">
+                    </div>
+                    <div class="cart_item_info">
+                      <p class="cart_item_info_ctgr">BGM</p>
+                      <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
+                      <select class="cart_date">
+                        <option value="1" selected>1</option>
+                        <option value="7">7</option>
+                        <option value="30">30</option>
+                        <option value="90">90</option>
+                        <option value="365">365</option>
+                      </select>
+                    </div>
+                    <div class="cart_item_btn">
+                      <img src="/static/images/common/delete.png" alt="">
+                    </div>
                   </div>
                 </div>
                 <!-- e: 더미데이터 -->
@@ -211,6 +215,20 @@
             <!-- 선택한 장바구니 리스트 합계 -->
             <div class="cart_box3">
               <p class="cart_mini_title">합계</p>
+              <div class="cart_total_group">
+                <div>
+
+                </div>
+                <div>
+
+                </div>
+                <div>
+
+                </div>
+                <div>
+
+                </div>
+              </div>
             </div>
 
           </div>
