@@ -12,11 +12,11 @@ function getFortune (){
         url: "/main/fortune",
         type: "GET",
         success: function(response){
-            $("#todayLucky").text(response);
+            $(".todayLucky").text(response);
         },
         error: function(xhr, status, error){
             console.error("AJAX 요청 실패:", status, error);
-            $("#todayLucky").text("오늘의 운세를 불러오는데 실패했습니다.");
+            $(".todayLucky").text("오늘의 운세를 불러오는데 실패했습니다.");
         }
     });
 }
@@ -101,10 +101,11 @@ function getWeather(){
     function updateWeatherUI(data, lat, lon) {
         const translatedWeather = translateWeatherToKorean(data.message);
 
-        $('#weather-text').text(translatedWeather);
+        $('#location').text(`날씨 정보를 가져오는 중...`);
+        $('.weather-title span').text(translatedWeather);
         $('#weatherIcon').attr('src', getWeatherIcon(data.message)).attr('alt', translatedWeather);
-        $('#temperature').text(`${data.temperature}°C`);
-        $('#rain').text(`강수 ${data.rain}%`);
+        $('#temperature').text(`${data.temperature}° C`);
+        $('#rain').text(`${data.rain}%`);
 
         // GeoAPI로 위경도를 이용하여 지역명 가져오기
         fetch(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lon}`)
@@ -112,11 +113,11 @@ function getWeather(){
             .then(locationData => {
                 const city = locationData.address.city || locationData.address.town || locationData.address.village || "현재 위치";
                 const translatedCity = translateCityToKorean(city);
-                $('#location').text(`${translatedCity}`);
+                $('#location').text(`${translatedCity} 날씨`);
             })
             .catch(error => {
                 // console.error("❌ 지역 정보를 가져오는 중 오류 발생:", error);
-                $('#location').text(`현재 위치`);
+                $('#location').text(`현재 위치 날씨`);
             });
     }
 
@@ -188,6 +189,9 @@ function getMovie(){
 
     movie_dateword = movie_year + movie_month + movie_date; // YYYYMMDD 형식
 
+    const tempRow = document.createElement("div");
+    document.getElementById('movieWrapper').appendChild(tempRow); // mainTitleText가 변수일 경우 document.getElementById() 사용
+
     $.ajax({
         url: 'https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/' +
             'searchDailyBoxOfficeList.json?key=93cc723ee53743ead4321809b7f43c44&targetDt=' +
@@ -213,11 +217,10 @@ function getMovie(){
                             const posterurl = tempString ? tempString.split('|') : [];
                             let movieFinal = "";
 
-                            movieFinal += "<div id='movieFinal' class='movieFinal' ><div class='movieRank'>" + (i + 1) + "위</div>"
-                            movieFinal += "<div class='movieInfoWrap'>"
+                            movieFinal += "<div id='movieFinal' ><div>" + (i + 1) + "위</div>"
 
                             if (posterurl[0]) {
-                                movieFinal += "<div class='movieImgWrap'><img src='" + posterurl[0] + "'/></div>";
+                                movieFinal += "<div><img src='" + posterurl[0] + "'/></div>";
                             } else {
                                 movieFinal += "<div>포스터 없음</div>";
                             }
@@ -227,9 +230,9 @@ function getMovie(){
                                 animeClass = 'flowingText';
                             }
                             movieFinal += '<div class="movieTitleBox"><span class="movieTitleHome ' + animeClass + '">' + movieList[i].movieNm + '</span></div></div>'
-                            movieFinal += "</div>"
 
-                            $('#movieWrapper').append(movieFinal);
+                            $('#movieWrapper').append(movieFinal
+                            );
                         }
                     },
                     error: function () {

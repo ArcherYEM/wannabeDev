@@ -282,6 +282,7 @@ $(document).ready(function () {
         }
 
         const hompiAuth = sessionStorage.getItem('myHompiCheck');
+        const container = $('#profileContainer');
         console.log("hompiAuth Main:" + hompiAuth);
         //권한에 따라 관리 버튼 없앰
         if (hompiAuth != 0) {
@@ -290,6 +291,11 @@ $(document).ready(function () {
             $("#editBtn").remove();
             $("#titleBtn").remove();
             $("select#mood").prop("disabled", true);
+
+        }
+        if (hompiAuth == 0) {
+            container.addClass('editing');
+            $("#profileImg").addClass('editing');
         }
         if (hompiAuth != 3) {
             const row = $("p.fcWb").closest("tr");
@@ -373,93 +379,68 @@ $(document).ready(function () {
         });
     });
 
-    /** 에딧 버튼 관련 (자기소개, 프로필 이미지 변경) **/
+    /** 자기소개 변경 **/
     let originalIntro = ''; // 자기소개 롤백용
-    let originalImgSrc = ''; // 이미지 롤백용
-    let newImageFile = null; // 새 이미지 저장용
 
-    // 에딧 버튼 클릭
     $('#editBtn').on('click', function () {
         const container = $('#profileContainer');
         const editText = $(this).find('a');
         const introBox = $('.introText');
+        const currentBtnText = editText.text().trim();
 
-        container.toggleClass('editing');
+        const introElement = introBox.find('.introduction');
+        originalIntro = introElement.text() ? introElement.text().trim() : '';
+        const textarea = $(`<textarea class="introductionInput" rows="4" maxlength="300">${originalIntro}</textarea>`);
+        introElement.replaceWith(textarea);
 
-        if (container.hasClass('editing')) {
-            // --- 자기소개 텍스트 → textarea
-            originalIntro = introBox.find('.introduction').text().trim();
-            const textarea = $(`<textarea class="introductionInput" rows="4" maxlength="300">${originalIntro}</textarea>`);
-            introBox.find('.introduction').replaceWith(textarea);
+        originalImgSrc = $('#profileImg').attr('src') || '';
+        newImageFile = null;
 
-            // --- 프로필 이미지 원본 저장
-            originalImgSrc = $('#profileImg').attr('src');
-            newImageFile = null; // 초기화
+        container.addClass('editing');
+        editText.text('저장');
 
-            editText.text('저장');
-        } else {
-            const newIntro = $('.introductionInput').val().trim();
+        if (currentBtnText === '저장') {
+            // --- 저장 요청
+            const introInput = $('.introductionInput');
+            const newIntro = (introInput.val() || '').trim();
 
             if (newIntro === '') {
                 alert('자기소개를 입력해주세요.');
-                $('.introductionInput').focus();
-                $('#profileContainer').addClass('editing');
+                introInput.focus();
                 return;
             }
-            // FormData로 이미지 + 텍스트 전송
-            const hompiConfigUrl = `/api/minihompi/updateProfile/${hompiId}`;
-            const formData = new FormData();
-            //formData.append('introduction', newIntro);
-            formData.append("introduction", JSON.stringify(newIntro));
-
-            if (newImageFile) {
-                formData.append('profileImage', newImageFile);
-            }
-
-            console.log("intro:", newIntro);
-            for (let [k, v] of formData.entries()) {
-                console.log("formData:", k, v);
-            }
-            /* key 확인하기 */
-            for (let key of formData.keys()) {
-                console.log(key);
-            }
-
-            /* value 확인하기 */
-            for (let value of formData.values()) {
-                console.log(value);
-            }
-
             $.ajax({
                 type: 'POST',
-                url: hompiConfigUrl,
-                data: formData,
-                processData: false,
-                contentType: false,
+                url: `/api/minihompi/updateIntro/${hompiId}`,
+                data: {introduction: newIntro},
                 success: function (res) {
-                    console.log("hompiConfigUrl 성공:", hompiConfigUrl);
                     const newP = $(`<p class="introduction">${newIntro}</p>`);
-                    $('.introductionInput').replaceWith(newP);
-                    $('#editBtn a').text('EDIT');
+                    introInput.replaceWith(newP);
+                    editText.text('EDIT');
+                    container.removeClass('editing');
                 },
                 error: function () {
-                    console.log("hompiConfigUrl 실패:", hompiConfigUrl);
-                    alert('저장 실패.');
-
+                    alert('자기소개 저장 실패');
                     const rollbackP = $(`<p class="introduction">${originalIntro}</p>`);
-                    $('.introductionInput').replaceWith(rollbackP);
+                    introInput.replaceWith(rollbackP);
                     $('#profileImg').attr('src', originalImgSrc);
-                    $('#profileContainer').removeClass('editing');
-                    $('#editBtn a').text('EDIT');
+                    editText.text('EDIT');
+                    container.removeClass('editing');
                 }
             });
         }
     });
+
+    /** 프로필 사진 변경 **/
+    let originalImgSrc = ''; // 이미지 롤백용
+    let newImageFile = null; // 새 이미지 저장용
+
 // 사진 변경 버튼 클릭 → 파일 input 열기
     $('#changePhotoBtn').on('click', function () {
         $('#profileImage').click();
     });
-// 파일 선택 시 미리보기 처리
+
+// 파일 선택 시 미리보기 + 자동 업로드
     $('#profileImage').on('change', function (e) {
         const file = e.target.files[0];
 
@@ -467,40 +448,46 @@ $(document).ready(function () {
             const reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#profileImg').attr('src', e.target.result);
+                originalImgSrc = $('#profileImg').attr('src'); // 롤백용 저장
+                $('#profileImg').attr('src', e.target.result); // 미리보기 반영
             };
 
             reader.readAsDataURL(file);
-            newImageFile = file; // 저장용으로 설정
+            newImageFile = file;
+
+            updateProfileImage(); // 자동 업로드
         } else {
             alert('이미지 파일만 선택 가능합니다.');
+            $('#profileImage').val('');
         }
     });
 
-    $(document).on("click", ".deleteBtn", function () {
-        const commentId = $(this).data("comment-id");
-        const hompiDataUrl = `/api/minihompi/friendCommentDelete/${hompiId}/${commentId}`;
+// 서버로 이미지 전송
+    function updateProfileImage() {
+        const imageFormData = new FormData();
+        imageFormData.append('profileImage', newImageFile);
 
-        if (!confirm("정말 삭제하시겠습니까?")) {
-            return;
-        }
         $.ajax({
-            type: "DELETE",
-            url: hompiDataUrl,
-            success: function () {
-                alert("댓글이 삭제되었습니다.");
-                getMinihompiFriendCommentList();
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            url: `/api/minihompi/updateProfileImage/${hompiId}`,
+            data: imageFormData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                alert('프로필 이미지 저장 성공');
             },
-            error: function (xhr, status, error) {
-                console.log("삭제 실패", status, error);
-                alert("댓글 삭제에 실패했습니다.");
+            error: function () {
+                alert('프로필 이미지 저장 실패');
+                $('#profileImg').attr('src', originalImgSrc); // 롤백
             }
         });
-    });
+    }
 
-    /** 일촌평 데이터 가져오기**/
+    /** 일촌평 데이터 가져오기 **/
     function getMinihompiFriendCommentList() {
         const hompiDataUrl = `/api/minihompi/FriendComment/${hompiId}`;
+
         $.ajax({
             type: "GET",
             url: hompiDataUrl,
@@ -520,17 +507,22 @@ $(document).ready(function () {
 
             data.forEach(function (FriendCommentDTO) {
                 html += `
-            <li>
-                <span class="comment">${FriendCommentDTO.friendComments}</span>
-                <span class="star">(<span class="nickName fcWb">${FriendCommentDTO.name}</span>
-                ${FriendCommentDTO.userNickname}) <span class="todayDate">${FriendCommentDTO.updateDt}</span>
-                ${FriendCommentDTO.writeUserId == viewUserId | hompiAuth == "0" ? '<div class="deleteImg">' +
-                    '<img src="/static/images/common/delete.png" class="deleteBtn"></div>' +
-                    '<span id="fcWUser" style="display: none">${FriendCommentDTO.writeUserId}</span>' : ''}
-                </span>
-            </li>                 
-        `;
+                <li>
+                    <span class="comment">${FriendCommentDTO.friendComments}</span>
+                    <span class="star">(
+                        <span class="nickName fcWb">${FriendCommentDTO.name}</span>
+                        ${FriendCommentDTO.userNickname})
+                        <span class="todayDate">${FriendCommentDTO.updateDt}</span>
+                        <div id="fcWUser" style="display: none">${FriendCommentDTO.writeUserId}</div>
+                        ${FriendCommentDTO.writeUserId == viewUserId || hompiAuth == "0" ?
+                    '<div class="deleteImg">' +
+                    '<img src="/static/images/common/delete.png" class="deleteBtn"></div>'
+                    : ''}
+                    </span>
+                </li>
+            `;
             });
+
             $('.commentList').html(html);
         }
     }
@@ -538,7 +530,6 @@ $(document).ready(function () {
     /** 일촌평 작성 **/
     $('#fcBtn').on('click', function () {
         let fcContent = $("#fcContent").val();
-        ;
         const hompiDataUrl = `/api/minihompi/insertFriendComment/${hompiId}`;
 
         if (!fcContent.trim()) {
@@ -562,5 +553,27 @@ $(document).ready(function () {
             }
         });
     });
-});
 
+    /** 일촌평 삭제 **/
+    $(document).on("click", ".deleteBtn", function () {
+        const commentId = $(this).closest("li").find("#fcWUser").text();
+        const hompiDataUrl = `/mini-hompi/api/friendCommentDelete/${hompiId}/${commentId}`;
+
+        if (!confirm("정말 삭제하시겠습니까?")) {
+            return;
+        }
+
+        $.ajax({
+            type: "DELETE",
+            url: hompiDataUrl,
+            success: function () {
+                alert("일촌평이 삭제되었습니다.");
+                getMinihompiFriendCommentList();
+            },
+            error: function (xhr, status, error) {
+                console.log("삭제 실패", status, error);
+                alert("일촌평 삭제에 실패했습니다.");
+            }
+        });
+    });
+});

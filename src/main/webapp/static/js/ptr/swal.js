@@ -6,8 +6,7 @@ function swalPopup(title, text, icon, confirmButtonText, cancelButtonText) {
         title: title,
         text: text,
         icon: icon,
-        confirmButtonText: confirmButtonText,
-        cancelButtonText: cancelButtonText
+        confirmButtonText: confirmButtonText
     });
 }
 

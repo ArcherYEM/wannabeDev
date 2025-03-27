@@ -907,11 +907,12 @@ progress::-webkit-progress-value {
     z-index: 10;
 }
 
-#profileContainer.editing #profileImg {
+#profileImg.editing:hover {
     filter: blur(3px) brightness(0.8);
+    transition: filter 0.3s ease;
 }
 
-#profileContainer.editing #changePhotoBtn {
+#profileContainer.editing:hover #changePhotoBtn {
     display: block;
 }
 
