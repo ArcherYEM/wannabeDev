@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.PopupMessageMapper">
+
+    <select id="getMessageList" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT *
+        from FRIEND_MESSAGE
+        WHERE USER_ID = #{userId};
+    </select>
+    <!--        <select id="getImageSlide" resultType="java.util.Map">
+                SELECT
+                    ATTACH_FILE_ID,
+                    FILE_ORIGIN_NAME,
+                    FILE_NAME,
+                    FILE_SIZE,
+                    FILE_PATH,
+                    FILE_EXTENSION,
+                    REMARKS,
+                    INSERT_USER_ID,
+                    INSERT_DT,
+                    UPDATE_USER_ID,
+                    UPDATE_DT
+                FROM ATTACH_FILE_MANAGE
+                WHERE FILE_ORIGIN_NAME LIKE '%ggum%'
+            </select>-->
+</mapper>
