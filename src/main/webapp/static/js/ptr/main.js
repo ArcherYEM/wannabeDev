@@ -52,8 +52,8 @@ const movieTemplate = `
         <img src="{poster}" alt="{title}">
     </div>
     <div class="movie_info">
-        <h3>{title}</h3>
         <p>{rank}</p>
+        <h3>{title}</h3>
         <p>{genre}</p>
         <p>{directorNm}</p>
         <p>{repRlsDate}</p>
@@ -279,8 +279,10 @@ async function getMovie() {
         const movieList = boxOfficeData.boxOfficeResult.dailyBoxOfficeList;
         let moviesHtml = '';
 
+        let rank = 1;
+
         // 향상된 for문 (for-of) 를 이용해 상위 movieCount 만큼 순회
-        for (const movie of movieList.slice(0, movieCount)) {
+        for (const movie of movieList.slice(-1, movieCount)) {
             const movieOpenDay = movie.openDt.replaceAll('-', '');
             const movieName = movie.movieNm;
 
@@ -291,7 +293,6 @@ async function getMovie() {
             });
             const jsonData = typeof detailData === 'string' ? JSON.parse(detailData) : detailData;
 
-            let rank = jsonData.TotalCount;
             let posterUrl = '포스터 없음';
             let directorNm = '감독 정보 없음';
             let genre = '장르 정보 없음';
@@ -351,7 +352,10 @@ async function getMovie() {
                     .replace(/{repRlsDate}/g, repRlsDate)
                     .replace(/{day}/g, day);
                 moviesHtml += movieHtml;
+
+                rank++;
             }
+
             movieWrapper.html(moviesHtml);
         }
     } catch (error) {
