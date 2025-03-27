@@ -238,14 +238,16 @@
     height:46px;
 }
 
-#main .notice div table tr th{
+#main .notice div table tr th,
+#main .notice div table tr td{
 /*    border:1px solid hotpink;*/
     border-bottom:1px solid #808080b3;
     font-size: 15px;
 }
 
 /* 체크 박스 */
-#main .notice div table tr th:nth-of-type(1){
+#main .notice div table tr th:nth-of-type(1),
+#main .notice div table tr td:nth-of-type(1){
     width: 5%;
 }
 
@@ -255,7 +257,8 @@ tr.selected-row {
 
 
 /* 분류 */
-#main .notice div table tr th:nth-of-type(2){
+#main .notice div table tr th:nth-of-type(2),
+#main .notice div table tr td:nth-of-type(2){
     width: 10%;
 }
 .bg-announcement { background-color: #fff9c4; } /* 연노랑 */
@@ -265,7 +268,8 @@ tr.selected-row {
 .bg-admin        { background-color: #eeeeee; } /* 연회색 */
 .bg-unknown      { background-color: #f5f5f5; } /* 기본 회색 */
 
-#main .notice div table tr th p{
+#main .notice div table tr th p,
+#main .notice div table tr td p{
     width: 90% ;
     height:50% ;
     border-radius: 3px;
@@ -274,24 +278,36 @@ tr.selected-row {
 
 }
 
-/* 제목*/
-#main .notice div table tr th:nth-of-type(3){
+#main .notice div table tr td{
+    text-align: center;
+}
+/*호버시 강조됨*/
+#main .notice div table tr:not(.top):hover{
+    background-color: #eee;
+}
+
+    /* 제목*/
+#main .notice div table tr th,
+#main .notice div table tr td:nth-of-type(3){
     width: 45%;
     font-size:14px;
 }
 
 /* 게시일*/
-#main .notice div table tr th:nth-of-type(4){
+#main .notice div table tr th:nth-of-type(4),
+#main .notice div table tr td:nth-of-type(4){
     width: 15%;
 }
 
 /* 작성일*/
-#main .notice div table tr th:nth-of-type(5){
+#main .notice div table tr th:nth-of-type(5),
+#main .notice div table tr td:nth-of-type(5){
     width: 15%;
 }
 
 /* 작성자*/
-#main .notice div table tr th:nth-of-type(6){
+#main .notice div table tr th:nth-of-type(6),
+#main .notice div table tr td:nth-of-type(6){
     width: 10%;
 }
 
