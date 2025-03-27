@@ -21,8 +21,9 @@ const loginFields = {
     }
 };
 
-// =========== 프로세스 레이어 ===========
+// =========== 실행 레이어 ===========
 $(document).ready(function() {
+
     // 로그인 버튼 이벤트 (두 영역 통합)
     loginButtons.click(function() {
         const btnId = $(this).attr('id');

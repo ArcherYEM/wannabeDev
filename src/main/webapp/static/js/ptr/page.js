@@ -5,6 +5,9 @@ const VIEW = {
     CART: `/cart`,
     NOTICE: `/notice`,
     ABOUT_US: `/about-us`,
+    SIGN_UP: `/signup`,
+    RECHARGE: `/recharge`,
+
 }
 
 export default VIEW;

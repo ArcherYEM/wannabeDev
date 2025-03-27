@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>워너비</title>
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" th:href="@{/static/css/common/reset.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/onlineStyle.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/common.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/header.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/footer.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/home.css}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body>
 <div id="wrap">
@@ -44,11 +44,11 @@
         <!--gnb 시작-->
         <div class="gnb">
             <menu class="menuWrap">
-                <li id="homePage">내미니홈피</li>
-                <li id="giftPage">선물가게</li>
-                <li id="cartPage">장바구니</li>
-                <li id="noticePage">공지사항</li>
-                <li id="aboutUsPage">ABOUT US</li>
+                <li id="miniHompi" style="cursor: pointer;">내미니홈피</li>
+                <li id="giftPage" style="cursor: pointer;">선물가게</li>
+                <li id="cartPage" style="cursor: pointer;">장바구니</li>
+                <li id="noticePage" style="cursor: pointer;">공지사항</li>
+                <li id="aboutUsPage" style="cursor: pointer;">ABOUT US</li>
             </menu>
         </div>
         <!--gnb 끝-->
@@ -98,7 +98,7 @@
                                             <span class="title">보유도토리</span>
                                             <span class="text"><img src="/static/images/common/dotori.png">
                                                 <span class="text">720</span>
-                                                <a class="btn small di rechargePageBtn">충전</a>
+                                                <a id="rechargePageBtn" class="btn small di rechargePageBtn">충전</a>
                                             </span>
                                         </li>
 
@@ -140,9 +140,9 @@
                     </div>
                     <div class="newItemWrap">
                         <div id="category-menu" class="categoryList">
-                            <button class="active categoryBtn" onclick="fetchTopProducts('01')">미니미</button>
-                            <button class="categoryBtn" onclick="fetchTopProducts('10')">일러스트</button>
-                            <button class="categoryBtn" onclick="fetchTopProducts('20')">미니룸</button>
+                            <button id="category-01" class="categoryBtn active">미니미</button>
+                            <button id="category-10" class="categoryBtn">일러스트</button>
+                            <button id="category-20" class="categoryBtn">미니룸</button>
                         </div>
                     </div>
                     <!-- 상품 리스트를 표시할 컨테이너 -->
@@ -157,7 +157,7 @@
                 <!--메인슬라이더-->
                 <div class="mainCenterTop">
                     <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
+                        <div id="slideBanner" class="swiper-wrapper">
                             <!--불러오기-->
                         </div>
                         <div class="swiper-button-next">&rtrif;</div>
@@ -380,10 +380,15 @@
                             </div>
                             <div class="weather-info">
                                 <div>
-                                    <p id="location" class="location">로딩중...</p>
-                                    <p class="weather-text"><span id="weather-text"></span>, <span id="rain"></span></p>
+                                    <p id="location" class="location"></p>
+                                    <p class="weather-text">
+                                        <span id="weather-text"></span>
+                                        <span id="rain"></span>
+                                    </p>
                                 </div>
-                                <p class="temp"><span id="temperature"></span></p>
+                                <p class="temp">
+                                    <span id="temperature"></span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -397,7 +402,7 @@
                 </div>
                 <div class="movieWrap">
                     <p class="mainTitleText">영화 추천</p>
-                    <div class="movieWrapper" id="movieWrapper"></div>
+                    <div id="movieWrapper" class="movieWrapper"></div>
                 </div>
             </div>
             <!-- 오른쪽 영역 끝 -->
@@ -405,15 +410,51 @@
         <!-- 메인 끝 -->
     </div>
     <!-- 푸터 시작 -->
-    <th:block th:replace="/common/layout/fragments/footer :: footer"></th:block>
+    <footer id="footer">
+        <div class="footerTopWrap">
+            <div class="footerTop">
+                <img src="/static/images/common/logo_full_w.png">
+                <div class="keywordBox">
+                    <p>
+                        MY WORLD,
+                    </p>
+                    <p>
+                        FRIENDSHIP,
+                    </p>
+                    <p>
+                        MEMORIES.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footerBotWrap">
+            <div class="footerBottom">
+                <div class="footerNav">
+                    <ul>
+                        <li id="miniHompi2" style="cursor: pointer;">내미니홈피</li>
+                        <li id="giftPage2" style="cursor: pointer;">선물가게</li>
+                        <li id="cartPage2" style="cursor: pointer;">장바구니</li>
+                        <li id="noticePage2" style="cursor: pointer;">공지사항</li>
+                        <li id="aboutUsPage2" style="cursor: pointer;">ABOUT US</li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <p>
+                        <span>ⓒ2025.Team.</span>
+                        <span class="teamName">WannabeDev</span>
+                        <span>All rights reserved.</span>
+                    </p>
+                    <p>Since 2025.02.24</p>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- 푸터 끝 -->
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script th:src="@{/static/js/home/mainHome.js}"></script>
-<script th:src="@{/static/js/home/product.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/api.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/page.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/httpStatus.js}"></script>
