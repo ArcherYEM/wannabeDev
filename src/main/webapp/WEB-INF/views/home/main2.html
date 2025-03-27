@@ -44,11 +44,11 @@
         <!--gnb 시작-->
         <div class="gnb">
             <menu class="menuWrap">
-                <li><a href="#">내미니홈피</a></li>
-                <li><a href="#">선물가게</a></li>
-                <li><a href="#">장바구니</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">ABOUT US</a></li>
+                <li id="homePage">내미니홈피</li>
+                <li id="giftPage">선물가게</li>
+                <li id="cartPage">장바구니</li>
+                <li id="noticePage">공지사항</li>
+                <li id="aboutUsPage">ABOUT US</li>
             </menu>
         </div>
         <!--gnb 끝-->
@@ -96,9 +96,10 @@
                                         </li>
                                         <li>
                                             <span class="title">보유도토리</span>
-                                            <span class="text"><img src="/static/images/common/dotori.png"> <span
-                                                    class="text">720</span> <a
-                                                    class="btn small di rechargePageBtn">충전</a></span>
+                                            <span class="text"><img src="/static/images/common/dotori.png">
+                                                <span class="text">720</span>
+                                                <a class="btn small di rechargePageBtn">충전</a>
+                                            </span>
                                         </li>
 
                                     </ul>
@@ -414,9 +415,12 @@
 <script th:src="@{/static/js/home/mainHome.js}"></script>
 <script th:src="@{/static/js/home/product.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/api.js}"></script>
+<script th:type="module" th:src="@{/static/js/ptr/page.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/httpStatus.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/swal.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/ajax.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/login.js}"></script>
+<script th:type="module" th:src="@{/static/js/ptr/main.js}"></script>
+
 </body>
 </html>

@@ -1,7 +1,3 @@
-$(function (){
-
-});
-
 /** 미니홈피 팝업창 설정 **/
 function openPop() {
     const popupW = 1280;
