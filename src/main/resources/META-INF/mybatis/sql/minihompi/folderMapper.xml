@@ -35,7 +35,7 @@
         </choose>
     </select>
 
-    <select id="findAllFolderContentByFolderFind" parameterType="FolderFindDTO" resultType="FolderContentsDTO">
+    <select id="findAllFolderContentByFolderFind" parameterType="FolderFindDTO" resultType="FolderDTO">
         <choose>
             <when test="contentsType == '01'"> <!--> 다이어리 <-->
                 SELECT DIARY_ID AS CONTENT_ID, DATE_FORMAT(INSERT_DT, '%Y%m%d') AS CONTENT_NAME

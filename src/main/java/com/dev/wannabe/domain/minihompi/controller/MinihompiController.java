@@ -32,7 +32,7 @@ public class MinihompiController {
         return "minihompi/profile/minihompiProfile";
     }
 
-    @GetMapping("/dairy")
+    @GetMapping("/diary")
     public String Dairy() {
         return "minihompi/dairy/minihompiDairy";
     }
