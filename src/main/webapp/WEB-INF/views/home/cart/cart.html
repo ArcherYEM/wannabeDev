@@ -33,6 +33,26 @@
     .cart_item_info_ctgr { color:#595959; }
     .cart_item_info_name { color:#333; font-size: 16px; font-weight: 600; margin: 10px 0 }
     .cart_date { padding-right: 20px; box-sizing: border-box; }
+    .cart_total_frame { height: 200px; }
+    .cart_total_group { display: flex; align-items: center; gap: 1px; text-align: center; margin-bottom: 20px; color: #595959; font-size: 16px; }
+    .cart_total_ctgr { flex: 4; text-align: left; padding-left: 20px; }
+    .cart_total_cnt { flex: 4; text-align: left; }
+    .cart_total_img { flex: 1; }
+    .cart_total_dtr { flex: 2; }
+    .cart_total_cnt_data { color:#ff8000; }
+    .cart_total_dtr_data { color:#ff8000; }
+    .cart_amount_frame { display: flex; align-items: center; gap: 1px; text-align: center; border-top: 1px solid #9a9a9a; padding: 15px 5px 15px 20px; border-bottom: 1px solid #9a9a9a; color: #333; font-size: 20px; font-weight: bold; }
+    .cart_amount_cnt { flex: 5; text-align: left; }
+    .cart_amount_img { flex: 1; }
+    .cart_amount_dtr { flex: 2; }
+    .cart_amount_cnt_data { color:#ff8000; margin-right: 5px; margin-left: 40px; }
+    .cart_amount_dtr_data { color:#ff8000; margin-right: 5px; }
+    .cart_btn_group { padding: 20px; text-align: center; }
+    .cart_btn_order, .cart_btn_gift { width: 90%; height: 50px; margin: 10px 0; border-radius: 5px; font-size: 16px; }
+    .cart_btn_order { color: #fff; background-color: #ff8000; }
+    .cart_btn_order:hover { background-color: #e57500; }
+    .cart_btn_gift { color: #ff8000; background-color: #fff; border: 1px solid #ff8000; }
+    .cart_btn_gift:hover { background-color: #fffce9; }
   </style>
 </head>
 
@@ -216,34 +236,53 @@
             <div class="cart_box3">
               <p class="cart_mini_title">합계</p>
 
-              <div class="cart_total_group">
-                <div>
-                  <span>미니홈피</span>
+              <div class="cart_total_frame">
+                <div class="cart_total_group">
+                  <div class="cart_total_ctgr">
+                    <span>미니홈피</span>
+                  </div>
+                  <div class="cart_total_cnt">
+                    <span class="cart_total_cnt_data">3</span><span> 건</span>
+                  </div>
+                  <div class="cart_total_img">
+                    <img src="/static/images/common/dotori.png" alt=""/>
+                  </div>
+                  <div class="cart_total_dtr">
+                    <span class="cart_total_dtr_data">50</span><span> 개</span>
+                  </div>
                 </div>
-                <div>
-                  <span>3</span><span> 건</span>
-                </div>
-                <div>
-                  <img src="/static/images/common/dotori.png" alt=""/>
-                </div>
-                <div>
-                  <span>50</span><span> 개</span>
+
+                <div class="cart_total_group">
+                  <div class="cart_total_ctgr">
+                    <span>BGM</span>
+                  </div>
+                  <div class="cart_total_cnt">
+                    <span class="cart_total_cnt_data">3</span><span> 건</span>
+                  </div>
+                  <div class="cart_total_img">
+                    <img src="/static/images/common/dotori.png" alt=""/>
+                  </div>
+                  <div class="cart_total_dtr">
+                    <span class="cart_total_dtr_data">15</span><span> 개</span>
+                  </div>
                 </div>
               </div>
 
-              <div class="cart_total_group">
-                <div>
-                  <span>BGM</span>
+              <div class="cart_amount_frame">
+                <div class="cart_amount_cnt">
+                  <span>총</span><span class="cart_amount_cnt_data">6</span><span>건</span>
                 </div>
-                <div>
-                  <span>3</span><span> 건</span>
-                </div>
-                <div>
+                <div class="cart_amount_img">
                   <img src="/static/images/common/dotori.png" alt=""/>
                 </div>
-                <div>
-                  <span>15</span><span> 개</span>
+                <div class="cart_amount_dtr">
+                  <span class="cart_amount_dtr_data">195</span><span>개</span>
                 </div>
+              </div>
+
+              <div class="cart_btn_group">
+                <button class="cart_btn_order">주문하기</button>
+                <button class="cart_btn_gift">선물하기</button>
               </div>
 
             </div>
