@@ -5,6 +5,12 @@
     margin: 20px auto;
     border: 1px solid #C2C2C2;
     background-color: #fff;
+    height: 230px;
+}
+
+#diary textarea{
+    width: 600px;
+    height: 230px;
 }
 
 .post-header {
@@ -27,10 +33,17 @@
 }
 
 .post-register {
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;;
 }
 
-.post-register .register-btn {
+.post-register p{
+    color: blue;
+    margin-left: 15px;
+}
+
+.post-register #registerBtn {
     width: 60px;
     background-color: orange;
     color: white;
@@ -40,7 +53,7 @@
     border-radius: 5px;
     margin-bottom: 5px;
     height: 25px;
-    margin-right: 20px;
+    margin-right: 15px;
 }
 
 .post-info {
@@ -176,10 +189,75 @@ th, td {
     text-align: center;
 }
 
-td[data-day="sat"] {
-    color: blue;
+#diary textarea, .diaryContent{
+    text-align: center;
+    white-space: pre-wrap;
 }
 
-td[data-day="sun"] {
-    color: red;
+/* left */
+#folderWrap{
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 5px;
+}
+
+#folderWrap button{
+    border: none;
+}
+
+#folderTitle{
+    color: blue;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+hr{
+    display: block;
+}
+
+button{
+    background: none;
+}
+
+#diaryCalender img{
+    width: 12px;
+    margin-bottom: 3px;
+}
+
+#folderNameWrap{
+    display: none;
+}
+
+input[type="text"].folderInput{
+    height: 25px;
+    width: 150px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.folderInputBtn{
+    background: orange;
+    height: 23px;
+    border-radius: 5px;
+}
+
+#statusSelect{
+    display: none;
+    margin-left: 30px;
+}
+
+.selectWrap{
+    display: flex;
+}
+
+.hompiFolderName{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.folderOn{
+    background-color: gainsboro;
 }
