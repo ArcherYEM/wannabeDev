@@ -1,0 +1,327 @@
+.container {
+    width: 100%;
+    padding-top: 10px;
+    font-size:14px;
+    cursor: default;
+
+    color: var(--color-black);
+}
+
+.cartContainer {
+    width: 1280px;
+    margin: 0 auto;
+    padding: 30px 10px;
+
+    /* 나중에 공통 스타일로 편입 */
+    input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+    button {
+        font-size: 14px;
+    }
+    /* 나중에 공통 스타일로 편입 */
+}
+
+.menuTitle h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.cartWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cartCheckWrapper {
+    width: 100%;
+    margin-top: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FF8000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .checkAllWrapper {
+        display: flex;
+        align-items: center;
+
+        label {
+            font-size: 16px;
+        }
+    }
+}
+
+.selectDel {
+    background: var(--color-basic);
+    color: var(--color-white);
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--color-lbrown);
+    }
+}
+
+.cartInfoWrapper {
+    display: flex;
+    width: 100%;
+    padding: 20px 0px;
+    gap: 20px;
+}
+
+/* 장바구니 영역 시작 */
+.itemListWrap {
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cartBox {
+    border: 1px solid var(--color-ngray);
+    border-radius: 5px;
+    padding: 15px;
+
+    .cartTitle {
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--color-black);
+    }
+}
+
+.itemBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 250px;
+    max-height: 500px;
+    padding-top: 10px;
+}
+
+.cartItemGroup {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px 10px;
+    border-top: 1px solid var(--color-lgray);
+    justify-content: space-between;
+
+    span {
+        font-size: 16px;
+    }
+}
+
+.cartItemLeft {
+    display:flex;
+    gap: 10px;
+}
+
+.cartImgWrap {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    background-color: var(--color-lgray);
+    border-radius: 5px;
+    overflow: hidden;
+
+    .checkbox {
+        position: absolute;
+    }
+
+    img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+}
+
+.cartItemCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .cartItemCategory{
+        font-size: 16px;
+        color: var(--color-ngray);
+    }
+
+    .cartItemName{
+        font-size: 24px;
+        color: var(--color-black);
+        font-weight: 600;
+    }
+
+    .cartArtistName {
+        font-size: 20px;
+        color: var(--color-dgray);
+    }
+
+    .orderCountWrap {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .cartDate {
+        appearance: auto;
+        width: 120px;
+        height: 40px;
+        border-radius: 5px;
+        font-size: 14px;
+        border: 1px solid var(--color-ngray);
+    }
+
+    .dotoriInfo {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        img {
+            width: 25px;
+            height: 25px;
+        }
+
+        span {
+            font-size: 16px;
+        }
+
+        .count {
+            display: inline-block;
+            text-align: center;
+            width: 50px;
+            font-weight: 600;
+        }
+    }
+}
+
+.cartItemButton {
+    button {
+        width: 20px;
+        height: 20px;
+        color: var(--color-black);
+        background-color: var(--color-lgray);
+        font-size: 14px;
+        border-radius: 5px;
+
+        &:hover {
+            color: var(--color-white);
+            background-color: var(--color-basic);
+        }
+    }
+}
+
+
+/* 장바구니 영역 끝 */
+/* 구매정보 영역 시작 */
+.cartOrderWrap {
+    flex: 1;
+    height: 500px;
+    top: 200px;
+    position: sticky;
+    border: 1px solid #9a9a9a;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.cartOrderTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.cartTotalFrame {
+    height: 200px;
+}
+
+.cartTotalGroup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 16px;
+
+    .selectedItem {
+        display: flex;
+        gap: 10px;
+    }
+
+    .totalCategory {
+        display: inline-block;
+        width: 70px;
+        font-weight: 600;
+    }
+
+    .selectedPrice {
+        display: flex;
+        gap: 10px;
+    }
+
+    .totalCount {
+        width: 50px;
+    }
+}
+
+.totalCount {
+    color: var(--color-basic);
+    font-weight: 600;
+}
+
+.cartAmountFrame {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1px;
+    text-align: center;
+    border-top: 1px solid #9a9a9a;
+    padding: 15px 5px;
+    border-bottom: 1px solid #9a9a9a;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cartBtnGroup {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0px;
+    gap: 10px;
+
+    button {
+      width: 240px;
+      height: 50px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .cartBtnOrder {
+        color: var(--color-white);
+        background-color: var(--color-basic);
+
+        &:hover {
+            background-color: var(--color-lbrown);
+        }
+    }
+
+    .cartBtnGift {
+        border: solid 1px var(--color-basic);
+        color: var(--color-basic);
+        background-color: var(--color-white);
+
+        &:hover {
+            color: var(--color-lbrown);
+        }
+    }
+}
