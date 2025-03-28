@@ -31,7 +31,7 @@
 
 .mainRight {
     width: 25%;
-    gap: 20px;
+    gap: 10px;
 }
 /* 메인 구조 끝 */
 
@@ -112,6 +112,164 @@
     }
 }
 /* 좌측 로그인 끝 */
+
+/* 좌측 프로필 영역 시작 */
+.profileWrap {
+    border: solid 2px var(--color-basic);
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(var(--color-basic) 80px, transparent 80px);
+    display: flex;
+    flex-direction: column;
+}
+
+.profileInfoTop {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: flex-end;
+    line-height: 1;
+
+    .personalWrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+
+        .personalFeat {
+            display: flex;
+            gap: 10px;
+            color: var(--color-white);
+
+            span {
+                cursor:pointer;
+            }
+
+            span:hover{
+                color: var(--color-brown);
+            }
+        }
+
+        .nameDisplay {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-white);
+        }
+    }
+}
+
+.profileImgWrap {
+    .profileImg {
+        background:var(--color-basic);
+        height:80px;
+        width:80px;
+        padding: 5px;
+        border: solid 3px var(--color-white);
+        border-radius:50%;
+        transform:translate(0px,20px);
+    }
+
+    img{
+    	height:64px;
+    	width:64px;
+    	border-radius:50%;
+    }
+}
+
+.profileInfoBot {
+    flex: 1;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .infoWrap {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .infoOnline {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .infoData {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .alignBox {
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        line-height:1;
+
+        .stat {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            text-align: right;
+
+                img {
+                    width: 14px;
+                    height: 14px;
+                }
+
+                .text.new {
+                    font-weight: 700;
+                }
+        }
+    }
+
+    .stateDotori{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: solid 1px var(--color-basic);
+        border-radius: 15px;
+        padding: 2px;
+        line-height: 1;
+
+        .dotoriTitleWrap {
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
+            gap: 5px;
+
+            img {
+                width: 20px;
+                height: auto;
+            }
+        }
+
+        .chargeWrap {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .text {
+                font-weight: 700;
+            }
+        }
+
+        .rechargePageBtn {
+            padding: 5px 15px;
+            border-radius: 15px;
+            color: var(--color-white);
+            background-color: var(--color-basic);
+        }
+    }
+}
+
+/* 좌측 프로필 영역 끝 */
 
 /* 신규출시아이템 시작 */
 .mainLeftBot {
@@ -210,7 +368,8 @@
 
 .product-card {
     text-align: center;
-    transition: transform 0.3s;
+    transition: transform 0.3;
+    margin-bottom: 5px;
 
     img {
         width: 90px;
@@ -231,7 +390,6 @@
 }
 
 .product-name {
-    margin-top: 8px;
     font-size: 14px;
     font-weight: bold;
 }
@@ -239,14 +397,17 @@
 
 /* 메인슬라이더 시작 */
 .mainCenterTop {
-    margin: 0 auto;
-    width: 100%;
+    width: 1280px;
+    margin: 0 auto 10px;
     height: 230px;
+    border-radius: 15px;
+    padding: 0px 5px;
 }
 
 .swiper {
     width: 100%;
     height: 100%;
+    border-radius: 15px;
 }
 
 .swiper-slide {
@@ -459,12 +620,12 @@
 .newsList {
     margin: 5px 0px 20px;
 
-    li {
+    .news-item {
         padding: 5px 0px;
         border-bottom: solid 1px var(--color-lgray);
     }
 
-    li:last-child {
+    .news-item:last-child {
         border: none;
     }
 }
@@ -474,7 +635,7 @@
 /* 오늘의 날씨 시작 */
 .weather-container {
     width: 100%;
-    padding: 20px;
+    padding: 10px 20px;
     background-color: var(--color-lbrown);
     border: solid 1px var(--color-lbrown);
     border-radius: 15px;
@@ -552,51 +713,112 @@
 /* 오늘의 운세 끝 */
 
 /* 영화 추천 시작 */
+.movieWrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 320px;
+    color: var(--color-gray);
+    gap: 10px;
+}
+
 .movieWrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 150px;
+    gap: 5px;
 }
 
-.movieFinal {
+.movie {
     width: 100%;
-    height: 100%;
-    border: solid 1px var(--color-brown);
+    position: relative;
     border-radius: 15px;
-    padding: 15px;
+
+    .rank {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-lbrown);
+        border: solid 3px var(--color-lbrown);
+        background-color: var(--color-white);
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: 700;
+    }
+}
+
+.movie_wrapper {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+}
+
+.movie_poster {
+    width: 60px;
+
+    img {
+        width: 60px;
+        height: auto;
+    }
+}
+
+.movie_info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+
+    p {
+        max-width:210px;
+        display: inline-block;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1;
+    }
+}
+
+.movie_info .movie_title {
+    width: 200px;
+    display: inline-block;
     color: var(--color-basic);
+    font-size: 16px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1;
 }
 
-.movieImgWrap {
-    height: 100%;
-}
-.movieInfoWrap {
-    height: 100%;
+.movie_day {
+    font-size: 12px;
+    color: var(--color-lbrown);
 }
 
-#movieWrapper img {
-    width: auto;
-    height: 100%;
-}
-
-.flowingText {
-    animation: scroll-left 8s linear infinite;
+.scroll-animate {
+    text-align: left;
+    animation: scroll-left 10s linear infinite;
 }
 
 @keyframes scroll-left {
     0% {
+        transform: translateX(0%);
+    }
+    50% {
+        transform: translateX(-100%);
+    }
+    50.1% {
         transform: translateX(100%);
     }
     100% {
-        transform: translateX(-100%);
+        transform: translateX(0%);
     }
-}
-
-.movieTitleBox {
-    position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-    height: 20px;
 }
 /* 영화 추천 끝 */

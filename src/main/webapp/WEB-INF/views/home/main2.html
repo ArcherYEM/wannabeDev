@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>워너비</title>
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" th:href="@{/static/css/common/reset.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/onlineStyle.css}"/>
@@ -11,7 +15,6 @@
     <link rel="stylesheet" th:href="@{/static/css/common/header.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/common/footer.css}"/>
     <link rel="stylesheet" th:href="@{/static/css/home.css}"/>
-    
     <style type="text/css">
         .swiper-button-next,
         .swiper-button-prev {
@@ -52,68 +55,101 @@
         <!--gnb 시작-->
         <div class="gnb">
             <menu class="menuWrap">
-                <li id="miniHompi" style="cursor: pointer;">내미니홈피</li>
-                <li id="giftPage" style="cursor: pointer;">선물가게</li>
-                <li id="cartPage" style="cursor: pointer;">장바구니</li>
-                <li id="noticePage" style="cursor: pointer;">공지사항</li>
-                <li id="aboutUsPage" style="cursor: pointer;">ABOUT US</li>
+                <li id="miniHompi">내미니홈피</li>
+                <li id="giftPage">선물가게</li>
+                <li id="cartPage">장바구니</li>
+                <li id="noticePage">공지사항</li>
+                <li id="aboutUsPage">ABOUT US</li>
             </menu>
         </div>
         <!--gnb 끝-->
     </header>
     <div id="container" class="mainContainer">
+        <!--메인슬라이더-->
+        <div class="mainCenterTop">
+            <div class="swiper">
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev">&#9668;</div> <!-- 왼쪽 화살표 -->
+                <div class="swiper-button-next">&#9658;</div> <!-- 오른쪽 화살표 -->
+                <div class="autoplay-progress" style="display: none;">
+                    <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20"></circle>
+                    </svg>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        <!--메인슬라이더 끝-->
         <div class="containerWrap">
             <!-- 좌측 영역 -->
             <div class="mainLeft">
                 <div class="mainLeftTop">
                     <!-- 로그인 된 상태 -->
                     <div th:if="${session.userData != null}">
-                        <div class="loginWrap yesLogin">
-                            <div class="yesLoginDiv1">
-                                <div id="loginName2" class="nameDisplay" th:text="${session.userData.name}">이름</div>
-                                <div>
-                                    <ul>
-                                        <li><a class="btn small">내정보수정</a></li>
-                                        <li><a href="#" id="logoutBtn2" class="btn nobtn logoutBtn">로그아웃</a></li>
-                                    </ul>
+                        <div class="profileWrap">
+                            <div class="profileInfoTop">
+                                <div class="profileImgWrap">
+                                    <div class="profileImg">
+                                        <img src="/static/images/common/minimi/exNewItemImage2.png"/>
+                                    </div>
+                                </div>
+                                <div class="personalWrap">
+                                    <div class="personalFeat">
+                                        <span class="profileModify">내정보수정</span>
+                                        <span id="logoutBtn2" class="profileLogout">로그아웃</span>
+                                    </div>
+                                    <div id="loginName2" class="nameDisplay" th:text="${session.userData.name}">이름</div>
                                 </div>
                             </div>
-                            <div class="yesLoginDiv2">
-                                <div><img src="/static/images/common/minimi/exNewItemImage2.png"/></div>
-                                <div>
-                                    <ul>
-                                        <li>
+                            <div class="profileInfoBot">
+                                <div class="infoWrap">
+                                    <div class="infoOnline">
+                                        <div class="alignBox">
                                             <span class="title">일촌ON</span>
-                                            <span class="text">11</span>
-                                        </li>
-                                        <li>
+                                            <div class="stat">
+                                                <span class="text">11</span>
+                                            </div>
+                                        </div>
+                                        <div class="alignBox">
                                             <span class="title">쪽지</span>
-                                            <span class="text">30</span>
-                                        </li>
-                                        <li>
+                                            <div class="stat">
+                                                <img src="/static/images/common/new.png" alt="new">
+                                                <span class="text new">30</span>
+                                            </div>
+                                        </div>
+                                        <div class="alignBox">
+                                            <span class="title">일촌신청</span>
+                                            <div class="stat">
+                                                <span class="text">4</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="infoData">
+                                        <div class="alignBox">
                                             <span class="title">오늘 방문자</span>
                                             <span class="text">113</span>
-                                        </li>
-                                        <li>
+                                        </div>
+                                        <div class="alignBox">
                                             <span class="title">새 게시물</span>
-                                            <span class="text">2</span>
-                                        </li>
-                                        <li>
-                                            <span class="title">일촌신청</span>
-                                            <span class="text">4</span>
-                                        </li>
-                                        <li>
-                                            <span class="title">보유도토리</span>
-                                            <span class="text"><img src="/static/images/common/dotori.png">
-                                                <span class="text">720</span>
-                                                <a id="rechargePageBtn" class="btn small di rechargePageBtn">충전</a>
-                                            </span>
-                                        </li>
-                                    
-                                    </ul>
+                                            <div class="stat">
+                                                <img src="/static/images/common/new.png" alt="new">
+                                                <span class="text new">2</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stateDotori">
+                                    <div class="dotoriTitleWrap">
+                                        <img src="/static/images/common/dotori_1.png">
+                                        <span class="title">보유 도토리</span>
+                                    </div>
+                                    <div class="chargeWrap">
+                                        <span class="text">720</span>
+                                        <span id="rechargePageBtn" class="rechargePageBtn">충전</span>
+                                    </div>
                                 </div>
                             </div>
-                            <a class="btn">내 미니홈피 바로가기</a>
                         </div>
                     </div>
                     <!-- 로그인 전 상태 -->
@@ -162,22 +198,6 @@
             <!-- 좌측 영역 끝 -->
             <!-- 중앙 영역 -->
             <div class="mainCenter">
-                <!--메인슬라이더-->
-                <div class="mainCenterTop">
-                    <div class="swiper">
-                        <div class="swiper-wrapper"></div>
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-button-prev">&#9668;</div> <!-- 왼쪽 화살표 -->
-                        <div class="swiper-button-next">&#9658;</div> <!-- 오른쪽 화살표 -->
-                        <div class="autoplay-progress" style="display: none;">
-                            <svg viewBox="0 0 48 48">
-                                <circle cx="24" cy="24" r="20"></circle>
-                            </svg>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-                <!--메인슬라이더 끝-->
                 <!--급상승유저-->
                 <div class="topUserWrap">
                     <div class="topUserTitle">
@@ -399,9 +419,8 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="todayLucyWrap">
-                    <p class="mainTitleText">오늘의 운세🍀</p>
+                    <p class="mainTitleText">오늘의 운세 🍀</p>
                     <div class="todayLuckyFrame">
                         <p id="todayLucky" class="todayLucky"></p>
                     </div>
@@ -457,6 +476,7 @@
     </footer>
     <!-- 푸터 끝 -->
 </div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -467,6 +487,5 @@
 <script th:type="module" th:src="@{/static/js/ptr/ajax.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/login.js}"></script>
 <script th:type="module" th:src="@{/static/js/ptr/main.js}"></script>
-
 </body>
 </html>

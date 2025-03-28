@@ -51,15 +51,16 @@ const movieTemplate = `
     <div class="rank">
         <p>{rank}</p>
     </div>
-    <div class="movie_poster">
-        <img src="{poster}" alt="{title}">
-    </div>
-    <div class="movie_info">
-        <h3>{title}</h3>
-        <p>{genre}</p>
-        <p>{directorNm}</p>
-        <p>{repRlsDate}</p>
-        <p>{day}</p>
+    <div class="movie_wrapper">
+        <div class="movie_poster">
+            <img src="{poster}" alt="{title}">
+        </div>
+        <div class="movie_info">
+            <h3 class="movie_title">{title}</h3>
+            <p>{genre}</p>
+            <p>{directorNm}</p>
+            <p>{repRlsDate} 개봉 <span class="movie_day">{day}</span></p>
+        </div>
     </div>
 </div>`;
 
@@ -405,7 +406,6 @@ async function getMovie() {
     } catch (error) {
         movieWrapper.html('<p>영화 정보를 불러오는데 실패했습니다.</p>');
     }
-
 }
 
 // 상품 데이터 조회 및 렌더링
