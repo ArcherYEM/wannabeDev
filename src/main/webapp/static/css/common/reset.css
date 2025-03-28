@@ -69,21 +69,10 @@ button::-moz-focus-inner,
     border-style: none;
     padding: 0
 }
-input, textarea, select, button{font-size:1rem; font-family: 'NotoKR-Regular', "Noto Sans KR",  "돋음", dotum, sans-serif, Tahoma; color:#333;}
+input, textarea, select, button{font-size:1rem; font-family: "Nanum Gothic", sans-serif; Tahoma; color:#333;}
 input:disabled, select:disabled { background-color:#ddd; }
 input, select{vertical-align: middle; color:#666;}
-select {
-    border:1px solid #ccc;
-    -webkit-appearance:none; /* 크롬 화살표 없애기 */
-    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
-    appearance:none; /* 화살표 없애기 */
-    background: #fff url('../../images/common/select-arrow-down.png') no-repeat top -8px right 3px;
-    height: 20px;
-    padding: 0 40px 0 10px;
-    box-sizing: border-box;
-    font-size: 1rem;
-    letter-spacing: -1px;
-}
+
 select:focus {outline: 1px solid;/* outline: none;*//*border-color: #44465c*/}
 select::-ms-expand {display: none;            /* 화살표 없애기 for IE10, 11*/}
 

@@ -5,13 +5,6 @@ import { getAjax, fetchThen } from "./ajax.js";
 import { swalPopup } from "./swal.js";
 import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
 
-
-// 미니홈피 팝업 스펙
-const HOMPI_WIDTH   = 1280;
-const HOMPI_HEIGHT  = 720;
-const HOMPI_LEFT    = Math.ceil((window.screen.width - HOMPI_WIDTH) / 2);
-const HOMPI_TOP     = Math.ceil((window.screen.height - HOMPI_HEIGHT) / 2);
-
 // 오늘의 운세
 const todayLucky            = $("#todayLucky");
 
@@ -93,27 +86,6 @@ $(document).ready(() => {
 });
 
 // =========== 함수 레이어 ===========
-
-// 미니홈피 팝업 오픈 함수
-function openPop() {
-    const specs = `width=${HOMPI_WIDTH},height=${HOMPI_HEIGHT},left=${HOMPI_LEFT},top=${HOMPI_TOP}`;
-    getAjax(
-        API.MINI_HOMPI,
-        (response) => {
-            if (response.hompiId) {
-                window.open(`/mini-hompi/main/${response.hompiId}`, 'mini-hompi', specs);
-            } else {
-                swalPopup('미니홈피', '미니홈피 정보를 불러오는데 실패했습니다.', 'error', '확인');
-            }
-        },
-        (error) => {
-            swalPopup('미니홈피', '로그인 후 열어주세요', 'error', '확인')
-                .then(() => {
-                    location.href = "/";
-                });
-        }
-    );
-}
 
 // 슬라이드 배너 로드
 function renderSlideBanner() {

@@ -20,15 +20,15 @@ public class HomeController {
     private final HomeService homeService;
     private final LoginService loginService;
 
-/*    @GetMapping("/")
+    @GetMapping("/")
     public String home() {
         return "home/main";
-    }*/
-    
-    @GetMapping("/")
-    public String home2() {
-        return "home/main-new";
     }
+
+//    @GetMapping("/")
+//    public String home2() {
+//        return "home/main2";
+//    }
 
     // 클라이언트 아이피 가져오기
     @GetMapping("/getIp")

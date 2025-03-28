@@ -1,42 +1,19 @@
 <!-- 공통 레이아웃 -->
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-    <meta charset="UTF-8">
-    <title layout:title-pattern="$CONTENT_TITLE - MY SITE">기본 제목</title>
-    <!-- 공통 CSS -->
-    <link rel="stylesheet" th:href="@{/static/css/common/reset.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/common/onlineStyle.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/common/common.css}" />
-    <!-- 개별 페이지 CSS -->
-    <link rel="stylesheet" layout:fragment="styles" />
-    <!-- jQuery -->
-    <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <!-- Swal -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!--    <script src="sweetalert2.all.min.js"></script>--> <!--    위에 cdn 이 있는데 이 swal 경로는 왜또씀 ㅡㅡ-->
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/common/layout/fragments/head :: head"></div>
 <body>
 <div id="wrap">
     <!-- 공통 헤더 -->
-    <th:block th:replace="/common/layout/fragments/header :: header"></th:block>
+    <div th:replace="/common/layout/fragments/header :: header"></div>
     <!-- 본문 삽입 영역 -->
     <main layout:fragment="content"></main>
     <!-- 공통 푸터 -->
-    <th:block th:replace="/common/layout/fragments/footer :: footer"></th:block>
+    <div th:replace="/common/layout/fragments/footer :: footer"></div>
 </div>
 <!-- 공통 JS -->
-<script src="/static/js/common.js"></script>
-<script src="/static/js/home/loginNew.js"></script>
-<!--<script src="/static/js/home/moveFromHome.js"></script>--> <!-- 파일 없는데? 안쓰는거면 지워주세요 -->
+<th:block th:replace="/common/layout/fragments/loading :: loadingSpinner"/>
+<div th:replace="/common/layout/fragments/script-new :: script"></div>
 <!-- 개별 페이지 JS -->
 <th:block layout:fragment="scripts"></th:block>
 </body>
