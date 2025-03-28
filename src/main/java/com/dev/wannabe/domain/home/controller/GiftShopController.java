@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/giftShop")
 public class GiftShopController {
 
-    @GetMapping("/main")
+    @GetMapping("/")
     public String giftShop(){
         return "home/giftShop/giftShopMain";
     }

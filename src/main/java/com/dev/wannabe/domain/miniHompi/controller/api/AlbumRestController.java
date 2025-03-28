@@ -45,4 +45,23 @@ public class AlbumRestController {
         albumService.saveAlbum();
         return null;
     }
+
+    // 자신의 홈피여야만 등록 수정 삭제 버튼 ON. Else, OFF.
+    @GetMapping("/checkStatus/{hompiId}")
+    public ResponseEntity<Boolean> checkStatus(@PathVariable Long hompiId,
+                                               HttpSession session) {
+
+        // 비로그인일 때
+        if (session == null) {
+            return ResponseEntity.ok(false);
+        }
+        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
+
+        // 자신의 홈피가 아닐 때
+        if (!userData.getHompiId().equals(hompiId)) {
+            return ResponseEntity.ok(false);
+        }
+
+        return ResponseEntity.ok(true);
+    }
 }

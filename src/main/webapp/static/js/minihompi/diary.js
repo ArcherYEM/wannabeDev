@@ -245,7 +245,7 @@
 //            getDiaryContent(0);
 //        },
 //        error: function(error){
-//            console.error(error);
+//            console.erroZr(error);
 //        }
 //    })
 //}

@@ -14,6 +14,7 @@
     , INSERT_DT
     , UPDATE_USER_ID
     , UPDATE_DT
+    , ALBUM_CONTENT
     )
     VALUES(
       #{hompiId}
@@ -25,6 +26,7 @@
     , current_timestamp()
     , NULL
     , NULL
+    , #{albumContent}
     );
 </insert>-->
 

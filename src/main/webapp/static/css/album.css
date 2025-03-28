@@ -1,0 +1,25 @@
+.active {
+    display:'block';
+}
+
+.upload-title {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.post-header {
+    height:40px;
+}
+
+.album-title {
+    height:30px;
+}
+
+#albumTitle, #albumAvailStatus, #albumFolderId {
+    height:30px;
+}
+
+#albumText {
+    width: 599px;
+    height: 167px;
+}

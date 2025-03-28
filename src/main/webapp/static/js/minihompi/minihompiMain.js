@@ -462,14 +462,14 @@ $(document).ready(function () {
         }
     });
 
-// 서버로 이미지 전송
+    // 서버로 이미지 전송
     function updateProfileImage() {
         const imageFormData = new FormData();
         imageFormData.append('profileImage', newImageFile);
 
         $.ajax({
             type: 'POST',
-            enctype: 'multipart/form-data',
+            ENCTYPE: 'MULTIPART/FORM-DATA',
             url: `/api/minihompi/updateProfileImage/${hompiId}`,
             data: imageFormData,
             processData: false,
