@@ -1,77 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>워너비</title>
-    <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" th:href="@{/static/css/common/reset.css}"/>
-    <link rel="stylesheet" th:href="@{/static/css/common/onlineStyle.css}"/>
-    <link rel="stylesheet" th:href="@{/static/css/common/common.css}"/>
-    <link rel="stylesheet" th:href="@{/static/css/common/header.css}"/>
-    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}"/>
-    <link rel="stylesheet" th:href="@{/static/css/home.css}"/>
-    <style type="text/css">
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #ff0000; /* 원하는 색상 */
-            font-size: 2rem; /* 크기 조정 */
-        }
-    </style>
-</head>
+
+<div th:replace="/common/layout/fragments/head-new :: head"></div>
+<link rel="stylesheet" th:href="@{/static/css/home.css}"/>
+
 <body>
 <div id="wrap">
     <!-- 헤더 시작 -->
-    <header class="header">
-        <div class="topBar">
-            <div class="topBarLogo">
-                <a href="/" class="logo"><img src="/static/images/common/logo_full.png"></a>
-            </div>
-            <div class="topBarInfo ">
-                <div class="topBarList" th:if="${session.userData != null}">
-                    <ul>
-                        <li id="loginIp" class="ipDisplay" th:text="${session.userData.accessIp}">아이피</li>
-                        <li id="loginName" class="nameDisplay" th:text="${session.userData.name}">이름</li>
-                        <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
-                        <li><a href="/userUpdate"><img src="/static/images/common/option.png"></a></li>
-                        <li><a href="#" id="logoutBtn" class="btn nobtn logoutBtn">로그아웃</a></li>
-                    </ul>
-                </div>
-                <div class="topBarList" th:if="${session.userData == null}">
-                    <ul>
-                        <li><input class="loginIdInput" type="text" id="loginId" placeholder="아이디"></li>
-                        <li><input class="passwordInput" type="password" id="password" placeholder="비밀번호"></li>
-                        <li><a href="#" id="loginBtn" class="btn loginBtn">로그인</a></li>
-                        <li><a href="#" id="signupBtn" class="signupBtn btn">회원가입</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--헤더 끝-->
-        <!--gnb 시작-->
-        <div class="gnb">
-            <menu class="menuWrap">
-                <li id="miniHompi">내미니홈피</li>
-                <li id="giftPage">선물가게</li>
-                <li id="cartPage">장바구니</li>
-                <li id="noticePage">공지사항</li>
-                <li id="aboutUsPage">ABOUT US</li>
-            </menu>
-        </div>
-        <!--gnb 끝-->
-    </header>
+    <div th:replace="/common/layout/fragments/header-new :: header"></div>
+    <!-- 헤더 끝 -->
+    
+    <!-- 메인 시작 -->
     <div id="container" class="mainContainer">
-        <!--메인슬라이더-->
+        
+        <!-- 스와이프 시작 -->
         <div class="mainCenterTop">
             <div class="swiper">
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev">&#9668;</div> <!-- 왼쪽 화살표 -->
-                <div class="swiper-button-next">&#9658;</div> <!-- 오른쪽 화살표 -->
                 <div class="autoplay-progress" style="display: none;">
                     <svg viewBox="0 0 48 48">
                         <circle cx="24" cy="24" r="20"></circle>
@@ -80,11 +26,15 @@
                 </div>
             </div>
         </div>
-        <!--메인슬라이더 끝-->
+        <!--스와이프 끝-->
+        
+        <!-- 메인 컨테이너 시작 -->
         <div class="containerWrap">
+            
             <!-- 좌측 영역 -->
             <div class="mainLeft">
                 <div class="mainLeftTop">
+                    
                     <!-- 로그인 된 상태 -->
                     <div th:if="${session.userData != null}">
                         <div class="profileWrap">
@@ -141,7 +91,7 @@
                                 </div>
                                 <div class="stateDotori">
                                     <div class="dotoriTitleWrap">
-                                        <img src="/static/images/common/dotori_1.png">
+                                        <img src="/static/images/common/dotori.png">
                                         <span class="title">보유 도토리</span>
                                     </div>
                                     <div class="chargeWrap">
@@ -152,6 +102,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <!-- 로그인 전 상태 -->
                     <div th:if="${session.userData == null}">
                         <div class="loginWrap">
@@ -189,16 +140,18 @@
                             <button id="category-20" class="categoryBtn">미니룸</button>
                         </div>
                     </div>
-                    <!-- 상품 리스트를 표시할 컨테이너 -->
-                    <div id="product-container" class="productContainer">
-                        <!-- 상품이 여기에 표시됩니다 -->
-                    </div>
+                    
+                    <!-- 상품 리스트  -->
+                    <div id="product-container" class="productContainer"></div>
+                
                 </div>
             </div>
             <!-- 좌측 영역 끝 -->
+            
             <!-- 중앙 영역 -->
             <div class="mainCenter">
-                <!--급상승유저-->
+                
+                <!--급 상승 유저-->
                 <div class="topUserWrap">
                     <div class="topUserTitle">
                         <p class="mainTitleText">인기 급상승 유저</p>
@@ -390,15 +343,22 @@
                         </li>
                     </ul>
                 </div>
+                
+                <!-- 뉴스 영역 -->
                 <div class="newsWrap">
                     <p class="mainTitleText">실시간뉴스</p>
-                    <ul id="newsList" class="newsList"></ul> <!-- 동적으로 생성 -->
+                    <ul id="newsList" class="newsList"></ul>
                 </div>
+                <!-- 뉴스 영역 끝-->
             </div>
             <!-- 중앙 영역 끝 -->
+            
+            
             <!-- 오른쪽 영역 -->
             <div class="mainRight">
                 <div class="mainTopRight">
+                    
+                    <!-- 날씨 영역 시작 -->
                     <div class="weather-container">
                         <div class="weather-content">
                             <div class="weather-left">
@@ -418,74 +378,40 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 날씨 영역 끝 -->
                 </div>
+                
+                <!-- 오늘의 운세 영역 시작 -->
                 <div class="todayLucyWrap">
                     <p class="mainTitleText">오늘의 운세 🍀</p>
                     <div class="todayLuckyFrame">
                         <p id="todayLucky" class="todayLucky"></p>
                     </div>
                 </div>
+                <!-- 오늘의 운세 영역 끝 -->
+                
+                <!-- 영화 추천 영역 시작 -->
                 <div class="movieWrap">
                     <p class="mainTitleText">영화 추천</p>
                     <div id="movieWrapper" class="movieWrapper"></div>
                 </div>
+                <!-- 영화 추천 영역 끝 -->
+                
             </div>
             <!-- 오른쪽 영역 끝 -->
+            
         </div>
-        <!-- 메인 끝 -->
+        <!-- 메인 컨테이너 끝 -->
+        
     </div>
+    <!-- 메인 끝 -->
+    
     <!-- 푸터 시작 -->
-    <footer id="footer">
-        <div class="footerTopWrap">
-            <div class="footerTop">
-                <img src="/static/images/common/logo_full_w.png">
-                <div class="keywordBox">
-                    <p>
-                        MY WORLD,
-                    </p>
-                    <p>
-                        FRIENDSHIP,
-                    </p>
-                    <p>
-                        MEMORIES.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="footerBotWrap">
-            <div class="footerBottom">
-                <div class="footerNav">
-                    <ul>
-                        <li id="miniHompi2" style="cursor: pointer;">내미니홈피</li>
-                        <li id="giftPage2" style="cursor: pointer;">선물가게</li>
-                        <li id="cartPage2" style="cursor: pointer;">장바구니</li>
-                        <li id="noticePage2" style="cursor: pointer;">공지사항</li>
-                        <li id="aboutUsPage2" style="cursor: pointer;">ABOUT US</li>
-                    </ul>
-                </div>
-                <div class="copyright">
-                    <p>
-                        <span>ⓒ2025.Team.</span>
-                        <span class="teamName">WannabeDev</span>
-                        <span>All rights reserved.</span>
-                    </p>
-                    <p>Since 2025.02.24</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div th:replace="/common/layout/fragments/footer-new :: footer"></div>
     <!-- 푸터 끝 -->
 </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script th:type="module" th:src="@{/static/js/ptr/api.js}"></script>
-<script th:type="module" th:src="@{/static/js/ptr/page.js}"></script>
-<script th:type="module" th:src="@{/static/js/ptr/httpStatus.js}"></script>
-<script th:type="module" th:src="@{/static/js/ptr/swal.js}"></script>
-<script th:type="module" th:src="@{/static/js/ptr/ajax.js}"></script>
-<script th:type="module" th:src="@{/static/js/ptr/login.js}"></script>
-<script th:type="module" th:src="@{/static/js/ptr/main.js}"></script>
+<div th:replace="/common/layout/fragments/script-new :: script"></div>
+<script th:type="module" th:src="@{/static/js/ptr/main-new.js}"></script>
 </body>
 </html>
