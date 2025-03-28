@@ -115,7 +115,7 @@
                             </div>
                             <div class="loginLinkWrap">
                                 <a href="#" id="signupBtn2">회원가입</a>
-                                <a id="findIdAndPw">ID찾기 / 비밀번호찾기</a>
+                                <a id="findIdAndPw">ID찾기 | 비밀번호찾기</a>
                             </div>
                         </div>
                     </div>
@@ -137,6 +137,7 @@
                             <button id="category-20" class="categoryBtn">미니룸</button>
                         </div>
                     </div>
+                    
                     <!-- 상품 리스트  -->
                     <div id="product-container" class="productContainer"></div>
                 </div>
@@ -389,11 +390,22 @@
         <!-- 메인 컨테이너 끝 -->
     </div>
     <!-- 메인 끝 -->
+
+    <!-- 모달 임베딩 위치 -->
+    <div th:replace="/home/fragment/findIdModal :: findModal"></div>
+
+    <!-- 푸터 시작 -->
+    <div th:replace="/common/layout/fragments/footer-new :: footer"></div>
+    <!-- 푸터 끝 -->
     <!--메인 끝-->
 </div>
 <!-- 메인 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
     <script th:type="module" th:src="@{/static/js/ptr/main-new.js}"></script>
 </th:block>
+
+<div th:replace="/common/layout/fragments/script-new :: script"></div>
+<script th:type="module" th:src="@{/static/js/ptr/main-new.js}"></script>
+<script th:type="module" th:src="@{/static/js/ptr/find-modal.js}"></script>
 </body>
 </html>

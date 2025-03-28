@@ -33,6 +33,10 @@ function postAjax(url, data, success, error) {
     ajax(url, 'POST', data, JSON_CONTENT_TYPE, success, error);
 }
 
+function queryPostAjax(url, query, success, error) {
+    ajax(url + query, 'POST', null, null, success, error);
+}
+
 function putAjax(url, data, success, error) {
     ajax(url, 'PUT', data, JSON_CONTENT_TYPE, success, error);
 }
@@ -41,4 +45,4 @@ function deleteAjax(url, success, error) {
     ajax(url, 'DELETE', null, JSON_CONTENT_TYPE, success, error);
 }
 
-export { getAjax, postAjax, putAjax, deleteAjax, fetchThen };
+export { getAjax, postAjax, putAjax, deleteAjax, fetchThen, queryPostAjax };
