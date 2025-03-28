@@ -1,4 +1,7 @@
 import VIEW from "./page.js";
+import API from './api.js';
+import { getAjax, fetchThen } from "./ajax.js";
+import { swalPopup } from "./swal.js";
 
 // =========== 변수 레이어 ===========
 
@@ -11,6 +14,12 @@ const aboutUsPage           = $("#aboutUsPage,  #aboutUsPage2");
 const signUpButtons         = $("#signupBtn,    #signupBtn2");
 const dotoriRechargeBtn     = $("#rechargePageBtn");
 
+// 미니홈피 팝업 스펙
+const HOMPI_WIDTH   = 1280;
+const HOMPI_HEIGHT  = 720;
+const HOMPI_LEFT    = Math.ceil((window.screen.width - HOMPI_WIDTH) / 2);
+const HOMPI_TOP     = Math.ceil((window.screen.height - HOMPI_HEIGHT) / 2);
+
 // =========== 실행 레이어 ===========
 $(document).ready(() => {
 
@@ -18,6 +27,27 @@ $(document).ready(() => {
     componentClickEvent();
 
 });
+
+// 미니홈피 팝업 오픈 함수
+function openPop() {
+    const specs = `width=${HOMPI_WIDTH},height=${HOMPI_HEIGHT},left=${HOMPI_LEFT},top=${HOMPI_TOP}`;
+    getAjax(
+        API.MINI_HOMPI,
+        (response) => {
+            if (response.hompiId) {
+                window.open(`/mini-hompi/main/${response.hompiId}`, 'mini-hompi', specs);
+            } else {
+                swalPopup('미니홈피', '미니홈피 정보를 불러오는데 실패했습니다.', 'error', '확인');
+            }
+        },
+        (error) => {
+            swalPopup('미니홈피', '로그인 후 열어주세요', 'error', '확인')
+                .then(() => {
+                    location.href = "/";
+                });
+        }
+    );
+}
 
 
 
