@@ -3,49 +3,53 @@ import { queryPostAjax } from './ajax.js';
 import { swalPopup } from "./swal.js";
 
 // --- DOM 객체 ---
-let $findIdAndPw,    $findIdClose, $tabFindId;
-let $findPwdClose,   $tabFindPwd,  $modal;
-let $findIdForm,     $findPwdForm, $birthYear;
-let $birthDay,       $findIdBtn,   $name;
-let $gotoChangePwd,  $changePwd,   $userId;
-let $showIdLayer,    $newPwdCheck, $codeCheck;
-let $emailCheck,     $birthMonth,  $emailSend;
-let $changePwdLayer, $foundId,     $newPwd,     $email;
+let $findIdAndPw,    $findIdClose,   $tabFindId;
+let $findPwdClose,   $tabFindPwd,    $modal;
+let $findIdForm,     $findPwdForm,   $birthYear;
+let $gotoChangePwd,  $changePwd,     $findIdBtnLayer;
+let $showIdLayer,    $newPwdCheck,   $codeCheck,    $userId;
+let $birthDay,       $findIdBtn,     $findIdInputs, $name;
+let $emailCheck,     $birthMonth,    $emailSend,    $newPwd;
+let $changePwdLayer, $resultIdClose, $foundId,      $email;
 
 let verificationCode = "";
 
 $(document).ready(() => {
 
     // DOM 객체 참조
-    $findIdAndPw   = $('#findIdAndPw');
-    $modal         = $('#modal-layer');
-    $findIdClose   = $('#findIdClose');
-    $findPwdClose  = $('#findPwdClose');
-    $tabFindId     = $('#tab-find-id');
-    $tabFindPwd    = $('#tab-find-pwd');
-    $findIdForm    = $('#find-id-form');
-    $findPwdForm   = $('#find-pwd-form');
-    $birthYear     = $('#birth-year');
-    $birthMonth    = $('#birth-month');
-    $birthDay      = $('#birth-day');
-    $findIdBtn     = $('#findId');
-    $showIdLayer   = $('#show-id-layer');
-    $foundId       = $('#found-id');
-    $gotoChangePwd = $('#gotoChangePwd');
-    $userId        = $('#userId');
-    $name          = $('#name');
-    $email         = $('#email');
-    $emailSend     = $('#emailSend');
-    $codeCheck     = $('#codeCheck');
-    $emailCheck    = $('#emailCheck');
-    $changePwdLayer= $('#change-pwd-layer');
-    $newPwd        = $('#newPwd');
-    $newPwdCheck   = $('#newPwdCheck');
-    $changePwd     = $('#changePwd');
+    $findIdAndPw        = $('#findIdAndPw');
+    $modal              = $('#modal-layer');
+    $findIdClose        = $('#findIdClose');
+    $findIdInputs       = $('#find-id-inputs');
+    $findPwdClose       = $('#findPwdClose');
+    $tabFindId          = $('#tab-find-id');
+    $tabFindPwd         = $('#tab-find-pwd');
+    $findIdForm         = $('#find-id-form');
+    $findPwdForm        = $('#find-pwd-form');
+    $birthYear          = $('#birth-year');
+    $birthMonth         = $('#birth-month');
+    $birthDay           = $('#birth-day');
+    $findIdBtn          = $('#findId');
+    $showIdLayer        = $('#show-id-layer');
+    $foundId            = $('#found-id');
+    $gotoChangePwd      = $('#gotoChangePwd');
+    $userId             = $('#userId');
+    $name               = $('#name');
+    $email              = $('#email');
+    $emailSend          = $('#emailSend');
+    $codeCheck          = $('#codeCheck');
+    $emailCheck         = $('#emailCheck');
+    $newPwd             = $('#newPwd');
+    $newPwdCheck        = $('#newPwdCheck');
+    $changePwd          = $('#changePwd');
+    $changePwdLayer     = $('#change-pwd-layer');
+    $resultIdClose      = $('#resultFindIdClose');
+    $findIdBtnLayer     = $('#find-id-buttons');
 
     // 이벤트 핸들러 등록
     $findIdAndPw.on     ('click', e  => { e.preventDefault(); openModal(); });
     $findIdClose.on     ('click', e  => { e.preventDefault(); closeModal(); });
+    $resultIdClose.on   ('click', e => { e.preventDefault(); closeModal(); });
     $findPwdClose.on    ('click', e  => { e.preventDefault(); closeModal(); });
     $emailSend.on       ('click', () => { sendVerificationCode(); });
     $changePwd.on       ('click', () => { changePassword(); });
@@ -89,16 +93,22 @@ function reset() {
     $birthMonth.val            ('');
     $newPwdCheck.val           ('');
     $foundId.text              ('');
-    $('#passwordMessage').text ('');
     $showIdLayer.css           ('display', 'none');
     $changePwdLayer.css        ('display', 'none');
+    $findIdInputs.css          ('display', 'block');
+    $findIdBtnLayer.css        ('display', 'flex');
+    $findIdBtnLayer.css        ('justify-content', 'space-between');
+    $findIdBtnLayer.css        ('gap', '5px');
+    $('#passwordMessage').text ('');
 }
 
 function switchToIdTab() {
+
     $tabFindId.addClass     ('active');
     $tabFindPwd.removeClass ('active');
     $findIdForm.css         ('display', 'block');
     $findPwdForm.css        ('display', 'none');
+
 }
 
 function switchToPwdTab() {
@@ -138,6 +148,8 @@ function findId() {
         '?' + $.param({ name: nameVal, birthDate: birthDate }),
         data => {
             $foundId.text(data.id);
+            $findIdInputs.hide();
+            $findIdBtnLayer.hide();
             $showIdLayer.css('display', 'block');
         },
         err => {
