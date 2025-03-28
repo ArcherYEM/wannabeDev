@@ -1,0 +1,10 @@
+/*
+ css 수정 중 쓰지 않게 된
+ 구버전 css 모아두는 파일입니다.
+ 추후 삭제 요망.
+*/
+
+/* reset.css */
+input, textarea, select, button{font-size:1rem; font-family: 'NotoKR-Regular', "Noto Sans KR",  "돋음", dotum, sans-serif, Tahoma; color:#333;}
+
+/* cart.css */

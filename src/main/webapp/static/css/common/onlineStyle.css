@@ -1,5 +1,4 @@
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic&display=swap');
 
 /*기본색 s*/
 :root {
@@ -9,8 +8,10 @@
 	--color-red: #ff4f4f;
 	--color-green: #00a336d9 ;
 	--color-blue: #455582;
+    --color-lgray: #DFE0DF;
+    --color-ngray: #9a9a9a;
 	--color-gray: #595959;
-	--color-lgray: #DFE0DF;
+	--color-dgray: #333;
 	--color-brown: #534439;
 	--color-lbrown: #BBA89C;
 	--color-wine: #670000;

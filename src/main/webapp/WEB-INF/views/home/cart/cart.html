@@ -3,300 +3,248 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/layout}">
-      <th:block th:replace="common/layout/fragments/favicon :: favicon"></th:block>
+<th:block th:replace="common/layout/fragments/favicon :: favicon"></th:block>
 <head>
-  <!-- title 모듈화 필요 -->
-  <title layout:fragment="title">장바구니</title>
-  <link rel="stylesheet" th:href="@{static/css/notice/notice.css}" layout:fragment="styles">
-
-  <!--추후에 CSS 파일로 분리 필요-->
-  <style>
-    select { appearance: auto; width:70px; height: 25px; border-radius: 5px; border: 1px solid var(--color-basic); }
-    .cart_check_group {margin-top: 50px; padding-bottom: 5px; border-bottom: 2px solid #FF8000; display: flex; align-items: center; gap:5px;}
-    .cart_check_group span {font-size: 16px;}
-    .cart_check_group input {margin-left: 20px;}
-    .cart_container { display: flex; width: 100%; gap: 10px; margin:20px 0 50px 0px;}
-    .left_boxes { width: 65%; display: flex; flex-direction: column; gap: 10px; }
-    .cart_box1, .cart_box2, .cart_box3 { border: 1px solid #9a9a9a; border-radius: 5px; padding: 15px; }
-    .cart_box1, .cart_box2 { min-height:250px; max-height: 500px; }
-    .cart_box3 { height: 500px; top: 288px; position:sticky; right: 23%; width:350px; }
-    .cart_mini_title { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 20px; }
-    .cart_mini_title_left { border-bottom: 1px solid #9a9a9a; padding: 10px; }
-    .cart_item_group { display: flex; align-items: center; gap:10px; padding:20px 0; border-bottom: 1px solid #cfcfcf; }
-    .overflow { overflow-x: hidden; overflow-y: auto; height: 400px; }
-    .cart_item_chk { flex: 1; }
-    .cart_item_img { flex: 3; text-align: center; }
-    .cart_item_info { flex: 5; margin-left: 20px; }
-    .cart_item_btn { flex: 2; text-align: center; }
-    .cart_item_img img { height: 100px; }
-    .cart_item_btn img { width: 30px; height: 30px; }
-    .cart_item_info_ctgr { color:#595959; }
-    .cart_item_info_name { color:#333; font-size: 16px; font-weight: 600; margin: 10px 0 }
-    .cart_date { padding-right: 20px; box-sizing: border-box; }
-    .cart_total_frame { height: 200px; }
-    .cart_total_group { display: flex; align-items: center; gap: 1px; text-align: center; margin-bottom: 20px; color: #595959; font-size: 16px; }
-    .cart_total_ctgr { flex: 4; text-align: left; padding-left: 20px; }
-    .cart_total_cnt { flex: 4; text-align: left; }
-    .cart_total_img { flex: 1; }
-    .cart_total_dtr { flex: 2; }
-    .cart_total_cnt_data { color:#ff8000; }
-    .cart_total_dtr_data { color:#ff8000; }
-    .cart_amount_frame { display: flex; align-items: center; gap: 1px; text-align: center; border-top: 1px solid #9a9a9a; padding: 15px 5px 15px 20px; border-bottom: 1px solid #9a9a9a; color: #333; font-size: 20px; font-weight: bold; }
-    .cart_amount_cnt { flex: 5; text-align: left; }
-    .cart_amount_img { flex: 1; }
-    .cart_amount_dtr { flex: 2; }
-    .cart_amount_cnt_data { color:#ff8000; margin-right: 5px; margin-left: 40px; }
-    .cart_amount_dtr_data { color:#ff8000; margin-right: 5px; }
-    .cart_btn_group { padding: 20px; text-align: center; }
-    .cart_btn_order, .cart_btn_gift { width: 90%; height: 50px; margin: 10px 0; border-radius: 5px; font-size: 16px; }
-    .cart_btn_order { color: #fff; background-color: #ff8000; }
-    .cart_btn_order:hover { background-color: #e57500; }
-    .cart_btn_gift { color: #ff8000; background-color: #fff; border: 1px solid #ff8000; }
-    .cart_btn_gift:hover { background-color: #fffce9; }
-  </style>
+    <!-- title 모듈화 필요 -->
+    <title layout:fragment="title">장바구니</title>
+    <link rel="stylesheet" th:href="@{static/css/home/cart.css}" layout:fragment="styles">
 </head>
-
 <body>
-  <div layout:fragment="content">
+<div layout:fragment="content">
     <!-- 공지사항 -->
-    <div id="container">
-      <div class="containerWrap">
-        <div id="main">
-
-          <div class="menu_title">
-            <h1> 장바구니 </h1>
-          </div>
-
-          <div class="cart_check_group">
-            <input type="checkbox"/>
-            <span>전체선택</span>
-            |
-            <span>선택삭제</span>
-          </div>
-
-          <div class="cart_container">
-            <div class="left_boxes">
-
-              <!-- 미니홈피 아이템 장바구니 리스트 -->
-              <div class="cart_box1">
-                <p class="cart_mini_title cart_mini_title_left">미니홈피 아이템</p>
-                <!-- 리스트 출력부 -->
-                <div class="overflow">
-                  <div class="cart_item_group">
-                    <div class="cart_item_chk">
-                      <input type="checkbox">
-                    </div>
-                    <div class="cart_item_img">
-                      <img src="/static/images/common/minimi/human.png" alt=""/>
-                    </div>
-                    <div class="cart_item_info">
-                      <p class="cart_item_info_ctgr">미니미</p>
-                      <p class="cart_item_info_name">반팔 입은 머왕</p>
-                      <select class="cart_date">
-                        <option value="1" selected>1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                        <option value="90">90</option>
-                        <option value="365">365</option>
-                      </select>
-                    </div>
-                    <div class="cart_item_btn">
-                      <img src="/static/images/common/delete.png" alt=""/>
-                    </div>
-                  </div>
-
-                  <!-- s: 더미데이터 -->
-                  <div class="cart_item_group">
-                    <div class="cart_item_chk">
-                      <input type="checkbox">
-                    </div>
-                    <div class="cart_item_img">
-                      <img src="/static/images/common/minimi/human.png" alt=""/>
-                    </div>
-                    <div class="cart_item_info">
-                      <p class="cart_item_info_ctgr">미니미</p>
-                      <p class="cart_item_info_name">반팔 입은 머왕</p>
-                      <select class="cart_date">
-                        <option value="1" selected>1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                        <option value="90">90</option>
-                        <option value="365">365</option>
-                      </select>
-                    </div>
-                    <div class="cart_item_btn">
-                      <img src="/static/images/common/delete.png" alt=""/>
-                    </div>
-                  </div>
-                  <div class="cart_item_group">
-                    <div class="cart_item_chk">
-                      <input type="checkbox">
-                    </div>
-                    <div class="cart_item_img">
-                      <img src="/static/images/common/minimi/human.png" alt=""/>
-                    </div>
-                    <div class="cart_item_info">
-                      <p class="cart_item_info_ctgr">미니미</p>
-                      <p class="cart_item_info_name">반팔 입은 머왕</p>
-                      <select class="cart_date">
-                        <option value="1" selected>1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                        <option value="90">90</option>
-                        <option value="365">365</option>
-                      </select>
-                    </div>
-                    <div class="cart_item_btn">
-                      <img src="/static/images/common/delete.png" alt=""/>
-                    </div>
-                  </div>
-                </div>
-                <!-- e: 더미데이터 -->
-              </div>
-
-              <!-- 음반가게 BGM 장바구니 리스트 -->
-              <div class="cart_box2">
-                <p class="cart_mini_title cart_mini_title_left">음반가게 BGM</p>
-                <!-- 리스트 출력부 -->
-                <div class="overflow">
-                  <div class="cart_item_group">
-                    <div class="cart_item_chk">
-                      <input type="checkbox">
-                    </div>
-                    <div class="cart_item_img">
-                      <img src="/static/images/common/song_album_temp.png">
-                    </div>
-                    <div class="cart_item_info">
-                      <p class="cart_item_info_ctgr">BGM</p>
-                      <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
-                      <select class="cart_date">
-                        <option value="1" selected>1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                        <option value="90">90</option>
-                        <option value="365">365</option>
-                      </select>
-                    </div>
-                    <div class="cart_item_btn">
-                      <img src="/static/images/common/delete.png" alt=""/>
-                    </div>
-                  </div>
-                  <!-- s: 더미데이터 -->
-                  <div class="cart_item_group">
-                    <div class="cart_item_chk">
-                      <input type="checkbox">
-                    </div>
-                    <div class="cart_item_img">
-                      <img src="/static/images/common/song_album_temp.png">
-                    </div>
-                    <div class="cart_item_info">
-                      <p class="cart_item_info_ctgr">BGM</p>
-                      <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
-                      <select class="cart_date">
-                        <option value="1" selected>1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                        <option value="90">90</option>
-                        <option value="365">365</option>
-                      </select>
-                    </div>
-                    <div class="cart_item_btn">
-                      <img src="/static/images/common/delete.png" alt=""/>
-                    </div>
-                  </div>
-                  <div class="cart_item_group">
-                    <div class="cart_item_chk">
-                      <input type="checkbox">
-                    </div>
-                    <div class="cart_item_img">
-                      <img src="/static/images/common/song_album_temp.png" alt=""/>
-                    </div>
-                    <div class="cart_item_info">
-                      <p class="cart_item_info_ctgr">BGM</p>
-                      <p class="cart_item_info_name">머왕 - 압쌀라마이꿈따라 쌰바라 빰!</p>
-                      <select class="cart_date">
-                        <option value="1" selected>1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                        <option value="90">90</option>
-                        <option value="365">365</option>
-                      </select>
-                    </div>
-                    <div class="cart_item_btn">
-                      <img src="/static/images/common/delete.png" alt=""/>
-                    </div>
-                  </div>
-                </div>
-                <!-- e: 더미데이터 -->
-              </div>
-
+    <div class="container">
+        <div class="cartContainer">
+            <div class="menuTitle">
+                <h1> 장바구니 </h1>
             </div>
-
-            <!-- 선택한 장바구니 리스트 합계 -->
-            <div class="cart_box3">
-              <p class="cart_mini_title">합계</p>
-
-              <div class="cart_total_frame">
-                <div class="cart_total_group">
-                  <div class="cart_total_ctgr">
-                    <span>미니홈피</span>
-                  </div>
-                  <div class="cart_total_cnt">
-                    <span class="cart_total_cnt_data">3</span><span> 건</span>
-                  </div>
-                  <div class="cart_total_img">
-                    <img class="dotori-icon" src="/static/images/common/dotori.png" alt=""/>
-                  </div>
-                  <div class="cart_total_dtr">
-                    <span class="cart_total_dtr_data">50</span><span> 개</span>
-                  </div>
+            <div class="cartWrapper">
+                <!-- 상단 선택박스 영역 -->
+                <div class="cartCheckWrapper">
+                    <div class="checkAllWrapper">
+                        <input id="cartSelectAll" type="checkbox"/>
+                        <label for="cartSelectAll" class="selectAll">전체선택</label>
+                    </div>
+                    <button class="selectDel">선택항목 삭제</button>
                 </div>
-
-                <div class="cart_total_group">
-                  <div class="cart_total_ctgr">
-                    <span>BGM</span>
-                  </div>
-                  <div class="cart_total_cnt">
-                    <span class="cart_total_cnt_data">3</span><span> 건</span>
-                  </div>
-                  <div class="cart_total_img">
-                    <img class="dotori-icon" src="/static/images/common/dotori.png" alt=""/>
-                  </div>
-                  <div class="cart_total_dtr">
-                    <span class="cart_total_dtr_data">15</span><span> 개</span>
-                  </div>
+                <!-- 상단 선택박스 영역 -->
+                <!-- 하단 영역 -->
+                <div class="cartInfoWrapper">
+                    <!-- 장바구니 -->
+                    <div class="itemListWrap">
+                        <!-- 미니홈피 아이템 장바구니 리스트 -->
+                        <div class="cartBox cartMini">
+                            <p class="cartTitle">미니홈피 아이템</p>
+                            <div class="itemBox">
+                                <div class="cartItemGroup">
+                                    <div class="cartItemLeft">
+                                        <div class="cartImgWrap">
+                                            <input class="checkbox" type="checkbox">
+                                            <div class="cartItemImg">
+                                                <img src="/static/upload/minime_9.png" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div class="cartItemCenter">
+                                            <div>
+                                                <p class="cartItemCategory">미니미</p>
+                                                <p class="cartItemName">반팔 입은 머왕</p>
+                                            </div>
+                                            <div class="orderCountWrap">
+                                                <select class="cartDate">
+                                                    <option value="1" selected>1</option>
+                                                    <option value="7">7</option>
+                                                    <option value="30">30</option>
+                                                    <option value="90">90</option>
+                                                    <option value="365">365</option>
+                                                </select>
+                                                <div class="dotoriInfo">
+                                                    <img src="/static/images/common/dotori.png" alt="dotori"/>
+                                                    <span class="count">7000</span><span>개</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cartItemButton">
+                                        <button class="delButton">X</button>
+                                    </div>
+                                </div>
+                                <!-- s: 더미데이터 -->
+                                <div class="cartItemGroup">
+                                    <div class="cartItemLeft">
+                                        <div class="cartImgWrap">
+                                            <input class="checkbox" type="checkbox">
+                                            <div class="cartItemImg">
+                                                <img src="/static/upload/minime_9.png" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div class="cartItemCenter">
+                                            <div>
+                                                <p class="cartItemCategory">미니미</p>
+                                                <p class="cartItemName">반팔 입은 머왕</p>
+                                            </div>
+                                            <div class="orderCountWrap">
+                                                <select class="cartDate">
+                                                    <option value="1" selected>1</option>
+                                                    <option value="7">7</option>
+                                                    <option value="30">30</option>
+                                                    <option value="90">90</option>
+                                                    <option value="365">365</option>
+                                                </select>
+                                                <div class="dotoriInfo">
+                                                    <img src="/static/images/common/dotori.png" alt="dotori"/>
+                                                    <span class="count">7000</span><span>개</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cartItemButton">
+                                        <button class="delButton">X</button>
+                                    </div>
+                                </div>
+                                <div class="cartItemGroup">
+                                    <div class="cartItemLeft">
+                                        <div class="cartImgWrap">
+                                            <input class="checkbox" type="checkbox">
+                                            <div class="cartItemImg">
+                                                <img src="/static/upload/minime_9.png" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div class="cartItemCenter">
+                                            <div>
+                                                <p class="cartItemCategory">미니미</p>
+                                                <p class="cartItemName">반팔 입은 머왕</p>
+                                            </div>
+                                            <div class="orderCountWrap">
+                                                <select class="cartDate">
+                                                    <option value="1" selected>1</option>
+                                                    <option value="7">7</option>
+                                                    <option value="30">30</option>
+                                                    <option value="90">90</option>
+                                                    <option value="365">365</option>
+                                                </select>
+                                                <div class="dotoriInfo">
+                                                    <img src="/static/images/common/dotori.png" alt="dotori"/>
+                                                    <span class="count">7000</span><span>개</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cartItemButton">
+                                        <button class="delButton">X</button>
+                                    </div>
+                                </div>
+                                <!-- e: 더미데이터 -->
+                            </div>
+                        </div>
+                        <div class="cartBox cartMusic">
+                            <p class="cartTitle">음반가게 BGM</p>
+                            <div class="itemBox">
+                                <div class="cartItemGroup">
+                                    <div class="cartItemLeft">
+                                        <div class="cartImgWrap">
+                                            <input class="checkbox" type="checkbox">
+                                            <div class="cartItemImg">
+                                                <img src="/static/images/common/song_album_temp.png" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div class="cartItemCenter">
+                                            <div>
+                                                <p class="cartItemCategory">BGM</p>
+                                                <p class="cartItemName cartMusicName">압쌀라마이꿈따라 쌰바라 빰!</p>
+                                                <p class="cartArtistName">머왕</p>
+                                            </div>
+                                            <div class="orderCountWrap">
+                                                <div class="dotoriInfo">
+                                                    <img src="/static/images/common/dotori.png" alt="dotori"/>
+                                                    <span class="count">7000</span><span>개</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cartItemButton">
+                                        <button class="delButton">X</button>
+                                    </div>
+                                </div>
+                                <!-- s: 더미데이터 -->
+                                <div class="cartItemGroup">
+                                    <div class="cartItemLeft">
+                                        <div class="cartImgWrap">
+                                            <input class="checkbox" type="checkbox">
+                                            <div class="cartItemImg">
+                                                <img src="/static/images/common/song_album_temp.png" alt=""/>
+                                            </div>
+                                        </div>
+                                        <div class="cartItemCenter">
+                                            <div>
+                                                <p class="cartItemCategory">BGM</p>
+                                                <p class="cartItemName cartMusicName">압쌀라마이꿈따라 쌰바라 빰!</p>
+                                                <p class="cartArtistName">머왕</p>
+                                            </div>
+                                            <div class="orderCountWrap">
+                                                <div class="dotoriInfo">
+                                                    <img src="/static/images/common/dotori.png" alt="dotori"/>
+                                                    <span class="count">7000</span><span>개</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cartItemButton">
+                                        <button class="delButton">X</button>
+                                    </div>
+                                </div>
+                                <!-- e: 더미데이터 -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 장바구니 -->
+                    <!-- 주문정보 -->
+                    <div class="cartOrderWrap">
+                        <p class="cartOrderTitle">합계</p>
+                        <div class="cartTotalFrame">
+                            <div class="cartTotalGroup">
+                                <div class="selectedItem">
+                                    <p><span class="totalCategory">미니홈피</span></p>
+                                    <p><span>3</span><span> 건</span></p>
+                                </div>
+                                <div class="selectedPrice">
+                                    <img class="dotori-icon" src="/static/images/common/dotori.png" alt=""/>
+                                    <p><span class="totalCount">50</span><span> 개</span></p>
+                                </div>
+                            </div>
+                            <div class="cartTotalGroup">
+                                <div class="selectedItem">
+                                    <p><span class="totalCategory">BGM</span></p>
+                                    <p><span>2</span><span> 건</span></p>
+                                </div>
+                                <div class="selectedPrice">
+                                    <img class="dotori-icon" src="/static/images/common/dotori.png" alt=""/>
+                                    <p><span class="totalCount">15</span><span> 개</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cartAmountFrame">
+                            <div class="totalAmount">
+                                <span>총&nbsp;</span><span class="totalCount">6</span><span>&nbsp;건</span>
+                            </div>
+                            <div class="totalDotori">
+                                <img class="dotori-icon" src="/static/images/common/dotori.png" alt=""/>
+                                <span class="totalCount">195</span><span>&nbsp;개</span>
+                            </div>
+                        </div>
+                        <div class="cartBtnGroup">
+                            <button class="cartBtnOrder">주문하기</button>
+                            <button class="cartBtnGift">선물하기</button>
+                        </div>
+                    </div>
+                    <!-- 주문정보 -->
                 </div>
-              </div>
-
-              <div class="cart_amount_frame">
-                <div class="cart_amount_cnt">
-                  <span>총</span><span class="cart_amount_cnt_data">6</span><span>건</span>
-                </div>
-                <div class="cart_amount_img">
-                  <img class="dotori-icon" src="/static/images/common/dotori.png" alt=""/>
-                </div>
-                <div class="cart_amount_dtr">
-                  <span class="cart_amount_dtr_data">195</span><span>개</span>
-                </div>
-              </div>
-
-              <div class="cart_btn_group">
-                <button class="cart_btn_order">주문하기</button>
-                <button class="cart_btn_gift">선물하기</button>
-              </div>
-
+                <!-- 하단 영역-->
             </div>
-
-          </div>
-
         </div>
-      </div>
     </div>
-  </div>
-
-  <th:block layout:fragment="scripts">
+</div>
+<th:block layout:fragment="scripts">
     <script src="/static/js/home/cart.js"></script>
-  </th:block>
+</th:block>
 </body>
 
 </html>
