@@ -27,7 +27,7 @@ public class HomeController {
     
     @GetMapping("/")
     public String home2() {
-        return "home/main2";
+        return "home/main-new";
     }
 
     // 클라이언트 아이피 가져오기

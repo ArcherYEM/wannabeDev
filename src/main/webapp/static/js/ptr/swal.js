@@ -1,6 +1,6 @@
 
 // swal popup
-function swalPopup(title, text, icon, confirmButtonText, cancelButtonText) {
+function swalPopup(title, text, icon, confirmButtonText) {
     // promise 객체를 반환
     return Swal.fire({
         title: title,

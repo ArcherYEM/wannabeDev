@@ -1,9 +1,9 @@
 
-// login js - 250326 patrick
+// loginNew js - 250326 patrick
 
 import HTTP_STATUS from './httpStatus.js';
 import API from './api.js';
-import { getAjax, postAjax, putAjax, deleteAjax } from "./ajax.js";
+import { postAjax } from "./ajax.js";
 import { swalPopup } from "./swal.js";
 
 // =========== 변수 레이어 ===========
@@ -29,7 +29,7 @@ $(document).ready(function() {
         const btnId = $(this).attr('id');
         const loginIdValue = loginFields[btnId].loginId.val();
         const passwordValue = loginFields[btnId].password.val();
-        login(loginIdValue, passwordValue);
+        loginNew(loginIdValue, passwordValue);
     });
 
     // 로그아웃 버튼 이벤트 (두 영역 통합)
@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 // =========== 함수 정의 레이어 ===========
 // 로그인
-function login(loginIdValue, passwordValue) {
+function loginNew(loginIdValue, passwordValue) {
 
     const LoginDTO = JSON.stringify({
         loginId: loginIdValue,
