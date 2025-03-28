@@ -13,9 +13,11 @@ const API = {
     PRODUCT: `${API_URL}/products/top6`,
     NEWS: "/api/news/googleNews",
     SLIDE_BANNER: "/imageSlide2",
-
+    FIND_USERID: `${API_URL}/user/findId`,
+    SEND_CODE: `${API_URL}/user/sendCode`,
+    CHECK_CODE: `${API_URL}/user/checkAuthCode`,
+    CHANGE_PASSWORD: `${API_URL}/user/changePassword`,
 
 };
 
-// 객체 전체를 export
 export default API;

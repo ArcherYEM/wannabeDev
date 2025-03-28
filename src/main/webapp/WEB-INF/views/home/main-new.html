@@ -118,7 +118,7 @@
                             </div>
                             <div class="loginLinkWrap">
                                 <a href="#" id="signupBtn2">회원가입</a>
-                                <a id="findIdAndPw">ID찾기 / 비밀번호찾기</a>
+                                <a id="findIdAndPw">ID찾기 | 비밀번호찾기</a>
                             </div>
                         </div>
                     </div>
@@ -404,6 +404,9 @@
         
     </div>
     <!-- 메인 끝 -->
+
+    <!-- 모달 임베딩 위치 -->
+    <div th:replace="/home/fragment/findIdModal :: findModal"></div>
     
     <!-- 푸터 시작 -->
     <div th:replace="/common/layout/fragments/footer-new :: footer"></div>
@@ -412,5 +415,6 @@
 
 <div th:replace="/common/layout/fragments/script-new :: script"></div>
 <script th:type="module" th:src="@{/static/js/ptr/main-new.js}"></script>
+<script th:type="module" th:src="@{/static/js/ptr/find-modal.js}"></script>
 </body>
 </html>

@@ -33,6 +33,11 @@ let currentCategory = '01'; // 기본 카테고리 (미니미)
 // 뉴스 영역
 const newsList = $('#newsList');
 
+// 아이디 비밀번호 찾기 모달
+const findIdAndPw = $('#findIdAndPw');
+const modal = $('#modal-layer');
+
+
 // 영화 템플릿
 const movieTemplate = `
 <div class="movie">
@@ -54,6 +59,11 @@ const movieTemplate = `
 
 // =========== 실행 레이어 ===========
 $(document).ready(() => {
+
+    // 아이디 비밀번호 찾기 모달
+    findIdAndPw.on('click', function () {
+        modal.removeClass('hidden');
+    });
 
     // 슬라이드 배너 렌더링
     renderSlideBanner();
