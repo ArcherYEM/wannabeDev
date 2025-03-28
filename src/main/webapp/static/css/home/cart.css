@@ -155,7 +155,7 @@
     }
 
     .cartItemName{
-        font-size: 32px;
+        font-size: 24px;
         color: var(--color-black);
         font-weight: 600;
     }
@@ -211,6 +211,7 @@
         color: var(--color-black);
         background-color: var(--color-lgray);
         font-size: 14px;
+        border-radius: 5px;
 
         &:hover {
             color: var(--color-white);

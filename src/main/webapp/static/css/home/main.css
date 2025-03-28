@@ -838,10 +838,13 @@
 }
 .modal-content {
     width: 400px;
-    background-color: #fff;
+    background-color: var(--color-white);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .modal-content .logo {
     text-align: center;
@@ -851,18 +854,21 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    gap: 5px;
 }
 .modal-content .modal-tabs button {
     width: 50%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-lgray);
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: var(--color-white);
+    color: var(--color-basic);
     cursor: pointer;
 }
 .modal-content .modal-tabs button.active {
-    background-color: #007bff;
-    color: #fff;
+    border: 1px solid var(--color-basic);
+    background-color: var(--color-basic);
+    color: var(--color-white);
 }
 .modal-content .input-group {
     margin-bottom: 15px;
@@ -871,44 +877,68 @@
     display: block;
     margin-bottom: 5px;
 }
+
 .modal-content .input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-lgray);
     border-radius: 5px;
 }
+
+.modal-content .input-group .input-box {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+
+    input {
+        width: 260px;
+    }
+}
+
 .modal-content .input-group .select-group {
     display: flex;
+    width: 100%;
+    gap: 5px;
 }
 .modal-content .input-group select {
-    width: 33.3%;
-    padding: 10px;
-    border: 1px solid #ddd;
+    width: 33%;
+    height: 40px;
+    padding: 5px;
+    border: 1px solid var(--color-lgray);
     border-radius: 5px;
 }
 .modal-content .input-group button {
+    width: 100px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-lgray);
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: var(--color-white);
     cursor: pointer;
+
+    &:hover {
+        border: 1px solid var(--color-basic);
+        background-color: var(--color-basic);
+        color: var(--color-white);
+    }
 }
 .modal-content .btn-group {
     display: flex;
     justify-content: space-between;
+    gap: 5px;
 }
 .modal-content .btn-group button {
-    width: 48%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    cursor: pointer;
+    width: 100%;
 }
-.modal-content #show-id-layer button {
+.modal-content button {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-lgray);
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: var(--color-white);
     cursor: pointer;
+
+    &:hover {
+        border: 1px solid var(--color-basic);
+        background-color: var(--color-basic);
+        color: var(--color-white);
+    }
 }
