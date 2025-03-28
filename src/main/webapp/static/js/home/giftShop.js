@@ -4,6 +4,7 @@ const recentSwiper = new Swiper("#recent-item-swiper", {
     slidesPerView: 2,
     spaceBetween: 25,
     mousewheel: true,
+    resistanceRatio: 0.5,
 });
 //카트 아이템리스트 슬라이드
 const itemBuySwiper = new Swiper("#item-swiper", {
@@ -11,6 +12,7 @@ const itemBuySwiper = new Swiper("#item-swiper", {
     slidesPerView: 2.5,
     spaceBetween: 25,
     mousewheel: true,
+    resistanceRatio: 0.5,
 });
 
 
