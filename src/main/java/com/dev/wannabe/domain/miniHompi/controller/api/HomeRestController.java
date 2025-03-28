@@ -43,8 +43,8 @@ public class HomeRestController {
 
     /* 기분 상태값 저장하기 */
     @PostMapping("/mood-save/{hompiId}")
-    public ResponseEntity<Map<String, Object>> saveMood(@PathVariable Long hompiId, @RequestParam String mood) {
-        Map<String, Object> result = minihompiService.saveMood(hompiId, mood);
+    public ResponseEntity<Integer> saveMood(@PathVariable Long hompiId, @RequestParam String mood) {
+        int result = minihompiService.saveMood(hompiId, mood);
 
         return ResponseEntity.ok(result);
     }
@@ -136,7 +136,6 @@ public class HomeRestController {
     @GetMapping("/miniroom/{hompiId}")
     public ResponseEntity<Map<String, Object>> getMiniroom(@PathVariable Long hompiId) {
         Map<String, Object> response = minihompiService.getMiniroom(hompiId);
-        System.out.println(response);
         return ResponseEntity.ok(response);
     }
 }
