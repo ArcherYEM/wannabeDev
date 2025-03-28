@@ -1,18 +1,17 @@
 $(document).ready(function(){
-
     $(document).on('click', '#moveJukebox1', function() {
-            searchStatus = null;
-            search = null;
-            pageNum = 0;
-            clickMenu(this);
-            moveJukebox();
-        });
+        searchStatus = null;
+        search = null;
+        pageNum = 0;
+        clickMenu(this);
+        moveJukebox();
+    });
 
     $(document).on('click','.searchBtn',function(){
       searchStatus = $('.searchSelect').val().trim();
       search = $('.searchText').val().trim();
       pageNum = 0;
-      clickPage(pageNum);
+      clickJukeboxPage(pageNum);
     });
 
     $(document).on('click','.listenBtn',function(){
@@ -62,21 +61,21 @@ $(document).ready(function(){
 
     $(document).on('click','.pageNumber button',function(){
         pageNum = $('.pageNumber button').index(this);
-        clickPage(pageNum);
+        clickJukeboxPage(pageNum);
     });
     $(document).on('click','.pagePrevBtn', function(){
        if(pageNum === 0){
             return;
        }
        pageNum--;
-       clickPage(pageNum);
+       clickJukeboxPage(pageNum);
     });
     $(document).on('click','.pageNextBtn', function(){
         if(pageCount === pageNum + 1){
             return;
         }
         pageNum++;
-        clickPage(pageNum);
+        clickJukeboxPage(pageNum);
     });
     $(document).on('click','.bgmAllCheck', function(){
         const checkboxes = $('.bgmTable input[type="checkbox"]');
@@ -117,7 +116,7 @@ function moveJukebox() {
             success: function (data) {
                 $("#rightWrap .rightMainWrap").children().remove();
                 $("#rightWrap .rightMainWrap").html(data);
-                clickPage(pageNum);
+                clickJukeboxPage(pageNum);
             },
             error: function (xhr, status, error) {
                 alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
@@ -152,7 +151,7 @@ function getBgmCount(){
     });
 }
 
-function clickPage(pageNum){
+function clickJukeboxPage(pageNum){
     $('.bgmAllCheck input[type="checkbox"]').prop('checked',false);
     const clickBtn = $('.pageNumber button')[pageNum];
     const offset = pageNum * 10;

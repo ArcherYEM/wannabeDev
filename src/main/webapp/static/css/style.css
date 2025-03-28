@@ -1,9 +1,13 @@
 @charset "utf-8";
 
+body {
+    background: #A4A5A4;
+}
+
 /*메인비쥬얼 s*/
 #wrap {
     background: #A4A5A4;
-    width: 100%;
+    width: 1280px;
     height: 100%;
     padding: 30px;
     overflow-x: hidden;
@@ -563,14 +567,15 @@ a[class*="btn"] {
     height: 200px;
     border: 1px solid #ddd;
     position: relative;
-    box-sizing: border-box
+    box-sizing: border-box;
+    background-image: url('/static/images/common/miniroom/defaultRoom.png');
 }
 
 #rightWrap .rightMainWrap .rightMain .miniRoom .human {
     position: absolute;
-    top: 50%;
-    left: 46%;
-    width: 50px;
+    top: 101px;
+    left: 262px;
+    width: 80px;
 }
 
 #rightWrap .rightMainWrap .rightMain .miniRoom .talk {

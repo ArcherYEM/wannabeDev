@@ -1,10 +1,9 @@
-package com.dev.wannabe.domain.minihompi.controller;
+package com.dev.wannabe.domain.minihompi.controller.api;
 
 import com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO;
 import com.dev.wannabe.domain.minihompi.service.HompiBgmService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +14,11 @@ import java.util.Map;
 @Controller
 @RequestMapping("/mini-hompi")
 @RequiredArgsConstructor
-public class BgmController {
+public class BgmRestController {
 
     private final HompiBgmService bgmService;
+
+    //홈피 주인이 등록한 BGM가져오기
     @GetMapping("/user-bgm/{hompiId}")
     public ResponseEntity<List<HompiBgmDTO>> findUserBgm(@PathVariable Long hompiId,
                                                          @RequestParam(required = false) Integer offset,
@@ -40,6 +41,8 @@ public class BgmController {
         }
         return ResponseEntity.ok(ownerBgmList);
     }
+
+    //홈피 주인이 가지고있는 BGM개수 가져오기
     @GetMapping("/user-bgm/count/{hompiId}")
     public ResponseEntity<Integer> getBgmCount(@PathVariable Long hompiId,
                                                @RequestParam(required = false) String searchStatus,
@@ -54,6 +57,7 @@ public class BgmController {
         return ResponseEntity.ok(bgmCount);
     }
 
+    //BGM PLAYER에 주크박스에 있는 노래 등록
     @PostMapping("/user-bgm/use-yn/{hompiId}")
     public ResponseEntity<Boolean> setBackGroundBgm(@PathVariable Long hompiId,
                                                     @RequestParam List<Long> bgmIds){
