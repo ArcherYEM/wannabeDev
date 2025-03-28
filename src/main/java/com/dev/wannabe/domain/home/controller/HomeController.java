@@ -65,8 +65,7 @@ public class HomeController {
     }
 
     @GetMapping("/userUpdate")
-    public String goToUserUpdate(){
-        // 페이지 이동만 시킬거니까 이거 개발하시는분이 알아서 바꾸던가 하셈
+    public String goToUserUpdate(HttpServletRequest request){
         return "home/user/userUpdate";
     }
 }

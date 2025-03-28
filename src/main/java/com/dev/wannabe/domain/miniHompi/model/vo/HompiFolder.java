@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Builder(toBuilder = true)
 public class HompiFolder {
-
     private Long hompiId;
     private Long folderId;
     private String folderName;
@@ -19,5 +18,4 @@ public class HompiFolder {
     private LocalDateTime insertDt;
     private Long updateUserId;
     private LocalDateTime updateDt;
-
 }

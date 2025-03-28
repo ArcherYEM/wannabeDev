@@ -205,7 +205,6 @@ public class UserController {
         if(flag == 1){
             // 인증 상태 1 - > 2 (대기 -> 성공)
             int updateFlag = userService.updateAuthStatus(String.valueOf(authInfo.getAuthId()), authCode);
-            System.out.println("updateFlag: " + updateFlag);
 
             if(updateFlag == 2){
                 response.put("status", "success");
@@ -227,7 +226,6 @@ public class UserController {
     public ResponseEntity<Map<String, String>> changePassword(@RequestParam String loginId, @RequestParam String email, @RequestParam String password){
 
         int flag = userService.updatePassword(loginId,email,password);
-        System.out.println("flag: " + flag);
 
         Map<String, String> response = new HashMap<>();
 
