@@ -299,6 +299,16 @@
     cursor: pointer;
 }
 /*e: 최근 본 아이템*/
+/*s: 장바구니 아이템*/
+#item-swiper .swiper-slide{
+    height: 80px !important;
+}
+#item-swiper{
+    height: 260px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+/*e: 장바구니 아이템*/
 
 .userDesc {
     display: grid;
