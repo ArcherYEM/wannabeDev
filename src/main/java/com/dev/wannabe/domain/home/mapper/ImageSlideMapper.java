@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface ImageSlideMapper {
 
-    public List<ImageSlideDTO> getImageSlide(String imgFileName);
+    List<ImageSlideDTO> getImageSlide(String imgFileName);
 
 }

@@ -3,261 +3,399 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/layout}">
-<head>
-    <meta charset="UTF-8">
-    <title layout:fragment="title">워너비</title>
+<head layout:fragment="styles">
     <!-- 메인 페이지 전용 스타일 -->
-    <link rel="stylesheet" th:href="@{/static/css/weather.css}" layout:fragment="styles"/>
-    <link rel="stylesheet" th:href="@{/static/css/movie.css}" layout:fragment="styles"/>
-    <link rel="stylesheet" th:href="@{/static/css/imageSlide.css}" layout:fragment="styles"/>
-    <link rel="stylesheet" th:href="@{/static/css/product.css}" layout:fragment="styles"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-          layout:fragment="styles"/>
-   <th:block th:replace="common/layout/fragments/favicon :: favicon"></th:block>
+    <title layout:fragment="title">WANNABE</title>
+    <link rel="stylesheet" th:href="@{/static/css/home/main.css}" />
 </head>
 <body>
 <div layout:fragment="content">
-    <!-- 모달 -->
-    <th:block th:include="/home/fragment/findIdAndPwInclude :: myModal"></th:block>
-    <div id="container">
-        <div class="containerWrap">
-            <div class="mainTop">
-                <!--login s-->
-                <div class="mainTopLeft">
-                    <div class="loginWrap noLogin">
-                        <div class="loginWrapTop">
-                            <div class="loginInputWrap">
-                                <ul>
-                                    <li><input type="text" name="loginId"></li>
-                                    <li><input type="password" name="password"></li>
-                                </ul>
-                            </div>
-                            <div class="loginBtnWrap">
-                                <a href="#" class="loginBtn btn">로그인</a>
-                            </div>
-                        </div>
-                        <div class="loginWrapBot">
-                            <ul>
-                                <li><a href="#" class="signupBtn btn">회원가입</a></li>
-                                <li><a id="findIdAndPw" class="btn">ID찾기 / 비밀번호찾기</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div th:replace="/common/layout/fragments/yesLoginInclude :: yesLoginForm"></div>
-                </div>
-                <!--login e-->
-                <div class="mainTopCenter">
-                    <!--메인슬라이더-->
-                    <div class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            <!--불러오기-->
-                        </div>
-                        <div class="swiper-button-next">&rtrif;</div>
-                        <div class="swiper-button-prev">&ltrif;</div>
-                        <div class="swiper-pagination"></div>
-                        <div class="autoplay-progress" style="display: none;">
-                            <svg viewBox="0 0 48 48">
-                                <circle cx="24" cy="24" r="20"></circle>
-                            </svg>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mainTopRight">
-                    <div class="weather-container">
-                        <p class="mainTitleText">오늘의 날씨</span></p>
-                        <h3 id="location">날씨 정보</h3>
-                        <div class="weather-content">
-                            <img id="weatherIcon" src="" alt="날씨 아이콘">
-                            <div class="weather-info">
-                                <p>현재 온도: <span id="temperature">- °C</span></p>
-                                <p>강수량: <span id="rain">- %</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mainBot">
-                <div class="mainBotLeft">
-                    <div>
-                        <p class="mainTitleText">
-                            신규출시아이템
-                            <span style="font-size: 14px; color: gray; margin-left: 10px; cursor: pointer;" onclick="refreshProducts()">[새로고침]</span>
-                        </p>
-
-                        <div id="category-menu">
-                            <button onclick="fetchTopProducts('01')">미니미</button>
-                            <button onclick="fetchTopProducts('10')">일러스트</button>
-                            <button onclick="fetchTopProducts('20')">미니룸</button>
-                        </div>
-
-                        <!-- 상품 리스트를 표시할 컨테이너 -->
-                        <div id="product-container" >
-                            <!-- 상품이 여기에 표시됩니다 -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mainBotCenter">
-                    <div class="top">
-                        <p class="mainTitleText">인기 급상승 유저 <span>전일 기준 방문자 수 Top 10</span></p>
-                        <ul class="favoriteListWrap">
-                            <li>
-                                <ul class="favoriteList favoriteList1">
-                                    <li>
-                                        <div class="faNum">1
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                        </div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">2
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                        </div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">3
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                        </div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">4
-                                            <span><img src="/static/images/common/star.png"></span>
-                                            <span><img src="/static/images/common/star.png"></span>
-                                        </div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">5
-                                            <span><img src="/static/images/common/star.png"></span>
-                                        </div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="favoriteList favoriteList2">
-                                    <li>
-                                        <div class="faNum">6</div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">7</div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">8</div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">9</div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="faNum">10</div>
-                                        <div class="faText">
-                                            <span class="name">홍길동</span>
-                                            <img src="/static/images/common/homeIcon.png"/>
-                                            <span class="today">Today :</span>
-                                            <span class="todayNum">1234</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bot">
-                        <p class="mainTitleText">실시간뉴스</p>
-                        <ul id="newsList"></ul> <!-- 동적으로 생성 -->
-                    </div>
-                </div>
-                <div class="mainBotRight">
-                    <div class="top">
-                        <p class="mainTitleText">오늘의 운세</p>
-                        <div class="todayLuckyFrame">
-                            <p class="todayLucky"></p>
-                        </div>
-                    </div>
-                    <div class="bot">
-                        <p class="movie">영화추천</p>
-                        <span class="movie_todayMovie"></span>
-                        <div class="movieWrapper" id="movieWrapper"></div>
-                    </div>
+    <!-- 메인 시작 -->
+    <div id="container" class="mainContainer">
+        <!-- 스와이프 시작 -->
+        <div class="mainCenterTop">
+            <div class="swiper">
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-pagination"></div>
+                <div class="autoplay-progress" style="display: none;">
+                    <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20"></circle>
+                    </svg>
+                    <span></span>
                 </div>
             </div>
         </div>
-    </div>
-    <!--메인 끝-->
+        <!--스와이프 끝-->
+        <!-- 메인 컨테이너 시작 -->
+        <div class="containerWrap">
+            <!-- 좌측 영역 -->
+            <div class="mainLeft">
+                <div class="mainLeftTop">
+                    <!-- 로그인 된 상태 -->
+                    <div th:if="${session.userData != null}">
+                        <div class="profileWrap">
+                            <div class="profileInfoTop">
+                                <div class="profileImgWrap">
+                                    <div class="profileImg">
+                                        <img src="/static/images/common/minimi/exNewItemImage2.png"/>
+                                    </div>
+                                </div>
+                                <div class="personalWrap">
+                                    <div class="personalFeat">
+                                        <span class="profileModify">내정보수정</span>
+                                        <span id="logoutBtn2" class="profileLogout">로그아웃</span>
+                                    </div>
+                                    <div id="loginName2" class="nameDisplay" th:text="${session.userData.name}">이름</div>
+                                </div>
+                            </div>
+                            <div class="profileInfoBot">
+                                <div class="infoWrap">
+                                    <div class="infoOnline">
+                                        <div class="alignBox">
+                                            <span class="title">일촌ON</span>
+                                            <div class="stat">
+                                                <span class="text">11</span>
+                                            </div>
+                                        </div>
+                                        <div class="alignBox">
+                                            <span class="title">쪽지</span>
+                                            <div class="stat">
+                                                <img src="/static/images/common/new.png" alt="new">
+                                                <span class="text new">30</span>
+                                            </div>
+                                        </div>
+                                        <div class="alignBox">
+                                            <span class="title">일촌신청</span>
+                                            <div class="stat">
+                                                <span class="text">4</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="infoData">
+                                        <div class="alignBox">
+                                            <span class="title">오늘 방문자</span>
+                                            <span class="text">113</span>
+                                        </div>
+                                        <div class="alignBox">
+                                            <span class="title">새 게시물</span>
+                                            <div class="stat">
+                                                <img src="/static/images/common/new.png" alt="new">
+                                                <span class="text new">2</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="stateDotori">
+                                    <div class="dotoriTitleWrap">
+                                        <img src="/static/images/common/dotori.png">
+                                        <span class="title">보유 도토리</span>
+                                    </div>
+                                    <div class="chargeWrap">
+                                        <span class="text">720</span>
+                                        <span id="rechargePageBtn" class="rechargePageBtn">충전</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- 로딩 스피너 -->
-    <th:block th:replace="common/layout/fragments/loading :: loadingSpinner"/>
-    <script src="/static/js/home/mainHome.js"></script>
+                    <!-- 로그인 전 상태 -->
+                    <div th:if="${session.userData == null}">
+                        <div class="loginWrap">
+                            <div class="mainTitleText">로그인</div>
+                            <div class="loginInputWrap">
+                                <div class="loginInputBox">
+                                    <input type="text" id="loginId2" placeholder="아이디">
+                                    <input type="password" id="password2" placeholder="비밀번호">
+                                </div>
+                                <div class="loginBtnWrap">
+                                    <button id="loginBtn2">로그인</button>
+                                </div>
+                            </div>
+                            <div class="loginLinkWrap">
+                                <a href="#" id="signupBtn2">회원가입</a>
+                                <a id="findIdAndPw">ID찾기 | 비밀번호찾기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mainLeftBot">
+                    <div class="titleTextWrap">
+                        <p class="mainTitleText">
+                            신규출시아이템
+                        </p>
+                        <div class="refreshText">
+                            <div class="reloadIcon"></div>
+                            <p>새로고침</p>
+                        </div>
+                    </div>
+                    <div class="newItemWrap">
+                        <div id="category-menu" class="categoryList">
+                            <button id="category-01" class="categoryBtn active">미니미</button>
+                            <button id="category-10" class="categoryBtn">일러스트</button>
+                            <button id="category-20" class="categoryBtn">미니룸</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 상품 리스트  -->
+                    <div id="product-container" class="productContainer"></div>
+                </div>
+            </div>
+            <!-- 좌측 영역 끝 -->
+            <!-- 중앙 영역 -->
+            <div class="mainCenter">
+                <!--급 상승 유저-->
+                <div class="topUserWrap">
+                    <div class="topUserTitle">
+                        <p class="mainTitleText">인기 급상승 유저</p>
+                        <p class="infoText">전일 기준 방문자 수 Top 10</p>
+                    </div>
+                    <ul class="favoriteListWrap">
+                        <li>
+                            <ul class="favoriteList favoriteList1">
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">1</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                        </div>
+                                    </div>
+                                    <span class="name">김자반자반</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">34034</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">2</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                        </div>
+                                    </div>
+                                    <span class="name">뚜튜브</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">24434</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">3</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                        </div>
+                                    </div>
+                                    <span class="name">대천사</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">3034</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">4</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                        </div>
+                                    </div>
+                                    <span class="name">독고오류</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">2334</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">5</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                            <span><img src="/static/images/common/star.png"></span>
+                                        </div>
+                                    </div>
+                                    <span class="name">남궁아오</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">1998</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="favoriteList favoriteList2">
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">6</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                        </div>
+                                    </div>
+                                    <span class="name">손고장난벽시</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">1998</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">7</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                        </div>
+                                    </div>
+                                    <span class="name">홍길동</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">1998</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">8</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                        </div>
+                                    </div>
+                                    <span class="name">홍길동</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">1998</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">9</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                        </div>
+                                    </div>
+                                    <span class="name">홍길동</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">1998</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                                <li class="favoriteItem">
+                                    <div class="rankWrap">
+                                        <span class="rank">10</span>
+                                        <div class="faNum">
+                                            <div class="logoFace">; )</div>
+                                        </div>
+                                    </div>
+                                    <span class="name">홍길동</span>
+                                    <div class="faText">
+                                        <div class="todayWrap">
+                                            <span class="today">TODAY</span>
+                                            <span class="todayNum">1998</span>
+                                        </div>
+                                        <img src="/static/images/common/homeIcon.png"/>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 뉴스 영역 -->
+                <div class="newsWrap">
+                    <p class="mainTitleText">실시간뉴스</p>
+                    <ul id="newsList" class="newsList"></ul>
+                </div>
+                <!-- 뉴스 영역 끝-->
+            </div>
+            <!-- 중앙 영역 끝 -->
+            <!-- 오른쪽 영역 -->
+            <div class="mainRight">
+                <div class="mainTopRight">
+                    <!-- 날씨 영역 시작 -->
+                    <div class="weather-container">
+                        <div class="weather-content">
+                            <div class="weather-left">
+                                <img id="weatherIcon" src="" alt="날씨 아이콘">
+                            </div>
+                            <div class="weather-info">
+                                <div>
+                                    <p id="location" class="location"></p>
+                                    <p class="weather-text">
+                                        <span id="weather-text"></span>
+                                        <span id="rain"></span>
+                                    </p>
+                                </div>
+                                <p class="temp">
+                                    <span id="temperature"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 날씨 영역 끝 -->
+                </div>
+                <!-- 오늘의 운세 영역 시작 -->
+                <div class="todayLucyWrap">
+                    <p class="mainTitleText">오늘의 운세 🍀</p>
+                    <div class="todayLuckyFrame">
+                        <p id="todayLucky" class="todayLucky"></p>
+                    </div>
+                </div>
+                <!-- 오늘의 운세 영역 끝 -->
+                <!-- 영화 추천 영역 시작 -->
+                <div class="movieWrap">
+                    <p class="mainTitleText">영화 추천</p>
+                    <div id="movieWrapper" class="movieWrapper"></div>
+                </div>
+                <!-- 영화 추천 영역 끝 -->
+            </div>
+            <!-- 오른쪽 영역 끝 -->
+        </div>
+        <!-- 메인 컨테이너 끝 -->
+    </div>
+    <!-- 메인 끝 -->
+    <!-- 모달 임베딩 위치 -->
+    <div th:replace="/home/fragment/findIdModal :: findModal"></div>
 </div>
 <!-- 메인 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script src="/static/js/home/fortune.js"></script>
-    <script src="/static/js/home/newsSection.js"></script>
-    <script src="/static/js/home/weather.js"></script>
-    <script src="/static/js/findIdAndPw.js"></script>
-    <script src="/static/js/home/product.js"></script>
-    <script src="/static/js/home/yesLoginPopupMessage.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script th:type="module" th:src="@{/static/js/ptr/main-new.js}"></script>
+    <script th:type="module" th:src="@{/static/js/ptr/find-modal.js}"></script>
 </th:block>
 </body>
 </html>

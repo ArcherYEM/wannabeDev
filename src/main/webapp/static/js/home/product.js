@@ -3,6 +3,12 @@ let currentCategory = '01'; // 기본값 미니미
 function fetchTopProducts(productType) {
     currentCategory = productType;
 
+    // 카테고리 선택 시 스타일링 위해 추가
+    $('.categoryBtn').on('click', function () {
+    $('.categoryBtn').removeClass('active');
+    $(this).addClass('active');
+    });
+
     fetch(`/api/products/top6?productType=${productType}`)
         .then(res => res.json())
         .then(data => {
