@@ -13,7 +13,10 @@ $(document).ready(function () {
   /* 쪽지 보내기*/
   if (className === "sendMsgFrm") { $("#popupMessageMain").load("/sample/popupSendMessage"); }
   /* 받은 쪽지함*/
-  if (className === "receiveMsgbox") { $("#popupMessageMain").load("/sample/popupReciveMessageBox"); }
+  if (className === "receiveMsgbox") {
+   $("#popupMessageMain").load("/sample/popupReciveMessageBox");
+
+  }
   /* 보낸 쪽지함*/
   if (className === "sendMsgBox") {
    $("#popupMessageMain").load("/sample/popupSendMessageBox");

@@ -130,3 +130,8 @@
     transform: rotate(315deg);
     transform-origin: 142px 58px;
 }
+
+img.dotori-icon{
+    width: 20px;
+    height: 20px;
+}

@@ -14,7 +14,7 @@ public interface MinihompiMapper {
 
     int updateTitle(Map<String, Object> minihompi);
 
-    Map<String, Object> moodSave(Map<String, Object> param);
+    int moodSave(Map<String, Object> param);
 
     MinihompiTotal findOwnerUserId(Long hompiId);
 
@@ -37,5 +37,7 @@ public interface MinihompiMapper {
     int updateIntro(Map<String, Object> param);
 
     int updateprofileImg(Map<String, Object> param);
+
+    Map<String, Object> getMiniroom(Long hompiId);
 }
 

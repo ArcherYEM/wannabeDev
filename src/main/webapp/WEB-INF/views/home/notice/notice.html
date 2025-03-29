@@ -3,15 +3,13 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/layout}">
-<head>
-    <title layout:fragment="title">공지사항</title>
+<head layout:fragment="styles">
     <!-- 공지사항 페이지 전용 스타일 -->
-    <link rel="stylesheet" th:href="@{static/css/notice/notice.css}" layout:fragment="styles">
-    <th:block th:replace="common/layout/fragments/favicon :: favicon"></th:block>
+    <title layout:fragment="title">공지사항</title>
+    <link rel="stylesheet" th:href="@{/static/css/home/notice.css}" />
 </head>
 <body>
 <div layout:fragment="content">
-    <!-- 공지사항 -->
     <div id="container">
         <div class="containerWrap">
             <div id="menu" th:if="${userRole != '01'}">
@@ -72,14 +70,14 @@
                                 <th>작성자</th>
                             </tr>
                             <tr th:each="notice : ${notice}">
-                                <th>
+                                <td>
                                     <input type="checkbox" class="rowCheckbox">
-                                </th>
-                                <th><p th:text="${notice.getNoticeTypeName}" th:classappend="${notice.getNoticeTypeCssClass}">공지 사항</p></th>
-                                <th><a th:text="${notice.noticeTitle}" href="/notice/view">취업하고 놀고 싶다~!!</a></th>
-                                <th th:if="${userRole != '01'}" th:text="${notice.getDateRange}">2025.03.19~2025.03.21</th>
-                                <th th:text="${notice.insertDT}">2025.03.19</th>
-                                <th th:text="${notice.loginId}">산토끼</th>
+                                </td>
+                                <td><p th:text="${notice.getNoticeTypeName}" th:classappend="${notice.getNoticeTypeCssClass}">공지 사항</p></td>
+                                <td><a th:text="${notice.noticeTitle}" href="/notice/view">취업하고 놀고 싶다~!!</a></td>
+                                <td th:if="${userRole != '01'}" th:text="${notice.getDateRange}">2025.03.19~2025.03.21</td>
+                                <td th:text="${notice.insertDT}">2025.03.19</td>
+                                <td th:text="${notice.loginId}">산토끼</td>
                             </tr>
                         </table>
                     </div>
@@ -89,9 +87,9 @@
                             <!-- 첫 번째 페이지 버튼 -->
                             <a th:if="${currentPage > 1}"
 
-                            th:href="@{|?limit=${limit}&offset=0&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
-                            class="first"></a>
-                                                    <!-- 이전 페이지 버튼 -->
+                               th:href="@{|?limit=${limit}&offset=0&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
+                               class="first"></a>
+                            <!-- 이전 페이지 버튼 -->
 
                             <a th:if="${startPage > 1}"
                                th:href="@{|?limit=${limit}&offset=${(startPage - 2) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
@@ -109,7 +107,7 @@
                                th:href="@{|?limit=${limit}&offset=${endPage * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="next"></a>
 
 
-                                                    <!-- 마지막 페이지 버튼 -->
+                            <!-- 마지막 페이지 버튼 -->
                             <a th:unless="${endPage == 1 || currentPage == totalPages}"
                                th:href="@{|?limit=${limit}&offset=${(totalPages - 1) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="last"></a>
 
@@ -123,9 +121,7 @@
 </div>
 <!-- 공지사항 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script src="/static/js/home/notice.js"></script>
+    <script th:type="module" th:src="@{/static/js/home/notice.js}"></script>
 </th:block>
 </body>
 </html>
-
-

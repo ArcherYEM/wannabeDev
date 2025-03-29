@@ -43,8 +43,8 @@ public class HomeRestController {
 
     /* 기분 상태값 저장하기 */
     @PostMapping("/mood-save/{hompiId}")
-    public ResponseEntity<Map<String, Object>> saveMood(@PathVariable Long hompiId, @RequestParam String mood) {
-        Map<String, Object> result = minihompiService.saveMood(hompiId, mood);
+    public ResponseEntity<Integer> saveMood(@PathVariable Long hompiId, @RequestParam String mood) {
+        int result = minihompiService.saveMood(hompiId, mood);
 
         return ResponseEntity.ok(result);
     }
@@ -74,21 +74,20 @@ public class HomeRestController {
                 return ResponseEntity.badRequest().build();
             }
 
-            // 1. 저장 경로 설정 (외부 경로로 변경)
+
             String uploadDir = System.getProperty("user.dir") + "/uploads/images/personal";
             File folder = new File(uploadDir);
             if (!folder.exists()) folder.mkdirs(); // 디렉토리 없으면 생성
 
-            // 2. 파일 이름 및 저장 경로 구성
+
             String fileName = "profile" + hompiId + ".jpg";
             File dest = new File(folder, fileName);
 
-            // 3. 파일 저장
+
             profileImage.transferTo(dest);
-            log.info("Saved profile image to: {}", dest.getAbsolutePath());
-            // 4. DB 또는 서비스에 반영 (저장 경로 전달)
-            String relativePath = "/images/personal/" + fileName;
-            int result = minihompiService.updateprofileImg(hompiId, relativePath);
+
+            String filePath = "/images/personal/" + fileName;
+            int result = minihompiService.updateprofileImg(hompiId, filePath);
 
             return ResponseEntity.ok(result);
 
@@ -103,9 +102,8 @@ public class HomeRestController {
     public ResponseEntity<List<FriendCommentDTO>> friendComment(@PathVariable Long hompiId,
                                                                 HttpServletRequest request,
                                                                 HttpSession session) {
-        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
-        List<FriendCommentDTO> result = minihompiService.getFriendComment(hompiId);
-        return ResponseEntity.ok(result);
+        List<FriendCommentDTO> response = minihompiService.getFriendComment(hompiId);
+        return ResponseEntity.ok(response);
     }
 
     /* 일촌평 등록 */
@@ -132,5 +130,12 @@ public class HomeRestController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    /* 미니룸 조회*/
+    @GetMapping("/miniroom/{hompiId}")
+    public ResponseEntity<Map<String, Object>> getMiniroom(@PathVariable Long hompiId) {
+        Map<String, Object> response = minihompiService.getMiniroom(hompiId);
+        return ResponseEntity.ok(response);
     }
 }

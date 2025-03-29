@@ -150,26 +150,50 @@ div#popupMessageMainArea button#MessageSendBtn {
 }
 
 /*페이지네이션 관련 css*/
-#paging > ul {
-    list-style-type:none;
+/* 페이지네이션 컨테이너 */
+#pagination {
+    text-align: center;
+    margin-top: 20px;
 }
 
-#paging > ul li {
-    font-size: 1.1em;
-    display:inline-block;
-    cursor:pointer;
-    padding: 0 3px;
+/* 페이지네이션 버튼 스타일 */
+.page-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: all 0.3s;
 }
 
-#paging > ul > li:hover {
-    /*background: #fbfbfb;*/
-    /*font-weight:bold;*/
-    color: #0080ff;
-}
-
-#paging > ul > li.selected {
-    color: #0080ff;
-    font-size: 1.2em;
+/* 현재 페이지 버튼 스타일 */
+.page-btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
     font-weight: bold;
-    cursor: default;
+}
+
+/* 이전, 다음 버튼 스타일 */
+.page-btn.prev,
+.page-btn.next {
+    font-size: 16px;
+}
+
+/* 비활성화된 버튼 */
+.page-btn:disabled {
+    background-color: #f1f1f1;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* 페이지 간격 (...) */
+.ellipsis {
+    padding: 8px 10px;
+    color: #888;
+    font-weight: bold;
 }

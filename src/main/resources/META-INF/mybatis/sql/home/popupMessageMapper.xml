@@ -8,20 +8,6 @@
         from FRIEND_MESSAGE
         WHERE USER_ID = #{userId};
     </select>
-    <!--        <select id="getImageSlide" resultType="java.util.Map">
-                SELECT
-                    ATTACH_FILE_ID,
-                    FILE_ORIGIN_NAME,
-                    FILE_NAME,
-                    FILE_SIZE,
-                    FILE_PATH,
-                    FILE_EXTENSION,
-                    REMARKS,
-                    INSERT_USER_ID,
-                    INSERT_DT,
-                    UPDATE_USER_ID,
-                    UPDATE_DT
-                FROM ATTACH_FILE_MANAGE
-                WHERE FILE_ORIGIN_NAME LIKE '%ggum%'
-            </select>-->
+
+
 </mapper>

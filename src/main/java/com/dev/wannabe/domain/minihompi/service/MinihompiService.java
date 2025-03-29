@@ -110,7 +110,7 @@ public class MinihompiService {
         return response;
     }
 
-    public Map<String, Object> saveMood(Long hompiId, String moodRaw) {
+    public int saveMood(Long hompiId, String moodRaw) {
         String mood = URLDecoder.decode(moodRaw, StandardCharsets.UTF_8);
         mood = mood.replace("=", "").trim();
 
@@ -223,5 +223,10 @@ public class MinihompiService {
             response.put("message", "자기소개 변경 성공");
         }
         return response;
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> getMiniroom(Long hompiId) {
+        return minihompiMapper.getMiniroom(hompiId);
     }
 }

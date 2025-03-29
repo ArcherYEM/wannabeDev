@@ -71,14 +71,14 @@
         text-align: center;
     }
 
-    a {
+    li {
         color:var(--color-white);
         font-weight:bold;
         font-size:16px;
         cursor: pointer;
     }
 
-    a:hover {
+    li:hover {
         color: var(--color-wine);
     }
 }
