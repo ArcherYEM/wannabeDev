@@ -9,16 +9,6 @@
     box-sizing: border-box;
 }
 
-/*기본색 s*/
-:root {
-    --color-basic: #FF8000;
-    --color-red: #ff4f4f;
-    --color-green: #00a336d9 ;
-    --color-blue: #3700ffc7 ;
-    --color-gray: #595959;
-
-}
-
 #header{
     overflow:hidden;
     width:100%;

@@ -3,13 +3,11 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/common/layout/layout}">
-<head>
-    <title layout:fragment="title">선물가게</title>
+<head layout:fragment="styles">
     <!-- 선물가게 페이지 전용 스타일 -->
-    <link rel="stylesheet" th:href="@{/static/css/giftShop.css}" layout:fragment="styles"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
-          layout:fragment="styles"/>
-    <th:block th:replace="common/layout/fragments/favicon :: favicon"></th:block>
+    <title layout:fragment="title">선물가게</title>
+    <link rel="stylesheet" th:href="@{/static/css/home/giftShop.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"/>
 </head>
 <body>
 <div layout:fragment="content">
@@ -59,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="logout">
-                                <a href >로그아웃</a>
+                                <a href>로그아웃</a>
                             </div>
                         </div>
                     </div>
@@ -73,7 +71,7 @@
                         </div>
                         <div class="newArticles space-between">
                             <span>새 게시물</span>
-                            <span class="bold" >30</span>
+                            <span class="bold">30</span>
                             <div class="gift-shop-new-badge">
                                 <img src="/static/images/common/new.png">
                             </div>
@@ -117,7 +115,8 @@
                             <a class="recent-item-link" href="">
                                 <img src="/static/images/common/good.png">
                             </a>
-                            <button id="delete-recent-item" class="delete-recent-item"><i class="xi-close-min"></i></button>
+                            <button id="delete-recent-item" class="delete-recent-item"><i class="xi-close-min"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="downArrow">
@@ -768,15 +767,16 @@
         </div>
     </div>
 </div>
+<!-- 선물가게 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
     <script>
-    // 선물함 메뉴 효과
-    $(function () {
-      $(".top-header-menu .tab").on("click", function () {
-        $(".top-header-menu .tab").removeClass("active");
-        $(this).addClass("active");
-      });
-    });
+        // 선물함 메뉴 효과
+        $(function () {
+          $(".top-header-menu .tab").on("click", function () {
+            $(".top-header-menu .tab").removeClass("active");
+            $(this).addClass("active");
+          });
+        });
     </script>
 </th:block>
 </body>

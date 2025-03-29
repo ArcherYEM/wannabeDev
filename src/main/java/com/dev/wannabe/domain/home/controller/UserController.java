@@ -122,7 +122,7 @@ public class UserController {
     @PostMapping("/findId")
     @ResponseBody
     public ResponseEntity<Map<String, String>> findId(@RequestParam String name, @RequestParam String birthDate) {
-
+        
         // 이름과 생년월일을 통해 찾은 loginId
         String foundId = userService.findId(name, birthDate);
 
@@ -231,14 +231,14 @@ public class UserController {
 
         if(flag == 1){
             response.put("status", "success");
-            response.put("messasge", "비밀번호 변경 성공");
+            response.put("message", "비밀번호가 변경되었습니다.");
         } else if(flag == 0){
             response.put("status", "error");
-            response.put("message", "비밀번호 변경 실패");
+            response.put("message", "비밀번호 변경에 실패했습니다.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         } else {
             response.put("status", "error");
-            response.put("message", "비밀번호 변경 실패");
+            response.put("message", "비밀번호 변경에 실패했습니다.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
         return ResponseEntity.ok(response);

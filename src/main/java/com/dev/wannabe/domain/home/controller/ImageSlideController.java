@@ -2,7 +2,9 @@ package com.dev.wannabe.domain.home.controller;
 
 import com.dev.wannabe.domain.home.model.dto.ImageSlideDTO;
 import com.dev.wannabe.domain.home.service.ImageSlideService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,5 +25,13 @@ public class ImageSlideController {
         model.addAttribute("imageSlideList", imageSlideList);
         return "imageslide";
     }
+    
+    @GetMapping("/imageSlide2")
+    public ResponseEntity<List<ImageSlideDTO>> imageSlideList2(){
+        String imgFileName = "%ggum_0%";
+        List<ImageSlideDTO> imageSlideList = imageSlideService.getImageSlide(imgFileName);
+        return ResponseEntity.ok(imageSlideList);
+    }
+    
 
 }
