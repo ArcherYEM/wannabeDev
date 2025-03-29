@@ -5,12 +5,10 @@ import com.dev.wannabe.domain.minihompi.service.DiaryService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +26,7 @@ public class DiaryController {
         return ResponseEntity.ok(diaryService.getMonthDays());
     }
 
-    @GetMapping("/checkStatus/{hompiId}")
+    @GetMapping("/check-status/{hompiId}")
     public ResponseEntity<Boolean> checkStatus(@PathVariable Long hompiId, HttpServletRequest request){
         SessionUserDTO userData = (SessionUserDTO)request.getSession().getAttribute("userData");
         if(userData == null){
@@ -38,5 +36,10 @@ public class DiaryController {
             return ResponseEntity.ok(false);
         }
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/comment/check-status/{hompiId}")
+    public ResponseEntity<String> checkCommentStatus(@PathVariable Long hompiId,HttpServletRequest request){
+        return diaryService.checkCommentStatus(hompiId,request);
     }
 }

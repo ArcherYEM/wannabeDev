@@ -235,15 +235,11 @@ document.addEventListener("DOMContentLoaded",function() {
                 },
                 error: function(xhr) {
                     const errorResponse = xhr.responseJSON;
-                    if (errorResponse && errorResponse.message) {
-                        errorMessageDiv.innerHTML = `<span style="color:  red;">${errorResponse.message}</span>`;
-                    } else {
-                        Swal.fire({
-                            icon: 'error ',
-                            title: '아이디 찾기 실패!',
-                            text: '다시 시도해주세요.'
-                       });
-                    }
+                    Swal.fire({
+                        icon: 'error ',
+                        title: '아이디 찾기 실패!',
+                        text: '다시 시도해주세요.'
+                   });
                 }
             });
         } else if (userInfoPw.style.display == "block"){

@@ -2,49 +2,108 @@
 <link rel="stylesheet" href="/static/css/style.css">
 <link rel="stylesheet" href="/static/css/post.css">
 
-     <div class="post-register">
-        <button class="register-btn" id="saveBtn">등록</button>
-     </div>
-    <div class="post-container"     >
-        <!-- 게시물 헤더 -->
-        <div class="post-header">
-            <h2>잘한다 잘한다!</h2>
+<div class="outer-container">
+<!---- 게시글 등록 버튼 탭 ---->
+<div class="post-register">
+    <button class="register-btn" id="regBtn">등록</button>
+</div>
+
+<div class="post-container">
+
+    <!---- 제목쪽 ---->
+    <div class="post-header">
+        <!-- 등록-->
+        <div class="upload-album" style="display: none;">
+            <div class="album-title">
+                <input type="text" id="albumTitle" name="albumTitle" placeholder="제목을 입력하세요."/>
+            </div>
+            <div class="album-avail-status-select">
+                <select id="albumAvailStatus" name="albumAvailStatus" >
+                    <option value="31">모두공개</option>
+                    <option value="32">일촌공개</option>
+                    <option value="33">나만보기</option>
+                </select>
+            </div>
+            <div class="album-folder-select">
+                <select id="albumFolderId" name="albumFolderId">
+                    <option value="폴더선택">폴더선택</option>
+                </select>
+            </div>
+        </div>
+        <!-- 등록-->
+
+        <!-- 조회-->
+        <div class="display-album" >
 
         </div>
+        <!-- 조회-->
 
-        <!-- 게시물 정보 -->
-        <div class="post-info">
-            <span>홍길동</span>
-            <span>2025-03-08 14:44</span>
+    </div>
+
+    <!---- 게시물 내용 탭 ---->
+    <div class="post-content">
+        <!-- 등록-->
+        <div class="upload-content" style="display: none;">
+            <div class="upload-img">
+                <img id="previewImg" src="/static/images/common/loding.jpg" alt="업로드 사진 미리보기" style="height: 100px; width:100px;">
+                <input type="file" id="albumImage" name="albumImage" accept="image/*" style=" display: none;" >
+                <button id="uploadPhoto">사진 변경</button>
+            </div>
+            <div class="upload-text">
+                <textarea id="albumText" name="albumText"></textarea>
+            </div>
         </div>
+        <!-- 등록-->
 
-        <!-- 게시물 내용 -->
-        <div class="post-content">
-            <img src="/static/images/common/good.png" alt="게시물 이미지">
+        <!-- 조회-->
+        <div class="display-content active">
+            <div class="display-img">
 
-<p>잘한다 잘한다!</p>
+            </div>
+            <div class="display-text">
+
+            </div>
+        </div>
+        <!-- 조회-->
+    </div>
+
 </div>
-</div>
+
 <div class="post-bottom">
-<!-- 게시물 액션 -->
-<div class="post-actions">
-<button class="delete-btn">삭제</button>
-<button class="edit-btn">수정</button>
-</div>
 
-<!-- 댓글 작성 -->
-<div class="friendSay">
-<div class="comment-section">
- <span id="comment-name"> 댓글 작성</span><input type="text" >
-<button>등록</button>
-</div>
-</div>
-<!-- 댓글 리스트 -->
-<div class="comments-list">
-    <div><div class="commentUser"><strong>리자몽</strong></div> : 개발자가 되고싶다</div>
-    <span>2025.03.07 18:45</span>
-    <span><a href="#" style="cursor: pointer"> 수정</a> | <a href="#" style="cursor: pointer">삭제</a></span>
-    <span>미니홈피 주인이 고정한 댓글입니다.</span>
-    <div class="star-rating">★32</div>
+    <!---- 삭제 수정 탭 ---->
+    <div class="post-actions">
+        <div class="reg-btn">
+            <button class="register-btn" id="saveBtn">등록</button>
+        </div>
+        <div class="dlt-btn">
+            <button class="delete-btn">삭제</button>
+        </div>
+        <div class="mod-btn">
+            <button class="edit-btn">수정</button>
+        </div>
+    </div>
+    <!-- 삭제 수정 탭-->
+
+    <!-- 댓글 작성 탭-->
+    <div class="friendSay">
+        <div class="comment-section">
+            <span id="comment-name"> 댓글 작성</span><input type="text" >
+            <button>등록</button>
+        </div>
+    </div>
+    <!-- 댓글 작성 탭-->
+
+    <!-- 댓글 목록 탭-->
+    <div class="comments-list">
+        <div>
+            <div class="commentUser"><strong>리자몽</strong></div> : 개발자가 되고싶다
+        </div>
+        <span>2025.03.07 18:45</span>
+        <span><a href="#" style="cursor: pointer"> 수정</a> | <a href="#" style="cursor: pointer">삭제</a></span>
+        <span>미니홈피 주인이 고정한 댓글입니다.</span>
+        <div class="star-rating">★32</div>
+    </div>
+    <!-- 댓글 목록 탭-->
 </div>
 </div>

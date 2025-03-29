@@ -91,12 +91,18 @@ $('#checkOldPwd').click(function () {
         dataType: 'json',
         data: {password: password},
         success: function (data) {
-            if (data.valid) {
+
+            if (data.result === -1) {
+                Swal.fire('다시 로그인 후 이용해주세요.', '', 'warning');
+                return;
+            }
+            if (data.checkOldPaw) {
                 $('#oldPwdMsg')
                     .text('비밀번호가 확인되었습니다.')
                     .css('color', 'green');
 
                 $('.changeWrap').stop(true, true).slideDown();
+                $("#newPwd").focus();
             } else {
                 $('#oldPwdMsg')
                     .text('비밀번호가 일치하지 않습니다.')
@@ -149,7 +155,7 @@ $('#passWdWrap').on('click', function () {
                 Swal.fire('비밀번호 수정 성공');
                 $('#passWdWrap').removeAttr('status')
             } else if (result < 0) {
-                Swal.fire('다시 로그인 후 이용해주세요.');
+                Swal.fire('다시 로그인 후 이용해주세요.', '', 'warning');
                 $('#passWdWrap').attr('status', 'no');
             } else {
                 Swal.fire('개인정보 수정 실패', '', 'error');
@@ -203,7 +209,7 @@ $('#InfoWdWrap').on('click', function () {
                 originalPhone = phone;
                 $('#checkEmail, #checkPhone').removeAttr('status').prop('disabled', true);
             } else if (result < 0) {
-                Swal.fire('다시 로그인 후 이용해주세요.');
+                Swal.fire('다시 로그인 후 이용해주세요.', '', 'warning');
             } else {
                 Swal.fire('개인정보 수정 실패', '', 'error');
             }
