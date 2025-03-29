@@ -4,44 +4,75 @@
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.HompiDiaryMapper">
     <insert id="saveDiary" parameterType="HompiDiary">
         INSERT INTO HOMPI_DIARY (
-            DIARY_ID, HOMPI_ID, FOLDER_ID, DIARY_CONTENT, AVAIL_STATUS,
-            INSERT_USER_ID
+        DIARY_ID, HOMPI_ID, FOLDER_ID, DIARY_CONTENT, AVAIL_STATUS,
+        INSERT_USER_ID
         )
         VALUES (
-            #{diaryId},
-            #{hompiId},
-            #{folderId},
-            #{diaryContent},
-            #{availStatus},
-            #{insertUserId}
+        #{diaryId},
+        #{hompiId},
+        #{folderId},
+        #{diaryContent},
+        #{availStatus},
+        #{insertUserId}
         )
         ON DUPLICATE KEY UPDATE
-            DIARY_CONTENT = #{diaryContent},
-            UPDATE_USER_ID = #{insertUserId},
-            UPDATE_DT = CURRENT_TIMESTAMP
+        DIARY_CONTENT = #{diaryContent},
+        UPDATE_USER_ID = #{insertUserId},
+        UPDATE_DT = CURRENT_TIMESTAMP
     </insert>
+
     <select id="findDiaryByDiaryDTO" parameterType="HompiDiaryDTO" resultType="HompiDiaryDTO">
-        SELECT HOMPI_ID,DIARY_ID,DIARY_CONTENT,AVAIL_STATUS
-        FROM HOMPI_DIARY
+        SELECT A.HOMPI_ID,A.DIARY_ID,A.DIARY_CONTENT,A.AVAIL_STATUS
+        FROM HOMPI_DIARY A
+            INNER JOIN HOMPI_FOLDER B
+                ON A.FOLDER_ID = B.FOLDER_ID
         WHERE 1=1
-            AND HOMPI_ID = #{hompiId}
+        AND A.HOMPI_ID = #{hompiId}
         <if test="diaryId != 0">
             AND DIARY_ID = #{diaryId}
         </if>
         <choose>
             <when test="availStatus == '31'">
-                AND AVAIL_STATUS IN ('31', '32', '33')
+                AND A.AVAIL_STATUS IN ('31', '32', '33')
+                AND B.AVAIL_STATUS IN ('31', '32', '33')
             </when>
             <when test="availStatus == '32'">
-                AND AVAIL_STATUS IN ('32', '33')
+                AND A.AVAIL_STATUS IN ('32', '33')
+                AND B.AVAIL_STATUS IN ('31', '32')
             </when>
             <otherwise>
-                AND AVAIL_STATUS = #{availStatus}
+                AND A.AVAIL_STATUS = #{availStatus}
+                AND B.AVAIL_STATUS = #{availStatus}
             </otherwise>
         </choose>
         <if test="diaryId == 0">
-            ORDER BY INSERT_DT
+            ORDER BY A.FOLDER_ID,A.INSERT_DT
             LIMIT 1
         </if>
     </select>
+
+    <select id="findDiaryByDay" resultType="HompiDiaryDTO">
+        SELECT HOMPI_ID,DIARY_ID,DIARY_CONTENT,AVAIL_STATUS
+            FROM HOMPI_DIARY
+        WHERE HOMPI_ID = #{hompiId}
+            AND FOLDER_ID = #{folderId}
+            AND DATE(INSERT_DT) = #{day}
+    </select>
+
+    <update id="updateDiary" parameterType="HompiDiaryDTO">
+        UPDATE HOMPI_DIARY
+        SET DIARY_CONTENT = #{diaryContent},
+        AVAIL_STATUS = #{availStatus}
+        WHERE DIARY_ID = #{diaryId}
+        AND HOMPI_ID = #{hompiId}
+    </update>
+
+    <delete id="deleteDiary">
+        DELETE A,B
+        FROM HOMPI_DIARY A
+            LEFT JOIN HOMPI_DIARY_COMMENT B
+                ON A.DIARY_ID = B.DIARY_ID
+        WHERE A.DIARY_ID = #{diaryId}
+            AND A.HOMPI_ID = #{hompiId}
+    </delete>
 </mapper>

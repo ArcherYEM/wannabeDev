@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.DiaryCommentMapper">
+    <insert id="saveDiaryComment" parameterType="DiaryComment">
+        INSERT INTO HOMPI_DIARY_COMMENT(
+            DIARY_ID, HOMPI_ID,
+            DIARY_COMMENT_CONTENT,INSERT_USER_ID
+        )
+        VALUES (
+            #{diaryId},
+            #{hompiId},
+            #{diaryCommentContent},
+            #{insertUserId}
+        )
+    </insert>
+    <select id="findDiaryCommentByDiaryId" parameterType="Long" resultType="DiaryCommentFindDTO">
+        SELECT  A.HOMPI_DIARY_COMMENT_ID AS commentId,
+                B.NAME AS userName,
+                A.INSERT_USER_ID AS userId,
+                A.HOMPI_ID AS hompiId,
+                A.DIARY_COMMENT_CONTENT AS comment,
+                A.FIXED_YN AS fixedYn,
+                DATE_FORMAT(A.INSERT_DT, '%Y-%m-%d') AS insertDt
+        FROM HOMPI_DIARY_COMMENT A
+            JOIN USER_BASIC B
+                ON A.INSERT_USER_ID = B.USER_ID
+            WHERE 1=1
+                AND A.DIARY_ID = #{diaryId}
+                AND A.HOMPI_ID = #{hompiId}
+        ORDER BY A.INSERT_DT
+    </select>
+    <delete id="deleteDiaryCommentByCommentId" parameterType="Long">
+        DELETE
+        FROM HOMPI_DIARY_COMMENT
+        WHERE HOMPI_DIARY_COMMENT_ID = #{commentId}
+    </delete>
+</mapper>
