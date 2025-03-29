@@ -30,7 +30,7 @@
     display: inline-block;
 }
 
-.post-contents {
+.content-container {
     height: 200px;
 }
 
@@ -48,7 +48,39 @@
     display: none;
 }
 
+.upload-img {
+    height:100px;
+    width:100px;
+}
+
 .upload-img:hover #uploadPhoto {
     display: block;
 }
 
+#albumStatusSelect, #albumFolderNameWrap{
+    display: none;
+}
+
+.albumFolderName {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+#albumFolderWrap{
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 5px;
+}
+
+#albumFolderWrap button{
+    border: none;
+}
+
+.albumFolderInputBtn{
+    background: orange;
+    height: 23px;
+    border-radius: 5px;
+}

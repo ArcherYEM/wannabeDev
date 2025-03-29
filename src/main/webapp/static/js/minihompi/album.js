@@ -1,6 +1,7 @@
 let albumImg  = null;
 const url = window.location.pathname;
 const hompiIdAlbum = url.split('/').pop();
+let albumId;
 
 $(document).ready(function(){
     // 사진첩 눌렀을 때 사진첩 창 뜨게하기
@@ -14,8 +15,8 @@ $(document).ready(function(){
     });
 
     // (폴더등록) 폴더 이름 쓰고 엔터 쳤을 때
-    $(document).on('keydown', '.folderInput', function(e){
-        const folderName = $('.folderInput').val().trim();
+    $(document).on('keydown', '.albumFolderInput', function(e){
+        const folderName = $('.albumFolderInput').val().trim();
         const availStatus = $('#availStatus').val();
         if(e.keyCode == 13 && folderName !== ""){
             addAlbumFolder(availStatus,folderName);
@@ -23,8 +24,8 @@ $(document).ready(function(){
     });
 
     // (폴더등록) 등록 버튼을 클릭했을 때
-    $(document).on('click', '.folderInputBtn', function(){
-        const folderName = $('.folderInput').val().trim();
+    $(document).on('click', '.albumFolderInputBtn', function(){
+        const folderName = $('.albumFolderInput').val().trim();
         const availStatus = $('#availStatus').val();
         console.log('folderName: ' + folderName);
         console.log('availStatus: ' + availStatus);
@@ -34,29 +35,40 @@ $(document).ready(function(){
     });
 
     // (폴더등록) 등록 버튼을 눌렀을 때
-    $(document).on('click','#folderAddBtn',function(){
-        $('#folderNameWrap').toggle();
-        $('#statusSelect').toggle();
+    $(document).on('click','#albumFolderAddBtn',function(){
+        $('#albumFolderNameWrap').toggle();
+        $('#albumStatusSelect').toggle();
     });
 
     // (창 갈아끼우기) 게시글 등록 버튼 눌렀을 때
     $(document).on('click','#regBtn',function(){
-        switchToUpload();
+        let content = ``;
+        $('.albumFolderName button').each(function(element){
+            content += `<option value="${$(this).data('id')}">${$(this).text()}</option>`;
+        });
+        $('#albumFolderId').append(content);
+        $('.display-img').css('display', 'none');
+        $('.display-text').css('display', 'none');
+        $('.display-album').css('display', 'none');
+        $('.upload-album').css('display', 'grid');
+        $('.upload-img').css('display', 'block');
+        $('.upload-text').css('display', 'block');
+        $('.upload-content').css('display', 'block');
     });
 
     // (폴더를 눌렀을때)
-    $(document).on('click', '.hompiFolderName button', function(){
+    $(document).on('click', '.albumFolderName button', function(){
         const btn = $(this);
         const folderId = btn.data('id');
         if(btn.hasClass('folderOn')){
             btn.removeClass('folderOn');
-            btn.next('.folderContentWrap').remove();
+            btn.next('.albumFolderContentWrap').remove();
             return;
         }
-        $('.folderContentWrap').remove();
-        $('.hompiFolderName button').removeClass('folderOn');
+        $('.albumFolderContentWrap').remove();
+        $('.albumFolderName button').removeClass('folderOn');
         btn.addClass('folderOn');
-        getFolderContents(folderId, btn);
+        getAlbumFolderContents(folderId, btn);
     });
 
     // 변경하기 버튼 눌렀을 때
@@ -64,6 +76,7 @@ $(document).ready(function(){
         $('#albumImage').click();
     });
 
+    // 이미지 변경
     $(document).on('change', '#albumImage', function(){
         const fileInput = $('#albumImage')[0];
         const file = fileInput.files[0];
@@ -109,11 +122,28 @@ $(document).ready(function(){
     });
 
     // 폴더 이름 클릭했을 때
-    $(document).on('click', '.folderContentWrap p',function(){
-        console.log('click');
+    $(document).on('click', '.albumFolderContentWrap p',function(){
         const clickAlbumId = $(this).data('id');
-        resetDisplay();
+        albumId = clickAlbumId;
         getAlbumContent(clickAlbumId);
+    });
+
+    $(document).on('click', '#deleteAlbumBtn', function(){
+        if($('.album-content').length === 0){
+            alert('사진첩이 존재하지 않습니다.');
+            return;
+        }
+        console.log('albumId: ' + albumId);
+        console.log("hompiIdAlbum: " + hompiIdAlbum);
+        if(confirm("삭제하시겠습니까?")){
+        } else {
+            alert("삭제 취소!");
+            return;
+        }
+        deleteAlbum(albumId,hompiIdAlbum);
+        displayAlbum();
+        displayAlbumFolder();
+        getAlbumContent(1);
     });
 });
 
@@ -164,11 +194,9 @@ function addAlbumFolder(availStatus, folderName){
         url: "/api/folder/save/02/" + folderName + '/' + availStatus,
         success: function(response){
             alert('폴더를 저장했습니다.');
-            $('#statusSelect').hide();
-            $('#folderNameWrap').hide();
-            $('.folderInput').val('');
-            if($('.hompiFolderName').length > 0){
-                $('.hompiFolderName').remove();
+
+            if($('.albumFolderName').length > 0){
+                $('.albumFolderName ').remove();
             }
             getAlbumFolder();
         },
@@ -185,14 +213,14 @@ function getAlbumFolder(){
         url: "/api/folder/read/" + hompiIdAlbum + "/02",
         dataType: 'json',
         success: function(folderList){
-            let code = '<div class="hompiFolderWrap">';
+            let code = '<div class="albumFolderWrap">';
             folderList.forEach(function(folderDTO,index){
-                code += '<div class= "hompiFolderName"><button data-id="'+folderDTO.folderId
+                code += '<div class= "albumFolderName"><button data-id="'+folderDTO.folderId
                          + '"><img src="/static/images/common/folder.png">'
                          + " " +folderDTO.folderName + '</button></div>';
             })
             code += "</div>";
-            $('#folderWrap').append(code);
+            $('#albumFolderWrap').append(code);
         },
         error: function(error){
             console.error(error);
@@ -201,13 +229,13 @@ function getAlbumFolder(){
 }
 
 // 폴더 안 컨텐츠 보여주기
-function getFolderContents(folderId ,btn){
+function getAlbumFolderContents(folderId ,btn){
     $.ajax({
         type: 'GET',
         url: '/api/folder/read/'+ hompiIdAlbum +'/02/'+ folderId,
         dataType: 'json',
         success: function(response){
-            let code = '<div class="folderContentWrap">';
+            let code = '<div class="albumFolderContentWrap">';
             response.forEach(function(folderDTO){
                     code += `<p data-id="${folderDTO.folderId}">${folderDTO.folderName}</p>`
                 })
@@ -232,6 +260,7 @@ function saveAlbum(formData){
         success: function(response){
             alert('게시글이 성공적으로 저장되었습니다.');
             console.log(response);
+            resetUploadForm();
             getAlbumContent(1);
         },
         error: function(error){
@@ -239,6 +268,17 @@ function saveAlbum(formData){
             console.error(error);
         }
     });
+}
+function resetUploadForm(){
+    $('#album-title').css('display','none');
+    $('#album-avail-status-select').css('display','none');
+    $('#album-folder-select').css('display','none');
+    $('#albumTitle').val('');
+    $('#albumAvailStatus').val('31');
+    $('#albumFolderId').val('폴더선택');
+    $('#previewImg').attr('src', '/static/images/common/loding.jpg');
+    $('#albumImage').val('');
+    $('#albumText').val('');
 }
 
 // 내 홈피가 아닐 때 등록/수정 버튼 안 보이게
@@ -250,7 +290,7 @@ function checkStatus(){
         success: function(response){
             if(response === false){
                 $('#registerBtn').remove();
-                $('.post-actions').remove();
+                $('.actions-container').remove();
             }
         },
         error: function(error){
@@ -264,10 +304,20 @@ function getAlbumContent(albumId){
     $.ajax({
         type:'GET',
         url:'/api/minihompi/getAlbum/' + albumId + '/' + hompiIdAlbum,
-        dataType: 'json',
+        dataType: "json",
         success: function(response){
-            console.log('response: ' + JSON.stringify(response));
+            console.log('response: ' + response);
             console.log('사진첩 데이터 불러오기 성공!');
+
+            $('.display-img').empty();
+            $('.display-text').empty();
+            $('.display-album').empty();
+            $('.upload-img').css('display', 'none');
+            $('.upload-text').css('display', 'none');
+            $('.upload-album').css('display', 'none');
+            $('.display-img').css('display', 'block');
+            $('.display-text').css('display', 'block');
+            $('.display-album').css('display', 'block');
             $('.display-img').append(`
                 <div data-avail="${response.availStatus}" class = "album-photo">
                     <img src="${response.albumImage}" class= "album-image" alt="앨범 이미지" style="height: 100px; width: 100px;">
@@ -282,35 +332,63 @@ function getAlbumContent(albumId){
             `);
         },
         error: function(error){
-            console.log('response: ' + JSON.stringify(error));
+            console.log('요청 URL: ' + '/api/minihompi/getAlbum/' + albumId + '/' + hompiIdAlbum);
+            console.log('error: ' + error);
             alert('글');
         }
     })
 }
-function resetDisplay(){
-    $('.display-img').empty();
-    $('.display-text').empty();
-    $('.display-album').empty();
-}
 
-function switchToUpload(){
-    let content = ``;
-    $('.hompiFolderName button').each(function(element){
-        content += `<option value="${$(this).data('id')}">${$(this).text()}</option>`;
+function deleteAlbum(albumId,hompiIdAlbum){
+    $.ajax({
+        type: "POST",
+        url: "/api/minihompi/deleteAlbum",
+        data: JSON.stringify({
+            albumId: albumId,
+            hompiId: hompiIdAlbum
+        }),
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response){
+            console.log("response: " + response);
+            alert('삭제 성공!');
+        },
+        error: function(response){
+            console.log("response: " + response);
+            alert('삭제 실패!');
+        }
     });
-    $('#albumFolderId').append(content);
-    $('.upload-album').css('display', 'grid');
-    $('.upload-content').css('display', 'block');
-    $('.display-album').css('display','none');
-    $('.display-content').css('display', 'none');
-    $('.display-img').css('display', 'none');
 }
+//function resetDisplay(){
+//    $('.display-img').empty();
+//    $('.display-text').empty();
+//    $('.display-album').empty();
+//}
 
-function switchToDisplay(){
-    $('.upload-album').css('display', 'none');
-    $('.upload-content').css('display', 'none');
-    $('.upload-img').css('display', 'none');
-    $('.display-album').css('display','block');
-    $('.display-content').css('display', 'block');
-    $('.display-img').css('display', 'block');
-}
+//function switchToUpload(){
+//    let content = ``;
+//    $('.albumFolderName button').each(function(element){
+//        content += `<option value="${$(this).data('id')}">${$(this).text()}</option>`;
+//    });
+//    $('#albumFolderId').append(content);
+//    $('.upload-album').css('display', 'grid');
+//    $('.upload-content').css('display', 'block');
+//    $('.display-album').css('display','none');
+//    $('.display-content').css('display', 'none');
+//    $('.display-img').css('display', 'none');
+//}
+
+//function switchToDisplay(){
+//    $('.display-album').empty();
+//    $('.display-content').empty();
+//    $('.display-img').empty();
+//    $('.upload-album').empty();
+//    $('.upload-content').empty();
+//    $('.upload-img').empty();
+//    $('.upload-album').css('display', 'none');
+//    $('.upload-content').css('display', 'none');
+//    $('.upload-img').css('display', 'none');
+//    $('.display-album').css('display','block');
+//    $('.display-content').css('display', 'block');
+//    $('.display-img').css('display', 'block');
+//}
