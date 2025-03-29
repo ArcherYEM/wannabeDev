@@ -376,6 +376,7 @@ $(document).ready(function () {
             success: function () {
             },
             error: function () {
+                alert("기분 저장에 실패했습니다.")
             }
         });
     });
