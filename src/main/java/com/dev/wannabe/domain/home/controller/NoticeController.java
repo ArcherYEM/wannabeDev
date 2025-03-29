@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +57,10 @@ public class NoticeController {
     }
 
     @PostMapping("/view")
-    public String NoticeView(){return "home/notice/noticeView";}
+    public String NoticeView(HttpServletRequest req){
+
+        return "home/notice/noticeView";
+    }
 
     // 공지사항 등록페이지 이동
     @GetMapping("/insert_page")

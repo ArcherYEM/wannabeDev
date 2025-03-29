@@ -105,15 +105,55 @@ function initEditor() {
 
 // 공지사항 등록
 function insert_notice() {
-    const category = $('#i_category').val();
-    const title = $('#i_title').val().trim();
-    const startDate = $('#i_start_date').val().trim();
-    const endDate = $('#i_end_date').val().trim();
-    const content = window.noticeEditor ? window.noticeEditor.getHTML() : '';
+    const type          = $('#i_type').val();
+    const title         = $('#i_title').val().trim();
+    const contents      = window.noticeEditor
+                        ? window.noticeEditor.getHTML()
+                        : '';
+    const startDateTemp = $('#i_start_date').val().trim();
+    const endDateTemp   = $('#i_end_date').val().trim();
 
-    console.log("분류:", category);
-    console.log("제목:", title);
-    console.log("시작일시:", startDate);
-    console.log("종료일시:", endDate);
-    console.log("내용:", content);
+    // 시작일시 분리
+    const [startDate_, startTime_]  = startDateTemp.split(' ');
+    const startDate                 = startDate_.replace(/-/g, '');
+    const startTime                 = startTime_.replace(/:/g, '');
+
+    // 종료일시 분리
+    const [endDate_, endTime_]  = endDateTemp.split(' ');
+    const endDate               = endDate_.replace(/-/g, '');
+    const endTime               = endTime_.replace(/:/g, '');
+
+    const noticeData = {
+        noticeType      : type,         // 분류
+        noticeTitle     : title,        // 제목
+        noticeContents  : contents,     // 내용
+        startDate       : startDate,    // 시작일자
+        startTime       : startTime,    // 시작시간
+        endDate         : endDate,      // 종료일자
+        endTime         : endTime       // 종료시간
+    }
+
+    $.ajax({
+        url         : '/api/notice/insert_notice',
+        method      : 'post',
+        contentType : 'application/json',
+        data        : JSON.stringify(noticeData),
+
+        success     : function(result){
+            if(result){
+                Swal.fire('공지사항 등록 성공', `[${title}] 공지가 등록되었습니다`, 'success').then(() => {
+                    location.href = '/notice';
+                });
+            } else {
+                Swal.fire('등록실패', '공지 등록 권한이 없습니다.', 'error').then(() => {
+                    location.href = '/notice';
+                });
+            }
+        },
+        error       : function(error){
+            Swal.fire('등록실패', `서버 오류 발생: ${error.status} - ${error.statusText}`, 'error').then(() => {
+                return;
+            });
+        }
+    });
 }

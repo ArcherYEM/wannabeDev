@@ -97,9 +97,29 @@
         </if>
     </select>
 
-<!--    <insert id="" parameterType="">-->
-<!--        INSERT INTO NOTICE ('NOTICE_TYPE', 'NOTICE_TITLE','NOTICE_CONTENTS', 'START_DATE', 'START_TIME', 'END_DATE', 'END_TIME', 'FILE_NAME', 'FILE_PATH')-->
-<!--        VALUES ();-->
-<!--    </insert>-->
+    <!--공지사항 등록-->
+    <insert id="insertNotice" parameterType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
+        INSERT INTO NOTICE (
+            NOTICE_TYPE,
+            NOTICE_TITLE,
+            NOTICE_CONTENTS,
+            START_DATE,
+            START_TIME,
+            END_DATE,
+            END_TIME,
+            INSERT_USER_ID,
+            UPDATE_USER_ID
+        ) VALUES (
+            #{noticeType},
+            #{noticeTitle},
+            #{noticeContents},
+            #{startDate},
+            #{startTime},
+            #{endDate},
+            #{endTime},
+            #{insertUserId},
+            #{updateUserId}
+        )
+    </insert>
 
 </mapper>
