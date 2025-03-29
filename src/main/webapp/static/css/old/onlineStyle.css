@@ -70,38 +70,15 @@
 .failChk{color:red; margin-top:5px; display:none;}
 /*회원가입 e*/
 
-/*개인정보 모달 s*/
-.modalBg{position:fixed; top:0; left:0; width:100%; height:100%; display:block; background:rgba(0,0,0,0.5); display:none;}
-.modal{position:absolute; top:50%; left:50%; width:50%; display:block; background:#fff; box-sizing:border-box; padding:30px; transform:translate(-50%,-50%); border-radius:10px; display:none;}
-.modal > p.title{text-align:center; font-weight:bold; font-size:24px;}
-.modal a.close{position:absolute; top:35px; right:25px;}
-.modal a.close img{width:80%;}
-.modal div{width:100%; height:350px; margin-top:20px; overflow-y:auto; border:1px solid #bbb; text-align:left; box-sizing:border-box; padding:10px;}
-.modal div > *{font-size:16px;}
-/*개인정보 모달 e*/
-
-/*공지모달 s*/
-.gonggiModal{background:#fff; width:500px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:block; padding:20px 10px; box-sizing:border-box;}
-.gonggiModal .gonggiModalTop{text-align:center;}
-.gonggiModal .gonggiModalTop img{}
-.gonggiModal .gonggiModalMid{border:1px solid #333; border-left:0; border-right:0; padding: 10px 30px; box-sizing:border-box; width:100%; margin:20px 0; }
-.gonggiModal .gonggiModalMid .title{color:var(--color-basic); font-size:28px; font-weight:bold; text-align:center;}
-.gonggiModal .gonggiModalMid div{margin:15px 0;}
-.gonggiModal .gonggiModalBot{}
-.gonggiModal .gonggiModalBot ul{}
-.gonggiModal .gonggiModalBot ul li{float:left; color:#bbb; font-size:14px;}
-.gonggiModal .gonggiModalBot ul li:last-child{float:right;}
-/*공지모달 e*/
-
 /*아디비번찾기 s*/
 .idPwSearchModal{background:#fff; width:500px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:block; padding:40px 30px; box-sizing:border-box; border-radius:10px;}
 .idPwSearchModal .idPwSearchTop{text-align:center;}
 .idPwSearchModal .idPwSearchTop img{}
 .idPwSearchModal .idPwSearchMid{margin:20px 0;}
-.idPwSearchModal .idPwSearchMid > div{margin:50px 0;}                                            
-.idPwSearchModal .idPwSearchMid > ul{margin-bottom:20px;}                                            
-.idPwSearchModal .idPwSearchMid ul li{float:left; width:49%}  
-.idPwSearchModal .idPwSearchMid ul li:last-child{float:right;}  
+.idPwSearchModal .idPwSearchMid > div{margin:50px 0;}
+.idPwSearchModal .idPwSearchMid > ul{margin-bottom:20px;}
+.idPwSearchModal .idPwSearchMid ul li{float:left; width:49%}
+.idPwSearchModal .idPwSearchMid ul li:last-child{float:right;}
 .idPwSearchModal .joinTitle{font-weight:bold;}
 .idPwSearchModal .joinInputWrap{position:relative; margin-top:10px; margin-bottom:20px;}
 .idPwSearchModal .joinInputWrap a{position:absolute; top:6px; right:6px; width:inherit;}

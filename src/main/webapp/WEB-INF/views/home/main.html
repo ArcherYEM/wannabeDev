@@ -59,9 +59,9 @@
                                         </div>
                                         <div class="alignBox">
                                             <span class="title">쪽지</span>
-                                            <div class="stat">
+                                            <div class="stat messageBox">
                                                 <img src="/static/images/common/new.png" alt="new">
-                                                <span class="text new">30</span>
+                                                <span class="text new" target="_blank" onclick="openPopupMessage()">30</span>
                                             </div>
                                         </div>
                                         <div class="alignBox">
@@ -396,6 +396,7 @@
 <th:block layout:fragment="scripts">
     <script th:type="module" th:src="@{/static/js/ptr/main-new.js}"></script>
     <script th:type="module" th:src="@{/static/js/ptr/find-modal.js}"></script>
+    <script th:src="@{/static/js/home/popupMessage.js}"></script>
 </th:block>
 </body>
 </html>
