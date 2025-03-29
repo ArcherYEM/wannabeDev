@@ -110,7 +110,7 @@ public class MinihompiService {
         return response;
     }
 
-    public Map<String, Object> saveMood(Long hompiId, String moodRaw) {
+    public int saveMood(Long hompiId, String moodRaw) {
         String mood = URLDecoder.decode(moodRaw, StandardCharsets.UTF_8);
         mood = mood.replace("=", "").trim();
 

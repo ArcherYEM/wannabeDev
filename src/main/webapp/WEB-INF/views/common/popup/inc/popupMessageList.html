@@ -1,10 +1,20 @@
-메세지리스트
-<div id="popMsgList" th:each="msgList : ${msgList}">
-    <input type="checkbox">
-    <span class="username" th:text="${msgList.userId}"></span>
-    <span class="popMsg-Msg">name</span>
-    <span class="birthdate">birthdate</span>
-    <span class="gender">gender</span>
+<div id="popMsgList-container">
+    <div id="popMsgListTitle">
+        <input class="msgListTitle msgChkbox" type="checkbox"></input>
+        <span class="msgListTitle">보낸사람</span>
+        <span class="msgListTitle">내용</span>
+        <span class="popMsg-Msg">날짜</span>
+    </div>
+
+    <div class="popMsgListBox" th:each="msgList : ${msgList}">
+        <input type="checkbox" ></input>
+        <span class="popMsg-insertUserId" th:if="${msgList.friendUserId == 0}">WANNABE</span>
+        <span class="popMsg-insertUserId" th:if="${msgList.friendUserId != 0}" th:text="${msgList.friendUserId}"></span>
+        <span class="popMsg-Msg" th:text="${#strings.abbreviate(msgList.message, 35)}"></span>
+        <span class="birthdate" th:text="${#dates.format(msgList.insertDT, 'yyyy.MM.dd HH:mm')}"></span>
+    </div>
+    <span th:text="${#lists.size(msgList)}"></span>
+    <!-- 페이지네이션 버튼 -->
 
 </div>
-
+<div id="pagination"></div>

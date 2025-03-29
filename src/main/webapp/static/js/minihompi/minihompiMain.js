@@ -130,7 +130,7 @@ $(document).ready(function () {
             url: hompiDataUrl,
             dataType: "json",
             success: function (data) {
-                console.log(data);
+
                 const hompiAuth = data.myHompiCheck;
                 const userId = data.userId;
 
@@ -142,14 +142,14 @@ $(document).ready(function () {
                 getMiniroomDataList();
             },
             error: function () {
-                console.log("권한 확인 실패");
+
             }
         });
     }
 
     // 프로필 이동
     function moveHomePageCgColor(e, url, menuName) {
-        console.log(e.currentTarget);
+
         $.ajax({
             type: "GET",
             url: url,
@@ -171,7 +171,7 @@ $(document).ready(function () {
                 btn.classList.remove("on");
             }
         });
-        console.log(e.currentTarget);
+
     }
 
     // 메인에서 이름 누르면 나오는 드롭박스
@@ -284,7 +284,7 @@ $(document).ready(function () {
 
         const hompiAuth = sessionStorage.getItem('myHompiCheck');
         const container = $('#profileContainer');
-        console.log("hompiAuth Main:" + hompiAuth);
+
         //권한에 따라 관리 버튼 없앰
         if (hompiAuth != 0) {
             $("#moveSetting").remove();
@@ -335,7 +335,7 @@ $(document).ready(function () {
                 //`minihompiMain.js`가 항상 다시 로드되도록 설정
                 $.getScript("/static/js/minihompi/minihompiMain.js")
                     .done(() => {
-                        console.log("minihompiMain.js 로드 완료");
+
                         delete window.isminihompiMainLoaded;  // 다시 로드 가능하도록 초기화
                     })
                     .fail((jqxhr, settings, exception) => console.error("minihompiMain.js 로드 실패:", exception));
@@ -372,10 +372,11 @@ $(document).ready(function () {
             type: "POST",
             url: moodUrl,
             dataType: "TEXT",
-            data: selectMood,
+            data: {mood: selectMood},
             success: function () {
             },
             error: function () {
+                alert("기분 저장에 실패했습니다.")
             }
         });
     });
