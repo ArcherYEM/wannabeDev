@@ -36,6 +36,7 @@
 		<typeAlias alias="HompiDailyStats" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats"/>
 		<typeAlias alias="HompiFolder" type="com.dev.wannabe.domain.minihompi.model.vo.HompiFolder"/>
 		<typeAlias alias="HompiDiary" type="com.dev.wannabe.domain.minihompi.model.vo.HompiDiary"/>
+		<typeAlias alias="DiaryComment" type="com.dev.wannabe.domain.minihompi.model.vo.DiaryComment"/>
 		<!--> miniroom <-->
 		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
 		<!--> minimi <-->
@@ -53,7 +54,7 @@
 		<typeAlias alias="FolderDTO" type="com.dev.wannabe.domain.minihompi.model.dto.FolderDTO"/>
 		<typeAlias alias="FolderContentsDTO" type="com.dev.wannabe.domain.minihompi.model.dto.FolderContentsDTO"/>
 		<typeAlias alias="HompiDiaryDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiDiaryDTO"/>
-
+		<typeAlias alias="DiaryCommentFindDTO" type="com.dev.wannabe.domain.minihompi.model.dto.DiaryCommentFindDTO"/>
 		<!--> miniroom <-->
 
 		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>

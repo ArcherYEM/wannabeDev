@@ -2,54 +2,75 @@
 <link rel="stylesheet" href="/static/css/style.css">
 <link rel="stylesheet" href="/static/css/post.css">
 
-     <div class="post-register">
-         <p></p>
-        <button id="registerBtn">등록</button>
-     </div>
+<div class="post-register">
+    <p></p>
+    <button id="registerBtn">등록</button>
+</div>
 
-     <div class="day-container">
-            <table>
-                <tbody id="day">
+<div class="day-container">
+    <table>
+        <tbody id="day">
 
-                </tbody>
-            </table>
+        </tbody>
+    </table>
+</div>
+<div class="post-container">
+    <!-- 게시물 내용 -->
+    <div class="post-content" id="diary">
     </div>
-    <div class="post-container">
-        <!-- 게시물 내용 -->
-        <div class="post-content" id="diary">
-        </div>
 </div>
 <div class="post-bottom">
-<!-- 게시물 액션 -->
-<div class="post-actions">
-<button class="delete-btn">삭제</button>
-<button class="edit-btn">수정</button>
-</div>
+    <!-- 게시물 액션 -->
+    <div class="post-actions">
+        <button class="delete-btn">삭제</button>
+        <button class="edit-btn">수정</button>
+    </div>
 
-<!-- 댓글 작성 -->
-<div class="friendSay">
-<div class="comment-section">
-<span id="comment-name">일촌평 작성</span><input type="text" >
-<button>등록</button>
-</div>
-</div>
-<ul class="commentList">
-   <li>
-        <span class="comment">멋진 삶을 사시는군요!</span>
-        <span class="star">(서든어택 클마 <span class="nickName fcWb">서던택</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-   </li>
-   <li>
-        <span class="comment">어제 아주 멋있었습니다! 근데 평소에 화가 많으신가요...?</span>
-        <span class="star">(오버워치 클마 <span class="nickName fcWb">오버치</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-   </li>
-   <li>
-        <span class="comment">요즘 무슨노래 들어??</span>
-        <span class="star">(음악친구 <span class="nickName fcWb">버그스</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-   </li>
-   <li>
-        <span class="comment">동해번쩍! 서해번쩍!</span>
-        <span class="star">(누구신지 <span class="nickName fcWb">홍길동</span>) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-   </li>
-</ul>
+    <!-- 댓글 작성 -->
+    <div class="diaryCommentSay">
+        <table class="diaryCommentTable">
+            <colgroup>
+                <col width="7%">
+                <col width="*">
+                <col width="7%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>
+                    <p class="fcWb">댓글</p>
+                </td>
+                <td>
+                    <input type="text" id="diaryComment" placeholder="다이어리에 댓글을 달아보세요~!">
+                </td>
+                <td>
+                    <button type="button" id="diaryCommentBtn" >확인</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="diaryCommentNo">
+            <colgroup>
+                <col width="7%">
+                <col width="*">
+                <col width="7%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>
+                    <p class="fcWb">댓글</p>
+                </td>
+                <td>
+                    <input type="text" placeholder="댓글을 달 권한이 없습니다~!" disabled>
+                </td>
+                <td>
+                    <button type="button" >확인</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <ul class="commentList">
+
+    </ul>
 
 </div>
