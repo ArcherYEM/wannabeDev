@@ -38,8 +38,8 @@
 //    $(document).on('click','#folderAddBtn',function(){
 //        $('#folderNameWrap').toggle();
 //        $('#statusSelect').toggle();
-//    });
 //    $(document).on('keydown','.folderInput',function(e){
+//    });
 //        const text = $('.folderInput').val().trim();
 //        const availStatus = $('#statusSelect').val();
 //        if(e.keyCode == 13 && text !== ""){

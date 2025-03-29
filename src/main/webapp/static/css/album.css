@@ -1,8 +1,4 @@
-.active {
-    display:'block';
-}
-
-.upload-title {
+.upload-album {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
 }
@@ -22,4 +18,9 @@
 #albumText {
     width: 599px;
     height: 167px;
+}
+
+#previewImg{
+    height:100px;
+    width:100px;
 }

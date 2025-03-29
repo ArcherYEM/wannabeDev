@@ -3,31 +3,33 @@
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.AlbumMapper">
 
     <!-- 파라미터에 DTO를 파야함-->
-<!--<insert id="saveAlbum" parameterType="">
+<insert id="saveAlbum" parameterType="SaveAlbumDTO">
     INSERT INTO wannabe_dev.HOMPI_ALBUM(
     HOMPI_ID
     , FOLDER_ID
     , ALBUM_TITLE
     , AVAIL_STATUS
+    , ALBUM_CONTENT
+    , ALBUM_IMG
     , REMARKS
     , INSERT_USER_ID
     , INSERT_DT
     , UPDATE_USER_ID
     , UPDATE_DT
-    , ALBUM_CONTENT
     )
     VALUES(
       #{hompiId}
     , #{folderId}
     , #{albumTitle}
     , #{availStatus}
+    , #{albumContent}
+    , #{albumImage}
     , NULL
     , #{userId}
     , current_timestamp()
     , NULL
     , NULL
-    , #{albumContent}
     );
-</insert>-->
+</insert>
 
 </mapper>
