@@ -52,9 +52,8 @@
 
 .subMainContainer {
     display: grid;
-    /* flex-direction:row;
-    justify-content: space-around; */
     grid-template-columns:200px auto 200px;
+    height: auto;
 }
 
 .menuContainer {
@@ -148,7 +147,10 @@
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px
+    height: fit-content;
+    gap: 10px;
+    position: sticky;
+    top: 10vh;
 }
 /*s: 선택한 아이템을 */
 .selectedItemMenu {
