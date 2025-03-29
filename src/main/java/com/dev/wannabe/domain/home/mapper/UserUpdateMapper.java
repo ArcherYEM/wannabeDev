@@ -17,4 +17,6 @@ public interface UserUpdateMapper {
     int checkPhone(String phone);
 
     int updateMyPasswd(Map<String, Object> param);
+
+    String getPassword(Long userId);
 }
