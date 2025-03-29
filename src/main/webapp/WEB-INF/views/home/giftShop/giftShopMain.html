@@ -107,29 +107,30 @@
                 </div>
                 <div class="menuRecentItems">
                     <h2>최근 아이템</h2>
-                    <div class="upArrow">
+                    <div id="up-arrow" class="arrow">
                         <i class="bi bi-caret-up-fill"></i>
                     </div>
-                    <div class="recent-item-wrap">
-                        <div th:each="i : ${#numbers.sequence(1, 3)}" class="recentItem">
-                            <a class="recent-item-link" href="">
-                                <img src="/static/images/common/good.png">
-                            </a>
-                            <button id="delete-recent-item" class="delete-recent-item"><i class="xi-close-min"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="downArrow">
+                            <div id="recent-item-swiper" class="swiper">
+                                <div class="swiper-wrapper">
+                                    <!-- TODO: 최근본아이템 데이더바인딩, onclick은 디버깅용이니 지워주세요  -->
+                                    <div th:each="i : ${#numbers.sequence(1, 5)}" class="recent-item-link swiper-slide">
+                                        <a onclick="console.log('아이템누름')" ><img src="/static/images/common/good.png" alt="상품명"></a>
+                                        <p th:text="'아이템 이름'"></p>
+                                        <button onclick="console.log('닫기누름')" id="delete-recent-item" class="delete-recent-item"><i class="xi-close-min"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                    <div id="down-arrow" class="arrow">
                         <i class="bi bi-caret-down-fill"></i>
                     </div>
                 </div>
             </div>
             <div class="contentContainer">
                 <div class="itemTitle">
-                    <h2>새로나왔어요 테스트</h2>
+                    <h2>새로나왔어요</h2>
                 </div>
                 <div class="itemContainer">
-                    <div class="itemCard">
+                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -164,7 +165,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="itemCard">
+                </div>
+                <div class="itemTitle">
+                    <h2>인기 BGM</h2>
+                </div>
+                <div class="itemContainer">
+                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -199,42 +205,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
+                </div>
+                <div class="itemTitle">
+                    <h2>주간 인기아이템</h2>
+                </div>
+                <div class="itemContainer">
+                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -274,402 +250,7 @@
                     <h2>새로나왔어요 테스트</h2>
                 </div>
                 <div class="itemContainer">
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="itemTitle">
-                    <h2>새로나왔어요 테스트</h2>
-                </div>
-                <div class="itemContainer">
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="itemTitle">
-                    <h2>새로나왔어요 테스트</h2>
-                </div>
-                <div class="itemContainer">
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
-                        <div class="itemImg">
-                            <img src="/static/images/common/good.png">
-                        </div>
-                        <div class="itemDesc">
-                            <span>미니미test</span>
-                            <h3>제목입니다test</h3>
-                        </div>
-                        <div class="itemPricing">
-                            <div class="selectBox">
-                                <select>
-                                    <option value="option1">7일</option>
-                                    <option value="option2">30일</option>
-                                    <option value="option3">100일</option>
-                                </select>
-                            </div>
-                            <div class="dotori">
-                                <img class="dotori-icon" src="/static/images/common/dotori.png">
-                            </div>
-                            <div class="price">
-                                000개
-                            </div>
-                        </div>
-                        <div class="itemBuy">
-                            <div class="itemGift">
-                                <i class="bi bi-gift"></i>
-                            </div>
-                            <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
-                            </div>
-                            <div class="itemPurchase">
-                                <span>구매하기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="itemCard">
+                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -726,21 +307,50 @@
                 </div>
                 <div class="cart">
                     <h2>장바구니</h2>
-                    <div class="upArrow">
+                    <div id="item-up-arrow" class="item-up-arrow arrow">
                         <i class="bi bi-caret-up-fill"></i>
                     </div>
                     <div class="items">
-                        <div class="item">
-                            아이템1
-                        </div>
-                        <div class="item">
-                            아이템2
-                        </div>
-                        <div class="item">
-                            아이템3
+                        <div id="item-swiper" class="swiper">
+                            <div class="swiper-wrapper">
+                                <div th:each="i : ${#numbers.sequence(1, 3)}" class="swiper-slide">
+                                    <div><input type="checkbox" name="" id=""> <span>아이템종류</span></div>
+                                    <p>이건아이템이름입니..</p>
+                                    <div>
+                                        <select name="" id="">
+                                            <option>1일</option>
+                                            <option>7일</option>
+                                            <option>30일</option>
+                                            <option>60일</option>
+                                            <option>무제한</option>
+                                        </select>
+                                        <div>
+                                            <img class="dotori-icon" src="/static/images/common/dotori.png">
+                                            <span>000</span> 개
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:each="i : ${#numbers.sequence(1, 3)}" class="swiper-slide">
+                                    <div><input type="checkbox" name="" id=""> <span>아이템종류</span></div>
+                                    <p>이건아이템이름입니..</p>
+                                    <div>
+                                        <select name="" id="">
+                                            <option>1일</option>
+                                            <option>7일</option>
+                                            <option>30일</option>
+                                            <option>60일</option>
+                                            <option>무제한</option>
+                                        </select>
+                                        <div>
+                                            <img class="dotori-icon" src="/static/images/common/dotori.png">
+                                            <span>000</span> 개
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="downArrow">
+                    <div id="item-down-arrow" class="item-down-arrow arrow">
                         <i class="bi bi-caret-down-fill"></i>
                     </div>
                     <div class="itemSum">
@@ -769,15 +379,8 @@
 </div>
 <!-- 선물가게 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script>
-        // 선물함 메뉴 효과
-        $(function () {
-          $(".top-header-menu .tab").on("click", function () {
-            $(".top-header-menu .tab").removeClass("active");
-            $(this).addClass("active");
-          });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script defer src="/static/js/home/giftShop.js"></script>
 </th:block>
 </body>
 </html>
