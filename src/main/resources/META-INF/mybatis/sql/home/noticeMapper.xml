@@ -97,4 +97,9 @@
         </if>
     </select>
 
+<!--    <insert id="" parameterType="">-->
+<!--        INSERT INTO NOTICE ('NOTICE_TYPE', 'NOTICE_TITLE','NOTICE_CONTENTS', 'START_DATE', 'START_TIME', 'END_DATE', 'END_TIME', 'FILE_NAME', 'FILE_PATH')-->
+<!--        VALUES ();-->
+<!--    </insert>-->
+
 </mapper>

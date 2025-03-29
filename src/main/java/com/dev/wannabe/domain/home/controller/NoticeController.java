@@ -55,16 +55,10 @@ public class NoticeController {
         return "home/notice/notice";
     }
 
-    @GetMapping("/view")
-    public String getNoticeView(){
-
-        return "home/notice/noticeView";
-    }
-
     @PostMapping("/view")
-    public String NoticeView(){
+    public String NoticeView(){return "home/notice/noticeView";}
 
-
-        return "home/notice/noticeView";
-    }
+    // 공지사항 등록페이지 이동
+    @GetMapping("/insert_page")
+    public String insertPage(){ return "home/notice/insert_page";}
 }
