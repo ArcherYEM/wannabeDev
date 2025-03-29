@@ -31,20 +31,6 @@
     input{
         width:200px;
         height:30px;
-        border-radius:5px;
-        border:solid 1px var(--color-lgray);
-        background-color: var(--color-lgray);
-    }
-
-    .btn {
-        color: var(--color-white);
-        background-color: var(--color-basic);
-        border: solid 1px var(--color-basic);
-    }
-
-    .btn:hover {
-        color: var(--color-white);
-        background-color: var(--color-lbrown);
         border: solid 1px var(--color-lbrown);
     }
 }

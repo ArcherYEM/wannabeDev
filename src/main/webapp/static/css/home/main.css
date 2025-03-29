@@ -228,6 +228,10 @@
         }
     }
 
+    .messageBox {
+        cursor: pointer;
+    }
+
     .stateDotori{
         width: 100%;
         display: flex;

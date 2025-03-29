@@ -4,6 +4,7 @@ import com.dev.wannabe.domain.home.model.dto.GetUserInfoDTO;
 import com.dev.wannabe.domain.home.service.UserUpdateService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,22 +41,28 @@ public class UserUpdateController {
     /**
      * 비밀번호 확인
      **/
-//    @PostMapping("checkPassword")
-//    public int checkPassword(@RequestParam("password") String password) {
-//        int result = 0;
-//        HttpSession session = req.getSession(false);
-//        if (session == null || session.getAttribute("userData") == null) {
-//            return 0;
-//        }
-//
-//        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
-//        if (userData.getUserId() == null) {
-//            return 0;
-//        }
-//        result = userUpdateService.checkPassword(password, userData);
-//
-//        return result;
-//    }
+    @PostMapping("checkPassword")
+    public ResponseEntity<Map<String, Object>> checkPassword(@RequestParam("password") String password,
+                                                             HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("userData") == null) {
+            result.put("result", -1);
+            return ResponseEntity.badRequest().build();
+        }
+
+        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
+        if (userData.getUserId() == null) {
+            result.put("result", -1);
+            return ResponseEntity.badRequest().build();
+        }
+
+        boolean checkOldPaw = userUpdateService.checkPassword(password, userData);
+
+        result.put("checkOldPaw", checkOldPaw);
+        return ResponseEntity.ok(result);
+    }
 
     //비밀번호 수정
     @PostMapping("/updateMyPasswd")
