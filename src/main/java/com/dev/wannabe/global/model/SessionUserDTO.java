@@ -12,6 +12,7 @@ public class SessionUserDTO {
 
     // User
     private Long userId;
+    private String loginId;
     private String name;
 
     private String role;
@@ -20,5 +21,4 @@ public class SessionUserDTO {
     private Long hompiId;
     private String hompiURL;
     private String hompiTitle;
-
 }

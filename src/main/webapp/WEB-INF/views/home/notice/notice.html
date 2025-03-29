@@ -12,7 +12,7 @@
 <div layout:fragment="content">
     <div id="container">
         <div class="containerWrap">
-            <div id="menu" th:if="${userRole != '01'}">
+            <div id="menu" th:if="${userRole != '03'}">
                 <a> 공지 관리</a>
                 <a> 배너 관리</a>
             </div>
@@ -39,8 +39,10 @@
                             <option value="01" th:selected="${noticeType == '01'}">공지사항</option>
                             <option value="02" th:selected="${noticeType == '02'}">이벤트</option>
                             <option value="03" th:selected="${noticeType == '03'}">팝업</option>
-                            <option value="04" th:selected="${noticeType == '04'}" th:if="${userRole != '01'}">전체 쪽지</option>
-                            <option value="05" th:selected="${noticeType == '05'}" th:if="${userRole != '01'}">관리자 쪽지</option>
+                            <option value="04"
+                                    th:selected="${noticeType == '04'}"
+                                    th:if="${#lists.contains({'01','02'}, userRole)}">전체 쪽지</option>
+                            <option value="05" th:selected="${noticeType == '05'}" th:if="${userRole != '03'}">관리자 쪽지</option>
                         </select>
                         <div class="search">
                             <input type="search" placeholder="입력창" id="search-keyword" th:value="${keyword}">
@@ -59,13 +61,13 @@
                                         <option value="01">공지사항</option>
                                         <option value="02">이벤트</option>
                                         <option value="03">팝업</option>
-                                        <option th:if="${userRole != '01'}" value="04">전체 쪽지</option>
-                                        <option th:if="${userRole != '01'}" value="05">관리자 쪽지</option>
+                                        <option th:if="${userRole != '03'}" value="04">전체 쪽지</option>
+                                        <option th:if="${userRole != '03'}" value="05">관리자 쪽지</option>
                                     </select>
 
                                 </th>
                                 <th>제목</th>
-                                <th th:if="${userRole != '01'}">게시일</th>
+                                <th>게시일</th>
                                 <th>작성일</th>
                                 <th>작성자</th>
                             </tr>
@@ -75,14 +77,14 @@
                                 </td>
                                 <td><p th:text="${notice.getNoticeTypeName}" th:classappend="${notice.getNoticeTypeCssClass}">공지 사항</p></td>
                                 <td><a th:text="${notice.noticeTitle}" href="/notice/view">취업하고 놀고 싶다~!!</a></td>
-                                <td th:if="${userRole != '01'}" th:text="${notice.getDateRange}">2025.03.19~2025.03.21</td>
+                                <td th:text="${notice.getDateRange}">2025.03.19~2025.03.21</td>
                                 <td th:text="${notice.insertDT}">2025.03.19</td>
                                 <td th:text="${notice.loginId}">산토끼</td>
                             </tr>
                         </table>
                     </div>
                     <div class="page">
-                        <button class="delete" th:if="${userRole != '01'}">선택 삭제</button>
+                        <button class="delete" th:if="${userRole != '03'}">선택 삭제</button>
                         <span>
                             <!-- 첫 번째 페이지 버튼 -->
                             <a th:if="${currentPage > 1}"
@@ -106,13 +108,12 @@
                             <a th:if="${endPage < totalPages}"
                                th:href="@{|?limit=${limit}&offset=${endPage * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="next"></a>
 
-
                             <!-- 마지막 페이지 버튼 -->
                             <a th:unless="${endPage == 1 || currentPage == totalPages}"
                                th:href="@{|?limit=${limit}&offset=${(totalPages - 1) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="last"></a>
 
                         </span>
-                        <button class="create" th:if="${userRole != '01'}">등록</button>
+                        <button class="create" id="insert_page_btn" th:if="${userRole != '03'}">공지 등록</button>
                     </div>
                 </div>
             </div>
@@ -121,7 +122,7 @@
 </div>
 <!-- 공지사항 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script th:type="module" th:src="@{/static/js/home/notice.js}"></script>
+    <script th:src="@{static/js/home/notice.js}"></script>
 </th:block>
 </body>
 </html>

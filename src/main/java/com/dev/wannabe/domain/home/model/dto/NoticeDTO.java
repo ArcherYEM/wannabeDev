@@ -10,10 +10,12 @@ public class NoticeDTO {
     private String noticeContents;
     private String startDate;
     private String startTime;
-    private String endTime;
     private String endDate;
+    private String endTime;
     private String insertDT;
-    private String insertUserId;
+    private Long insertUserId;
+    private String updateDT;
+    private Long updateUserId;
     private String startDateTime;
     private String endDateTime;
 

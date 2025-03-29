@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/home")
-public class UserUpdateController {
+public class UserUpdateRestController {
     private final UserUpdateService userUpdateService;
 
     //TODO 회원정보 조회 조건문에 userId 추가하기
