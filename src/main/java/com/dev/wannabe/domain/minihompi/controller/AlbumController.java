@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.controller.api;
+package com.dev.wannabe.domain.minihompi.controller;
 
 import com.dev.wannabe.domain.minihompi.service.AlbumService;
 import com.dev.wannabe.global.model.SessionUserDTO;
