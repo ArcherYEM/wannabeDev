@@ -40,22 +40,22 @@ public class UserUpdateController {
     /**
      * 비밀번호 확인
      **/
-    @PostMapping("checkPassword")
-    public int checkPassword(@RequestParam("password") String password) {
-        int result = 0;
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("userData") == null) {
-            return 0;
-        }
-
-        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
-        if (userData.getUserId() == null) {
-            return 0;
-        }
-        result = userUpdateService.checkPassword(password, userData);
-
-        return result;
-    }
+//    @PostMapping("checkPassword")
+//    public int checkPassword(@RequestParam("password") String password) {
+//        int result = 0;
+//        HttpSession session = req.getSession(false);
+//        if (session == null || session.getAttribute("userData") == null) {
+//            return 0;
+//        }
+//
+//        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
+//        if (userData.getUserId() == null) {
+//            return 0;
+//        }
+//        result = userUpdateService.checkPassword(password, userData);
+//
+//        return result;
+//    }
 
     //비밀번호 수정
     @PostMapping("/updateMyPasswd")
