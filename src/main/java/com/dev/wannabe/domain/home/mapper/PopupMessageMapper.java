@@ -11,4 +11,5 @@ public interface PopupMessageMapper {
 
     public List<PopupMessageDTO> getMessageList(String userId);
 
+
 }

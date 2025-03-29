@@ -26,7 +26,7 @@ public class MinihompiController {
     @GetMapping("/jukebox")
     public String Jukebox() {return "minihompi/jukebox/minihompiJukebox";}
 
-    @GetMapping("/photo")
+    @GetMapping("/album")
     public String Photo() {return "minihompi/photo/minihompiPhoto";}
 
     @GetMapping("/board")
