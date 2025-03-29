@@ -30,11 +30,10 @@ public class DiaryController {
 
     @GetMapping("/checkStatus/{hompiId}")
     public ResponseEntity<Boolean> checkStatus(@PathVariable Long hompiId, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        if(session == null){
+        SessionUserDTO userData = (SessionUserDTO)request.getSession().getAttribute("userData");
+        if(userData == null){
             return ResponseEntity.ok(false);
         }
-        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
         if(!userData.getHompiId().equals(hompiId)){
             return ResponseEntity.ok(false);
         }

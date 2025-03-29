@@ -25,6 +25,11 @@ public class HomeController {
         return "home/main";
     }
 
+//    @GetMapping("/")
+//    public String home2() {
+//        return "home/main2";
+//    }
+
     // 클라이언트 아이피 가져오기
     @GetMapping("/getIp")
     @ResponseBody
