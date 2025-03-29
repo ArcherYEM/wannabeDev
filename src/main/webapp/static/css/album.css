@@ -17,10 +17,38 @@
 
 #albumText {
     width: 599px;
-    height: 167px;
+
 }
 
 #previewImg{
     height:100px;
     width:100px;
 }
+
+.upload-img {
+    position: relative;
+    display: inline-block;
+}
+
+.post-contents {
+    height: 200px;
+}
+
+#uploadPhoto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+.upload-img:hover #uploadPhoto {
+    display: block;
+}
+

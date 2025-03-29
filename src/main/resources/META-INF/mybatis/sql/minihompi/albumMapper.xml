@@ -5,7 +5,7 @@
     <!-- 파라미터에 DTO를 파야함-->
 <insert id="saveAlbum" parameterType="SaveAlbumDTO">
     INSERT INTO wannabe_dev.HOMPI_ALBUM(
-    HOMPI_ID
+      HOMPI_ID
     , FOLDER_ID
     , ALBUM_TITLE
     , AVAIL_STATUS
@@ -31,5 +31,37 @@
     , NULL
     );
 </insert>
+
+<select id="findAlbumByAlbumDTO" parameterType="SaveAlbumDTO" resultType="SaveAlbumDTO">
+    SELECT HOMPI_ID         AS hompiId,
+           ALBUM_ID         AS albumId,
+           ALBUM_IMG        AS albumImage,
+           ALBUM_TITLE      AS albumTitle,
+           ALBUM_CONTENT    AS albumContent,
+           AVAIL_STATUS     AS availStatus,
+           FOLDER_ID        AS folderId,
+           INSERT_USER_ID   AS userId
+    FROM HOMPI_ALBUM
+    WHERE 1=1
+    AND HOMPI_ID= #{hompiId}
+    <if test="albumId != 0">
+        AND ALBUM_ID = #{albumId}
+    </if>
+    <choose>
+        <when test = "availStatus == 31">
+            AND AVAIL_STATUS IN ('31', '32', '33')
+        </when>
+        <when test = "availStatus == 32">
+            AND AVAIL_STATUS IN ('32','33')
+        </when>
+        <when test="availStatus == '33'">
+            AND AVAIL_STATUS = '33'
+        </when>
+    </choose>
+    <if test = "albumId == 0">
+        ORDER BY INSERT_DT
+        LIMIT 1
+    </if>
+</select>
 
 </mapper>

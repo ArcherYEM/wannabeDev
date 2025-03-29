@@ -67,17 +67,17 @@ public class AlbumRestController {
             // 4. DB 또는 서비스에 반영 (저장 경로 전달)
             String albumImage = "/images/personal/" + fileName;
 
-            SaveAlbumDTO data = new SaveAlbumDTO();
-            data.setHompiId(hompiId);
-            data.setFolderId(albumFolderId);
-            data.setAlbumTitle(albumTitle);
-            data.setAvailStatus(albumAvailStatus);
-            data.setAlbumContent(albumContent);
-            data.setUserId(userId);
-            data.setAlbumImage(albumImage);
+            SaveAlbumDTO album = SaveAlbumDTO.builder()
+                            .hompiId(hompiId)
+                            .folderId(albumFolderId)
+                            .albumTitle(albumTitle)
+                            .availStatus(albumAvailStatus)
+                            .albumContent(albumContent)
+                            .userId(userId)
+                            .albumImage(albumImage)
+                            .build();
 
-
-            albumService.saveAlbum(data);
+            albumService.saveAlbum(album);
 
             return ResponseEntity.ok().build();
 
@@ -103,5 +103,21 @@ public class AlbumRestController {
         }
 
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/getAlbum/{albumId}/{hompiId}")
+    public ResponseEntity<SaveAlbumDTO> getAlbum (@PathVariable Long albumId,
+                                                  @PathVariable Long hompiId,
+                                                  HttpSession session){
+
+        SessionUserDTO loginUser = (SessionUserDTO) session.getAttribute("userData");
+        SaveAlbumDTO album = albumService.getAlbum(albumId, hompiId, loginUser);
+        log.info("album: " + album);
+
+        if(album == null){
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        return ResponseEntity.ok(album);
     }
 }

@@ -1,3 +1,7 @@
+let albumImg  = null;
+const url = window.location.pathname;
+const hompiIdAlbum = url.split('/').pop();
+
 $(document).ready(function(){
     // 사진첩 눌렀을 때 사진첩 창 뜨게하기
     $(document).on('click','#movePhoto1', function(){
@@ -5,6 +9,7 @@ $(document).ready(function(){
         $(this).addClass('on');
         displayAlbum();
         displayAlbumFolder();
+        getAlbumContent(1);
         checkStatus();
     });
 
@@ -39,7 +44,7 @@ $(document).ready(function(){
         switchToUpload();
     });
 
-    // (폴더를 눌렀을때) //TODO: 아직 구현 안함
+    // (폴더를 눌렀을때)
     $(document).on('click', '.hompiFolderName button', function(){
         const btn = $(this);
         const folderId = btn.data('id');
@@ -54,6 +59,29 @@ $(document).ready(function(){
         getFolderContents(folderId, btn);
     });
 
+    // 변경하기 버튼 눌렀을 때
+    $(document).on('click','#uploadPhoto', function(){
+        $('#albumImage').click();
+    });
+
+    $(document).on('change', '#albumImage', function(){
+        const fileInput = $('#albumImage')[0];
+        const file = fileInput.files[0];
+
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+
+            reader.onload = function(e){
+                $('#previewImg').attr('src', e.target.result); // 미리보기 업데이트
+            };
+
+            reader.readAsDataURL(file);
+            albumImg = file;
+        } else {
+            alert('이미지 파일만 선택 가능합니다.');
+        }
+    });
+
     // (게시글 등록) 밑에 있는 등록버튼 눌렀을 때
     $(document).on('click', '#saveBtn', function(){
         console.log('click');
@@ -61,53 +89,33 @@ $(document).ready(function(){
         const albumTitle = $('#albumTitle').val();
         const albumAvailStatus = $('#albumAvailStatus').val();
         const albumContent = $('#albumText').val();
-        const fileInput = $('#albumImage')[0];
-        const file = fileInput.files[0];
 
-        let originalImgSrc = ''; // 이미지 롤백용
-        let albumImg = null; // 새 이미지 저장용
-
-        // 필수 입력 값 체크
         if(!folderId || !albumTitle || !albumAvailStatus || !albumContent ){
             alert('글 작성을 마치지 못했습니다.');
             return;
-        } else if (!file){
+        } else if (!albumImg){
             alert('이미지를 선택하세요.');
             return;
         }
 
-        // 파일이 이미지인지 체크
-        if(file && file.type.startsWith("image/")){
-            const reader = new FileReader();
+        const formData = new FormData();
+        formData.append('albumImg', albumImg);
+        formData.append('albumFolderId', folderId);
+        formData.append('albumTitle', albumTitle);
+        formData.append('albumAvailStatus', albumAvailStatus);
+        formData.append('albumContent', albumContent);
 
-            reader.onload = function(e){
-                originalImgSrc = $('#previewImg').attr('src');
-                $('#previewImg').attr('src', e.target.result); // 미리보기 업데이트
-            };
+        saveAlbum(formData);
+    });
 
-            reader.readAsDataURL(file);
-            albumImg = file;
-
-            // FormData 객체 생성
-            const formData = new FormData();
-            formData.append('albumImg', albumImg);
-            formData.append('albumFolderId', folderId);
-            formData.append('albumTitle', albumTitle);
-            formData.append('albumAvailStatus', albumAvailStatus);
-            formData.append('albumContent', albumContent);
-
-            // 서버에 데이터 전송
-            saveAlbum(formData);
-
-        } else {
-            alert('이미지 파일만 선택 가능합니다.');
-        }
+    // 폴더 이름 클릭했을 때
+    $(document).on('click', '.folderContentWrap p',function(){
+        console.log('click');
+        const clickAlbumId = $(this).data('id');
+        resetDisplay();
+        getAlbumContent(clickAlbumId);
     });
 });
-
-// saveBtn ajax 안 먹으면 이거 위로 땡기기 (--------------------------------------------------------)
-const url = window.location.pathname;
-const hompiIdAlbum = url.split('/').pop();
 
 function reset() {
 //모든 value 초기화 및 display 초기화
@@ -224,6 +232,7 @@ function saveAlbum(formData){
         success: function(response){
             alert('게시글이 성공적으로 저장되었습니다.');
             console.log(response);
+            getAlbumContent(1);
         },
         error: function(error){
             alert('게시글 저장 실패.');
@@ -250,6 +259,40 @@ function checkStatus(){
     })
 }
 
+// 사진첩 데이터 띄우기
+function getAlbumContent(albumId){
+    $.ajax({
+        type:'GET',
+        url:'/api/minihompi/getAlbum/' + albumId + '/' + hompiIdAlbum,
+        dataType: 'json',
+        success: function(response){
+            console.log('response: ' + JSON.stringify(response));
+            console.log('사진첩 데이터 불러오기 성공!');
+            $('.display-img').append(`
+                <div data-avail="${response.availStatus}" class = "album-photo">
+                    <img src="${response.albumImage}" class= "album-image" alt="앨범 이미지" style="height: 100px; width: 100px;">
+                </div>
+            `);
+
+            $('.display-text').append(`
+                <div data-avail="${response.availStatus}" class = "album-content">${response.albumContent}</div>
+            `);
+            $('.display-album').append(`
+                <div data-avail="${response.albumTitle}" class = "album-content">${response.albumTitle}</div>
+            `);
+        },
+        error: function(error){
+            console.log('response: ' + JSON.stringify(error));
+            alert('글');
+        }
+    })
+}
+function resetDisplay(){
+    $('.display-img').empty();
+    $('.display-text').empty();
+    $('.display-album').empty();
+}
+
 function switchToUpload(){
     let content = ``;
     $('.hompiFolderName button').each(function(element){
@@ -260,11 +303,14 @@ function switchToUpload(){
     $('.upload-content').css('display', 'block');
     $('.display-album').css('display','none');
     $('.display-content').css('display', 'none');
+    $('.display-img').css('display', 'none');
 }
 
 function switchToDisplay(){
     $('.upload-album').css('display', 'none');
     $('.upload-content').css('display', 'none');
+    $('.upload-img').css('display', 'none');
     $('.display-album').css('display','block');
     $('.display-content').css('display', 'block');
+    $('.display-img').css('display', 'block');
 }

@@ -1,10 +1,15 @@
 package com.dev.wannabe.domain.minihompi.model.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Getter
 public class SaveAlbumDTO {
 
+    private Long albumId;
     private Long hompiId;
     private Long folderId;
     private String albumTitle;

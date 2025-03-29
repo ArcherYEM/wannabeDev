@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="/static/css/reset.css">
 <link rel="stylesheet" href="/static/css/style.css">
 <link rel="stylesheet" href="/static/css/post.css">
-<link rel="stylesheet" href="/static/css/album.css">
 
 <div class="outer-container">
 <!---- 게시글 등록 버튼 탭 ---->
@@ -35,9 +34,10 @@
 
         <!-- 조회-->
         <div class="display-album" >
-            잘한다 잘한다!
+
         </div>
         <!-- 조회-->
+
     </div>
 
     <!---- 게시물 내용 탭 ---->
@@ -45,8 +45,9 @@
         <!-- 등록-->
         <div class="upload-content" style="display: none;">
             <div class="upload-img">
-                <img id="previewImg" src="/static/images/common/loding.jpg" alt="업로드 사진 미리보기">
+                <img id="previewImg" src="/static/images/common/loding.jpg" alt="업로드 사진 미리보기" style="height: 100px; width:100px;">
                 <input type="file" id="albumImage" name="albumImage" accept="image/*" style=" display: none;" >
+                <button id="uploadPhoto">사진 변경</button>
             </div>
             <div class="upload-text">
                 <textarea id="albumText" name="albumText"></textarea>
@@ -57,10 +58,10 @@
         <!-- 조회-->
         <div class="display-content active">
             <div class="display-img">
-                사진
+
             </div>
             <div class="display-text">
-                설명
+
             </div>
         </div>
         <!-- 조회-->
