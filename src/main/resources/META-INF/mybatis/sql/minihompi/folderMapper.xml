@@ -3,11 +3,12 @@
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.FolderMapper">
     <insert id="saveFolder" parameterType="HompiFolder">
         INSERT INTO HOMPI_FOLDER (
-            HOMPI_ID, FOLDER_NAME, CONTENTS_TYPE, AVAIL_STATUS,
+            HOMPI_ID, FOLDER_ID,FOLDER_NAME, CONTENTS_TYPE, AVAIL_STATUS,
             INSERT_USER_ID
         )
         VALUES (
             #{hompiId},
+            #{folderId},
             #{folderName},
             #{contentsType},
             #{availStatus},
@@ -17,6 +18,35 @@
             FOLDER_NAME = #{folderName},
             UPDATE_USER_ID = #{folderName}
     </insert>
+
+    <insert id="saveBasicFolder" parameterType="HompiFolderDTO">
+        INSERT INTO HOMPI_FOLDER (
+        HOMPI_ID, FOLDER_ID ,FOLDER_NAME, CONTENTS_TYPE, AVAIL_STATUS,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{hompiId}, #{folderId},
+            #{folderName}, '01',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, #{folderId},
+            #{folderName}, '02',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, #{folderId},
+            #{folderName}, '03',
+            #{availStatus}, #{insertUserId}
+        )
+    </insert>
+
+    <select id="findMaxFolderId" resultType="Long">
+        SELECT MAX(FOLDER_ID) AS folderId
+        FROM HOMPI_FOLDER
+        WHERE CONTENTS_TYPE = #{contentType}
+            AND HOMPI_ID = #{hompiId}
+    </select>
 
     <select id="findAllFolderByFolderFind" parameterType="FolderFindDTO" resultType="FolderDTO">
         SELECT FOLDER_ID, FOLDER_NAME
@@ -43,19 +73,14 @@
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
             <when test="contentsType == '02'"> <!--> 사진첩 <-->
-                SELECT ALBUM_ID AS CONTENT_ID, ALBUM_TITLE AS CONTENT_NAME
-                FROM HOMPI_ALBUM
+                SELECT BOARD_ID AS CONTENT_ID, HOMPI_BOARD_TITLE AS CONTENT_NAME
+                FROM HOMPI_BOARD
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
             <when test="contentsType == '03'"> <!--> 게시판 <-->
                 SELECT BOARD_ID AS CONTENT_ID, HOMPI_BOARD_TITLE AS CONTENT_NAME
                 FROM HOMPI_BOARD
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
-            </when>
-            <when test="contentsType == '04'"> <!--> 사진첩 <-->
-                SELECT ALBUM_ID AS CONTENT_ID, ALBUM_TITLE AS CONTENT_NAME
-                  FROM HOMPI_ALBUM
-                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
         </choose>
     </select>

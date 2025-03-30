@@ -1,7 +1,10 @@
 package com.dev.wannabe.domain.minihompi.service;
 
+import com.dev.wannabe.domain.minihompi.mapper.FolderMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.CreateHompiDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.FolderDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.HompiFolderDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.Hompi;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiConfig;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiDailyStats;
@@ -21,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 public class HompiService {
 
     private final HompiMapper hompiMapper;
+    private final FolderMapper folderMapper;
 
     @Transactional
     public Boolean createHompi(CreateHompiDTO createHompi) {
@@ -72,6 +76,16 @@ public class HompiService {
                     .build();
 
             hompiMapper.saveHompiDailyStats(hompiDailyStats);
+
+            HompiFolderDTO hompiFolderDTO = HompiFolderDTO.builder()
+                    .hompiId(hompiId)
+                    .folderId(1L)
+                    .folderName("기본 폴더")
+                    .availStatus("33")
+                    .insertUserId(userId)
+                    .build();
+
+            folderMapper.saveBasicFolder(hompiFolderDTO);
 
             return true;
         } catch (Exception e) {

@@ -24,8 +24,10 @@ public class FolderService {
     @Transactional
     public void saveFolder(String folderName, String contentType, String availStatus, SessionUserDTO sessionUser) {
 
+        Long folderId = folderMapper.findMaxFolderId(sessionUser.getHompiId(), contentType) + 1;
         HompiFolder hompiFolder = HompiFolder.builder()
                 .hompiId(sessionUser.getHompiId())
+                .folderId(folderId)
                 .folderName(folderName)
                 .contentsType(contentType)
                 .availStatus(availStatus)
