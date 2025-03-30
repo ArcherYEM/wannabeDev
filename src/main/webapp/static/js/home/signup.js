@@ -57,10 +57,12 @@ $(document).ready(function() {
 
     // 비밀번호 확인
     let isPasswordEqual = false;
-    $("#passwordChk").on("keyup", function () {
-        let pw = $("#password").val().trim();
-        let pwChk = $("#passwordChk").val().trim()
-
+    $("#i_passwordChk").on("keyup", function () {
+        let pw = $("#i_password").val().trim();
+        let pwChk = $("#i_passwordChk").val().trim()
+        console.log(pw)
+        console.log(pwChk)
+        console.log(pw===pwChk)
         if (pw !== pwChk) {
             $(".checkMatch.pwd").text("비밀번호가 일치하지 않습니다.").css({
                 "color":"red"
@@ -80,9 +82,8 @@ $(document).ready(function() {
 
     // 아이디 중복 확인
     $("#checkDuplicateLoginId").on("click", function () {
-
-        const loginId = $("#loginId");
-        let loginIdValue = loginId.val().trim();
+        let loginIdValue = $('#i_loginId').val().trim();
+        console.log("입력된 아이디:", loginIdValue);
         if (loginIdValue === "") {
             $(".checkMatch.loginId").text("아이디를 입력하세요.").css({
                 "color":"red"
@@ -189,8 +190,8 @@ $(document).ready(function() {
 
     // 회원가입 신청
     $("#signUpBtn").on("click", function () {
-        let loginIdValue = $("#loginId").val().trim();
-        let passwordValue = $("#password").val().trim();
+        let loginIdValue = $("#i_loginId").val().trim();
+        let passwordValue = $("#i_password").val().trim();
         let nameValue = $("#name").val().trim();
         let birthValue = $("#birthYear").val()+$("#birthMonth").val()+$("#birthDay").val();
         let genderValue = $("#gender").val();
