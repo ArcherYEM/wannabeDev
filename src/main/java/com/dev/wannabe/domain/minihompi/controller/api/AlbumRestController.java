@@ -42,6 +42,7 @@ public class AlbumRestController {
         log.info("albumAvailStatus: " + albumAvailStatus);
         log.info("albumContent)" + albumContent);
         log.info("userData.getUserId: " + userData.getUserId());
+        log.info("albumImg: " + albumImg);
         Long userId = userData.getUserId();
 
 
@@ -58,13 +59,17 @@ public class AlbumRestController {
                 folder.mkdirs();
             }
 
+            String albumName = albumImg.getOriginalFilename();
+
             // 2. 파일 이름 및 저장 경로 구성
-            String fileName = "profile" + hompiId + ".jpg";
+            String fileName = "profile" + hompiId + albumName + ".jpg";
             File destination = new File(folder, fileName);
 
             // 3. 파일 저장
             albumImg.transferTo(destination);
             log.info("Saved profile image to: {}", destination.getAbsolutePath());
+
+
 
             // 4. DB 또는 서비스에 반영 (저장 경로 전달)
             String albumImage = "/images/personal/" + fileName;
@@ -173,6 +178,7 @@ public class AlbumRestController {
         log.info("albumAvailStatus: " + albumAvailStatus);
         log.info("albumContent)" + albumContent);
         log.info("userData.getUserId: " + userData.getUserId());
+        log.info("albumId: " + albumId);
 
         Long userId = userData.getUserId();
 
@@ -211,6 +217,7 @@ public class AlbumRestController {
                     .build();
 
             int flag = albumService.updateAlbum(album);
+            log.info("flag: " + flag);
 
             return ResponseEntity.ok().build();
 

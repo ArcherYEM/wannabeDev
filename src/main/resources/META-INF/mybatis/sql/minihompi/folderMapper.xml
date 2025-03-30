@@ -73,8 +73,8 @@
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
             <when test="contentsType == '02'"> <!--> 사진첩 <-->
-                SELECT BOARD_ID AS CONTENT_ID, HOMPI_BOARD_TITLE AS CONTENT_NAME
-                FROM HOMPI_BOARD
+                SELECT ALBUM_ID AS CONTENT_ID, ALBUM_TITLE AS CONTENT_NAME
+                FROM HOMPI_ALBUM
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
             <when test="contentsType == '03'"> <!--> 게시판 <-->
