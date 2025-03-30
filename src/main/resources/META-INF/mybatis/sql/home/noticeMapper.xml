@@ -8,8 +8,8 @@
         SELECT n.*,
         u.LOGIN_ID,
         <!--    STR_TO_DATE= 날짜 형태로 형식 변환 코드  CONCAT = 문자열 합체(년월일 + 시간)    -->
-        STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i') AS START_DATETIME,
-        STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i')AS END_DATETIME
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
         FROM NOTICE n
         LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
         WHERE 1 = 1
