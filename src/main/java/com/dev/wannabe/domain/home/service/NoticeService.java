@@ -1,15 +1,12 @@
 package com.dev.wannabe.domain.home.service;
 
-import com.dev.wannabe.domain.home.controller.NoticeController;
 import com.dev.wannabe.domain.home.mapper.NoticeMapper;
 import com.dev.wannabe.domain.home.model.dto.NoticeDTO;
-import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import java.util.HashMap;
 import java.util.List;

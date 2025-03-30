@@ -7,21 +7,21 @@
 }
 
 /* 상단 영역 */
-.admin-top {
+.notice-top {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 10px;
 
-    .admin-title {
+    .notice-title {
         h1 {
             font-size: 32px;
             font-weight: 600;
         }
     }
 
-    .admin-menu {
+    .notice-menu {
         display:flex;
         gap:5px;
         font-size: 16px;
@@ -142,15 +142,15 @@
 }
 
 .cell.display-date{
-    width: 350px;
+    width: 280px;
 }
 
 .cell.insert-date {
-    width: 200px;
+    width: 150px;
 }
 
 .cell.writer {
-    width: 100px;
+    width: 80px;
 }
 
 .bg-announcement { background-color: var(--color-lbrown); color: var(--color-white); }
@@ -242,9 +242,10 @@
         color: var(--color-basic);
 
             &:hover {
-                color: var(--color-lbrown);
+                background-color: var(--color-basic);
+                border: solid 1px var(--color-basic);
+                color: var(--color-white);
             }
     }
 }
-
 /* 페이지네이션 끝 */

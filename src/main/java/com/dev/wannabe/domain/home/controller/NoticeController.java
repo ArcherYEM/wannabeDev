@@ -56,7 +56,7 @@ public class NoticeController {
         return "home/notice/notice";
     }
 
-    @PostMapping("/view")
+    @GetMapping("/view/{noticeId}")
     public String NoticeView(HttpServletRequest req){
 
         return "home/notice/noticeView";

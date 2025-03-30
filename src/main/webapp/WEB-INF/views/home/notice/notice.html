@@ -6,18 +6,18 @@
 <head layout:fragment="styles">
     <!-- 공지사항 페이지 전용 스타일 -->
     <title layout:fragment="title">공지사항</title>
-    <link rel="stylesheet" th:href="@{/static/css/home/notice.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/home/notice/notice.css}"/>
 </head>
 <body>
 <div layout:fragment="content">
     <div id="container">
         <div class="containerWrap noticeContainer">
-            <div class="admin-top">
-                <div class="admin-title">
+            <div class="notice-top">
+                <div class="notice-title">
                     <h1>공지사항</h1>
                 </div>
-                <div id="menu" class="admin-menu" th:if="${userRole != '03'}">
-                    <span class="active">공지 관리</span>
+                <div id="menu" class="notice-menu" th:if="${userRole != '03'}">
+                    <span>등록하기</span>
                     |
                     <span>배너 관리</span>
                 </div>
@@ -89,11 +89,11 @@
                                    th:classappend="${notice.getNoticeTypeCssClass}">공지사항</p>
                             </div>
                             <div class="cell title">
-                                <a th:text="${notice.noticeTitle}" href="/notice/view">게시글 제목</a>
+                                <a th:text="${notice.noticeTitle}" th:href="@{/notice/view/{id}(id=${notice.noticeId})}"></a>
                             </div>
-                            <div class="cell display-date" th:text="${notice.getDateRange}">2025.03.19~2025.03.21</div>
-                            <div class="cell insert-date" th:text="${notice.insertDT}">2025.03.19</div>
-                            <div class="cell writer" th:text="${notice.loginId}">산토끼</div>
+                            <div class="cell display-date" th:text="${notice.getDateRange}"></div>
+                            <div class="cell insert-date" th:text="${notice.insertDT}"></div>
+                            <div class="cell writer" th:text="${notice.loginId}"></div>
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
 </div>
 <!-- 공지사항 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script th:src="@{static/js/home/notice.js}"></script>
+    <script th:src="@{static/js/home/notice/notice.js}"></script>
 </th:block>
 </body>
 </html>

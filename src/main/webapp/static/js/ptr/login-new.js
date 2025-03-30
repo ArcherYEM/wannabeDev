@@ -32,6 +32,25 @@ $(document).ready(function() {
         loginNew(loginIdValue, passwordValue);
     });
 
+    // 엔터키 로그인 감지 (두 영역 통합)
+    $('#loginId, #password, #loginId2, #password2').on('keydown', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            const $loginSection = $(this).closest('form, .login-section, body');
+            let btnId = '';
+
+            if ($(this).attr('id') === 'loginId2' || $(this).attr('id') === 'password2') {
+                btnId = 'loginBtn2';
+            } else {
+                btnId = 'loginBtn';
+            }
+
+            const loginIdValue = loginFields[btnId].loginId.val();
+            const passwordValue = loginFields[btnId].password.val();
+
+            loginNew(loginIdValue, passwordValue);
+        }
+    });
+
     // 로그아웃 버튼 이벤트 (두 영역 통합)
     logoutButtons.click(function() {
         logout();
@@ -42,7 +61,6 @@ $(document).ready(function() {
 // =========== 함수 정의 레이어 ===========
 // 로그인
 function loginNew(loginIdValue, passwordValue) {
-
     const LoginDTO = JSON.stringify({
         loginId: loginIdValue,
         password: passwordValue
