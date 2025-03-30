@@ -269,6 +269,7 @@ function saveAlbum(formData){
         }
     });
 }
+
 function resetUploadForm(){
     $('#album-title').css('display','none');
     $('#album-avail-status-select').css('display','none');
