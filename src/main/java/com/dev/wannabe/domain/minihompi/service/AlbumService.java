@@ -10,9 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
-import java.util.Objects;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -60,4 +57,7 @@ public class AlbumService {
     public Integer deleteAlbum(Long albumId, Long hompiId){
         return albumMapper.deleteAlbum(albumId,hompiId);
     }
+
+    public Integer updateAlbum(SaveAlbumDTO data){return albumMapper.updateAlbum(data);}
+
 }

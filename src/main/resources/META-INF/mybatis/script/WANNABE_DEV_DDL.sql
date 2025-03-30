@@ -620,27 +620,27 @@ CREATE TABLE HOMPI_ALBUM (
 */
 
 
-
 /**
-* NAME     : HOMPI_ALBUM_CONTENT
+* NAME     : HOMPI_ALBUM_COMMEN
 * TYPE     : TABLE
-* AUTHOR   : ERROR
-* DATE     : 2025-03-13
-* DESC     : 미니홈피 사진첩 내용 테이블 생성 스크립트.
+* AUTHOR   : AOH
+* DATE     : 2025-03-31
+* DESC     : 미니홈피 사진첩 댓글 테이블 생성 스크립트.
 * =============================================START=============================================
 */
-CREATE TABLE HOMPI_ALBUM_CONTENT (
-                                     CONTENTS_ID BIGINT AUTO_INCREMENT COMMENT '내용 ID',
-                                     ALBUM_ID BIGINT COMMENT '사진첩 ID',
-                                     ALBUM_TITLE VARCHAR(200) NOT NULL COMMENT '사진첩 제목',
-                                     ALBUM_CONTENT TEXT NOT NULL COMMENT '사진첩 내용',
-                                     REMARKS VARCHAR(500) COMMENT '비고',
-                                     INSERT_USER_ID BIGINT COMMENT '등록자 ID',
-                                     INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
-                                     UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
-                                     PRIMARY KEY (CONTENTS_ID)
-) COMMENT='미니홈피 사진첩 내용';
+CREATE TABLE HOMPI_ALBUM_COMMENT (
+    ALBUM_COMMENT_ID BIGINT AUTO_INCREMENT COMMENT '사진첩 댓글 ID',
+    HOMPI_ID BIGINT COMMENT '홈피 ID',
+    ALBUM_ID BIGINT COMMENT '사진첩 ID',
+    ALBUM_COMMENT_CONTENT VARCHAR(200) COMMENT '댓글 내용',
+    FIXED_YN VARCHAR(1) COMMENT '고정 여부',
+    REMARKS VARCHAR(500) COMMENT '비고',
+    INSERT_USER_ID BIGINT COMMENT '등록자 ID',
+    INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+    UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
+    UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
+    PRIMARY KEY (ALBUM_COMMENT_ID)
+) COMMENT='미니홈피 사진첩 댓글';
 /**
 * ==============================================END==============================================
 */
@@ -1192,36 +1192,6 @@ CREATE TABLE WEATHER_LOG (
 /**
 * ==============================================END==============================================
 */
-
-
-
-
-
-
-/**
-* NAME     : FORTUNE_TELLING_LOG
-* TYPE     : TABLE
-* AUTHOR   : ERROR
-* DATE     : 2025-03-13
-* DESC     : 운세 API 테이블 생성 스크립트.
-* =============================================START=============================================
-*/
-CREATE TABLE FORTUNE_TELLING_LOG (
-                                     LOG_ID BIGINT AUTO_INCREMENT COMMENT '운세 ID',
-                                     MESSAGE TEXT COMMENT '운세 메세지',
-                                     CONTENTS TEXT COMMENT '운세 내용',
-                                     REMARKS VARCHAR(500) COMMENT '비고',
-                                     INSERT_USER_ID BIGINT COMMENT '등록자 ID',
-                                     INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
-                                     UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
-                                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
-                                     PRIMARY KEY (LOG_ID)
-) COMMENT='운세 API';
-/**
-* ==============================================END==============================================
-*/
-
-
 
 
 /**

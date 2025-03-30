@@ -59,7 +59,7 @@ $(document).ready(function(){
         const albumContent = $('#albumText').val();
 
         if(!folderId || !albumTitle || !albumAvailStatus || !albumContent ){
-            alert('글 작성을 마치지 못했습니다.');
+            alert('사진첩의 제목과 설명은 필수입니다.');
             return;
         } else if (!albumImg){
             alert('이미지를 선택하세요.');
@@ -74,6 +74,58 @@ $(document).ready(function(){
         formData.append('albumContent', albumContent);
 
         saveAlbum(formData);
+    });
+
+    // (게시글 수정)
+    $(document).on('click', '#editAlbumBtn', function(){
+        $('.upload-album').css('display', 'grid');
+        $('.upload-img').css('display', 'block');
+        $('.upload-text').css('display', 'block');
+        $('.upload-content').css('display', 'block');
+
+        //여기 테스트 (폴더 제대로 띄워오는지)
+        let content = ``;
+        $('.folderName button').each(function(element){
+            content += `<option value="${$(this).val()}">${$(this).text()}</option>`;
+        });
+        $('#albumFolderId').append(content);
+        //여기 테스트
+
+        $('.display-album').css('display', 'none');
+        $('.display-img').css('display', 'none');
+        $('.display-text').css('display', 'none');
+        $('.display-content').css('display', 'none');
+
+        $('#albumTitle').val($('#titleAlbum').text());
+        $('#previewImg').attr('src', $('.album-image').attr('src'));
+        $('#albumText').val($('#contentAlbum').text());
+
+        const folderId = $('#albumFolderId').val();
+        const albumTitle = $('#albumTitle').val();
+        const albumAvailStatus = $('#albumAvailStatus').val();
+        const albumContent = $('#albumText').val();
+
+        //여기서 앨범아이디를 같이 던져줘야함
+        //cosnt albumId =
+
+
+        if(!folderId || !albumTitle || !albumAvailStatus || !albumContent ){
+            alert('사진첩의 제목과 설명은 필수입니다.');
+            return;
+        } else if (!albumImg){
+            alert('이미지를 선택하세요.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('albumImg', albumImg);
+        formData.append('albumFolderId', folderId);
+        formData.append('albumTitle', albumTitle);
+        formData.append('albumAvailStatus', albumAvailStatus);
+        formData.append('albumContent', albumContent);
+        //formData.append('albumId', albumId);
+        //컨트롤러에서도 받는 처리 해주기
+        updateAlbum(formData);
     });
 
     // 폴더 이름 클릭했을 때
@@ -100,34 +152,6 @@ $(document).ready(function(){
         moveFolder();
         getFolder();
         getAlbumContent(1);
-    });
-
-    // (게시글 수정)
-    $(document).on('click', '#editAlbumBtn', function(){
-        $('.upload-album').css('display', 'grid');
-        $('.upload-img').css('display', 'block');
-        $('.upload-text').css('display', 'block');
-        $('.upload-content').css('display', 'block');
-
-        //여기 테스트
-        let content = ``;
-        $('.folderName button').each(function(element){
-            content += `<option value="${$(this).val()}">${$(this).text()}</option>`;
-        });
-        $('#albumFolderId').append(content);
-        //여기 테스트
-
-        $('.display-album').css('display', 'none');
-        $('.display-img').css('display', 'none');
-        $('.display-text').css('display', 'none');
-        $('.display-content').css('display', 'none');
-
-        $('#albumTitle').val($('#titleAlbum').text());
-        $('#previewImg').attr('src', $('.album-image').attr('src'));
-        $('#albumText').val($('#contentAlbum').text());
-
-
-
     });
 });
 
@@ -159,6 +183,28 @@ function saveAlbum(formData){
         contentType: false,
         success: function(response){
             alert('게시글이 성공적으로 저장되었습니다.');
+            console.log(response);
+            resetUploadForm();
+            getAlbumContent(1);
+        },
+        error: function(error){
+            alert('게시글 저장 실패.');
+            console.error(error);
+        }
+    });
+}
+
+// 앨범 수정
+function updateAlbum(formData){
+    console.log("formData: " + formData);
+    $.ajax({
+        type: "POST",
+        url: "/api/minihompi/updateAlbum/" + hompiIdAlbum,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response){
+            alert('게시글이 성공적으로 수정되었습니다.');
             console.log(response);
             resetUploadForm();
             getAlbumContent(1);
@@ -230,7 +276,7 @@ function getAlbumContent(albumId){
                 <div data-avail="${response.availStatus}" class = "album-content" id="contentAlbum">${response.albumContent}</div>
             `);
             $('.display-album').append(`
-                <div data-content="${response.albumTitle}" class = "album-content" id="titleAlbum">${response.albumTitle}</div>
+                <div data-id="${response.albumId}" class = "album-content" id="titleAlbum">${response.albumTitle}</div>
             `);
         },
         error: function(error){
@@ -241,34 +287,11 @@ function getAlbumContent(albumId){
     })
 }
 
-// 앨범 삭제
+// 게시글 삭제
 function deleteAlbum(albumId,hompiIdAlbum){
     $.ajax({
         type: "POST",
         url: "/api/minihompi/deleteAlbum",
-        data: JSON.stringify({
-            albumId: albumId,
-            hompiId: hompiIdAlbum
-        }),
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response){
-            console.log("response: " + response);
-            alert('삭제 성공!');
-            getAlbumContent(1);
-        },
-        error: function(response){
-            console.log("response: " + response);
-            alert('삭제 실패!');
-        }
-    });
-}
-
-// 앨범 수정
-function updateAlbum(albumId, hompiIdAlbum){
-    $.ajax({
-        type: "POST",
-        url: "/api/minihompi/updateAlbum",
         data: JSON.stringify({
             albumId: albumId,
             hompiId: hompiIdAlbum
