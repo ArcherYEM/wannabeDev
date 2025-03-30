@@ -1,8 +1,14 @@
 .noticeContainer {
     padding: 30px 10px;
+    cursor:default;
+
+    select {
+        cursor: pointer;
+    }
 
     input[type=checkbox] {
-        accent-color: var(--color-gray);
+        accent-color: var(--color-brown);
+        cursor: pointer;
     }
 }
 
@@ -107,52 +113,57 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    border-bottom: 1px solid var(--color-ngray);
+    border-bottom: 1px solid var(--color-lbrown);
     padding: 5px 0;
 }
 
 .list-header {
     font-size: 16px;
-    font-weight: bold;
-    background: var(--color-lgray);
+    font-weight: 600;
+    background: var(--color-lbrown);
+    color: var(--color-white);
 
     select {
+        width: 110px;
         padding: 5px 10px;
         border-radius: 5px;
-        border: solid 1px var(--color-ngray);
+        border: solid 1px var(--color-white);
     }
 }
 
 .cell {
     padding: 0 5px;
-}
 
-.cell.filter {
-    width: 120px;
-    p {
-        width: 112px;
-        padding: 5px 10px;
-        border-radius: 5px;
-        text-align: center;
+    &.filter {
+        width: 120px;
+        p {
+            width: 112px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    }
+
+    &.title {
+        flex: 1;
+    }
+
+    &.checkbox {
+        margin-left: 5px;
+    }
+
+    &.display-date{
+        width: 280px;
+    }
+
+    &.insert-date {
+         width: 150px;
+    }
+
+    &.writer {
+        width: 80px;
     }
 }
-
-.cell.title {
-    flex: 1;
-}
-
-.cell.display-date{
-    width: 280px;
-}
-
-.cell.insert-date {
-    width: 150px;
-}
-
-.cell.writer {
-    width: 80px;
-}
-
 .bg-announcement { background-color: var(--color-lbrown); color: var(--color-white); }
 .bg-event        { background-color: var(--color-brown); color: var(--color-white); }
 .bg-popup        { background-color: var(--color-blue); color: var(--color-white); }
@@ -189,8 +200,8 @@
         }
         .active {
             color: var(--color-white);
-            border: solid 1px var(--color-basic);
-            background-color: var(--color-basic);
+            border: solid 1px var(--color-lbrown);
+            background-color: var(--color-lbrown);
         }
 
         .first{
@@ -225,8 +236,8 @@
     }
 
     button.delete {
-        background-color: var(--color-basic);
-        border: solid 1px var(--color-basic);
+        background-color: var(--color-lbrown);
+        border: solid 1px var(--color-lbrown);
         color: var(--color-white);
 
         &:hover {
@@ -237,14 +248,13 @@
     }
 
     button.create {
-        background-color: var(--color-white);
-        border: solid 1px var(--color-basic);
-        color: var(--color-basic);
+        background-color: var(--color-brown);
+        border: solid 1px var(--color-brown);
+        color: var(--color-white);
 
             &:hover {
-                background-color: var(--color-basic);
-                border: solid 1px var(--color-basic);
-                color: var(--color-white);
+                background-color: var(--color-lbrown);
+                border: solid 1px var(--color-lbrown);
             }
     }
 }
