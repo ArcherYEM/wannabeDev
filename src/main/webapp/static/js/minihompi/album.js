@@ -36,23 +36,6 @@ $(document).ready(function(){
             alert('이미지 파일만 선택 가능합니다.');
         }
     });
-//    // (창 갈아끼우기) 게시글 등록 버튼 눌렀을 때
-//    $(document).on('click','#regBtn',function(){
-//        $('#albumFolderId').empty();
-//        let content = ``;
-//        $('.folderName button').each(function(element){
-//            content += `<option value="${$(this).val()}">${$(this).text()}</option>`;
-//        });
-//
-//        $('#albumFolderId').append(content);
-//        $('.display-img').css('display', 'none');
-//        $('.display-text').css('display', 'none');
-//        $('.display-album').css('display', 'none');
-//        $('.upload-album').css('display', 'grid');
-//        $('.upload-img').css('display', 'block');
-//        $('.upload-text').css('display', 'block');
-//        $('.upload-content').css('display', 'block');
-//    });
 
     // (게시글 등록) 밑에 있는 등록버튼 눌렀을 때
     $(document).on('click', '#saveBtn', function(){
@@ -310,13 +293,13 @@ function getAlbumContent(albumId){
             $('.display-text').show();
             $('.display-album').show();
             $('.display-img').append(`
-                <div data-avail="${response.availStatus}" class = "album-photo">
+                <div class = "album-photo">
                     <img src="${response.albumImage}" class= "album-image" alt="앨범 이미지" style="height: 100px; width: 100px;">
                 </div>
             `);
 
             $('.display-text').append(`
-                <div data-avail="${response.availStatus}" class = "album-content" id="contentAlbum">${response.albumContent}</div>
+                <div data-avail="${response.availStatus}" data-albumId="${response.albumId}" class = "album-content" id="contentAlbum">${response.albumContent}</div>
             `);
             $('.display-album').append(`
                 <div data-id="${response.albumId}" class = "album-content" id="titleAlbum">${response.albumTitle}</div>
