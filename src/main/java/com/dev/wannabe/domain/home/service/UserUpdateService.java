@@ -52,9 +52,9 @@ public class UserUpdateService {
         return result;
     }
 
-    public int checkPassword(String password, SessionUserDTO userData) {
-
-        int result = 0;
-        return result;
+    public boolean checkPassword(String password, SessionUserDTO userData) {
+        Long userId = userData.getUserId();
+        String getPassword = userUpdateMapper.getPassword(userId);
+        return getPassword != null && passwordEncoder.matches(password, getPassword);
     }
 }

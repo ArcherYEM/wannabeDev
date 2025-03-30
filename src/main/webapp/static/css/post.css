@@ -2,7 +2,7 @@
 
 .post-container {
     width: 600px;
-    margin: 20px auto;
+    margin: 10px auto;
     border: 1px solid #C2C2C2;
     background-color: #fff;
     height: 230px;
@@ -10,7 +10,7 @@
 
 #diary textarea{
     width: 600px;
-    height: 230px;
+    height: 210px;
 }
 
 .post-header {
@@ -56,6 +56,10 @@
     margin-right: 15px;
 }
 
+#registerBtn{
+    display: none;
+}
+
 .post-info {
     margin-top: 10px;
 }
@@ -78,10 +82,8 @@
 }
 
 .post-actions {
-    margin-top: 10px;
-    display: flex;
+    display: none;
     justify-content: space-between;
-    padding: 10px;
 }
 
 .post-actions button {
@@ -221,12 +223,16 @@ button{
     background: none;
 }
 
-#folderMainDiv img{
+#calender img{
     width: 12px;
     margin-bottom: 3px;
 }
 
-#folderNameWrap{
+.folderNameWrap{
+    display: none;
+}
+
+.folderAddBtn{
     display: none;
 }
 
@@ -243,16 +249,17 @@ input[type="text"].folderInput{
     border-radius: 5px;
 }
 
-#statusSelect{
+.statusSelect{
     display: none;
-    margin-left: 30px;
+    margin-left: 20px;
+    border-radius: 10px;
 }
 
-.selectWrap{
+.folderSelectWrap{
     display: flex;
 }
 
-.hompiFolderName{
+.folderName{
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -261,3 +268,61 @@ input[type="text"].folderInput{
 .folderOn{
     background-color: gainsboro;
 }
+
+.folderSpan{
+    margin-left: 10px;
+}
+
+.diarySelectWrap{
+    text-align: center;
+}
+
+.diarySelectWrap select{
+    border-radius: 10px;
+}
+
+.insertDate{
+    color: #ccc;
+}
+
+.writerName{
+    color: blue;
+}
+.diaryCommentSay {
+    background: #eee;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin: 10px 0;
+}
+
+.diaryCommentSay table tbody tr td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.diaryCommentSay table tbody tr td input {
+    width: 98%;
+    height: 26px;
+    float: left;
+}
+
+.diaryCommentSay table tbody tr td p {
+    text-align: center;
+}
+
+.diaryCommentSay table tbody tr td button {
+    height: 26px;
+    width: 50px;
+    color: #333;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+    background: #fff;
+    float: right;
+}
+
+.diaryCommentNo{
+    display: none;
+}
+
+

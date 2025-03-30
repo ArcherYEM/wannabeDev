@@ -44,4 +44,11 @@
         WHERE USER_ID = ${userId}
     </update>
 
+    <select id="getPassword" parameterType="Long" resultType="String">
+        SELECT PASSWORD
+        FROM USER_BASIC
+        WHERE USER_ID = #{userId}
+
+    </select>
+
 </mapper>

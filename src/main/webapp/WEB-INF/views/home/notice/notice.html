@@ -6,114 +6,124 @@
 <head layout:fragment="styles">
     <!-- 공지사항 페이지 전용 스타일 -->
     <title layout:fragment="title">공지사항</title>
-    <link rel="stylesheet" th:href="@{/static/css/home/notice.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/home/notice/notice.css}"/>
 </head>
 <body>
 <div layout:fragment="content">
     <div id="container">
-        <div class="containerWrap">
-            <div id="menu" th:if="${userRole != '01'}">
-                <a> 공지 관리</a>
-                <a> 배너 관리</a>
-            </div>
-            <div id="main">
-                <div class="menu_title">
-                    <h1> 공지사항 </h1>
-                    <h2> 등록하기 </h2>
-                    <h2> 수정하기 </h2>
+        <div class="containerWrap noticeContainer">
+            <div class="notice-top">
+                <div class="notice-title">
+                    <h1>공지사항</h1>
                 </div>
-                <div class="notice">
-                    <div class="formal">
+                <div id="menu" class="notice-menu" th:if="${userRole != '03'}">
+                    <span>등록하기</span>
+                    |
+                    <span>배너 관리</span>
+                </div>
+            </div>
+            <div class="board-wrapper">
+                <div class="board-filter">
+                    <div class="board-count">
                         <select id="data-limit">
                             <option value="10" th:selected="${limit == 10}">10개씩 보기</option>
                             <option value="30" th:selected="${limit == 30}">30개씩 보기</option>
                             <option value="50" th:selected="${limit == 50}">50개씩 보기</option>
                         </select>
-                        <select id = "filter-field">
+                    </div>
+                    <div class="search-wrapper">
+                        <select id="filter-field">
                             <option value="all">제목 + 내용</option>
                             <option value="content">내용</option>
                             <option value="title">제목</option>
                         </select>
-                        <select  id="filter-type" class="filterSelect">
+                        <select id="filter-type" class="filterSelect">
                             <option value="" th:selected="${noticeType == null or noticeType == ''}">분류(전체)</option>
                             <option value="01" th:selected="${noticeType == '01'}">공지사항</option>
                             <option value="02" th:selected="${noticeType == '02'}">이벤트</option>
                             <option value="03" th:selected="${noticeType == '03'}">팝업</option>
-                            <option value="04" th:selected="${noticeType == '04'}" th:if="${userRole != '01'}">전체 쪽지</option>
-                            <option value="05" th:selected="${noticeType == '05'}" th:if="${userRole != '01'}">관리자 쪽지</option>
+                            <option value="04"
+                                    th:selected="${noticeType == '04'}"
+                                    th:if="${#lists.contains({'01','02'}, userRole)}">전체 쪽지
+                            </option>
+                            <option value="05" th:selected="${noticeType == '05'}" th:if="${userRole != '03'}">관리자 쪽지
+                            </option>
                         </select>
-                        <div class="search">
+                        <div class="search-input">
                             <input type="search" placeholder="입력창" id="search-keyword" th:value="${keyword}">
-                            <button id="search-btn"></button>
+                            <button id="search-btn">
+                                <img src="/static/images/common/search.png" alt="검색"/>
+                            </button>
                         </div>
                     </div>
-                    <div>
-                        <table>
-                            <tr class="top" >
-                                <th>
-                                    <input type="checkbox" id="selectAll">
-                                </th>
-                                <th>
-                                    <select class="filterSelect" id="change-filter">
-                                        <option value="">분류(전체)</option>
-                                        <option value="01">공지사항</option>
-                                        <option value="02">이벤트</option>
-                                        <option value="03">팝업</option>
-                                        <option th:if="${userRole != '01'}" value="04">전체 쪽지</option>
-                                        <option th:if="${userRole != '01'}" value="05">관리자 쪽지</option>
-                                    </select>
-
-                                </th>
-                                <th>제목</th>
-                                <th th:if="${userRole != '01'}">게시일</th>
-                                <th>작성일</th>
-                                <th>작성자</th>
-                            </tr>
-                            <tr th:each="notice : ${notice}">
-                                <td>
-                                    <input type="checkbox" class="rowCheckbox">
-                                </td>
-                                <td><p th:text="${notice.getNoticeTypeName}" th:classappend="${notice.getNoticeTypeCssClass}">공지 사항</p></td>
-                                <td><a th:text="${notice.noticeTitle}" href="/notice/view">취업하고 놀고 싶다~!!</a></td>
-                                <td th:if="${userRole != '01'}" th:text="${notice.getDateRange}">2025.03.19~2025.03.21</td>
-                                <td th:text="${notice.insertDT}">2025.03.19</td>
-                                <td th:text="${notice.loginId}">산토끼</td>
-                            </tr>
-                        </table>
+                </div>
+                <div class="notice-list">
+                    <!-- 헤더 -->
+                    <div class="list-header">
+                        <div class="cell checkbox">
+                            <input type="checkbox" id="selectAll"/>
+                        </div>
+                        <div class="cell filter">
+                            <select class="filterSelect" id="change-filter">
+                                <option value="">분류(전체)</option>
+                                <option value="01">공지사항</option>
+                                <option value="02">이벤트</option>
+                                <option value="03">팝업</option>
+                                <option th:if="${userRole != '03'}" value="04">전체 쪽지</option>
+                                <option th:if="${userRole != '03'}" value="05">관리자 쪽지</option>
+                            </select>
+                        </div>
+                        <div class="cell title">제목</div>
+                        <div class="cell display-date">게시일</div>
+                        <div class="cell insert-date">작성일</div>
+                        <div class="cell writer">작성자</div>
                     </div>
-                    <div class="page">
-                        <button class="delete" th:if="${userRole != '01'}">선택 삭제</button>
-                        <span>
-                            <!-- 첫 번째 페이지 버튼 -->
-                            <a th:if="${currentPage > 1}"
-
-                               th:href="@{|?limit=${limit}&offset=0&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
-                               class="first"></a>
-                            <!-- 이전 페이지 버튼 -->
-
-                            <a th:if="${startPage > 1}"
-                               th:href="@{|?limit=${limit}&offset=${(startPage - 2) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
-                               class="prev"></a>
-
-                            <!-- 페이지 번호 버튼들 -->
-                            <span th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <!-- 본문 -->
+                    <div class="list-body">
+                        <div class="list-row" th:each="notice : ${notice}">
+                            <div class="cell checkbox">
+                                <input type="checkbox" class="rowCheckbox"/>
+                            </div>
+                            <div class="cell filter">
+                                <p th:text="${notice.getNoticeTypeName}"
+                                   th:classappend="${notice.getNoticeTypeCssClass}">공지사항</p>
+                            </div>
+                            <div class="cell title">
+                                <a th:text="${notice.noticeTitle}" th:href="@{/notice/view/{id}(id=${notice.noticeId})}"></a>
+                            </div>
+                            <div class="cell display-date" th:text="${notice.getDateRange}"></div>
+                            <div class="cell insert-date" th:text="${notice.insertDT}"></div>
+                            <div class="cell writer" th:text="${notice.loginId}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <button class="delete" th:if="${userRole != '03'}">선택 삭제</button>
+                    <div class="page-nav">
+                        <!-- 첫 번째 페이지 버튼 -->
+                        <a th:if="${currentPage > 1}"
+                           th:href="@{|?limit=${limit}&offset=0&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
+                           class="first"></a>
+                        <!-- 이전 페이지 버튼 -->
+                        <a th:if="${startPage > 1}"
+                           th:href="@{|?limit=${limit}&offset=${(startPage - 2) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
+                           class="prev"></a>
+                        <!-- 페이지 번호 버튼들 -->
+                        <span th:each="page : ${#numbers.sequence(startPage, endPage)}">
                                  <a th:href="@{|?limit=${limit}&offset=${(page - 1) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
                                     th:text="${page}"
                                     th:classappend="${page == currentPage} ? 'active' : ''"></a>
                             </span>
-
-                            <!-- 다음 페이지 버튼 -->
-                            <a th:if="${endPage < totalPages}"
-                               th:href="@{|?limit=${limit}&offset=${endPage * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="next"></a>
-
-
-                            <!-- 마지막 페이지 버튼 -->
-                            <a th:unless="${endPage == 1 || currentPage == totalPages}"
-                               th:href="@{|?limit=${limit}&offset=${(totalPages - 1) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}" class="last"></a>
-
-                        </span>
-                        <button class="create" th:if="${userRole != '01'}">등록</button>
+                        <!-- 다음 페이지 버튼 -->
+                        <a th:if="${endPage < totalPages}"
+                           th:href="@{|?limit=${limit}&offset=${endPage * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
+                           class="next"></a>
+                        <!-- 마지막 페이지 버튼 -->
+                        <a th:unless="${endPage == 1 || currentPage == totalPages}"
+                           th:href="@{|?limit=${limit}&offset=${(totalPages - 1) * limit}&field=${field}&Type=${noticeType}&keyword=${keyword}|}"
+                           class="last"></a>
                     </div>
+                    <button class="create" id="insert_page_btn" th:if="${userRole != '03'}">공지 등록</button>
                 </div>
             </div>
         </div>
@@ -121,7 +131,7 @@
 </div>
 <!-- 공지사항 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script th:type="module" th:src="@{/static/js/home/notice.js}"></script>
+    <script th:src="@{static/js/home/notice/notice.js}"></script>
 </th:block>
 </body>
 </html>
