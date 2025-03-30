@@ -12,15 +12,9 @@
     margin: 0 auto;
     padding: 30px 10px;
 
-    /* 나중에 공통 스타일로 편입 */
     input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
+        accent-color: var(--color-brown);
     }
-    button {
-        font-size: 14px;
-    }
-    /* 나중에 공통 스타일로 편입 */
 }
 
 .menuTitle h1 {
@@ -47,6 +41,7 @@
     .checkAllWrapper {
         display: flex;
         align-items: center;
+        gap: 5px;
 
         label {
             font-size: 16px;
