@@ -1,0 +1,182 @@
+<div class="user-panel" th:fragment="userPanel">
+    <!-- 로그인 된 상태 -->
+    <div th:if="${session.userData != null}">
+        <div class="profileWrap">
+            <div class="profileInfoTop">
+                <div class="profileImgWrap">
+                    <div class="profileImg">
+                        <img src="/static/images/common/minimi/exNewItemImage2.png"/>
+                    </div>
+                </div>
+                <div class="personalWrap">
+                    <div class="personalFeat">
+                        <span class="profileModify">내정보수정</span>
+                        <span class="profileLogout" id="logoutBtn2">로그아웃</span>
+                    </div>
+                    <div class="nameDisplay" id="loginName2" th:text="${session.userData.name}">이름</div>
+                </div>
+            </div>
+            <div class="profileInfoBot">
+                <div class="infoWrap">
+                    <div class="infoOnline">
+                        <div class="alignBox">
+                            <span class="title">일촌ON</span>
+                            <div class="stat">
+                                <span class="text">11</span>
+                            </div>
+                        </div>
+                        <div class="alignBox">
+                            <span class="title">쪽지</span>
+                            <div class="stat">
+                                <img alt="new" src="/static/images/common/new.png">
+                                <span class="text new">30</span>
+                            </div>
+                        </div>
+                        <div class="alignBox">
+                            <span class="title">일촌신청</span>
+                            <div class="stat">
+                                <span class="text">4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="infoData">
+                        <div class="alignBox">
+                            <span class="title">오늘 방문자</span>
+                            <span class="text">113</span>
+                        </div>
+                        <div class="alignBox">
+                            <span class="title">새 게시물</span>
+                            <div class="stat">
+                                <img alt="new" src="/static/images/common/new.png">
+                                <span class="text new">2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stateDotori">
+                    <div class="dotoriTitleWrap">
+                        <img src="/static/images/common/dotori.png">
+                        <span class="title">보유 도토리</span>
+                    </div>
+                    <div class="chargeWrap">
+                        <span class="text">720</span>
+                        <span class="rechargePageBtn" id="rechargePageBtn">충전</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 로그인 전 상태 -->
+    <div th:if="${session.userData == null}">
+        <div class="loginWrap">
+            <div class="mainTitleText">로그인</div>
+            <div class="loginInputWrap">
+                <div class="loginInputBox">
+                    <input id="loginId2" placeholder="아이디" type="text">
+                    <input id="password2" placeholder="비밀번호" type="password">
+                </div>
+                <div class="loginBtnWrap">
+                    <button id="loginBtn2">로그인</button>
+                </div>
+            </div>
+            <div class="loginLinkWrap">
+                <a href="#" id="signupBtn2">회원가입</a>
+                <a id="findIdAndPw">ID찾기 | 비밀번호찾기</a>
+            </div>
+        </div>
+    </div>
+    <!-- 모달 임베딩 위치 -->
+    <!-- 모달 영역 -->
+    <div id="modal-layer" class="modal-layer" style="display: none;">
+        <div class="modal-content">
+            <div class="logo">
+                <img src="/static/images/common/logo_full.png" alt="Logo" style="max-width: 100%;">
+            </div>
+            <!-- 탭 버튼 -->
+            <div class="modal-tabs">
+                <button id="tab-find-id" class="active">아이디 찾기</button>
+                <button id="tab-find-pwd">비밀번호 찾기</button>
+            </div>
+
+            <!-- 아이디 찾기 폼 -->
+            <div id="find-id-form" style="display: block;">
+                <!-- 입력 부분을 감싸는 컨테이너 -->
+                <div id="find-id-inputs">
+                    <div class="input-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" placeholder="이름을 입력하세요">
+                    </div>
+                    <div class="input-group">
+                        <label>생년월일</label>
+                        <div class="select-group">
+                            <select id="birth-year">
+                                <option value="">년</option>
+                            </select>
+                            <select id="birth-month">
+                                <option value="">월</option>
+                            </select>
+                            <select id="birth-day">
+                                <option value="">일</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 초기 버튼 그룹 -->
+                <div class="btn-group" id="find-id-buttons">
+                    <button id="findId">찾기</button>
+                    <button id="findIdClose">닫기</button>
+                </div>
+
+                <!-- 아이디 찾기 결과 표시 (버튼 그룹 포함) -->
+                <div id="show-id-layer" style="display: none; margin-top:15px; text-align:center;">
+                    <p style="margin-bottom: 15px; padding-top: 30px; font-size: 14px;">사용자님의 아이디는
+                        <span id="found-id" style="color: #FF8000; font-weight: 700; font-size: 16px;">1234</span> 입니다.</p>
+                    <div class="btn-group" style="margin-top: 50px;">
+                        <button id="gotoChangePwd">비밀번호 변경</button>
+                        <button id="resultFindIdClose">닫기</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 비밀번호 찾기 폼 -->
+            <div id="find-pwd-form" style="display: none;">
+                <div class="input-group">
+                    <label for="userId">아이디</label>
+                    <input type="text" id="userId" placeholder="아이디를 입력하세요">
+                </div>
+                <div class="input-group">
+                    <label for="email">이메일</label>
+                    <div class="input-box">
+                        <input type="text" id="email" placeholder="이메일을 입력하세요">
+                        <button type="button" id="emailSend">인증번호 전송</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="codeCheck">인증번호</label>
+                    <div class="input-box">
+                        <input type="text" id="codeCheck" placeholder="이메일로 발송된 인증번호를 입력해주세요">
+                        <button id="emailCheck" type="button">인증번호 확인</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button id="findPwdClose">닫기</button>
+                </div>
+                <!-- 비밀번호 변경 폼 (인증 후) -->
+                <div id="change-pwd-layer" style="display: none; margin-top:15px;">
+                    <div class="input-group">
+                        <label for="newPwd">새 비밀번호</label>
+                        <input type="password" id="newPwd" placeholder="새 비밀번호를 입력하세요">
+                    </div>
+                    <div class="input-group">
+                        <label for="newPwdCheck">새 비밀번호 확인</label>
+                        <input type="password" id="newPwdCheck" placeholder="새 비밀번호를 다시 입력하세요">
+                    </div>
+                    <div class="btn-group">
+                        <button id="changePwd">변경</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
