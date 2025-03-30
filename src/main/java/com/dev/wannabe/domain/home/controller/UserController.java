@@ -14,7 +14,6 @@ import com.dev.wannabe.domain.minihompi.service.HompiService;
 import com.dev.wannabe.domain.minihompi.service.MinimiService;
 import com.dev.wannabe.domain.minihompi.service.MiniroomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -65,7 +64,7 @@ public class UserController {
 
         MiniroomInfoDTO miniroomInfo = MiniroomInfoDTO.builder()
                 .userId(userId)
-                .productId(1L)
+                .productId(78L)
                 .upsertUserId(userId)
                 .build();
         miniroomService.createMiniroom(miniroomInfo);
@@ -122,7 +121,7 @@ public class UserController {
     @PostMapping("/findId")
     @ResponseBody
     public ResponseEntity<Map<String, String>> findId(@RequestParam String name, @RequestParam String birthDate) {
-        
+
         // 이름과 생년월일을 통해 찾은 loginId
         String foundId = userService.findId(name, birthDate);
 
@@ -138,7 +137,7 @@ public class UserController {
     }
 
     @PostMapping("/sendCode")
-    public ResponseEntity<Map<String, String>> sendAuthCode(@RequestParam String loginId, @RequestParam String email){
+    public ResponseEntity<Map<String, String>> sendAuthCode(@RequestParam String loginId, @RequestParam String email) {
 
         Integer userId = userService.findUserIdByLoginIdAndEmail(loginId, email);
 
@@ -151,7 +150,7 @@ public class UserController {
 
         Map<String, String> response = new HashMap<>();
 
-        if(userId != null && userId > 0) {
+        if (userId != null && userId > 0) {
             try {
                 emailService.sendEmail(email, authCode);
 
@@ -173,11 +172,11 @@ public class UserController {
     }
 
     @PostMapping("/checkAuthCode")
-    public ResponseEntity<Map<String, String>> checkAuthCode(@RequestParam String authCode, @RequestParam String loginId, @RequestParam String email){
+    public ResponseEntity<Map<String, String>> checkAuthCode(@RequestParam String authCode, @RequestParam String loginId, @RequestParam String email) {
 
         Map<String, String> response = new HashMap<>();
 
-        Integer userId = userService.findUserIdByLoginIdAndEmail(loginId,email);
+        Integer userId = userService.findUserIdByLoginIdAndEmail(loginId, email);
 
         EmailAuth authInfo = userService.findAuthByUserIdAndAuthCode(userId, authCode);
 
@@ -188,9 +187,9 @@ public class UserController {
 
         System.out.println("expTime: " + expTime);
         System.out.println("insertTime: " + insertTime);
-        
+
         //TODO: DB 시간(?) 안정화되면 만료 테스트해보기
-        if(insertTime.isBefore(expTime)){
+        if (insertTime.isBefore(expTime)) {
             // 인증 상태 1 - > 3 (대기 -> 만료)
             System.out.println("1 -> 3 시작");
             userService.expireAuthStatus(String.valueOf(authInfo.getAuthId()), authInfo.getAuthCode(), expTime);
@@ -198,15 +197,15 @@ public class UserController {
 
             //return resposne.........
         }
-        
+
         //인증 여부 확인
         int flag = userService.checkAuthCode(authCode, String.valueOf(userId));
 
-        if(flag == 1){
+        if (flag == 1) {
             // 인증 상태 1 - > 2 (대기 -> 성공)
             int updateFlag = userService.updateAuthStatus(String.valueOf(authInfo.getAuthId()), authCode);
 
-            if(updateFlag == 2){
+            if (updateFlag == 2) {
                 response.put("status", "success");
                 response.put("message", "인증 상태 업데이트 성공");
             } else {
@@ -223,16 +222,16 @@ public class UserController {
     }
 
     @PostMapping("/changePassword")
-    public ResponseEntity<Map<String, String>> changePassword(@RequestParam String loginId, @RequestParam String email, @RequestParam String password){
+    public ResponseEntity<Map<String, String>> changePassword(@RequestParam String loginId, @RequestParam String email, @RequestParam String password) {
 
-        int flag = userService.updatePassword(loginId,email,password);
+        int flag = userService.updatePassword(loginId, email, password);
 
         Map<String, String> response = new HashMap<>();
 
-        if(flag == 1){
+        if (flag == 1) {
             response.put("status", "success");
             response.put("message", "비밀번호가 변경되었습니다.");
-        } else if(flag == 0){
+        } else if (flag == 0) {
             response.put("status", "error");
             response.put("message", "비밀번호 변경에 실패했습니다.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
