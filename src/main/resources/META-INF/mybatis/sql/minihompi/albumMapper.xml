@@ -87,4 +87,16 @@
        AND HOMPI_ID = #{hompiId};
 </delete>
 
+<update id="updateAlbum" parameterType="SaveAlbumDTO">
+    UPDATE  HOMPI_ALBUM
+       SET  FOLDER_ID=      #{folderId},
+            ALBUM_TITLE=    #{albumTitle},
+            AVAIL_STATUS=   #{availStatus},
+            ALBUM_CONTENT=  #{albumContent},
+            ALBUM_IMG=      #{albumImage},
+            UPDATE_USER_ID= #{userId}
+     WHERE ALBUM_ID=        #{albumId}
+       AND HOMPID_ID=       #{hompiId}
+</update>
+
 </mapper>

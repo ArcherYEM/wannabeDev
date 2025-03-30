@@ -30,23 +30,23 @@ public class AlbumRestController {
                                                          @RequestParam("albumTitle") String albumTitle,
                                                          @RequestParam("albumAvailStatus") String albumAvailStatus,
                                                          @RequestParam("albumContent") String albumContent,
-                                                         @RequestParam(value="albumImg", required = true)
+                                                         @RequestParam(value = "albumImg", required = true)
                                                          MultipartFile albumImg,
-                                                         HttpSession session){
+                                                         HttpSession session) {
 
         SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
 
-        log.info("hompiId: "+ hompiId);
-        log.info("albumFolderId: "+ albumFolderId);
-        log.info("albumTitle: "+ albumTitle);
-        log.info("albumAvailStatus: "+ albumAvailStatus);
+        log.info("hompiId: " + hompiId);
+        log.info("albumFolderId: " + albumFolderId);
+        log.info("albumTitle: " + albumTitle);
+        log.info("albumAvailStatus: " + albumAvailStatus);
         log.info("albumContent)" + albumContent);
         log.info("userData.getUserId: " + userData.getUserId());
         Long userId = userData.getUserId();
 
 
-        try{
-            if(albumImg == null || albumImg.isEmpty()){
+        try {
+            if (albumImg == null || albumImg.isEmpty()) {
                 return ResponseEntity.badRequest().build();
             }
 
@@ -54,14 +54,14 @@ public class AlbumRestController {
             String uploadDir = System.getProperty("user.dir") + "/uploads/images/personal";
             File folder = new File(uploadDir);
 
-            if(!folder.exists()){
+            if (!folder.exists()) {
                 folder.mkdirs();
             }
 
             // 2. 파일 이름 및 저장 경로 구성
             String fileName = "profile" + hompiId + ".jpg";
             File destination = new File(folder, fileName);
-            
+
             // 3. 파일 저장
             albumImg.transferTo(destination);
             log.info("Saved profile image to: {}", destination.getAbsolutePath());
@@ -70,14 +70,14 @@ public class AlbumRestController {
             String albumImage = "/images/personal/" + fileName;
 
             SaveAlbumDTO album = SaveAlbumDTO.builder()
-                            .hompiId(hompiId)
-                            .folderId(albumFolderId)
-                            .albumTitle(albumTitle)
-                            .availStatus(albumAvailStatus)
-                            .albumContent(albumContent)
-                            .userId(userId)
-                            .albumImage(albumImage)
-                            .build();
+                    .hompiId(hompiId)
+                    .folderId(albumFolderId)
+                    .albumTitle(albumTitle)
+                    .availStatus(albumAvailStatus)
+                    .albumContent(albumContent)
+                    .userId(userId)
+                    .albumImage(albumImage)
+                    .build();
 
             albumService.saveAlbum(album);
 
@@ -108,9 +108,9 @@ public class AlbumRestController {
     }
 
     @GetMapping("/getAlbum/{albumId}/{hompiId}")
-    public ResponseEntity<SaveAlbumDTO> getAlbum (@PathVariable Long albumId,
-                                                  @PathVariable Long hompiId,
-                                                  HttpSession session){
+    public ResponseEntity<SaveAlbumDTO> getAlbum(@PathVariable Long albumId,
+                                                 @PathVariable Long hompiId,
+                                                 HttpSession session) {
 
         log.info("albumId: " + albumId);
         log.info("hompiId: " + hompiId);
@@ -119,7 +119,7 @@ public class AlbumRestController {
         SaveAlbumDTO album = albumService.getAlbum(albumId, hompiId, loginUser);
         log.info("album: " + album);
 
-        if(album == null){
+        if (album == null) {
             SaveAlbumDTO defaultAlbum = albumService.getDefaultAlbum(hompiId);
             log.info("defaultAlbum: " + defaultAlbum);
             return ResponseEntity.ok(defaultAlbum);
@@ -129,7 +129,7 @@ public class AlbumRestController {
     }
 
     @PostMapping("/deleteAlbum")
-    public ResponseEntity<Map<String,String>> deleteAlbum(@RequestBody Map<String, Long> data){
+    public ResponseEntity<Map<String, String>> deleteAlbum(@RequestBody Map<String, Long> data) {
 
         Long albumId = data.get("albumId");
         Long hompiId = data.get("hompiId");
@@ -139,10 +139,10 @@ public class AlbumRestController {
 
         int flag = albumService.deleteAlbum(albumId, hompiId);
         Map<String, String> response = new HashMap<>();
-        if(flag == 1){
+        if (flag == 1) {
             response.put("status", "success");
-            response.put("message", "albumId " + albumId +"가 삭제 성공!");
-        } else if(flag == 0){
+            response.put("message", "albumId " + albumId + "가 삭제 성공!");
+        } else if (flag == 0) {
             response.put("status", "error");
             response.put("message", "삭제 실패!");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
@@ -154,18 +154,68 @@ public class AlbumRestController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/updateAlbum")
-    public ResponseEntity<Map<String, String>> updateAlbum(@RequestBody Map<String, Long> data){
+    @PostMapping("/updateAlbum/{hompiId}")
+    public ResponseEntity<Map<String, String>> updateAlbum(@PathVariable Long hompiId,
+                                                           @RequestParam("albumFolderId") Long albumFolderId,
+                                                           @RequestParam("albumTitle") String albumTitle,
+                                                           @RequestParam("albumAvailStatus") String albumAvailStatus,
+                                                           @RequestParam("albumContent") String albumContent,
+                                                           @RequestParam("albumId") Long albumId,
+                                                           @RequestParam(value = "albumImg", required = true)
+                                                           MultipartFile albumImg,
+                                                           HttpSession session) {
 
-        Long albumId = data.get("albumId");
-        Long hompiId = data.get("hompiId");
+        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
 
-        log.info("albumId: " + albumId);
         log.info("hompiId: " + hompiId);
+        log.info("albumFolderId: " + albumFolderId);
+        log.info("albumTitle: " + albumTitle);
+        log.info("albumAvailStatus: " + albumAvailStatus);
+        log.info("albumContent)" + albumContent);
+        log.info("userData.getUserId: " + userData.getUserId());
 
+        Long userId = userData.getUserId();
 
-        Map<String, String> response = new HashMap<>();
+        try {
+            if (albumImg == null || albumImg.isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
 
-        return ResponseEntity.ok(response);
+            // 1. 저장 경로 설정 (외부 경로로 변경)
+            String uploadDir = System.getProperty("user.dir") + "/uploads/images/personal";
+            File folder = new File(uploadDir);
+
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+
+            // 2. 파일 이름 및 저장 경로 구성
+            String fileName = "profile" + hompiId + ".jpg";
+            File destination = new File(folder, fileName);
+
+            // 3. 파일 저장
+            albumImg.transferTo(destination);
+
+            // 4. DB 또는 서비스에 반영 (저장 경로 전달)
+            String albumImage = "/images/personal/" + fileName;
+
+            SaveAlbumDTO album = SaveAlbumDTO.builder()
+                    .albumId(albumId)
+                    .hompiId(hompiId)
+                    .folderId(albumFolderId)
+                    .albumTitle(albumTitle)
+                    .availStatus(albumAvailStatus)
+                    .albumContent(albumContent)
+                    .userId(userId)
+                    .albumImage(albumImage)
+                    .build();
+
+            int flag = albumService.updateAlbum(album);
+
+            return ResponseEntity.ok().build();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

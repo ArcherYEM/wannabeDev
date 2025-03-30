@@ -16,4 +16,6 @@ public interface AlbumMapper {
     SaveAlbumDTO findDefaultAlbumByAlbumDTO(SaveAlbumDTO albumDTO);
 
     Integer deleteAlbum(@Param("albumId") Long albumId, @Param("hompiId") Long hompiId);
+
+    Integer updateAlbum(SaveAlbumDTO data);
 }
