@@ -153,4 +153,19 @@ public class AlbumRestController {
         }
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/updateAlbum")
+    public ResponseEntity<Map<String, String>> updateAlbum(@RequestBody Map<String, Long> data){
+
+        Long albumId = data.get("albumId");
+        Long hompiId = data.get("hompiId");
+
+        log.info("albumId: " + albumId);
+        log.info("hompiId: " + hompiId);
+
+
+        Map<String, String> response = new HashMap<>();
+
+        return ResponseEntity.ok(response);
+    }
 }
