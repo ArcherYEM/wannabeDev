@@ -1,10 +1,19 @@
-//contentType: 프로필: "01", 다이어리: "02", 쥬크박스: "03", 사진첩: "04", 게시판: "05"
+//contentType:다이어리: "01", 사진첩: "02", 게시판: "03"
 $(document).ready(function(){
     $(document).on('click', '#gnb li',function(){
         folderContentIndex = $(this).index() - 1;
-        if(folderContentIndex === -1 || folderContentIndex === 5 || folderContentIndex === 6){
+        if(folderContentIndex === -1 || folderContentIndex === 0 || folderContentIndex === 2 ||
+         folderContentIndex === 5 || folderContentIndex === 6){
             return;
         }
+        if(folderContentIndex === 1){
+            folderContentIndex = 0;
+        }else if(folderContentIndex === 3){
+            folderContentIndex = 1;
+        }else{
+            folderContentIndex = 2;
+        }
+
         folderContentType = folderContentList[folderContentIndex];
         moveFolder();
         getFolder();
@@ -17,7 +26,6 @@ $(document).ready(function(){
     $(document).on('keydown','.folderInput',function(e){
         const text = $('.folderInput').val().trim();
         const availStatus = $('.statusSelect').val();
-        console.log(text);
         if(e.keyCode == 13 && text !== ""){
             addFolder(availStatus,text);
         }
@@ -30,10 +38,10 @@ $(document).ready(function(){
             addFolder(availStatus,text);
         }
     })
-//    $(document).on('click','#folderName',function(){
-//        const folderId = $(this).data('id');
-//
-//    });
+    $(document).on('click','#folderName',function(){
+        const folderId = $(this).data('id');
+
+    });
 
     $(document).on('click', '.folderName button', function(){
         const btn = $(this);
@@ -51,6 +59,7 @@ $(document).ready(function(){
 
 });
 
+let folderTitleList = ["다이어리","사진첩","게시판"];
 let folderContentList = ["01","02","03","04","05"];
 let folderContentIndex;
 let folderContentType;
@@ -63,6 +72,8 @@ function moveFolder() {
          success: function (data) {
              $("#leftWrap").children().remove();
              $("#leftWrap").html(data);
+             const folderTitle = folderTitleList[folderContentIndex];
+             $('#folderTitle').text(folderTitle);
          },
          error: function (xhr, status, error) {
              alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
