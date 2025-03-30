@@ -89,7 +89,7 @@
                                    th:classappend="${notice.getNoticeTypeCssClass}">공지사항</p>
                             </div>
                             <div class="cell title">
-                                <a th:text="${notice.noticeTitle}" href="/notice/view">게시글 제목</a>
+                                <a th:text="${notice.noticeTitle}" th:href="@{/notice/view/{id}(id=${notice.noticeId})}"></a>
                             </div>
                             <div class="cell display-date" th:text="${notice.getDateRange}"></div>
                             <div class="cell insert-date" th:text="${notice.insertDT}"></div>
