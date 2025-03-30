@@ -4,10 +4,7 @@ $(document).ready(function(){
         $(this).addClass('on');
         moveDiary();
         getDiaryContent(0);
-        moveDiaryLeft();
-        getDiaryFolder();
         checkCommentUser();
-        // 가장 오래된 CONTENT 가져오기
     });
 
     $(document).on('click', '#day td',function(){
@@ -30,7 +27,7 @@ $(document).ready(function(){
                 <option value="31">전체 비허용</option>
             </select><span class="folderSpan">선택 폴더: </span>
             <select id="selectFolder">`;
-                $('.hompiFolderWrap button').each(function(element){
+                $('.diaryFolderWrap button').each(function(element){
                     content += `<option value="${$(this).val()}">${$(this).text()}</option>`
                 });
                 content += `</select></div><textarea></textarea>`;
@@ -43,54 +40,6 @@ $(document).ready(function(){
         }
         const folderId = $('#selectFolder').val();
         addDiaryContent(folderId,diaryText.val());
-    });
-
-    $(document).on('click','.diaryFolderAddBtn',function(){
-        $('.diaryFolderNameWrap').toggle();
-        $('.diaryStatusSelect').toggle();
-    });
-
-    $(document).on('keydown','.diaryFolderInput',function(e){
-        const text = $('.diaryFolderInput').val().trim();
-        const availStatus = $('.diaryStatusSelect').val();
-        if(e.keyCode == 13 && text !== ""){
-            addDiaryFolder(availStatus,text);
-        }
-    });
-
-    $(document).on('click','.diaryFolderInputBtn',function(){
-        const text = $('.diaryFolderInput').val().trim();
-        const availStatus = $('.diaryStatusSelect').val();
-        if(text !== ""){
-            addDiaryFolder(availStatus,text);
-        }
-    })
-    $(document).on('click','#folderName',function(){
-        const folderId = $(this).data('id');
-
-    });
-
-    $(document).on('click', '.hompiFolderName button', function(){
-        const btn = $(this);
-        const folderId = btn.val();
-        if(btn.hasClass('folderOn')){
-            btn.removeClass('folderOn');
-            btn.next('.folderContentWrap').remove();
-            return;
-        }
-        $('.folderContentWrap').remove();
-        $('.hompiFolderName button').removeClass('folderOn');
-        btn.addClass('folderOn');
-        getFolderContents(folderId, btn);
-    });
-
-    $(document).on('click', '.folderContentWrap p' ,function(){
-        const clickP = $(this);
-        const clickDiaryId = clickP.data('id');
-        if($('.diaryContent').length > 0){
-            $('.diaryContent').remove();
-        }
-        getDiaryContent(clickDiaryId);
     });
 
     $(document).on('click','.edit-btn',function(){
@@ -173,39 +122,6 @@ function moveDiary() {
     });
 }
 
-function moveDiaryLeft() {
-     $.ajax({
-         type: "GET",
-         url: "/mini-hompi/diary/leftWrap",
-         dataType: "html",
-         success: function (data) {
-             $("#leftWrap").children().remove();
-             $("#leftWrap").html(data);
-         },
-         error: function (xhr, status, error) {
-             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-         }
-    });
-}
-
-//왼쪽 구역 할당 임시로 만듬
-function getLeftWrap(){
-    $.ajax({
-         type: "GET",
-         url: "/mini-hompi/hompiMain",
-         dataType: "html",
-         success: function (data) {
-             $("#leftWrap").empty();
-             const dataLeft = $(data).find('#leftWrap').html();
-             $("#leftWrap").html(dataLeft);
-             getDiaryFolder();
-         },
-         error: function (xhr, status, error) {
-             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-         }
-    });
-}
-
 function getMonthDate(){
     $.ajax({
         type: "GET",
@@ -234,72 +150,6 @@ function getMonthDate(){
             month = response.month;
             today = new Date();
             $('.post-register p').text(month + '.' + today.getDate() +'.' + dayName[today.getDay()]);
-        }
-    });
-}
-
-//폴더 추가 로직
-function addDiaryFolder(availStatus,folderInput){
-    $.ajax({
-        type: 'POST',
-        url: "/api/folder/save/01/" + folderInput +'/' + availStatus,
-        success: function(response){
-            alert('저장했습니다');
-            $('.diaryStatusSelect').hide();
-            $('.diaryFolderNameWrap').hide();
-            $('.diaryFolderInput').val('');
-            if($('.hompiFolderName').length > 0){
-               $('.hompiFolderName').remove();
-            }
-            getDiaryFolder();
-        },
-        error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
-        }
-    });
-}
-
-function getDiaryFolder(){
-    const hompiAuth = sessionStorage.getItem('myHompiCheck');
-    $.ajax({
-        type: 'GET',
-        url: '/api/folder/read/' + hompiOwnerId + '/01',
-        dataType: 'json',
-        success: function(folderList){
-            $('.hompiFolderWrap').remove();
-            let code = '<div class="hompiFolderWrap">';
-            folderList.forEach(function(folderDTO,index){
-                code += '<div class= "hompiFolderName"><button value="'+folderDTO.folderId
-                         + '"><img src="/static/images/common/folder.png">'
-                         + " " +folderDTO.folderName + '</button></div>';
-            })
-            code += "</div>";
-            $('#folderWrap').append(code);
-            if(hompiAuth === "0"){
-                $('.diaryFolderAddBtn').show();
-            }
-        },
-        error: function(error){
-            console.error(error);
-        }
-    });
-}
-
-function getFolderContents(folderId ,btn){
-    $.ajax({
-        type: 'GET',
-        url: '/api/folder/read/'+ hompiOwnerId +'/01/'+ folderId,
-        dataType: 'json',
-        success: function(response){
-            let code = '<div class="folderContentWrap">';
-            response.forEach(function(folderDTO){
-                    code += `<p data-id="${folderDTO.folderId}">${folderDTO.folderName}</p>`
-                })
-                code += '</div>'
-                btn.after(code);
-            },
-            error: function(error){
-                console.error(error);
         }
     });
 }
@@ -351,7 +201,7 @@ function getDiaryContent(diaryId){
 }
 
 function getDiaryByDay(day){
-    const folderId = $('.folderOn').val();
+    const folderId = $('.diaryFolderOn').val();
     if(!folderId){
         alert('폴더를 선택해주세요');
         return;
@@ -513,4 +363,3 @@ function checkStatus(){
             }
     })
 }
-
