@@ -8,6 +8,7 @@ import com.dev.wannabe.domain.minihompi.model.dto.MonthDayDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiDiary;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,11 +49,15 @@ public class DiaryService {
     }
 
     @Transactional
-    public Boolean addDiary(Long hompiId, Long folderId, HttpSession session,
-                                  String diaryContent,String availStatus){
+    public ResponseEntity<Boolean> addDiary(Long hompiId, Long folderId, HttpSession session,
+                                            String diaryContent, String availStatus){
+
         SessionUserDTO visitUser = (SessionUserDTO)session.getAttribute("userData");
+        if(diaryMapper.findDiaryByDay(LocalDate.now(), hompiId, folderId) != null){
+            return ResponseEntity.ok(null);
+        }
         if(!visitUser.getHompiId().equals(hompiId)){
-            return null;
+            return ResponseEntity.badRequest().build();
         }
 
         if(availStatus.equals("전체 공개")){
@@ -70,9 +75,9 @@ public class DiaryService {
                 .folderId(folderId)
                 .build();
         if(diaryMapper.saveDiary(diary) == 0){
-            return false;
+            return ResponseEntity.badRequest().build();
         }
-        return true;
+        return ResponseEntity.ok(true);
     }
 
     public HompiDiaryDTO getDiary(Long diaryId, Long hompiId,HttpServletRequest request) {
@@ -99,5 +104,65 @@ public class DiaryService {
                 .availStatus(availStatus)
                 .build();
         return diaryMapper.findDiaryByDiaryDTO(diaryDTO);
+    }
+
+    @Transactional
+    public Boolean deleteDiary(Long diaryId, Long hompiId, HttpServletRequest request) {
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        if(userData.getHompiId() != hompiId){
+            return false;
+        }
+        if(diaryMapper.deleteDiary(diaryId,hompiId) == 0){
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional
+    public Boolean updateDiary(Long diaryId, Long hompiId,String diaryContent,String availStatus,HttpServletRequest request) {
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        if(userData.getHompiId() != hompiId){
+            return false;
+        }
+
+        if(availStatus.equals("전체 공개")){
+            availStatus = "31";
+        }else if(availStatus.equals("일촌 공개")){
+            availStatus = "32";
+        }else{
+            availStatus = "33";
+        }
+
+        HompiDiaryDTO diaryDTO = HompiDiaryDTO.builder()
+                .hompiId(hompiId)
+                .diaryId(diaryId)
+                .diaryContent(diaryContent)
+                .availStatus(availStatus)
+                .build();
+        if(diaryMapper.updateDiary(diaryDTO) == 0){
+            return false;
+        }
+        return true;
+    }
+
+    public HompiDiaryDTO findDiaryByDay(Integer day, Long hompiId, Long folderId) {
+        LocalDate now = LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),day);
+        return diaryMapper.findDiaryByDay(now, hompiId, folderId);
+    }
+
+    public ResponseEntity<String> checkCommentStatus(Long hompiId, HttpServletRequest request) {
+        SessionUserDTO visitUser = (SessionUserDTO) request.getSession().getAttribute("userData");
+        if(visitUser == null){
+            return ResponseEntity.ok("34");
+        }
+        Long userId = visitUser.getUserId();
+        Long ownerId = hompiMapper.findUserIdByHompiId(hompiId);
+        if(visitUser.getHompiId().equals(hompiId)) {
+            return ResponseEntity.ok("31");
+        }else if(friendMapper.existsByUserIdAndFriendId(ownerId,userId)){
+            return ResponseEntity.ok("32");
+        }else{
+            return ResponseEntity.ok("33");
+        }
     }
 }
