@@ -49,4 +49,15 @@ public class AlbumService {
 
         return albumMapper.findAlbumByAlbumDTO(albumDTO);
     }
+
+    public SaveAlbumDTO getDefaultAlbum(Long hompiId){
+        SaveAlbumDTO albumDTO = SaveAlbumDTO.builder()
+                .hompiId(hompiId)
+                .build();
+        return albumMapper.findDefaultAlbumByAlbumDTO(albumDTO);
+    }
+
+    public Integer deleteAlbum(Long albumId, Long hompiId){
+        return albumMapper.deleteAlbum(albumId,hompiId);
+    }
 }

@@ -41,9 +41,9 @@
            AVAIL_STATUS     AS availStatus,
            FOLDER_ID        AS folderId,
            INSERT_USER_ID   AS userId
-    FROM HOMPI_ALBUM
+     FROM HOMPI_ALBUM
     WHERE 1=1
-    AND HOMPI_ID= #{hompiId}
+      AND HOMPI_ID= #{hompiId}
     <if test="albumId != 0">
         AND ALBUM_ID = #{albumId}
     </if>
@@ -63,5 +63,28 @@
         LIMIT 1
     </if>
 </select>
+
+<select id="findDefaultAlbumByAlbumDTO" parameterType="SaveAlbumDTO" resultType="SaveAlbumDTO">
+    SELECT
+        HOMPI_ID         AS hompiId,
+        ALBUM_ID         AS albumId,
+        ALBUM_IMG        AS albumImage,
+        ALBUM_TITLE      AS albumTitle,
+        ALBUM_CONTENT    AS albumContent,
+        AVAIL_STATUS     AS availStatus,
+        FOLDER_ID        AS folderId,
+        INSERT_USER_ID   AS userId
+      FROM HOMPI_ALBUM
+     WHERE HOMPI_ID = #{hompiId}
+      AND AVAIL_STATUS = 31
+    ORDER BY ALBUM_ID ASC
+    LIMIT 1;
+</select>
+
+<delete id="deleteAlbum" parameterType="map">
+    DELETE FROM HOMPI_ALBUM
+     WHERE ALBUM_ID = #{albumId}
+       AND HOMPI_ID = #{hompiId};
+</delete>
 
 </mapper>
