@@ -142,15 +142,15 @@
 }
 
 .cell.display-date{
-    width: 350px;
+    width: 280px;
 }
 
 .cell.insert-date {
-    width: 200px;
+    width: 150px;
 }
 
 .cell.writer {
-    width: 100px;
+    width: 80px;
 }
 
 .bg-announcement { background-color: var(--color-lbrown); color: var(--color-white); }
