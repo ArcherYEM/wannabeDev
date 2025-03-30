@@ -52,6 +52,11 @@
                 FROM HOMPI_BOARD
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
+            <when test="contentsType == '04'"> <!--> 사진첩 <-->
+                SELECT ALBUM_ID AS CONTENT_ID, ALBUM_TITLE AS CONTENT_NAME
+                  FROM HOMPI_ALBUM
+                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
+            </when>
         </choose>
     </select>
 

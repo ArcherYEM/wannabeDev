@@ -5,11 +5,21 @@
 <mapper namespace="com.dev.wannabe.domain.home.mapper.NoticeMapper">
 
     <select id="getFilteredNotices" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
-        SELECT n.*,
-        u.LOGIN_ID,
+        SELECT n.NOTICE_ID,
+               n.NOTICE_TYPE,
+               n.NOTICE_TITLE,
+               n.NOTICE_CONTENTS,
+               n.START_DATE,
+               n.START_TIME,
+               n.END_DATE,
+               n.END_TIME,
+               n.INSERT_USER_ID,
+               DATE_FORMAT(n.INSERT_DT, '%Y-%m-%d %H:%i') AS INSERT_DT,
+               n.UPDATE_DT,
+               u.LOGIN_ID,
         <!--    STR_TO_DATE= 날짜 형태로 형식 변환 코드  CONCAT = 문자열 합체(년월일 + 시간)    -->
-        STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i') AS START_DATETIME,
-        STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i')AS END_DATETIME
+               DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
+               DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
         FROM NOTICE n
         LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
         WHERE 1 = 1
@@ -28,8 +38,8 @@
                 </when>
                 <otherwise>
                     AND (
-                    notice_title LIKE CONCAT('%', #{keyword}, '%')
-                    OR NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+                        notice_title LIKE CONCAT('%', #{keyword}, '%')
+                        OR NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
                     )
                 </otherwise>
             </choose>
