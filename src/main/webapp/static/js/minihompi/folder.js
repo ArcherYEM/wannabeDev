@@ -30,10 +30,10 @@ $(document).ready(function(){
             addFolder(availStatus,text);
         }
     })
-    $(document).on('click','#folderName',function(){
-        const folderId = $(this).data('id');
-
-    });
+//    $(document).on('click','#folderName',function(){
+//        const folderId = $(this).data('id');
+//
+//    });
 
     $(document).on('click', '.folderName button', function(){
         const btn = $(this);
