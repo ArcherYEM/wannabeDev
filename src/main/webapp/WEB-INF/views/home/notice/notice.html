@@ -11,16 +11,16 @@
 <body>
 <div layout:fragment="content">
     <div id="container">
-        <div class="containerWrap">
-            <div id="menu" th:if="${userRole != '03'}">
-                <a> 공지 관리</a>
-                <a> 배너 관리</a>
-            </div>
-            <div id="main">
+        <div class="containerWrap noticeContainer">
+            <div class=""></div>
                 <div class="menu_title">
                     <h1> 공지사항 </h1>
                     <h2> 등록하기 </h2>
                     <h2> 수정하기 </h2>
+                </div>
+                <div id="menu" class="admin-menu" th:if="${userRole != '01'}">
+                    <a> 공지 관리</a>
+                    <a> 배너 관리</a>
                 </div>
                 <div class="notice">
                     <div class="formal">
@@ -116,7 +116,7 @@
                         <button class="create" id="insert_page_btn" th:if="${userRole != '03'}">공지 등록</button>
                     </div>
                 </div>
-            </div>
+
         </div>
     </div>
 </div>
