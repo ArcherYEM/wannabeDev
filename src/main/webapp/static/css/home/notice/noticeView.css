@@ -1,0 +1,150 @@
+.noticeContainer {
+    padding: 30px 10px;
+
+    button {
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+}
+
+/* 상단 영역 */
+.menu-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    line-height: 1;
+
+    h1 {
+        font-size: 32px;
+        font-weight: 600;
+    }
+
+    button {
+        background-color: var(--color-gray);
+        color: var(--color-white);
+
+        &:hover {
+            background-color: var(--color-lgray);
+        }
+    }
+}
+
+/* 메인 바디*/
+/* 제목 */
+.notice {
+    margin-top: 20px;
+}
+
+.notice-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    background-color: var(--color-white);
+    border-top: solid 2px var(--color-basic);
+    border-bottom: solid 1px var(--color-gray);
+    padding: 10px 10px;
+
+    .notice-title {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        label {
+            padding: 5px 10px;
+            border-radius: 5px;
+            height: 30px;
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 24px;
+            color: var(--color-gray);
+        }
+
+        .bg-announcement { background-color: var(--color-lbrown); color: var(--color-white); }
+        .bg-event        { background-color: var(--color-brown); color: var(--color-white); }
+        .bg-popup        { background-color: var(--color-blue); color: var(--color-white); }
+        .bg-note         { background-color: var(--color-green); color: var(--color-white); }
+        .bg-admin        { background-color: var(--color-lgreen); color: var(--color-white); }
+        .bg-unknown      { background-color: var(--color-gray); color: var(--color-white); }
+    }
+
+    .time-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-end;
+        line-height:1;
+        color: var(--color-gray);
+
+        div {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        img {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+/* 본문 */
+.notice-body {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 10px;
+
+    .notice-modify {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            background-color: var(--color-basic);
+            color: var(--color-white);
+
+            &:hover {
+                background-color: var(--color-lbrown);
+            }
+        }
+    }
+}
+
+/* 하단 글목록 */
+.notice-bottom {
+    width: 100%;
+    border-top: solid 2px var(--color-basic);
+
+    .content-list {
+        display: flex;
+        width: 100%;
+        padding: 10px 10px;
+        border-bottom: solid 1px var(--color-gray);
+        background-color: var(--color-white);
+
+        .item-info {
+            display: flex;
+            width: 100%;
+            gap: 10px;
+
+            .title {
+                font-weight: 600;
+            }
+
+            .no-content {
+                color: var(--color-gray);
+            }
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
