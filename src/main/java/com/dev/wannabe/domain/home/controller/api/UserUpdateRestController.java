@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/home")
-public class UserUpdateController {
+public class UserUpdateRestController {
     private final UserUpdateService userUpdateService;
 
     //TODO 회원정보 조회 조건문에 userId 추가하기
@@ -41,28 +39,28 @@ public class UserUpdateController {
     /**
      * 비밀번호 확인
      **/
-    @PostMapping("checkPassword")
-    public ResponseEntity<Map<String, Object>> checkPassword(@RequestParam("password") String password,
-                                                             HttpServletRequest req) {
-        Map<String, Object> result = new HashMap<>();
-
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("userData") == null) {
-            result.put("result", -1);
-            return ResponseEntity.badRequest().build();
-        }
-
-        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
-        if (userData.getUserId() == null) {
-            result.put("result", -1);
-            return ResponseEntity.badRequest().build();
-        }
-
-        boolean checkOldPaw = userUpdateService.checkPassword(password, userData);
-
-        result.put("checkOldPaw", checkOldPaw);
-        return ResponseEntity.ok(result);
-    }
+//    @PostMapping("checkPassword")
+//    public ResponseEntity<Map<String, Object>> checkPassword(@RequestParam("password") String password,
+//                                                             HttpServletRequest req) {
+//        Map<String, Object> result = new HashMap<>();
+//
+//        HttpSession session = req.getSession(false);
+//        if (session == null || session.getAttribute("userData") == null) {
+//            result.put("result", -1);
+//            return ResponseEntity.badRequest().build();
+//        }
+//
+//        SessionUserDTO userData = (SessionUserDTO) session.getAttribute("userData");
+//        if (userData.getUserId() == null) {
+//            result.put("result", -1);
+//            return ResponseEntity.badRequest().build();
+//        }
+//
+//        boolean checkOldPaw = userUpdateService.checkPassword(password, userData);
+//
+//        result.put("checkOldPaw", checkOldPaw);
+//        return ResponseEntity.ok(result);
+//    }
 
     //비밀번호 수정
     @PostMapping("/updateMyPasswd")

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/layout}">
+<head layout:fragment="styles">
+    <!-- 공지사항 페이지 전용 스타일 -->
+    <title layout:fragment="title">공지사항</title>
+    <link rel="stylesheet" th:href="@{/static/css/home/notice.css}" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div id="container">
+        <div class="containerWrap">
+            <div id="menu" th:if="${userRole != '03'}">
+                <a> 공지 관리</a>
+                <a> 배너 관리</a>
+            </div>
+            <div id="main">
+                <div class="menu_title">
+                    <h1> 공지사항 </h1>
+                    <h2> 등록하기 </h2>
+                    <h2> 수정하기 </h2>
+                </div>
+
+                <!--center-->
+                <div class="notice">
+
+                    <div>
+                        <span>알림종류</span>
+                        <select id="i_type">
+                            <option value="" disabled selected>분류를 선택하세요.</option>
+                            <option value="01">공지용</option>
+                            <option value="02">팝업용</option>
+                            <option value="03">배너용</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <span>제목</span>
+                        <input type="text" id="i_title"/>
+                    </div>
+
+                    <div>
+                        <div>
+                            <span>시작일시</span>
+                            <input type="text" id="i_start_date" placeholder="yyyy-m-dd HH:mm">
+                            <input type="checkbox">
+                            <span>시작일시를 오늘로</span>
+                        </div>
+
+                        <div>
+                            <span>종료일시</span>
+                            <input type="text" id="i_end_date" placeholder="yyyy-mm-dd HH:mm">
+                            <select>
+                                <option>직접입력</option>
+                                <option>1일 후</option>
+                                <option>7일 후</option>
+                                <option>30일후 </option>
+                                <option>무기한</option>
+                            </select>
+                        </div>
+
+                        <!--게시내용-->
+                        <div>
+                            <div id="editor"></div>
+                        </div>
+
+                        <div>
+                            <button>목록</button>
+                            <button onclick="insert_notice()">등록</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 공지사항 페이지 전용 JS -->
+<th:block layout:fragment="scripts">
+    <script th:src="@{/static/js/home/notice.js}"></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+</th:block>
+
+</body>
+</html>
