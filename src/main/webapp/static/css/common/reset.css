@@ -16,7 +16,7 @@ footer, header, hgroup, menu, nav, section {margin: 0; padding: 0; border: 0;}
 article, aside, details, figcaption, figure, dialog,
 footer, header, hgroup, menu, nav, section {display: block;}
 html, body {height: 100%; -webkit-text-size-adjust: 100%;}
-body {font-size: 12px;font-family: "Nanum Gothic", sans-serif; color:#333; line-height:1.5; letter-spacing:-0.25px;}
+body {font-size: 14px;font-family: "Nanum Gothic", sans-serif; color:#333; line-height:1.5; letter-spacing:-0.25px;}
 
 :before,:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html { font-size: 14px; }
@@ -28,7 +28,7 @@ a:visited { text-decoration: none; }
 a:hover {  text-decoration: none; }
 a:active {  text-decoration: none; }
 a:focus { text-decoration: none; }
-select, input, textarea { font-size: 100%; vertical-align: middle ; font-family:"Nanum Gothic", sans-serif;}
+select, input, textarea { vertical-align: middle ; font-family:"Nanum Gothic", sans-serif;}
 input {margin: 0;padding: 0;outline: none;}
 
 ol, ul {list-style: none;}
@@ -52,7 +52,7 @@ a:active {  text-decoration: none; }
 a:focus { text-decoration: none; }
 
 /* 인풋, 버튼 등 스타일링 */
-input, textarea, select, button{font-size:1rem; font-family: "Nanum Gothic", sans-serif;}
+input, textarea, select, button{ font-family: "Nanum Gothic", sans-serif;}
 input:disabled, select:disabled { background-color: #DFE0DF; }
 input, select{vertical-align: middle; color: #333;}
 
@@ -77,6 +77,8 @@ input[type=text], input[type=password] {height:40px;padding:0 10px;border:1px so
     -o-appearance:none;
     font-size: 1rem;
 }
+
+select { outline: none; }
 
 *::-webkit-scrollbar {
     width: 5px;
