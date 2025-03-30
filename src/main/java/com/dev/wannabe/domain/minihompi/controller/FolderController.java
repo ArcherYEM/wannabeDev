@@ -30,9 +30,14 @@ public class FolderController {
     private final FriendMapper friendMapper;
     private final FolderService folderService;
 
+    @GetMapping("/leftWrap")
+    public String diaryLeft(){
+        return "minihompi/folder/minihompiFolder";
+    }
     @PostMapping("/save/{contentsType}/{folderName}/{availStatus}")
     @ResponseBody
-    public ResponseEntity<Void> save(@PathVariable String folderName, @PathVariable String contentsType, @PathVariable String availStatus, HttpServletRequest request) {
+    public ResponseEntity<Void> save(@PathVariable String folderName, @PathVariable String contentsType,
+                                     @PathVariable String availStatus, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.badRequest().build(); }
         Object userData = session.getAttribute("userData");

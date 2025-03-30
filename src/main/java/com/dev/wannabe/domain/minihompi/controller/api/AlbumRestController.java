@@ -5,6 +5,7 @@ import com.dev.wannabe.domain.minihompi.service.AlbumService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -110,14 +112,60 @@ public class AlbumRestController {
                                                   @PathVariable Long hompiId,
                                                   HttpSession session){
 
+        log.info("albumId: " + albumId);
+        log.info("hompiId: " + hompiId);
+
         SessionUserDTO loginUser = (SessionUserDTO) session.getAttribute("userData");
         SaveAlbumDTO album = albumService.getAlbum(albumId, hompiId, loginUser);
         log.info("album: " + album);
 
         if(album == null){
-            return ResponseEntity.badRequest().body(null);
+            SaveAlbumDTO defaultAlbum = albumService.getDefaultAlbum(hompiId);
+            log.info("defaultAlbum: " + defaultAlbum);
+            return ResponseEntity.ok(defaultAlbum);
         }
 
         return ResponseEntity.ok(album);
+    }
+
+    @PostMapping("/deleteAlbum")
+    public ResponseEntity<Map<String,String>> deleteAlbum(@RequestBody Map<String, Long> data){
+
+        Long albumId = data.get("albumId");
+        Long hompiId = data.get("hompiId");
+
+        log.info("albumId: " + albumId);
+        log.info("hompiId: " + hompiId);
+
+        int flag = albumService.deleteAlbum(albumId, hompiId);
+        Map<String, String> response = new HashMap<>();
+        if(flag == 1){
+            response.put("status", "success");
+            response.put("message", "albumId " + albumId +"가 삭제 성공!");
+        } else if(flag == 0){
+            response.put("status", "error");
+            response.put("message", "삭제 실패!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } else {
+            response.put("status", "error");
+            response.put("message", "삭제 실패!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/updateAlbum")
+    public ResponseEntity<Map<String, String>> updateAlbum(@RequestBody Map<String, Long> data){
+
+        Long albumId = data.get("albumId");
+        Long hompiId = data.get("hompiId");
+
+        log.info("albumId: " + albumId);
+        log.info("hompiId: " + hompiId);
+
+
+        Map<String, String> response = new HashMap<>();
+
+        return ResponseEntity.ok(response);
     }
 }

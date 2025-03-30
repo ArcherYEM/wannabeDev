@@ -25,7 +25,7 @@ public class HomeRestController {
 
     //    /* 미니홈피 열기 */
     @GetMapping("/{hompiId}")
-    public ResponseEntity<Map<String, Object>> miniHompiPopup(@PathVariable Long hompiId, HttpServletRequest request, HttpSession session) {
+    public ResponseEntity<Map<String, Object>> minihompiPopup(@PathVariable Long hompiId, HttpServletRequest request, HttpSession session) {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
         Map<String, Object> response = minihompiService.getMinihompiPopup(hompiId, userData, session);
 
