@@ -1,0 +1,93 @@
+<div class="mainLeftTop user-panel" th:fragment="userPanel">
+    <div class="mainLeftTop">
+        <!-- 로그인 된 상태 -->
+        <div th:if="${session.userData != null}">
+            <div class="profileWrap">
+                <div class="profileInfoTop">
+                    <div class="profileImgWrap">
+                        <div class="profileImg">
+                            <img src="/static/images/common/minimi/exNewItemImage2.png"/>
+                        </div>
+                    </div>
+                    <div class="personalWrap">
+                        <div class="personalFeat">
+                            <span class="profileModify">내정보수정</span>
+                            <span id="logoutBtn2" class="profileLogout">로그아웃</span>
+                        </div>
+                        <div id="loginName2" class="nameDisplay" th:text="${session.userData.name}">이름</div>
+                    </div>
+                </div>
+                <div class="profileInfoBot">
+                    <div class="infoWrap">
+                        <div class="infoOnline">
+                            <div class="alignBox">
+                                <span class="title">일촌ON</span>
+                                <div class="stat">
+                                    <span class="text">11</span>
+                                </div>
+                            </div>
+                            <div class="alignBox">
+                                <span class="title">쪽지</span>
+                                <div class="stat messageBox">
+                                    <img src="/static/images/common/new.png" alt="new">
+                                    <span class="text new" target="_blank" onclick="openPopupMessage()">30</span>
+                                </div>
+                            </div>
+                            <div class="alignBox">
+                                <span class="title">일촌신청</span>
+                                <div class="stat">
+                                    <span class="text">4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="infoData">
+                            <div class="alignBox">
+                                <span class="title">오늘 방문자</span>
+                                <span class="text">113</span>
+                            </div>
+                            <div class="alignBox">
+                                <span class="title">새 게시물</span>
+                                <div class="stat">
+                                    <img src="/static/images/common/new.png" alt="new">
+                                    <span class="text new">2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stateDotori">
+                        <div class="dotoriTitleWrap">
+                            <img src="/static/images/common/dotori.png">
+                            <span class="title">보유 도토리</span>
+                        </div>
+                        <div class="chargeWrap">
+                            <span class="text">720</span>
+                            <span id="rechargePageBtn" class="rechargePageBtn">충전</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 로그인 전 상태 -->
+        <div th:if="${session.userData == null}">
+            <div class="loginWrap">
+                <div class="mainTitleText">로그인</div>
+                <div class="loginInputWrap">
+                    <div class="loginInputBox">
+                        <input type="text" id="loginId2" placeholder="아이디">
+                        <input type="password" id="password2" placeholder="비밀번호">
+                    </div>
+                    <div class="loginBtnWrap">
+                        <button id="loginBtn2">로그인</button>
+                    </div>
+                </div>
+                <div class="loginLinkWrap">
+                    <a href="#" id="signupBtn2">회원가입</a>
+                    <a id="findIdAndPw">ID찾기 | 비밀번호찾기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 모달 임베딩 위치 -->
+    <div th:replace="/home/fragment/findIdModal :: findModal"></div>
+</div>

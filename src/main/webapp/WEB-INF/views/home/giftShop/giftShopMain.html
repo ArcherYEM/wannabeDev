@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{/common/layout/layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/common/layout/layout}">
+      xmlns:th="http://www.thymeleaf.org">
 <head layout:fragment="styles">
     <!-- 선물가게 페이지 전용 스타일 -->
     <title layout:fragment="title">선물가게</title>
     <link rel="stylesheet" th:href="@{/static/css/home/giftShop.css}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"/>
 </head>
 <body>
 <div layout:fragment="content">
@@ -24,74 +23,11 @@
         </div>
         <div class="subMainContainer">
             <div class="menuContainer">
-                <div class="menuProfile">
-                    <div class="top">
-                        <div>
-                            <span>보유 도토리</span>
-                        </div>
-                        <div class="dotori">
-                            <img class="dotori-icon" src="/static/images/common/dotori.png">720
-                        </div>
-                        <div class="topUp">
-                            충전
-                        </div>
-                    </div>
-                    <div class="userDesc">
-                        <div class="userProfile">
-                            <img class="dotori-icon" src="/static/images/common/dotori.png">
-                        </div>
-                        <div class="userInfo">
-                            <div class="userInfo1">
-                                <span>홍길동</span>
-                                <img src="/static/images/common/option.png">
-                            </div>
-                            <div class="user-info2-wrap">
-                                <div class="userInfo2 space-between">
-                                    <span>쪽지</span>
-                                    <span class="bold">30</span>
-                                </div>
-
-                                <div class="userInfo3 space-between">
-                                    <span>일촌ON</span>
-                                    <span class="bold">30</span>
-                                </div>
-                            </div>
-                            <div class="logout">
-                                <a href>로그아웃</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hompiInfo">
-                        <div class="space-between">
-                            <span>오늘 방문자</span>
-                            <span class="bold">30</span>
-                            <div class="gift-shop-new-badge">
-                                <img src="/static/images/common/new.png">
-                            </div>
-                        </div>
-                        <div class="newArticles space-between">
-                            <span>새 게시물</span>
-                            <span class="bold">30</span>
-                            <div class="gift-shop-new-badge">
-                                <img src="/static/images/common/new.png">
-                            </div>
-                        </div>
-                        <div class="space-between">
-                            <span>일촌 신청</span>
-                            <span class="bold">30</span>
-                            <div class="gift-shop-new-badge">
-                                <img src="/static/images/common/new.png">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bottom">
-                        <a href="#">내 미니홈피 바로가기</a>
-                    </div>
-                </div>
+                <div class="user-panel" th:replace="/home/fragment/userPanel.html"></div>
                 <div class="menuminihompi">
                     <h2>미니홈피</h2>
                     <ul class="menu-ul">
-                        <li><a href="#" class="active">전체보기</a></li>
+                        <li><a class="active" href="#">전체보기</a></li>
                         <li><a href="#">미니미</a></li>
                         <li><a href="#">미니룸</a></li>
                         <li><a href="#">미니홈피 스킨</a></li>
@@ -107,20 +43,22 @@
                 </div>
                 <div class="menuRecentItems">
                     <h2>최근 아이템</h2>
-                    <div id="up-arrow" class="arrow">
+                    <div class="arrow" id="up-arrow">
                         <i class="bi bi-caret-up-fill"></i>
                     </div>
-                            <div id="recent-item-swiper" class="swiper">
-                                <div class="swiper-wrapper">
-                                    <!-- TODO: 최근본아이템 데이더바인딩, onclick은 디버깅용이니 지워주세요  -->
-                                    <div th:each="i : ${#numbers.sequence(1, 5)}" class="recent-item-link swiper-slide">
-                                        <a onclick="console.log('아이템누름')" ><img src="/static/images/common/good.png" alt="상품명"></a>
-                                        <p th:text="'아이템 이름'"></p>
-                                        <button onclick="console.log('닫기누름')" id="delete-recent-item" class="delete-recent-item"><i class="xi-close-min"></i></button>
-                                    </div>
-                                </div>
+                    <div class="gift-swiper" id="recent-item-swiper">
+                        <div class="swiper-wrapper">
+                            <!-- TODO: 최근본아이템 데이더바인딩, onclick은 디버깅용이니 지워주세요  -->
+                            <div class="recent-item-link swiper-slide" th:each="i : ${#numbers.sequence(1, 5)}">
+                                <a onclick="console.log('아이템누름')"><img alt="상품명"
+                                                                       src="/static/images/common/good.png"></a>
+                                <p th:text="'아이템 이름'"></p>
+                                <button class="delete-recent-item" id="delete-recent-item"
+                                        onclick="console.log('닫기누름')"><i class="xi-close-min"></i></button>
                             </div>
-                    <div id="down-arrow" class="arrow">
+                        </div>
+                    </div>
+                    <div class="arrow" id="down-arrow">
                         <i class="bi bi-caret-down-fill"></i>
                     </div>
                 </div>
@@ -130,7 +68,7 @@
                     <h2>새로나왔어요</h2>
                 </div>
                 <div class="itemContainer">
-                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
+                    <div class="itemCard" th:each="i : ${#numbers.sequence(1, 4)}">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -155,10 +93,10 @@
                         </div>
                         <div class="itemBuy">
                             <div class="itemGift">
-                                <i class="bi bi-gift"></i>
+                                <i class="xi-gift-o"></i>
                             </div>
                             <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
+                                <i class="xi-cart-o"></i>
                             </div>
                             <div class="itemPurchase">
                                 <span>구매하기</span>
@@ -170,7 +108,7 @@
                     <h2>인기 BGM</h2>
                 </div>
                 <div class="itemContainer">
-                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
+                    <div class="itemCard" th:each="i : ${#numbers.sequence(1, 4)}">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -195,10 +133,10 @@
                         </div>
                         <div class="itemBuy">
                             <div class="itemGift">
-                                <i class="bi bi-gift"></i>
+                                <i class="xi-gift-o"></i>
                             </div>
                             <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
+                                <i class="xi-cart-o"></i>
                             </div>
                             <div class="itemPurchase">
                                 <span>구매하기</span>
@@ -210,7 +148,7 @@
                     <h2>주간 인기아이템</h2>
                 </div>
                 <div class="itemContainer">
-                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
+                    <div class="itemCard" th:each="i : ${#numbers.sequence(1, 4)}">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -235,10 +173,10 @@
                         </div>
                         <div class="itemBuy">
                             <div class="itemGift">
-                                <i class="bi bi-gift"></i>
+                                <i class="xi-gift-o"></i>
                             </div>
                             <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
+                                <i class="xi-cart-o"></i>
                             </div>
                             <div class="itemPurchase">
                                 <span>구매하기</span>
@@ -250,7 +188,7 @@
                     <h2>새로나왔어요 테스트</h2>
                 </div>
                 <div class="itemContainer">
-                    <div th:each="i : ${#numbers.sequence(1, 4)}" class="itemCard">
+                    <div class="itemCard" th:each="i : ${#numbers.sequence(1, 4)}">
                         <div class="itemImg">
                             <img src="/static/images/common/good.png">
                         </div>
@@ -275,10 +213,10 @@
                         </div>
                         <div class="itemBuy">
                             <div class="itemGift">
-                                <i class="bi bi-gift"></i>
+                                <i class="xi-gift-o"></i>
                             </div>
                             <div class="itemCart">
-                                <i class="bi bi-cart2"></i>
+                                <i class="xi-cart-o"></i>
                             </div>
                             <div class="itemPurchase">
                                 <span>구매하기</span>
@@ -290,15 +228,15 @@
             <div class="cartContainer">
                 <div class="selectedItemMenu">
                     <div class="selectItem">
-                        <i class="bi bi-check-square-fill"></i>
+                        <i class="xi-check-square"></i>
                         <span>선택한 아이템을</span>
                     </div>
                     <div class="itemBuyFinal">
                         <div class="itemGift">
-                            <i class="bi bi-gift"></i>
+                            <i class="xi-gift-o"></i>
                         </div>
                         <div class="itemCart">
-                            <i class="bi bi-cart2"></i>
+                            <i class="xi-cart-o"></i>
                         </div>
                         <div class="itemPurchase">
                             <span>구매하기</span>
@@ -307,17 +245,17 @@
                 </div>
                 <div class="cart">
                     <h2>장바구니</h2>
-                    <div id="item-up-arrow" class="item-up-arrow arrow">
+                    <div class="item-up-arrow arrow" id="item-up-arrow">
                         <i class="bi bi-caret-up-fill"></i>
                     </div>
                     <div class="items">
-                        <div id="item-swiper" class="swiper">
+                        <div id="item-swiper" class="gift-swiper">
                             <div class="swiper-wrapper">
-                                <div th:each="i : ${#numbers.sequence(1, 3)}" class="swiper-slide">
-                                    <div><input type="checkbox" name="" id=""> <span>아이템종류</span></div>
+                                <div class="swiper-slide" th:each="i : ${#numbers.sequence(1, 3)}">
+                                    <div><input id="" name="" type="checkbox"> <span>아이템종류</span></div>
                                     <p>이건아이템이름입니..</p>
                                     <div>
-                                        <select name="" id="">
+                                        <select id="" name="">
                                             <option>1일</option>
                                             <option>7일</option>
                                             <option>30일</option>
@@ -330,11 +268,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div th:each="i : ${#numbers.sequence(1, 3)}" class="swiper-slide">
-                                    <div><input type="checkbox" name="" id=""> <span>아이템종류</span></div>
+                                <div class="swiper-slide" th:each="i : ${#numbers.sequence(1, 3)}">
+                                    <div><input id="" name="" type="checkbox"> <span>아이템종류</span></div>
                                     <p>이건아이템이름입니..</p>
                                     <div>
-                                        <select name="" id="">
+                                        <select id="" name="">
                                             <option>1일</option>
                                             <option>7일</option>
                                             <option>30일</option>
@@ -350,7 +288,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="item-down-arrow" class="item-down-arrow arrow">
+                    <div class="item-down-arrow arrow" id="item-down-arrow">
                         <i class="bi bi-caret-down-fill"></i>
                     </div>
                     <div class="itemSum">
@@ -366,7 +304,7 @@
                     </div>
                     <div class="finalItemBuy">
                         <div class="itemGiftFinal">
-                            <i class="bi bi-gift"></i>
+                            <i class="xi-gift-o"></i>
                         </div>
                         <div class="itemPurchaseFinal">
                             <span>구매하기</span>
@@ -379,8 +317,7 @@
 </div>
 <!-- 선물가게 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script defer src="/static/js/home/giftShop.js"></script>
+    <script th:type="module" th:src="@{/static/js/home/giftShop.js}"></script>
 </th:block>
 </body>
 </html>
