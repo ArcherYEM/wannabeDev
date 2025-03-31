@@ -50,7 +50,7 @@ public class DiaryService {
 
     @Transactional
     public ResponseEntity<Boolean> addDiary(Long hompiId, Long folderId, HttpSession session,
-                                            String diaryContent, String availStatus){
+                                            String diaryContent, String availStatus,String diaryTitle){
 
         SessionUserDTO visitUser = (SessionUserDTO)session.getAttribute("userData");
         if(diaryMapper.findDiaryByDay(LocalDate.now(), hompiId, folderId) != null){
@@ -59,20 +59,12 @@ public class DiaryService {
         if(!visitUser.getHompiId().equals(hompiId)){
             return ResponseEntity.badRequest().build();
         }
-
-        if(availStatus.equals("전체 공개")){
-            availStatus = "31";
-        }else if(availStatus.equals("일촌 공개")){
-            availStatus = "32";
-        }else{
-            availStatus = "33";
-        }
-
         HompiDiary diary = HompiDiary.builder()
                 .hompiId(hompiId)
                 .diaryContent(diaryContent)
                 .availStatus(availStatus)
                 .folderId(folderId)
+                .diaryName(diaryTitle)
                 .build();
         if(diaryMapper.saveDiary(diary) == 0){
             return ResponseEntity.badRequest().build();
@@ -125,20 +117,13 @@ public class DiaryService {
             return false;
         }
 
-        if(availStatus.equals("전체 공개")){
-            availStatus = "31";
-        }else if(availStatus.equals("일촌 공개")){
-            availStatus = "32";
-        }else{
-            availStatus = "33";
-        }
-
         HompiDiaryDTO diaryDTO = HompiDiaryDTO.builder()
                 .hompiId(hompiId)
                 .diaryId(diaryId)
                 .diaryContent(diaryContent)
                 .availStatus(availStatus)
                 .build();
+
         if(diaryMapper.updateDiary(diaryDTO) == 0){
             return false;
         }
