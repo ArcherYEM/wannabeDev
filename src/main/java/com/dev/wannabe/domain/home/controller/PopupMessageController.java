@@ -4,19 +4,15 @@ import com.dev.wannabe.domain.home.model.dto.PopupMessageDTO;
 import com.dev.wannabe.domain.home.service.LoginService;
 
 import com.dev.wannabe.domain.home.service.PopupMessageService;
-import com.sun.mail.iap.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -84,7 +80,7 @@ public class PopupMessageController {
         int totalPages = (int) Math.ceil((double) reciveMsgCount / Integer.parseInt(pageSize));
         model.addAttribute("totalPages", totalPages);  // totalPages를 모델에 추가
 
-        return "common/popup/inc/popupMessageList";  // JSP 또는 Thymeleaf 페이지 반환
+        return "common/popup/inc/popupMessageList";
     }
 
 }
