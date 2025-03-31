@@ -34,7 +34,11 @@ $(document).ready(function(){
             reader.readAsDataURL(file);
             albumImg = file;
         } else {
-            alert('이미지 파일만 선택 가능합니다.');
+            Swal.fire({
+                icon: 'error ',
+                title: '이미지 변경 실패!',
+                text: '이미지 파일만 올려주세요.'
+           });
         }
     });
 
@@ -58,6 +62,7 @@ $(document).ready(function(){
 
             isSaveMode = true;
             $(this).text('저장');
+            $('#editAlbumBtn').text("수정");
         } else {
             const folderId = $('#albumFolderId').val();
             const albumTitle = $('#albumTitle').val();
@@ -65,10 +70,19 @@ $(document).ready(function(){
             const albumContent = $('#albumText').val();
 
             if(!folderId || !albumTitle || !albumAvailStatus || !albumContent ){
+                Swal.fire({
+                    icon: 'error',
+                    title: '실패!',
+                    text: '사진첩의 제목과 설명은 필수입니다.'
+                });
                 alert('사진첩의 제목과 설명은 필수입니다.');
                 return;
             } else if (!albumImg){
-                alert('이미지를 선택하세요.');
+                Swal.fire({
+                    icon: 'error ',
+                    title: '실패!',
+                    text: '사진첩의 이미지 업로드는 필수입니다.'
+                });
                 return;
             }
 
@@ -114,6 +128,7 @@ $(document).ready(function(){
 
             isEditMode = true;
             $(this).text('저장');
+            $('#editAlbumBtn').text("등록");
         } else {
             const folderId = $('#albumFolderId').val();
             const albumTitle = $('#albumTitle').val();
@@ -123,10 +138,19 @@ $(document).ready(function(){
 
 
             if(!folderId || !albumTitle || !albumAvailStatus || !albumContent ){
-                alert('사진첩의 제목과 설명은 필수입니다.');
+                Swal.fire({
+                    icon: 'error',
+                    title: '실패!',
+                    text: '사진첩의 제목과 설명은 필수입니다.'
+                });
+
                 return;
             } else if (!albumImg){
-                alert('이미지를 선택하세요.');
+                Swal.fire({
+                    icon: 'error ',
+                    title: '실패!',
+                    text: '사진첩의 이미지 업로드는 필수입니다.'
+                });
                 return;
             }
 
@@ -147,6 +171,9 @@ $(document).ready(function(){
 
     // 폴더 이름 클릭했을 때
     $(document).on('click', '.folderContentWrap p',function(){
+        if(folderContentType !== '02'){
+                return;
+        }
         const clickAlbumId = $(this).data('id');
         albumId = clickAlbumId;
         getAlbumContent(albumId);
@@ -155,16 +182,38 @@ $(document).ready(function(){
     // (게시글 삭제)
     $(document).on('click', '#deleteAlbumBtn', function(){
         if($('.album-content').length === 0){
-            alert('사진첩이 존재하지 않습니다.');
+            Swal.fire({
+                icon: 'error ',
+                title: '삭제 실패!',
+                text: '사진첩이 존재하지 않습니다.'
+            });
             return;
         }
         console.log('albumId: ' + albumId);
         console.log("hompiIdAlbum: " + hompiIdAlbum);
-        if(confirm("삭제하시겠습니까?")){
-        } else {
-            alert("삭제 취소!");
-            return;
-        }
+        Swal.fire({
+            title: '삭제하시겠습니까?',
+            text: '이 작업은 되돌릴 수 없습니다.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소',
+            reverseButtons: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '삭제 완료!',
+                    text: '사진첩이 성공적으로 삭제되었습니다.'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: '삭제 취소',
+                    text: '사진첩 삭제가 취소되었습니다.'
+                });
+            }
+        });
         deleteAlbum(albumId,hompiIdAlbum);
         moveFolder();
         getFolder();
@@ -182,7 +231,11 @@ $(document).ready(function(){
         console.log('commentContent: ' + commentContent);
         if ((availStatus === null || availStatus === undefined || availStatus === "") ||
             (commentContent === null || commentContent === undefined || commentContent === "")){
-            alert("게시글을 선택해주세요.");
+            Swal.fire({
+                icon: 'error ',
+                title: '댓글 등록 실패!',
+                text: '게시글을 선택해주세요.'
+            });
             $('#commentContent').val('');
             return;
         }
@@ -222,7 +275,11 @@ $(document).ready(function(){
            console.log('commentContent: ' + commentContent);
 
            if (commentContent === '') {
-               alert('댓글을 입력해주세요.');
+               Swal.fire({
+                   icon: 'error ',
+                   title: '댓글 수정 실패!',
+                   text: '댓글을 입력해주세요.'
+               });
                return;
            }
 
@@ -260,7 +317,11 @@ function displayAlbum() {
              checkStatus();
          },
          error: function (xhr, status, error) {
-             alert("사진첩 띄우기 실패!\n오류내용: " + error);
+             Swal.fire({
+                 icon: 'error ',
+                 title: '실패!',
+                 text: '다시 시도해주세요.'
+             });
          }
     });
 }
@@ -275,14 +336,22 @@ function saveAlbum(formData){
         processData: false,
         contentType: false,
         success: function(response){
-            alert('게시글이 성공적으로 저장되었습니다.');
+            Swal.fire({
+                icon: 'success ',
+                title: '게시글 등록 성공!',
+                text: '게시글이 등록되었습니다.'
+            });
             console.log(response);
             resetUploadForm();
             getAlbumContent(1);
             getFolder();
         },
         error: function(error){
-            alert('게시글 저장 실패.');
+            Swal.fire({
+                icon: 'error ',
+                title: '게시글 저장 실패!',
+                text: '다시 시도해주세요.'
+            });
             console.error(error);
         }
     });
@@ -298,14 +367,23 @@ function updateAlbum(formData){
         processData: false,
         contentType: false,
         success: function(response){
-            alert('게시글이 성공적으로 수정되었습니다.');
+            Swal.fire({
+                icon: 'success ',
+                title: '게시글 수정 성공!',
+                text: '게시글이 수정되었습니다.'
+            });
             console.log(response);
             getAlbumContent(1);
             getFolder();
         },
         error: function(error){
-            alert('게시글 저장 실패.');
+            Swal.fire({
+                icon: 'error ',
+                title: '게시글 수정 실패!',
+                text: '다시 시도해주세요.'
+            });
             console.error(error);
+            getAlbumContent(1);
         }
     });
 }
@@ -408,12 +486,10 @@ function deleteAlbum(albumId,hompiIdAlbum){
         }),
         success: function (response){
             console.log("response: " + response);
-            alert('삭제 성공!');
             getAlbumContent(1);
         },
         error: function(response){
             console.log("response: " + response);
-            alert('삭제 실패!');
         }
     });
 }
@@ -431,13 +507,21 @@ function saveComment(hompiIdAlbum, albumId, availStatus, commentContent) {
         }),
         success: function (response){
             console.log("response: " + response);
-            alert('댓글 등록 성공');
+            Swal.fire({
+                icon: 'success ',
+                title: '댓글 등록 성공!!',
+                text: '댓글이 등록되었습니다.'
+            });
             $('#commentContent').val('');
             getAlbumContent(albumId);
         },
         error: function(response){
             console.log("response: " + response);
-            alert('댓글 등록 실패');
+            Swal.fire({
+                icon: 'error ',
+                title: '댓글 등록 실패!',
+                text: '다시 시도해주세요.'
+            });
             $('#commentContent').val('');
             getAlbumContent(albumId);
         }
@@ -462,22 +546,26 @@ function getAlbumComment(hompiIdAlbum, albumId){
                 const commentHTML = `
                     <div class="comment-info">
                         <div class="comment-user-content">
-                            <div class="comment-user-name">${comment.userName}</div>
+                            <div class="comment-user-name">${comment.userName} : </div>
                             <div data-albumId="${comment.albumId}" data-commentId="${comment.commentId}"
                                  class="comment-display-content">${comment.commentContent}</div>
                             <div class="comment-edit-container" style="display: none;">
                                 <input type="text" class="commentContentEdit"/>
                             </div>
                         </div>
-                        <div class="comment-date">
-                            <div class="comment-insert-date">${comment.insertDt}</div>
+                        <div class="comment-date-btn">
+                            <div class="comment-date">
+                                <div class="comment-insert-date">${comment.insertDt}</div>
+                            </div>
+                            <div class="comment-btn-container">
+                                <button class="editCommentBtn album-btn">수정</button>
+                                <button class="deleteCommentBtn album-btn">삭제</button>
+                                <button class="backCommentBtn album-btn">돌아가기</button>
+                            </div>
                         </div>
-                        <div class="comment-btn-container">
-                            <button class="editCommentBtn">수정</button>
-                            <button class="deleteCommentBtn">삭제</button>
-                            <button class="backCommentBtn">돌아가기</button>
-                        </div>
+                        <hr/>
                     </div>
+
                 `;
                 $('.comment-container').append(commentHTML);
             });
@@ -505,17 +593,26 @@ function deleteComment(hompiIdAlbum, commentId, albumId) {
         }),
         success: function (response){
             console.log("response: " + response);
-            alert('댓글 삭제 성공');
+            Swal.fire({
+                icon: 'success ',
+                title: '댓글 삭제 성공!',
+                text: '댓글이 삭제되었습니다.'
+            });
             getAlbumContent(albumId);
         },
         error: function(response){
             console.log("response: " + response);
-            alert('댓글 삭제 실패');
+            Swal.fire({
+                icon: 'error ',
+                title: '댓글 삭제 실패!',
+                text: '다시 시도해주세요.'
+            });
             getAlbumContent(albumId);
         }
     });
 }
 
+// 댓글 수정
 function updateComment(hompiIdAlbum, commentId, commentContent, albumId){
     $.ajax({
         type: "POST",
@@ -528,12 +625,20 @@ function updateComment(hompiIdAlbum, commentId, commentContent, albumId){
         }),
         success: function (response){
             console.log("response: " + response);
-            alert('댓글이 수정 성공');
+            Swal.fire({
+                 icon: 'success',
+                 title: '댓글 수정 성공!',
+                 text: '댓글이 수정되었습니다.'
+             });
             getAlbumContent(albumId);
         },
         error: function(response){
             console.log("response: " + response);
-            alert('댓글 수정 실패');
+            Swal.fire({
+                icon: 'error ',
+                title: '댓글 수정 실패!',
+                text: '다시 시도해주세요.'
+            });
             getAlbumContent(albumId);
         }
     });

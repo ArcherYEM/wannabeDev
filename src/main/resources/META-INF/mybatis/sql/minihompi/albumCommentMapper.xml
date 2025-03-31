@@ -25,7 +25,7 @@
                 A.ALBUM_COMMENT_CONTENT AS commentContent,
                 A.FIXED_YN AS fixedYN,
                 B.NAME AS userName,
-                DATE_FORMAT(A.INSERT_DT, '%Y.%m.%d %H.%i') AS insertDt
+                DATE_FORMAT(COALESCE(A.UPDATE_DT, A.INSERT_DT), '%Y.%m.%d %H:%i') AS insertDt
         FROM HOMPI_ALBUM_COMMENT A
         JOIN USER_BASIC B
           ON A.INSERT_USER_ID = B.USER_ID

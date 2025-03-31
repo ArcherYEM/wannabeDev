@@ -45,7 +45,6 @@ public class AlbumRestController {
         log.info("albumImg: " + albumImg);
         Long userId = userData.getUserId();
 
-        //TODO: 서비스 layer에 넣기 밑에 부분
         try {
             if (albumImg == null || albumImg.isEmpty()) {
                 return ResponseEntity.badRequest().build();
