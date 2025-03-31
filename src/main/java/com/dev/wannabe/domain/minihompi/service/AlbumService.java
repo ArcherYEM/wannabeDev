@@ -47,6 +47,7 @@ public class AlbumService {
         return albumMapper.findAlbumByAlbumDTO(albumDTO);
     }
 
+    @Transactional
     public SaveAlbumDTO getDefaultAlbum(Long hompiId){
         SaveAlbumDTO albumDTO = SaveAlbumDTO.builder()
                 .hompiId(hompiId)
@@ -54,10 +55,12 @@ public class AlbumService {
         return albumMapper.findDefaultAlbumByAlbumDTO(albumDTO);
     }
 
+    @Transactional
     public Integer deleteAlbum(Long albumId, Long hompiId){
         return albumMapper.deleteAlbum(albumId,hompiId);
     }
 
+    @Transactional
     public Integer updateAlbum(SaveAlbumDTO data){return albumMapper.updateAlbum(data);}
 
 }

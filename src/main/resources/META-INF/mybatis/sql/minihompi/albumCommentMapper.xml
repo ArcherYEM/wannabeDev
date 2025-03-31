@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.AlbumCommentMapper">
+
+    <insert id="saveComment" parameterType="AlbumComment">
+        INSERT INTO HOMPI_ALBUM_COMMENT(
+            HOMPI_ID,
+            ALBUM_ID,
+            ALBUM_COMMENT_CONTENT,
+            INSERT_USER_ID
+        )
+        VALUES(
+            #{hompiId},
+            #{albumId},
+            #{commentContent},
+            #{userId}
+        )
+    </insert>
+</mapper>

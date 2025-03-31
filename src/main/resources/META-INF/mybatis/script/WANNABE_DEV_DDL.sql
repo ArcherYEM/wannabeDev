@@ -704,17 +704,17 @@ CREATE TABLE HOMPI_BOARD_ATTACH (
  * =============================================START=============================================
  */
 CREATE TABLE HOMPI_FOLDER (
-                              HOMPI_ID BIGINT COMMENT '홈피 ID',
-                              FOLDER_ID BIGINT AUTO_INCREMENT UNIQUE COMMENT '폴더 ID',
+                              HOMPI_ID BIGINT NOT NULL COMMENT '홈피 ID',
+                              FOLDER_ID BIGINT NOT NULL COMMENT '폴더 ID',
+                              CONTENTS_TYPE VARCHAR(2) NOT NULL COMMENT '콘텐츠 종류',
                               FOLDER_NAME VARCHAR(500) COMMENT '폴더 이름',
-                              CONTENTS_TYPE VARCHAR(2) COMMENT '콘텐츠 종류',
                               AVAIL_STATUS VARCHAR(2) COMMENT '상태',
                               REMARKS VARCHAR(500) COMMENT '비고',
                               INSERT_USER_ID BIGINT COMMENT '등록자 ID',
                               INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
                               UPDATE_USER_ID BIGINT COMMENT '수정자 ID',
                               UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일시',
-                              PRIMARY KEY (HOMPI_ID, FOLDER_ID)
+                              PRIMARY KEY (HOMPI_ID, FOLDER_ID,CONTENTS_TYPE)
 ) COMMENT='홈피 폴더';
 /**
 * ==============================================END==============================================
@@ -1215,11 +1215,38 @@ CREATE TABLE EMAIL_AUTH (
                                     UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
                                     PRIMARY KEY (AUTH_ID)
 ) COMMENT='이메일 인증';
+
+
 /**
 * ==============================================END==============================================
 */
 
+/**
+* NAME     : HOMPI_DIARY_COMMENT
+* TYPE     : TABLE
+* AUTHOR   : DDUK
+* DATE     : 2025-03-31
+* DESC     : 다이어리 댓글 테이블 생성 스크립트
+* =============================================START=============================================
+*/
+CREATE TABLE HOMPI_DIARY_COMMENT (
+                                        HOMPI_DIARY_COMMENT_ID bigint(20) NOT NULL AUTO_INCREMENT COMMENT '다이어리 댓글 ID',
+                                        DIARY_ID bigint(20) NOT NULL COMMENT '다이어리 ID',
+                                        HOMPI_ID bigint(20) NOT NULL COMMENT '홈피 ID',
+                                        DIARY_COMMENT_CONTENT varchar(200) DEFAULT NULL COMMENT '다이어리 댓글',
+                                        FIXED_YN varchar(1) DEFAULT NULL COMMENT '고정 여부',
+                                        REMARKS varchar(100) DEFAULT NULL COMMENT '비고',
+                                        INSERT_USER_ID varchar(40) DEFAULT NULL COMMENT '등록자 ID',
+                                        INSERT_DT varchar(100) DEFAULT CURRENT_TIMESTAMP() COMMENT '등록 일시',
+                                        UPDATE_USER_ID varchar(40) DEFAULT NULL COMMENT '수정자 ID',
+                                        UPDATE_DT varchar(100) DEFAULT NULL COMMENT '수정 일시',
+                                        PRIMARY KEY (HOMPI_DIARY_COMMENT_ID)
+) COMMENT='다이어리 댓글';
 
+
+/**
+* ==============================================END==============================================
+*/
 
 
 

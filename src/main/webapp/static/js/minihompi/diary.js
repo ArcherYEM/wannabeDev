@@ -12,6 +12,13 @@ $(document).ready(function(){
         getDiaryByDay(day);
     });
 
+    $(document).on('click','.folderContentWrap p',function(){
+        const diaryId = $(this).data('id');
+        getDiaryContent(diaryId);
+        $(this).css('background-color','gainsboro');
+        $('#trackContainer button').not($(this)).css('background-color','none');
+    });
+
     //다이어리 생성 함수: textarea 없으면 textarea 생성
     $(document).on('click','#registerBtn',function(){
         if($('#diaryStatus').is('.updateContent')){
@@ -27,7 +34,7 @@ $(document).ready(function(){
                 <option value="31">전체 비허용</option>
             </select><span class="folderSpan">선택 폴더: </span>
             <select id="selectFolder">`;
-                $('.diaryFolderWrap button').each(function(element){
+                $('.folderWrap button').each(function(index,element){
                     content += `<option value="${$(this).val()}">${$(this).text()}</option>`
                 });
                 content += `</select></div><textarea></textarea>`;
@@ -94,7 +101,7 @@ $(document).ready(function(){
 
     $(document).on('click','.diaryCommentDelBtn', function(){
         const commentId = $(this).closest('li').attr('value');
-        if(confirm('정말 삭제하기겠습니까'))
+        if(confirm('정말 삭제하시겠습니까'))
         deleteDiaryComment(commentId);
     })
 });
@@ -201,7 +208,7 @@ function getDiaryContent(diaryId){
 }
 
 function getDiaryByDay(day){
-    const folderId = $('.diaryFolderOn').val();
+    const folderId = $('.folderOn').val();
     if(!folderId){
         alert('폴더를 선택해주세요');
         return;
@@ -234,7 +241,7 @@ function deleteDiary(diaryId){
         success: function(response){
             alert('삭제 성공')
             getDiaryContent(0);
-            getDiaryFolder()
+            getDiaryFolder();
         },
         error: function(error){
             console.error(error);
@@ -261,91 +268,90 @@ function updateDiary(diaryId, diaryContent){
     })
 }
 
-//function addDiaryComment(comment){
-//    const diaryId = $('.diaryContent').data('id');
-//    const availStatus = $('.diaryContent').data('avail');
-//    $.ajax({
-//        type: 'POST',
-//        url: '/api/mini-hompi/diary-comment/save/' + diaryId + '/' + hompiOwnerId,
-//        data: {comment: comment, availStatus: availStatus},
-//        success: function(response){
-//            alert('댓글 작성 성공');
-//            getDiaryComment();
-//            $('#diaryComment').val('');
-//        },
-//        error: function(error){
-//            alert('댓글을 작성할 권한이 없습니다');
-//            console.error(error);
-//        }
-//    })
-//}
-//
-//function getDiaryComment(){
-//    const diaryId = $('.diaryContent').data('id');
-//    const viewUserId = sessionStorage.getItem('userId');
-//    $.ajax({
-//        type: 'GET',
-//        url: '/api/mini-hompi/diary-comment/read/' + diaryId + '/' + hompiOwnerId,
-//        success: function(response){
-//            $('.commentList').children().remove();
-//            response.forEach(function(commentDTO){
-//                    const commentHtml = `
-//                        <li value="${commentDTO.commentId}">${commentDTO.comment}
-//                            <span class="writerName">(${commentDTO.userName})</span>
-//                            ${(commentDTO.useYn == "Y")
-//                                ? `<span class="insertDate">${commentDTO.insertDt}고정</span>`
-//                                : `<span class="insertDate">${commentDTO.insertDt}</span>`}
-//                            ${(commentDTO.userId == viewUserId || commentDTO.hompiId == hompiOwnerId)
-//                            ? '<img src="/static/images/common/delete.png" class="diaryCommentDelBtn">' : ''}
-//                        </li>`;
-//                        if(commentDTO.useYn == "Y"){
-//                            $('.commentList').prepend(commentHtml);
-//                        }else{
-//                            $('.commentList').append(commentHtml);
-//                        }
-//            })
-//            const diaryContentStatus = $('.diaryContent').data('avail');
-//            if(diaryContentStatus < commentStatus){
-//                $('.diaryCommentTable').hide();
-//                $('.diaryCommentNo').show();
-//            }else{
-//                $('.diaryCommentTable').show();
-//                $('.diaryCommentNo').hide();
-//            }
-//        },
-//        error: function(error){
-//            console.error(error);
-//        }
-//    })
-//}
-//
-//function deleteDiaryComment(commentId){
-//    const viewUserId = sessionStorage.getItem('userId');
-//    $.ajax({
-//        type: 'DELETE',
-//        url: '/api/mini-hompi/diary-comment/delete/' + commentId +'/' + viewUserId + '/' + hompiOwnerId,
-//        success: function(response){
-//            alert('삭제 성공')
-//            getDiaryComment();
-//        },
-//        error: function(error){
-//            console.error(error);
-//        }
-//    })
-//}
-//
-//function checkCommentUser(){
-//    $.ajax({
-//        type: 'GET',
-//        url: '/mini-hompi/diary/comment/check-status/' + hompiOwnerId,
-//        success: function(response){
-//            commentStatus = response;
-//        },
-//        error: function(error){
-//            console.error(error);
-//        }
-//    })
-//}
+function addDiaryComment(comment){
+    const diaryId = $('.diaryContent').data('id');
+    const availStatus = $('.diaryContent').data('avail');
+    $.ajax({
+        type: 'POST',
+        url: '/api/mini-hompi/diary-comment/save/' + diaryId + '/' + hompiOwnerId,
+        data: {comment: comment, availStatus: availStatus},
+        success: function(response){
+            alert('댓글 작성 성공');
+            getDiaryComment();
+            $('#diaryComment').val('');
+        },
+        error: function(error){
+            alert('댓글을 작성할 권한이 없습니다');
+            console.error(error);
+        }
+    })
+}
+
+function getDiaryComment(){
+    const diaryId = $('.diaryContent').data('id');
+    const viewUserId = sessionStorage.getItem('userId');
+    $.ajax({
+        type: 'GET',
+        url: '/api/mini-hompi/diary-comment/read/' + diaryId + '/' + hompiOwnerId,
+        success: function(response){
+            $('.commentList').children().remove();
+            response.forEach(function(commentDTO){
+                    const commentHtml = `
+                        <li value="${commentDTO.commentId}">${commentDTO.comment}
+                            <span class="writerName">(${commentDTO.userName})</span>
+                            ${(commentDTO.useYn == "Y")
+                                ? `<span class="insertDate">${commentDTO.insertDt}고정</span>`
+                                : `<span class="insertDate">${commentDTO.insertDt}</span>`}
+                            ${(commentDTO.userId == viewUserId || commentDTO.hompiId == hompiOwnerId)
+                            ? '<img src="/static/images/common/delete.png" class="diaryCommentDelBtn">' : ''}
+                        </li>`;
+                        if(commentDTO.useYn == "Y"){
+                            $('.commentList').prepend(commentHtml);
+                        }else{
+                            $('.commentList').append(commentHtml);
+                        }
+            })
+            const diaryContentStatus = $('.diaryContent').data('avail');
+            if(diaryContentStatus < commentStatus){
+                $('.diaryCommentTable').hide();
+                $('.diaryCommentNo').show();
+            }else{
+                $('.diaryCommentTable').show();
+                $('.diaryCommentNo').hide();
+            }
+        },
+        error: function(error){
+            console.error(error);
+        }
+    })
+}
+
+function deleteDiaryComment(commentId){
+    const viewUserId = sessionStorage.getItem('userId');
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/mini-hompi/diary-comment/delete/' + commentId +'/' + viewUserId + '/' + hompiOwnerId,
+        success: function(response){
+            alert('삭제 성공')
+            getDiaryComment();
+        },
+        error: function(error){
+            console.error(error);
+        }
+    })
+}
+function checkCommentUser(){
+    $.ajax({
+        type: 'GET',
+        url: '/mini-hompi/diary/comment/check-status/' + hompiOwnerId,
+        success: function(response){
+            commentStatus = response;
+        },
+        error: function(error){
+            console.error(error);
+        }
+    })
+}
 
 function checkStatus(){
     $.ajax({

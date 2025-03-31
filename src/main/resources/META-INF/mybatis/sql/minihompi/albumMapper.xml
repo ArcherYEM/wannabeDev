@@ -96,7 +96,7 @@
             ALBUM_IMG=      #{albumImage},
             UPDATE_USER_ID= #{userId}
      WHERE ALBUM_ID=        #{albumId}
-       AND HOMPID_ID=       #{hompiId}
+       AND HOMPI_ID=       #{hompiId}
 </update>
 
 </mapper>
