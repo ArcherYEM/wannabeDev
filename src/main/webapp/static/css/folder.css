@@ -35,12 +35,6 @@ input[type="text"].folderInput{
     display: flex;
 }
 
-.folderName{
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-}
-
 .folderOn{
     background-color: gainsboro;
 }
@@ -48,3 +42,186 @@ input[type="text"].folderInput{
 .folderSpan{
     margin-left: 10px;
 }
+
+.folderBottomWrap{
+    margin-left: 20px;
+    width: auto;
+    display: inline-block;
+}
+
+.toggleBottomWrap{
+    display: none;
+}
+
+.folderBottomWrap img{
+    width: 20px;
+}
+.folderBottomWrap button{
+    border: 1px solid #333;
+    border-radius: 5px;
+    width: 180px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.editFolderMenu{
+    border-radius: 5px;
+}
+
+.editFolderMenu{
+    cursor: pointer;
+    text-align: center;
+}
+
+.editFolderMenu.hidden{
+    display: none;
+}
+
+.editFolderMenu li{
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#folderEditModal{
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalContent{
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 320px;
+    border-radius: 10px;
+    padding-top: 15px;
+}
+
+.folderModalTitle{
+    text-align: left;
+}
+
+.modalContentsWrap{
+    text-align: center;
+    display: flex;
+    gap: 10px;
+}
+
+#updateFolderNameBtn, #folderModalExit{
+    border: 1px solid;
+    border-radius: 5px;
+    color: white;
+}
+
+#updateFolderNameBtn{
+    background-color: blue;
+}
+
+#folderModalExit{
+    background-color: red;
+}
+
+input[type="text"].folderNameInput{
+    height: 25px;
+    border-radius: 5px;
+}
+
+.folderModalTop{
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.folderModalTop select{
+    border-radius: 5px;
+}
+
+#folderWrap{
+    margin-left: 15px;
+    height: 350px;
+}
+
+#folderWrap button{
+    border: none;
+}
+
+#folderTitle{
+    color: blue;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.folderNameWrap{
+    display: none;
+}
+
+.folderAddBtn{
+    display: none;
+}
+
+input[type="text"].folderInput{
+    height: 25px;
+    width: 150px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.folderInputBtn{
+    background: orange;
+    height: 23px;
+    border-radius: 5px;
+}
+
+.statusSelect{
+    display: none;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+.folderSelectWrap{
+    display: flex;
+}
+
+.folderOn{
+    background-color: gainsboro;
+}
+
+.folderContentWrap p{
+    margin-top: 3px;
+    margin-left: 5px
+}
+
+.folderSpan{
+    margin-left: 10px;
+}
+
+.folderDeleteImg{
+    display: none;
+}
+
+.smallFolderWrap{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1px;
+}
+
+.folderDelBtn{
+    margin-right: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+    color: white;
+    background-color: red;
+    display: none;
+}
+
+
+
+

@@ -202,26 +202,6 @@ table #day {
     white-space: pre-wrap;
 }
 
-/* left */
-#folderWrap{
-    margin-left: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: 5px;
-    height: 400px;
-}
-
-#folderWrap button{
-    border: none;
-}
-
-#folderTitle{
-    color: blue;
-    margin-left: 20px;
-    margin-top: 10px;
-}
-
 hr{
     display: block;
 }
@@ -235,55 +215,7 @@ button{
     margin-bottom: 3px;
 }
 
-.folderNameWrap{
-    display: none;
-}
 
-.folderAddBtn{
-    display: none;
-}
-
-input[type="text"].folderInput{
-    height: 25px;
-    width: 150px;
-    text-align: center;
-    border-radius: 5px;
-}
-
-.folderInputBtn{
-    background: orange;
-    height: 23px;
-    border-radius: 5px;
-}
-
-.statusSelect{
-    display: none;
-    margin-left: 20px;
-    border-radius: 10px;
-}
-
-.folderSelectWrap{
-    display: flex;
-}
-
-.folderName{
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-}
-
-.folderOn{
-    background-color: gainsboro;
-}
-
-.folderContentWrap p{
-    margin-top: 3px;
-    margin-left: 5px
-}
-
-.folderSpan{
-    margin-left: 10px;
-}
 
 .diarySelectWrap{
     text-align: center;
@@ -336,5 +268,4 @@ input[type="text"].folderInput{
 .diaryCommentNo{
     display: none;
 }
-
 

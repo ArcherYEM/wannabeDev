@@ -83,20 +83,34 @@ public class FolderController {
         return ResponseEntity.ok(contents);
     }
 
-    @PutMapping("update/{hompiId}/{updateFolderId}/{updateFolderName}")
+    @PutMapping("/update/{hompiId}/{updateFolderId}/{contentType}/{updateFolderName}")
     @ResponseBody
-    public ResponseEntity<Void> updateFolder(@PathVariable Long hompiId, @PathVariable Long updateFolderId, @PathVariable String updateFolderName, HttpServletRequest request) {
+    public ResponseEntity<Void> updateFolder(@PathVariable Long hompiId,@PathVariable String contentType ,
+                                             @PathVariable Long updateFolderId, @PathVariable String updateFolderName, HttpServletRequest request) {
         Object userData = request.getSession().getAttribute("userData");
-        if (userData == null) { return ResponseEntity.badRequest().build(); }
+        if (userData == null){
+            return ResponseEntity.badRequest().build();
+        }
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
         if (hompiId != sessionUser.getHompiId()) {
             return ResponseEntity.badRequest().build();
         }
-        folderService.updateFolder(updateFolderId, updateFolderName);
+        folderService.updateFolder(updateFolderId, contentType ,updateFolderName);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("update/{hompiId}/{contentsType}/{updateFolderId}/{contentId}")
+    @DeleteMapping("/delete/{hompiId}/{folderId}/{contentType}")
+    public ResponseEntity<Boolean> deleteFolder(@PathVariable Long hompiId,@PathVariable Long folderId,
+                                                @PathVariable String contentType, HttpServletRequest request){
+        SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
+        if(userData.getHompiId() != hompiId){
+            return ResponseEntity.badRequest().build();
+        }
+        return folderService.deleteFolder(hompiId,folderId,contentType);
+    }
+
+
+    /*@PutMapping("update/{hompiId}/{contentsType}/{updateFolderId}/{contentId}")
     @ResponseBody
     public ResponseEntity<Void> updateFolderContent(@PathVariable Long hompiId, @PathVariable String contentsType, @PathVariable Long updateFolderId, @PathVariable Long contentId, HttpServletRequest request) {Object userData = request.getSession().getAttribute("userData");
         if (userData == null) { return ResponseEntity.badRequest().build(); }
@@ -106,6 +120,6 @@ public class FolderController {
         }
         folderService.updateFolderContents(updateFolderId, contentId, contentsType);
         return ResponseEntity.ok().build();
-    }
+    }*/
 
 }

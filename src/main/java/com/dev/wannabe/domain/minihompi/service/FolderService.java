@@ -4,10 +4,12 @@ import com.dev.wannabe.domain.minihompi.mapper.FolderMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.FolderContentsDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.FolderDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.FolderFindDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.UpdateFolderDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiFolder;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,11 +61,12 @@ public class FolderService {
         return folderMapper.findAllFolderContentByFolderFind(folderFind);
     }
 
-    public Void updateFolder(Long updateFolderId, String updateFolderName) {
+    public Void updateFolder(Long updateFolderId,String contentType, String updateFolderName) {
 
-        FolderDTO updateFolder = FolderDTO.builder()
+        UpdateFolderDTO updateFolder = UpdateFolderDTO.builder()
                 .folderId(updateFolderId)
                 .folderName(updateFolderName)
+                .contentType(contentType)
                 .build();
 
         folderMapper.updateFolder(updateFolder);
@@ -80,5 +83,13 @@ public class FolderService {
 
         folderMapper.updateFolderContent(updateFolderContents);
         return null;
+    }
+
+    public ResponseEntity<Boolean> deleteFolder(Long hompiId, Long folderId, String contentType) {
+        Integer deleteNum = folderMapper.deleteFolder(hompiId,folderId,contentType);
+        if(deleteNum == 0){
+            return ResponseEntity.ok(null);
+        }
+        return ResponseEntity.ok(true);
     }
 }

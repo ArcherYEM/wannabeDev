@@ -11,14 +11,6 @@ $(document).ready(function(){
         const day = $(this).text();
         getDiaryByDay(day);
     });
-
-    $(document).on('click','.folderContentWrap p',function(){
-        const diaryId = $(this).data('id');
-        getDiaryContent(diaryId);
-        $(this).css('background-color','gainsboro');
-        $('#trackContainer button').not($(this)).css('background-color','none');
-    });
-
     //다이어리 생성 함수: textarea 없으면 textarea 생성
     $(document).on('click','#registerBtn',function(){
         if($('#diaryStatus').is('.updateContent')){
