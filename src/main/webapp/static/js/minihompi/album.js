@@ -3,6 +3,7 @@ const hompiIdAlbum = url.split('/').pop();
 let albumImg = null;
 let isEditMode = false;
 let isSaveMode = false;
+let isCommentEditMode = false;
 
 $(document).ready(function(){
     // 사진첩 눌렀을 때 사진첩 창 뜨게하기
@@ -169,6 +170,82 @@ $(document).ready(function(){
         getFolder();
         getAlbumContent(1);
     });
+
+    // 댓글 등록
+    $(document).on('click', '#saveCommentBtn', function(){
+        console.log('click');
+        const albumId = $('#contentAlbum').data('albumid');
+        const availStatus = $('#contentAlbum').data('avail');
+        const commentContent = $('#commentContent').val();
+        console.log('albumId: ' + albumId);
+        console.log('availStatus: ' + availStatus);
+        console.log('commentContent: ' + commentContent);
+        if ((availStatus === null || availStatus === undefined || availStatus === "") ||
+            (commentContent === null || commentContent === undefined || commentContent === "")){
+            alert("게시글을 선택해주세요.");
+            $('#commentContent').val('');
+            return;
+        }
+
+        saveComment(hompiIdAlbum, albumId, availStatus, commentContent);
+    });
+
+    // 댓글 삭제
+    $(document).on('click', '.deleteCommentBtn', function(){
+        const albumId = $('.comment-display-content').data('albumid');
+        const commentId = $('.comment-display-content').data('commentid');
+        console.log('albumId: ' + albumId);
+        console.log('commentId:  ' + commentId);
+
+        deleteComment(albumId, commentId, hompiIdAlbum);
+    });
+
+    // 댓글 수정
+   $(document).on('click', '.editCommentBtn', function(){
+       const commentInfo = $(this).closest('.comment-info');  // 클릭된 댓글의 부모 요소만 선택
+       const commentEditContainer = commentInfo.find('.comment-edit-container');  // 그 안의 수정창만 선택
+       const commentDisplayContent = commentInfo.find('.comment-display-content');  // 그 안의 댓글 내용만 선택
+       const commentContentEdit = commentInfo.find('.commentContentEdit');  // 수정창의 입력 필드 선택
+
+       if (!isCommentEditMode) {
+           commentEditContainer.css('display', 'block');
+           commentDisplayContent.css('display', 'none');
+           isCommentEditMode = true;
+           $(this).text('저장');
+       } else {
+           const commentId = commentDisplayContent.data('commentid');
+           const albumId = commentDisplayContent.data('albumid');
+           const commentContent = commentContentEdit.val();
+
+           console.log('albumId: ' + albumId);
+           console.log('commentId: ' + commentId);
+           console.log('commentContent: ' + commentContent);
+
+           if (commentContent === '') {
+               alert('댓글을 입력해주세요.');
+               return;
+           }
+
+           updateComment(hompiIdAlbum, commentId, commentContent, albumId);
+           isCommentEditMode = false;
+           $(this).text('수정');
+
+           commentEditContainer.css('display', 'none');
+           commentDisplayContent.css('display', 'block');
+           commentDisplayContent.text(commentContent);
+       }
+   });
+
+    $(document).on('click', '#backAlbumBtn', function(){
+        const albumId = $('.folderContentWrap p').data('id');
+        getAlbumContent(albumId);
+    });
+
+    $(document).on('click', '.backCommentBtn', function(){
+        const albumId = $('.folderContentWrap p').data('id');
+        resetComment();
+        getAlbumContent(albumId);
+    });
 });
 
 // 사진첩 띄우는 함수
@@ -261,7 +338,7 @@ function checkStatus(){
         error: function(error){
             console.error(error);
         }
-    })
+    });
 }
 
 // 사진첩 데이터 띄우기
@@ -273,6 +350,13 @@ function getAlbumContent(albumId){
         success: function(response){
             console.log('response: ' + response);
             console.log('사진첩 데이터 불러오기 성공!');
+            resetComment();
+            getAlbumComment(albumId, hompiIdAlbum);
+            $('#editAlbumBtn').text('수정');
+            $('#saveBtn').text('등록');
+            isEditMode = false;
+            isSaveMode = false;
+            isCommentEditMode = false;
 
              // 기존 내용 초기화하기
             $('.display-img').empty();
@@ -299,7 +383,7 @@ function getAlbumContent(albumId){
             `);
 
             $('.display-text').append(`
-                <div data-avail="${response.availStatus}" data-albumId="${response.albumId}" class = "album-content" id="contentAlbum">${response.albumContent}</div>
+                <div data-albumid="${response.albumId}" data-avail="${response.availStatus}" class = "album-content" id="contentAlbum">${response.albumContent}</div>
             `);
             $('.display-album').append(`
                 <div data-id="${response.albumId}" class = "album-content" id="titleAlbum">${response.albumTitle}</div>
@@ -308,9 +392,8 @@ function getAlbumContent(albumId){
         error: function(error){
             console.log('요청 URL: ' + '/api/minihompi/getAlbum/' + albumId + '/' + hompiIdAlbum);
             console.log('error: ' + error);
-            alert('글');
         }
-    })
+    });
 }
 
 // 게시글 삭제
@@ -318,12 +401,11 @@ function deleteAlbum(albumId,hompiIdAlbum){
     $.ajax({
         type: "POST",
         url: "/api/minihompi/deleteAlbum",
+        contentType: "application/json",
         data: JSON.stringify({
             albumId: albumId,
             hompiId: hompiIdAlbum
         }),
-        contentType: "application/json",
-        dataType: "json",
         success: function (response){
             console.log("response: " + response);
             alert('삭제 성공!');
@@ -332,6 +414,127 @@ function deleteAlbum(albumId,hompiIdAlbum){
         error: function(response){
             console.log("response: " + response);
             alert('삭제 실패!');
+        }
+    });
+}
+
+// 댓글 저장
+function saveComment(hompiIdAlbum, albumId, availStatus, commentContent) {
+    $.ajax({
+        type: "POST",
+        url: "/api/minihompi/saveComment?availStatus=" + availStatus,
+        contentType: "application/json",
+        data: JSON.stringify({
+            hompiId: hompiIdAlbum,
+            albumId: albumId,
+            commentContent: commentContent
+        }),
+        success: function (response){
+            console.log("response: " + response);
+            alert('댓글 등록 성공');
+            $('#commentContent').val('');
+            getAlbumContent(albumId);
+        },
+        error: function(response){
+            console.log("response: " + response);
+            alert('댓글 등록 실패');
+            $('#commentContent').val('');
+            getAlbumContent(albumId);
+        }
+    });
+}
+
+// 댓글 조회
+function getAlbumComment(hompiIdAlbum, albumId){
+     $.ajax({
+        type: 'GET',
+        url: '/api/minihompi/getComment/' + hompiIdAlbum + '/' + albumId,
+        dataType: 'json',
+        success: function(response){
+            console.log(response);
+
+            if(!response){
+                console.log("댓글이 없습니다.");
+                return;
+            }
+
+            response.forEach(function(comment){
+                const commentHTML = `
+                    <div class="comment-info">
+                        <div class="comment-user-content">
+                            <div class="comment-user-name">${comment.userName}</div>
+                            <div data-albumId="${comment.albumId}" data-commentId="${comment.commentId}"
+                                 class="comment-display-content">${comment.commentContent}</div>
+                            <div class="comment-edit-container" style="display: none;">
+                                <input type="text" class="commentContentEdit"/>
+                            </div>
+                        </div>
+                        <div class="comment-date">
+                            <div class="comment-insert-date">${comment.insertDt}</div>
+                        </div>
+                        <div class="comment-btn-container">
+                            <button class="editCommentBtn">수정</button>
+                            <button class="deleteCommentBtn">삭제</button>
+                            <button class="backCommentBtn">돌아가기</button>
+                        </div>
+                    </div>
+                `;
+                $('.comment-container').append(commentHTML);
+            });
+        },
+        error: function(error){
+            console.error(error);
+        }
+    });
+}
+
+// 댓글창 초기화
+function resetComment() {
+    $('.comment-info').remove();
+}
+
+// 댓글 삭제
+function deleteComment(hompiIdAlbum, commentId, albumId) {
+     $.ajax({
+        type: "POST",
+        url: "/api/minihompi/deleteComment",
+        contentType: "application/json",
+        data: JSON.stringify({
+            hompiId: hompiIdAlbum,
+            commentId: commentId,
+        }),
+        success: function (response){
+            console.log("response: " + response);
+            alert('댓글 삭제 성공');
+            getAlbumContent(albumId);
+        },
+        error: function(response){
+            console.log("response: " + response);
+            alert('댓글 삭제 실패');
+            getAlbumContent(albumId);
+        }
+    });
+}
+
+function updateComment(hompiIdAlbum, commentId, commentContent, albumId){
+    $.ajax({
+        type: "POST",
+        url: "/api/minihompi/updateComment",
+        contentType: "application/json",
+        data: JSON.stringify({
+            hompiId: hompiIdAlbum,
+            commentId: commentId,
+            comment: commentContent
+        }),
+        success: function (response){
+            console.log("response: " + response);
+            alert('댓글이 수정 성공');
+            getAlbumContent(albumId);
+        },
+        error: function(response){
+            console.log("response: " + response);
+            alert('댓글 수정 실패');
+            getAlbumContent(albumId);
         }
     });
 }

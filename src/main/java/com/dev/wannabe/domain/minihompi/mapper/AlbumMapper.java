@@ -18,4 +18,6 @@ public interface AlbumMapper {
     Integer deleteAlbum(@Param("albumId") Long albumId, @Param("hompiId") Long hompiId);
 
     Integer updateAlbum(SaveAlbumDTO data);
+
+    Long findUserIdByAlbumId(Long albumId);
 }

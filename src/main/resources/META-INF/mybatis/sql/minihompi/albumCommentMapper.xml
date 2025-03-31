@@ -13,7 +13,44 @@
             #{hompiId},
             #{albumId},
             #{commentContent},
-            #{userId}
+            #{insertUserId}
         )
     </insert>
+
+    <select id="getComment" parameterType="Long" resultType="AlbumCommentDTO">
+        SELECT  A.ALBUM_COMMENT_ID AS commentId,
+                A.HOMPI_ID AS hompiId,
+                A.ALBUM_ID AS albumId,
+                A.INSERT_USER_ID AS userId,
+                A.ALBUM_COMMENT_CONTENT AS commentContent,
+                A.FIXED_YN AS fixedYN,
+                B.NAME AS userName,
+                DATE_FORMAT(A.INSERT_DT, '%Y.%m.%d %H.%i') AS insertDt
+        FROM HOMPI_ALBUM_COMMENT A
+        JOIN USER_BASIC B
+          ON A.INSERT_USER_ID = B.USER_ID
+       WHERE 1=1
+         AND A.ALBUM_ID  = #{albumId}
+         AND A.HOMPI_ID  = #{hompiId}
+        ORDER BY A.INSERT_DT;
+    </select>
+
+    <select id="findUserIdByCommentId" parameterType="Long">
+        SELECT INSERT_USER_ID
+          FROM HOMPI_ALBUM_COMMENT
+         WHERE ALBUM_COMMENT_ID = #{commentId};
+    </select>
+
+    <delete id="deleteComment" parameterType="Long">
+        DELETE FROM HOMPI_ALBUM_COMMENT
+         WHERE ALBUM_COMMENT_ID=#{commentId};
+    </delete>
+
+    <update id="updateComment" parameterType="map">
+        UPDATE HOMPI_ALBUM_COMMENT
+           SET ALBUM_COMMENT_CONTENT=#{comment},
+               UPDATE_USER_ID=#{userId}
+         WHERE ALBUM_COMMENT_ID=#{commentId};
+    </update>
+
 </mapper>

@@ -99,4 +99,9 @@
        AND HOMPI_ID=       #{hompiId}
 </update>
 
+<select id="findUserIdByAlbumId" parameterType="Long">
+    SELECT INSERT_USER_ID
+      FROM HOMPI_ALBUM
+     WHERE ALBUM_ID = #{albumId}
+</select>
 </mapper>
