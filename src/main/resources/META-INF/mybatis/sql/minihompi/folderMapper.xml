@@ -85,10 +85,11 @@
         </choose>
     </select>
 
-    <update id="updateFolder" parameterType="FolderDTO">
+    <update id="updateFolder" parameterType="UpdateFolderDTO">
         UPDATE HOMPI_FOLDER
         SET FOLDER_NAME = #{folderName}
         WHERE FOLDER_ID = #{folderId}
+            AND CONTENTS_TYPE = #{contentType}
     </update>
 
     <update id="updateFolderContent" parameterType="FolderContentsDTO">
@@ -111,4 +112,11 @@
         </choose>
     </update>
 
+    <delete id="deleteFolder">
+        DELETE
+        FROM HOMPI_FOLDER
+        WHERE HOMPI_ID = #{hompiId}
+            AND FOLDER_ID = #{folderId}
+            AND CONTENTS_TYPE = #{contentType}
+    </delete>
 </mapper>
