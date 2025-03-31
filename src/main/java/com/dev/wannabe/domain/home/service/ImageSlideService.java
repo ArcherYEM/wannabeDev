@@ -13,9 +13,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ImageSlideService {
-
-    @Autowired
-    private ImageSlideMapper imageSlideMapper;
+    
+    private final ImageSlideMapper imageSlideMapper;
 
     public List<ImageSlideDTO> getImageSlide(String imgFileName) { return imageSlideMapper.getImageSlide(imgFileName) ;}
 

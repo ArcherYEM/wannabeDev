@@ -1,14 +1,12 @@
 package com.dev.wannabe.domain.home.service;
 
-import com.dev.wannabe.domain.home.controller.NoticeController;
 import com.dev.wannabe.domain.home.mapper.NoticeMapper;
 import com.dev.wannabe.domain.home.model.dto.NoticeDTO;
-import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -87,6 +85,18 @@ public class NoticeService {
         result.put("userRole",userRole);
 
         return result;
+    }
+
+    // 공지사항 등록
+    @Transactional
+    public boolean insertNotice(NoticeDTO noticeDTO){
+        try{
+            noticeMapper.insertNotice(noticeDTO);
+            return true;
+        } catch (Exception e) {
+            log.error("공지 등록 중 오류 발생 : ", e);
+            return false;
+        }
     }
 }
 

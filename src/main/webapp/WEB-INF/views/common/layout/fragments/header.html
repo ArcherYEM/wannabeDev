@@ -1,45 +1,39 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="header">
-    <header class="header">
-        <!--로고 영역 시작-->
-        <div class="topBar">
-            <div class="topBarLogo">
-                <a href="/" class="logo"><img src="/static/images/common/logo_full.png"></a>
+<header th:fragment="header" class="header">
+    <div class="topBar">
+        <div class="topBarLogo">
+            <a href="/" class="logo"><img src="/static/images/common/logo_full.png"></a>
+        </div>
+        <div class="topBarInfo ">
+            <div class="topBarList" th:if="${session.userData != null}">
+                <ul>
+                    <li id="loginIp" class="ipDisplay" th:text="${session.userData.accessIp}">아이피</li>
+                    <li id="loginName" class="nameDisplay" th:text="${session.userData.name}">이름</li>
+                    <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
+                    <li><a href="/userUpdate"><img src="/static/images/common/option.png"></a></li>
+                    <li><a href="#" id="logoutBtn" class="btn nobtn logoutBtn">로그아웃</a></li>
+                </ul>
             </div>
-            <div class="topBarInfo ">
-                <div class="topBarList headerRight yesLogin">
-                    <ul>
-                        <li id="ipDisplayHeader" class="ipDisplay">접속 IP 확인불가</li>
-                        <li id="nameDisplayHeader" class="nameDisplay">홍길동</li>
-                        <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
-                        <li><a href="/userUpdate"><img src="/static/images/common/option.png"></a></li>
-                        <li><a href="/" class="btn nobtn logoutBtn">로그아웃</a></li>
-                    </ul>
-                </div>
-                <div class="topBarList headerRight noLogin">
-                    <ul>
-                        <li><input type="text" name="loginIdHeader" id="loginIdHeader" class="loginIdInput" placeholder="아이디"></li>
-                        <li><input type="password" name="passwordHeader" id="passwordHeader" class="passwordInput" placeholder="비밀번호"></li>
-                        <li><a href="#" id="loginBtnHeader" class="btn loginBtn">로그인</a></li>
-                        <li><a href="#" id="logoutBtnHeader" class="btn signupBtn">회원가입</a></li>
-                    </ul>
-                </div>
+            <div class="topBarList" th:if="${session.userData == null}">
+                <ul>
+                    <li><input class="loginIdInput" type="text" id="loginId" placeholder="아이디"></li>
+                    <li><input class="passwordInput" type="password" id="password" placeholder="비밀번호"></li>
+                    <li id="loginBtn" class="btn">로그인</li>
+                    <li id="signupBtn" class="btn">회원가입</li>
+                </ul>
             </div>
         </div>
-        <!--헤더 끝-->
-        <!--gnb 시작-->
-        <div class="gnb">
-            <menu class="menuWrap">
-                <li><a target="_blank" onclick="openPop()">내미니홈피</a></li>
-                <li><a href="/giftShop/main">선물가게</a></li>
-                <li><a href="/cart">장바구니</a></li>
-                <li><a href="/notice">공지사항</a></li>
-                <li><a href="#">ABOUT US</a></li>
-            </menu>
-        </div>
-        <!--gnb 끝-->
-<!--        <link rel="stylesheet" href="/static/css/header.css">--> <!-- 레이아웃에 구현해놓고 여기서 왜 또씀 ㅡㅡ -->
-    </header>
-</th:block>
-</html>
+    </div>
+    <!--헤더 끝-->
+    
+    <!--gnb 시작-->
+    <div class="gnb">
+        <menu class="menuWrap">
+            <li id="minihompi">내미니홈피</li>
+            <li id="giftPage">선물가게</li>
+            <li id="cartPage">장바구니</li>
+            <li id="noticePage">공지사항</li>
+            <li id="aboutUsPage">ABOUT US</li>
+        </menu>
+    </div>
+    <!--gnb 끝-->
+</header>

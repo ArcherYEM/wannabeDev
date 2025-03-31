@@ -180,8 +180,8 @@
 
         UPDATE HOMPI_CONFIG
         <set>
-            <if test="filePath != null and filePath != ''">
-                HOMPI_CONFIG_CONTENT = #{filePath}
+            <if test="relativePath != null and relativePath != ''">
+                HOMPI_CONFIG_CONTENT = #{relativePath}
             </if>
         </set>
         WHERE HOMPI_CONFIG_CODE = '01'
@@ -189,4 +189,19 @@
 
 
     </update>
+
+    <select id="getMiniroom" parameterType="Long" resultType="map">
+        SELECT mb.PRODUCT_ID,
+               afm.ATTACH_FILE_ID,
+               afm.FILE_PATH
+        FROM MINIROOM_BASIC mb
+                 JOIN PRODUCT p
+                      ON p.PRODUCT_ID = mb.PRODUCT_ID
+                 JOIN ATTACH_FILE_MANAGE afm
+                      ON p.ATTACH_FILE_ID = afm.ATTACH_FILE_ID
+        WHERE USER_ID = (SELECT OWNER_USER_ID
+                         FROM HOMPI
+                         WHERE HOMPI_ID = #{hompiId})
+
+    </select>
 </mapper>

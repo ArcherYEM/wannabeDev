@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.UserUpdateMapper">
+
+    <!-- 회원정보 조회 -->
+    <select id="getMyInfo" parameterType="Long" resultType="com.dev.wannabe.domain.home.model.dto.GetUserInfoDTO">
+        SELECT login_id,
+               email,
+               phone_no,
+               name,
+               gender_code,
+               birth_date
+        FROM USER_BASIC
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <update id="updateMyInfo" parameterType="map">
+        UPDATE USER_BASIC
+        SET EMAIL=#{email},
+            PHONE_NO=#{phone}
+        WHERE USER_ID = #{userId}
+
+    </update>
+
+    <select id="checkEmail" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM USER_BASIC
+        WHERE EMAIL = #{email}
+    </select>
+
+    <select id="checkPhone" parameterType="String" resultType="int">
+
+        SELECT COUNT(*)
+        FROM USER_BASIC
+        WHERE PHONE_NO = #{phone}
+    </select>
+
+    <update id="updateMyPasswd" parameterType="map">
+        UPDATE USER_BASIC
+        SET PASSWORD=#{password}
+        WHERE USER_ID = ${userId}
+    </update>
+
+    <select id="getPassword" parameterType="Long" resultType="String">
+        SELECT PASSWORD
+        FROM USER_BASIC
+        WHERE USER_ID = #{userId}
+
+    </select>
+
+</mapper>
