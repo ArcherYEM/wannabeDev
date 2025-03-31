@@ -15,4 +15,11 @@ public interface PopupMessageMapper {
 
     int reciveMsgCount(String userId);
 
+    int reciveUnreadMsgCount(String userId);
+
+    List<PopupMessageDTO> getReciveMsgView (String messageId);
+
+    int messageReadUpdate(String messageId);
+
+    List<PopupMessageDTO> getSendSearchName(String userId, String searchName);
 }

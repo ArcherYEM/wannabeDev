@@ -1,19 +1,19 @@
-<div id="popMsgListContainer" th:attr="data-totalPages=${totalPages}">
+<div id="popMsgListContainer" th:attr="data-totalPages=${totalPages}, data-totalUnreadMsg=${reciveUnreadMsgCount}" >
     <div id="popMsgListTitle">
         <input class="msgListTitle msgChkbox" type="checkbox">
-        <span class="msgListTitle">보낸사람</span>
-        <span class="msgListTitle">내용</span>
-        <span class="msgListTitle">날짜</span>
+        <span class="msgListTitle popMsg-insertUserId">보낸사람</span>
+        <span class="msgListTitle popMsg-Msg">내용</span>
+        <span class="msgListTitle popMsg-date">날짜</span>
     </div>
 
     <div id="msgListBox">
-        <div class="popMsgListBox"
+        <div class="popMsgListBox dFlex"
              th:each="msg : ${msgList}"
              th:class="${msg.ReadYN == 'N' ? 'unread' : 'read'}">
-            <input type="checkbox">
-            <span class="popMsg-insertUserId" th:text="${msg.friendUserId == 0 ? 'WANNABE' : msg.name}"></span>
-            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 35)}"></span>
-            <span class="popMsg-date" th:text="${#dates.format(msg.insertDT, 'yyyy.MM.dd HH:mm')}"></span>
+            <input type="checkbox" class="msgChkbox">
+            <span class="popMsg-insertUserId" style="color: #e07b00;" th:text="${msg.friendUserId == 0 ? 'WANNABE' : msg.name}"></span>
+            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 17)}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
+            <span class="popMsg-date" th:text="${#dates.format(msg.insertDT, 'yyyy.MM.dd HH:mm')}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
         </div>
     </div>
 

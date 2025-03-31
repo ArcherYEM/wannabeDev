@@ -4,13 +4,17 @@ import com.dev.wannabe.domain.home.model.dto.PopupMessageDTO;
 import com.dev.wannabe.domain.home.service.LoginService;
 
 import com.dev.wannabe.domain.home.service.PopupMessageService;
+import com.sun.mail.iap.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,9 +38,16 @@ public class PopupMessageController {
         return "common/popup/inc/popupSendMessage";
     }
 
-    @GetMapping("/ReciveMessageBox")
-    public String popupReciveMessageBox() {
-        return "common/popup/inc/popupReciveMessageBox";
+    @GetMapping("/ReciveMessageView")
+    public String popupReciveMessageView(HttpServletRequest request, Model model) {
+        String messageId = request.getParameter("messageId");
+        List<PopupMessageDTO> reciveMsgView = popupMessageService.getReciveMsgView(messageId);
+        System.out.println("messageId :::: " + messageId);
+
+        model.addAttribute("reciveMsgView", reciveMsgView);
+        popupMessageService.messageReadUpdate(messageId); // 메세지 읽음처리
+
+        return "common/popup/inc/popupRiceveMsgView";
     }
 
     @GetMapping("/SendMessageBox")
@@ -44,23 +55,36 @@ public class PopupMessageController {
         return "common/popup/inc/popupSendMessageBox";
     }
 
+    @GetMapping("/SendSearchName")
+    @ResponseBody
+    public List<PopupMessageDTO> popSendMsgSearchName(HttpServletRequest request) {
+        String userId = request.getParameter("userId");
+        String recipient = request.getParameter("recipient");
+        System.out.println("userId :: " + userId);
+        System.out.println("recipient :: " + recipient);
+        List<PopupMessageDTO> PopupMessageDTO = popupMessageService.getSendSearchName(userId, recipient);
+        System.out.println("PopupMessageDTO :: " + PopupMessageDTO);
+        return PopupMessageDTO;
+    }
+
     @GetMapping("/MessageList")
-    public String popupMessageList(HttpServletRequest request, Model model, Map<String, Object> map) {
+    public String popupMessageList(HttpServletRequest request, Model model) {
         String userId = request.getParameter("userId");
         String offset = request.getParameter("offset");
         String pageSize = request.getParameter("pageSize");
 
-        List<PopupMessageDTO> popupMessageDTO2 = popupMessageService.getReciveMsglist(userId, offset, pageSize);
+        List<PopupMessageDTO> popupMessageDTO = popupMessageService.getReciveMsglist(userId, offset, pageSize); //전체 메세지불러오기
+        model.addAttribute("msgList", popupMessageDTO);
 
-        int reciveMsgCount = popupMessageService.reciveMsgCount(userId);
+        int reciveMsgCount = popupMessageService.reciveMsgCount(userId); //전체 쪽지 갯수
         model.addAttribute("reciveMsgCount", reciveMsgCount);
-        System.out.println("popupMessageDTO2 :::::  "+ popupMessageDTO2);
+        int reciveUnreadMsgCount = popupMessageService.reciveUnreadMsgCount(userId); // 안읽은 쪽지 갯수
+        model.addAttribute("reciveUnreadMsgCount", reciveUnreadMsgCount);
         // 페이지네이션을 위한 totalPages 계산
         int totalPages = (int) Math.ceil((double) reciveMsgCount / Integer.parseInt(pageSize));
         model.addAttribute("totalPages", totalPages);  // totalPages를 모델에 추가
 
-        model.addAttribute("msgList", popupMessageDTO2);
-
         return "common/popup/inc/popupMessageList";  // JSP 또는 Thymeleaf 페이지 반환
     }
+
 }

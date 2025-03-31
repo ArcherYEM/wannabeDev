@@ -1,7 +1,9 @@
 <div id="popupMessageMainHeader">
     <span>받는사람</span>
-    <input type="text" name="" id="">
+    <input list="selectUserName" name="recipient" id="recipient"/>
+    <datalist id="selectUserName"><datalist>
     <a class="btn small di">추가</a>
+
 </div>
 <!--div#popupMessageMainHeader-->
 
@@ -15,3 +17,60 @@
 
 </div>
 <!--div#popupMessageMainArea-->
+<script>
+    $("#recipient").on("change keyup paste",function () {
+        let textValue = $("#recipient").val();
+        console.log("변경되고있음 : " + textValue);
+        $.ajax({
+            type: "GET",
+            url: "../userInfo",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                userId = response.userId;
+                if (userId) {
+                    console.log("userid = " + userId);
+                    fncSearchName(userId, textValue);
+                }
+            },
+            error: function () {
+                alert("비정상적인 접근입니다.");
+            }
+        });
+    });
+    function fncSearchName(userId, textValue) {
+        console.log ("======fncSearchName 시작========");
+        console.log ("userId == " + userId);
+        console.log ("textValue == " + textValue);
+        console.log ("======fncSearchName 끝========");
+        $.ajax({
+            type: "GET",
+            url: "../popupMessage/SendSearchName",
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            data: {
+              "userId" : userId,
+              "recipient" : textValue
+            },
+            success: function (data) {
+                console.log("=========이름검색결과 시작=========");
+                console.log(data);
+                console.log("=========이름검색결과 끝=========");
+                $("#selectUserName").html("");
+
+                // 새로운 옵션 추가
+                for (let i = 0; i < data.length; i++) {
+                    $("#selectUserName").append(
+                        `<option value="${data[i].friendUserId}">${data[i].name}</option>`
+                    );
+                }
+
+
+            },
+            error: function () {
+                console.log("비정상적인 접근입니다.");
+            }
+        });
+    }
+</script>
