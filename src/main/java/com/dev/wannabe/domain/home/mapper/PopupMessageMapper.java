@@ -9,7 +9,10 @@ import java.util.List;
 @Mapper
 public interface PopupMessageMapper {
 
-    public List<PopupMessageDTO> getMessageList(String userId);
+    List<PopupMessageDTO> getMessageList(String userId);
 
+    List<PopupMessageDTO> getReciveMsglist (String userId, String offset, String pageSize);
+
+    int reciveMsgCount(String userId);
 
 }

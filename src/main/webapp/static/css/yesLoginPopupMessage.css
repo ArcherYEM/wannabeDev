@@ -149,51 +149,83 @@ div#popupMessageMainArea button#MessageSendBtn {
     margin-right: 10px;
 }
 
+/* 읽지 않은 쪽지 (검은색 굵게) */
+.popMsgListBox .unread {
+    font-weight: bold;
+    color: black;
+}
+
+/* 읽은 쪽지 (연회색 얇게) */
+.popMsgListBox .read {
+    font-weight: normal;
+    color: lightgray;
+}
+
 /*페이지네이션 관련 css*/
-/* 페이지네이션 컨테이너 */
 #pagination {
     text-align: center;
     margin-top: 20px;
 }
 
 /* 페이지네이션 버튼 스타일 */
-.page-btn {
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 0 5px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 5px;
-    transition: all 0.3s;
+#popMsgList-container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 현재 페이지 버튼 스타일 */
-.page-btn.active {
-    background-color: #007bff;
+#popMsgListTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #ff8000;
     color: white;
-    border-color: #007bff;
     font-weight: bold;
 }
 
-/* 이전, 다음 버튼 스타일 */
-.page-btn.prev,
-.page-btn.next {
-    font-size: 16px;
+.popMsgListBox {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
 }
 
-/* 비활성화된 버튼 */
-.page-btn:disabled {
-    background-color: #f1f1f1;
-    color: #ccc;
+.popMsg-insertUserId {
+    width: 30%;
+    text-align: left;
+}
+
+.popMsg-Msg {
+    width: 50%;
+    text-align: center;
+}
+
+.popMsg-date {
+    width: 20%;
+    text-align: right;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#pagination button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background: #ff8000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pagination button:disabled {
+    background: #ccc;
     cursor: not-allowed;
-}
-
-/* 페이지 간격 (...) */
-.ellipsis {
-    padding: 8px 10px;
-    color: #888;
-    font-weight: bold;
 }

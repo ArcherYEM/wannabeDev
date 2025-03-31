@@ -6,8 +6,43 @@
     <select id="getMessageList" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
         SELECT *
         from FRIEND_MESSAGE
-        WHERE USER_ID = #{userId};
+        WHERE USER_ID = #{userId}
     </select>
 
+    <!-- 받은쪽지 리스트 나열-->
+<!--    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT *
+        FROM FRIEND_MESSAGE
+        WHERE USER_ID = ${param1}
+        ORDER BY INSERT_DT DESC
+        LIMIT ${param2} , ${param3}
+    </select>-->
+
+    <!-- 받은쪽지 리스트 나열-->
+    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT
+            fm.*,
+            ub.name
+        FROM
+            FRIEND_MESSAGE fm
+                LEFT JOIN
+            USER_BASIC ub
+        ON
+            fm.friend_user_id = ub.user_id
+        WHERE
+            fm.user_id = ${param1}
+        ORDER BY
+            fm.insert_dt DESC
+        LIMIT
+            ${param2}, ${param3}
+    </select>
+
+    <!-- 받은 쪽지 개수 -->
+    <select id="reciveMsgCount" resultType="int">
+        SELECT COUNT(*)
+        AS reciveMsg_count
+        FROM FRIEND_MESSAGE
+        WHERE USER_ID=#{userId}
+    </select>
 
 </mapper>

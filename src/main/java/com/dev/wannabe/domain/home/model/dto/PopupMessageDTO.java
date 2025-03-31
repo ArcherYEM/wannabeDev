@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class PopupMessageDTO {
+    private String name;
     private Long messageId; //메세지ID
     private Long userId; //회원ID
     private Long friendUserId; // 일촌회원아이디
