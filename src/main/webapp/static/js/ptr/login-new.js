@@ -33,7 +33,7 @@ $(document).ready(function() {
     });
 
     // 엔터키 로그인 감지 (두 영역 통합)
-    $('#loginId, #password, #loginId2, #password2').on('keydown', function(e) {
+    $('#loginId, #password, #loginId2, #password2').on('keyup', function(e) {
         if (e.key === 'Enter' || e.keyCode === 13) {
             const $loginSection = $(this).closest('form, .login-section, body');
             let btnId = '';
