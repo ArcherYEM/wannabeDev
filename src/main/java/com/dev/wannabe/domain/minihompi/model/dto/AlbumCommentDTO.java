@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.model.vo;
+package com.dev.wannabe.domain.minihompi.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,17 +9,15 @@ import java.util.Date;
 
 @Data
 @ToString
-public class AlbumComment {
+public class AlbumCommentDTO {
 
-    private Long albumCommentId;
+    private Long commentId;
     private Long hompiId;
     private Long albumId;
+    private Long userId;
     private String commentContent;
     private String fixedYN;
-
-    private Long insertUserId;
-    private Date insertDt;
-    private Long updateUserId;
-    private Date updateDt;
+    private String userName;
+    private String insertDt;
 
 }

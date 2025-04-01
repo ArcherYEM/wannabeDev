@@ -23,7 +23,7 @@ $(document).ready(function(){
         $('.statusSelect').toggle();
     });
 
-    $(document).on('keydown','.folderInput',function(e){
+    $(document).on('keyup','.folderInput',function(e){
         const text = $('.folderInput').val().trim();
         const availStatus = $('.statusSelect').val();
         if(e.keyCode == 13 && text !== ""){
@@ -38,31 +38,87 @@ $(document).ready(function(){
             addFolder(availStatus,text);
         }
     })
-    $(document).on('click','#folderName',function(){
-        const folderId = $(this).data('id');
-
-    });
 
     $(document).on('click', '.folderName button', function(){
-        const btn = $(this);
-        const folderId = btn.val();
-        if(btn.hasClass('folderOn')){
-            btn.removeClass('folderOn');
-            btn.next('.folderContentWrap').remove();
+        const appendHere = $(this).closest('.folderName');
+        const folderId = $(this).val();
+        if($(this).hasClass('folderOn')){
+            $(this).removeClass('folderOn');
+            $(this).next('.folderContentWrap').remove();
             return;
         }
         $('.folderContentWrap').remove();
         $('.folderName button').removeClass('folderOn');
-        btn.addClass('folderOn');
-        getFolderContents(folderId, btn);
+        $(this).addClass('folderOn');
+        getFolderContents(folderId, appendHere);
     });
 
-});
+    $(document).on('click','.folderContentWrap p',function(){
+        const diaryId = $(this).data('id');
+        getDiaryContent(diaryId);
+        $(this).css('background-color','gainsboro');
+        $('.folderContentWrap p').not($(this)).css('background-color','white');
+    });
 
+    $(document).on('click', '.folderBottomWrap button',function(){
+        $('.editFolderMenu').toggleClass('hidden');
+    })
+
+    $(document).on('click','#folderEditBtn', function(){
+        $('#folderEditModal').show();
+        let content ='';
+        $('.folderName button').each(function(index,element){
+            content += `<option value="${$(this).val()}">${$(this).text()}</option>`
+        })
+        $('.selectModalFolder').empty().append(content);
+        $('.folderNameInput').val($('.selectModalFolder option:selected').text().trim());
+    });
+
+    $(document).on('change','.selectModalFolder',function(){
+        const text = $('.selectModalFolder option:selected').text().trim();
+        $('.folderNameInput').val(text);
+    })
+
+    $(document).on('click','#updateFolderNameBtn',function(){
+        if($('.selectModalFolder option:selected').text().trim() === $('.folderNameInput').val().trim()){
+            return Swal.fire({
+                   title: "폴더 이름변경 실패",
+                   text: "기존 폴더 이름과 동일합니다!",
+                   icon: 'warning'
+            });
+        }
+        updateFolderName();
+    })
+
+    $(document).on('click','#showDeleteBtn',function(){
+        if($('.folderName').length === 1){
+            return Swal.fire({
+                    title: "삭제 실패",
+                    text: "삭제가 가능한 폴더가 없습니다",
+                    icon: 'warning'
+                });
+        }
+        $('.folderDelBtn').show();
+    })
+
+    $(document).on('click','.folderDelBtn',function(){
+        const folderId = $(this).data('id');
+        if(confirm('정막 삭제하시겠습니까'))
+        deleteFolder(folderId);
+    })
+
+    $(document).on('click', '#folderModalExit', function(){
+        $('#folderEditModal').hide();
+    })
+
+});
 let folderTitleList = ["다이어리","사진첩","게시판"];
-let folderContentList = ["01","02","03","04","05"];
+let folderContentList = ["01","02","03"];
 let folderContentIndex;
 let folderContentType;
+const path = window.location.pathname.split('/');
+const hompiId = path[3];
+
 
 function moveFolder() {
      $.ajax({
@@ -76,7 +132,11 @@ function moveFolder() {
              $('#folderTitle').text(folderTitle);
          },
          error: function (xhr, status, error) {
-             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+             Swal.fire({
+                   title: "폴더 가져오기 실패",
+                   text: "폴더 정보를 불러오지 못헀습니다",
+                   icon: 'warning'
+            });
          }
     });
 }
@@ -87,7 +147,11 @@ function addFolder(availStatus,folderInput){
         type: 'POST',
         url: "/api/folder/save/" + folderContentType + '/' + folderInput +'/' + availStatus,
         success: function(response){
-            alert('저장했습니다');
+             Swal.fire({
+                   title: "폴더 저장 성공",
+                   text: "폴더를 성공적으로 저장하였습니다!",
+                   icon: 'success'
+            });
             $('.statusSelect').hide();
             $('.folderNameWrap').hide();
             $('.folderInput').val('');
@@ -97,7 +161,11 @@ function addFolder(availStatus,folderInput){
             getFolder();
         },
         error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+            return Swal.fire({
+                   title: "폴더 추가하기 실패",
+                   text: "폴더를 추가하지 못헀습니다. 다시 시도해 주세요!",
+                   icon: 'warning'
+            });
         }
     });
 }
@@ -106,21 +174,27 @@ function getFolder(){
     const hompiAuth = sessionStorage.getItem('myHompiCheck');
     $.ajax({
         type: 'GET',
-        url: '/api/folder/read/' + hompiOwnerId + '/' + folderContentType,  //01바꾸기
+        url: '/api/folder/read/' + hompiId + '/' + folderContentType,
         dataType: 'json',
         success: function(folderList){
             $('.folderWrap').remove();
             let code = '<div class="folderWrap">';
             folderList.forEach(function(folderDTO,index){
-                code += '<div class= "folderName"><button value="'+folderDTO.folderId
+                code += '<div class="smallFolderWrap"><div class="folderName"><button value="'+folderDTO.folderId
                          + '"><img src="/static/images/common/folder.png">'
-                         + " " +folderDTO.folderName + '</button></div>';
+                         + " " +folderDTO.folderName + '</button>';
+                         if(folderDTO.folderId !== 1){
+                            code += '</div><button data-id="' + folderDTO.folderId +'"class="folderDelBtn">삭제</button></div>';
+                         }else{
+                            code += '</div></div>';
+                         }
             })
             code += "</div>";
-            $('#folderWrap').append(code);
             if(hompiAuth === "0"){
                 $('.folderAddBtn').show();
+                $('.toggleBottomWrap').show();
             }
+            $('#folderWrap').append(code);
         },
         error: function(error){
             console.error(error);
@@ -128,21 +202,74 @@ function getFolder(){
     });
 }
 
-function getFolderContents(folderId ,btn){
+function getFolderContents(folderId ,appendHere){
     $.ajax({
         type: 'GET',
-        url: '/api/folder/read/'+ hompiOwnerId +'/' + folderContentType + '/' + folderId,  //01 바꾸기
+        url: '/api/folder/read/'+ hompiId +'/' + folderContentType + '/' + folderId,
         dataType: 'json',
         success: function(response){
             let code = '<div class="folderContentWrap">';
             response.forEach(function(folderDTO){
                     code += `<p data-id="${folderDTO.folderId}">${folderDTO.folderName}</p>`
                 })
-                code += '</div>'
-                btn.after(code);
+                code += '</div>';
+                appendHere.append(code);
             },
             error: function(error){
                 console.error(error);
+        }
+    });
+}
+
+function updateFolderName(){
+    const folderId = $('.selectModalFolder').val();
+    const updateFolderName = $('.folderNameInput').val();
+    $.ajax({
+        type: 'PUT',
+        url: '/api/folder/update/' + hompiId + '/' + folderId + '/' + folderContentType + '/' + updateFolderName,
+        success: function(){
+             Swal.fire({
+                   title: "폴더 이름변경 완료",
+                   text: "폴더 이름이 변경되었습니다!",
+                   icon: 'success'
+            });
+            getFolder();
+            $('#folderEditModal').hide();
+        },
+        error: function(error){
+            console.error(error);
+        }
+    });
+}
+
+function deleteFolder(folderId){
+    if(folderId === 1){
+        return Swal.fire({
+            title: "폴더 삭제 실패",
+            text: "기본 폴더는 삭제가 불가합니다!",
+            icon: 'warning'
+        });
+    }
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/folder/delete/' + hompiId + '/' + folderId + '/' + folderContentType,
+        success: function(response){
+            if(!response){
+            return Swal.fire({
+                   title: "폴더 삭제 실패",
+                   text: "폴더를 삭제하는데 실패했습니다!",
+                   icon: 'warning'
+            });
+            }
+             Swal.fire({
+                   title: "폴더 삭제 성공",
+                   text: "폴더를 성공적으로 삭제하셨습니다.",
+                   icon: 'success'
+            });
+            getFolder();
+        },
+        error: function(error){
+            console.error(error);
         }
     });
 }

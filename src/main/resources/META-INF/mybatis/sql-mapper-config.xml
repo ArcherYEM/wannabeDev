@@ -58,6 +58,8 @@
 		<typeAlias alias="SaveAlbumDTO" type="com.dev.wannabe.domain.minihompi.model.dto.SaveAlbumDTO"/>
 		<typeAlias alias="DiaryCommentFindDTO" type="com.dev.wannabe.domain.minihompi.model.dto.DiaryCommentFindDTO"/>
 		<typeAlias alias="HompiFolderDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiFolderDTO"/>
+		<typeAlias alias="AlbumCommentDTO" type="com.dev.wannabe.domain.minihompi.model.dto.AlbumCommentDTO"/>
+		<typeAlias alias="UpdateFolderDTO" type="com.dev.wannabe.domain.minihompi.model.dto.UpdateFolderDTO"/>
 
 		<!--> miniroom <-->
 
