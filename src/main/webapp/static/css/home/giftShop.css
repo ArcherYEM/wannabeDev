@@ -66,9 +66,6 @@
     flex-direction: column;
     padding: 30px 10px;
     gap: 10px;
-    /*
-    border: 1px solid black;
-    justify-content: space-between;*/
 }
 .gift-shop-new-badge{
     position: absolute;
@@ -81,9 +78,6 @@
     width: 100%;
     height: 100%;
 }
-
-
-
 .menuminihompi {
     border-bottom: 1px solid #ccc;
     padding: 20px;
@@ -116,19 +110,16 @@
 .menuminihompi a:not(.active):hover{
     transform: translateX(5px);
 }
-
 .menuBgm {
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
 }
-
 .menuBgm h2 {
     margin-bottom: 10px;
     font-size: 24px;
 }
-
 .menuBgm a {
     text-decoration: none;
     color: grey;
@@ -371,7 +362,12 @@
     border-bottom: 1px solid #aaa;
     padding-bottom: 10px;
 }
-/* 좌측 로그인 시작 */
+/* 좌측 로그인(userPanel) 시작 */
+.mainTitleText{
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-brown);
+}
 .loginWrap {
     width: 100%;
     display: flex;
@@ -421,8 +417,10 @@
 
 .loginWrap .loginLinkWrap {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
     padding: 0px 3px;
+    text-align: right;
 
     a {
         cursor: pointer;
