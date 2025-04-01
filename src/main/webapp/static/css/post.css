@@ -2,9 +2,15 @@
 
 .post-container {
     width: 600px;
-    margin: 20px auto;
+    margin: 10px auto;
     border: 1px solid #C2C2C2;
     background-color: #fff;
+    height: 230px;
+}
+
+#diary textarea{
+    width: 600px;
+    height: 210px;
 }
 
 .post-header {
@@ -27,10 +33,17 @@
 }
 
 .post-register {
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;;
 }
 
-.post-register .register-btn {
+.post-register p{
+    color: blue;
+    margin-left: 15px;
+}
+
+.post-register #registerBtn {
     width: 60px;
     background-color: orange;
     color: white;
@@ -40,7 +53,11 @@
     border-radius: 5px;
     margin-bottom: 5px;
     height: 25px;
-    margin-right: 20px;
+    margin-right: 15px;
+}
+
+#registerBtn{
+    display: none;
 }
 
 .post-info {
@@ -65,10 +82,8 @@
 }
 
 .post-actions {
-    margin-top: 10px;
-    display: flex;
+    display: none;
     justify-content: space-between;
-    padding: 10px;
 }
 
 .post-actions button {
@@ -170,16 +185,92 @@ table #day {
     border: none;
 }
 
-th, td {
+#day th, #day td {
     border: none;
-    padding: 2px;
+    padding-left: 20px;
     text-align: center;
 }
 
-td[data-day="sat"] {
-    color: blue;
+.diaryCommentSay th, .diaryCommentSay td{
+    border: none;
+    padding-left: 2px;
+    text-align: center;
 }
 
-td[data-day="sun"] {
-    color: red;
+#diary textarea, .diaryContent{
+    text-align: center;
+    white-space: pre-wrap;
 }
+
+hr{
+    display: block;
+}
+
+button{
+    background: none;
+}
+
+#calender img{
+    width: 12px;
+    margin-bottom: 3px;
+}
+
+.diarySelectWrap{
+    text-align: center;
+    display: flex;
+    gap: 5px;
+}
+
+input[type="text"].diaryTitle{
+    border-radius: 10px;
+    height: 20px;
+}
+
+.diarySelectWrap select{
+    border-radius: 10px;
+}
+
+.insertDate{
+    color: #ccc;
+}
+
+.writerName{
+    color: blue;
+}
+.diaryCommentSay {
+    background: #eee;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin: 10px 0;
+}
+
+.diaryCommentSay table tbody tr td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.diaryCommentSay table tbody tr td input {
+    width: 98%;
+    height: 26px;
+    float: left;
+}
+
+.diaryCommentSay table tbody tr td p {
+    text-align: center;
+}
+
+.diaryCommentSay table tbody tr td button {
+    height: 26px;
+    width: 50px;
+    color: #333;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+    background: #fff;
+    float: right;
+}
+
+.diaryCommentNo{
+    display: none;
+}
+

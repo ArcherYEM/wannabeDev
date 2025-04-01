@@ -1,49 +1,39 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="header">
-    <!-- Swal -->
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <header>
-        <!--헤더 시작-->
-        <div id="header">
-            <div class="headerLeft">
-                <a href="/" class="logo"><img src="/static/images/common/logo_full.png"></a>
-            </div>
-            <div class="headerRight yesLogin">
+<header th:fragment="header" class="header">
+    <div class="topBar">
+        <div class="topBarLogo">
+            <a href="/" class="logo"><img src="/static/images/common/logo_full.png"></a>
+        </div>
+        <div class="topBarInfo ">
+            <div class="topBarList" th:if="${session.userData != null}">
                 <ul>
-                    <li id="ipDisplayHeader" class="ipDisplay">접속 IP 확인불가</li>
-                    <li id="nameDisplayHeader" class="nameDisplay">홍길동</li>
+                    <li id="loginIp" class="ipDisplay" th:text="${session.userData.accessIp}">아이피</li>
+                    <li id="loginName" class="nameDisplay" th:text="${session.userData.name}">이름</li>
                     <li><a href="/"><img src="/static/images/common/homeIcon.png"></a></li>
-                    <!-- 회원정보 수정 -->
                     <li><a href="/userUpdate"><img src="/static/images/common/option.png"></a></li>
-                    <li><a href="/" class="btn nobtn logoutBtn">로그아웃</a></li>
+                    <li><a href="#" id="logoutBtn" class="btn nobtn logoutBtn">로그아웃</a></li>
                 </ul>
             </div>
-            <div class="headerRight noLogin">
-                <th:block th:include="/home/fragment/noLoginInclude :: noLoginHeader"></th:block>
-            </div>
-        </div>
-        <!--헤더 끝-->
-
-        <!--gnb 시작-->
-        <div id="gnb">
-            <div>
+            <div class="topBarList" th:if="${session.userData == null}">
                 <ul>
-                    <li><a target="_blank" onclick="openPop()">내미니홈피</a></li>
-                    <li><a href="/giftShop/main">선물가게</a></li>
-                    <li><a href="#">장바구니</a></li>
-                    <li><a href="/notice">공지사항</a></li>
-                    <li><a href="#">ABOUT US</a></li>
+                    <li><input class="loginIdInput" type="text" id="loginId" placeholder="아이디"></li>
+                    <li><input class="passwordInput" type="password" id="password" placeholder="비밀번호"></li>
+                    <li id="loginBtn" class="btn">로그인</li>
+                    <li id="signupBtn" class="btn">회원가입</li>
                 </ul>
             </div>
         </div>
-        <!--gnb 끝-->
-        <link rel="stylesheet" href="/static/css/header.css">
-    </header>
-    <!--gnb 끝<script type="text/javascript" th:src="@{/static/js/common.js}"></script> -->
-    <script type="text/javascript" th:src="@{/static/js/common.js}"></script>
-    <script src="/static/js/home/login.js"></script>
-</th:block>
-</html>
+    </div>
+    <!--헤더 끝-->
+    
+    <!--gnb 시작-->
+    <div class="gnb">
+        <menu class="menuWrap">
+            <li id="minihompi">내미니홈피</li>
+            <li id="giftPage">선물가게</li>
+            <li id="cartPage">장바구니</li>
+            <li id="noticePage">공지사항</li>
+            <li id="aboutUsPage">ABOUT US</li>
+        </menu>
+    </div>
+    <!--gnb 끝-->
+</header>

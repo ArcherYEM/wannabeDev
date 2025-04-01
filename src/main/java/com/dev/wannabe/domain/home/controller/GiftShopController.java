@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/giftShop")
 public class GiftShopController {
 
-    @GetMapping("/main")
+    @GetMapping("")
     public String giftShop(){
-        return "giftShop/giftShopMain";
+        return "home/giftShop/giftShopMain";
     }
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="yesLoginForm">
+<div class="loginWrap yesLogin">
+    <div class="yesLoginDiv1">
+        <div class="username">홍길동</div>
+        <div>
+            <ul>
+                <li><a class="btn small">내정보수정</a></li>
+                <li><a class="btn small nobtn logoutBtn">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="yesLoginDiv2">
+        <div><img src="/static/images/common/minimi/은모.png"/></div>
+        <div>
+            <ul>
+                <li>
+                    <span class="title">일촌ON</span>
+                    <span class="text">11</span>
+                </li>
+                <li>
+                    <span class="title">쪽지</span>
+                    <!--<span class="text">30</span> 원본-->
+                    <span class="text"><a class="popMessage" target="_blank" onclick="openPopupMessage()">50</a></span>
+
+                </li>
+                <li>
+                    <span class="title">오늘 방문자</span>
+                    <span class="text">113</span>
+                </li>
+                <li>
+                    <span class="title">새 게시물</span>
+                    <span class="text">2</span>
+                </li>
+                <li>
+                    <span class="title">일촌신청</span>
+                    <span class="text">4</span>
+                </li>
+                <li>
+                    <span class="title">보유도토리</span>
+                    <span class="text"><img class="dotori-icon" src="/static/images/common/dotori.png"> <span class="text">720</span> <a class="btn small di rechargePageBtn">충전</a></span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <a class="btn" onclick="openPop()">내 미니홈피 바로가기</a>
+</div>
+<script type="text/javascript" th:src="@{/static/js/common.js}"></script>
+</div>
+</html>

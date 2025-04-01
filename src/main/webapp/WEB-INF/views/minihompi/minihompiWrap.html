@@ -8,10 +8,17 @@
     <meta name="Description" content="">
     <title>main</title>
     <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/static/css/common/reset.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/bgm.css">
     <link rel="stylesheet" href="/static/css/jukebox.css">
+    <link rel="stylesheet" href="/static/css/post.css">
+    <link rel="stylesheet" href="/static/css/album.css">
+    <link rel="stylesheet" href="/static/css/folder.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -28,7 +35,7 @@
     <div id="subViewContainer">
         <div id ="subViewWrap">
             <div id="subViewTop">
-                <a href="#" class="btn purple block">싸이월드 홈</a>
+                <a href="#" class="btn purple block">워너비 홈</a>
             </div>
             <div id="subVieMain">
                 액티브 <progress id="ative" value="30" max="100"></progress><br>
@@ -46,13 +53,17 @@
 <!-- 푸터 블럭 인클루드 시작점 -->
 <!-- CDN 라이브러리 시작 -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <!-- CDN 라이브러리 끝 -->
 <script type="module" src="/static/js/common.js"></script>
 
 <!-- 푸터 인클루드 끝 부분 -->
+<script src="/static/js/minihompi/album.js"></script>
 <script src="/static/js/minihompi/bgm.js"></script>
 <script src="/static/js/minihompi/minihompiWrap.js"></script>
 <script src="/static/js/minihompi/jukebox.js"></script>
+<script src="/static/js/minihompi/diary.js"></script>
+<script src="/static/js/minihompi/folder.js"></script>
 
 
 

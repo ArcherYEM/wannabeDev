@@ -1,9 +1,28 @@
 @charset "utf-8";
 
+.dongle-regular {
+    font-family: "Dongle", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.sunflower-light {
+    font-family: "Sunflower", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+body {
+    background: #A4A5A4;
+    font-family: "Sunflower", sans-serif;
+}
+
+
 /*메인비쥬얼 s*/
 #wrap {
     background: #A4A5A4;
-    width: 100%;
+    width: 1280px;
     height: 100%;
     padding: 30px;
     overflow-x: hidden;
@@ -21,7 +40,6 @@
     box-sizing: border-box;
     margin: 0;
     height: 640px;
-
 }
 
 #mainBorder {
@@ -345,6 +363,8 @@ a[class*="btn"] {
     line-height: 30px;
     background: #228CB3;
     border-radius: 0px 5px 5px 0px;
+    font-family: "Dongle", sans-serif;
+    font-size: 20px
 }
 
 #rightContainer #gnb ul li.on {
@@ -563,14 +583,17 @@ a[class*="btn"] {
     height: 200px;
     border: 1px solid #ddd;
     position: relative;
-    box-sizing: border-box
+    box-sizing: border-box;
+    background-image: url('/static/images/common/miniroom/defaultRoom.png');
+    background-size: cover;
+    background-position: center;
 }
 
 #rightWrap .rightMainWrap .rightMain .miniRoom .human {
     position: absolute;
-    top: 50%;
-    left: 46%;
-    width: 50px;
+    top: 101px;
+    left: 262px;
+    width: 80px;
 }
 
 #rightWrap .rightMainWrap .rightMain .miniRoom .talk {
@@ -907,12 +930,14 @@ progress::-webkit-progress-value {
     z-index: 10;
 }
 
-#profileContainer.editing #profileImg {
+#profileImg.editing:hover {
     filter: blur(3px) brightness(0.8);
+    transition: filter 0.3s ease;
 }
 
-#profileContainer.editing #changePhotoBtn {
+#profileContainer.editing:hover #changePhotoBtn {
     display: block;
 }
+
 
 

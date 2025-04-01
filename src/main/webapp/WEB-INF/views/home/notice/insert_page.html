@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/layout}">
+<head layout:fragment="styles">
+    <!-- 공지등록 페이지 전용 스타일 -->
+    <title layout:fragment="title">공지사항</title>
+    <link rel="stylesheet" th:href="@{/static/css/home/notice/noticeInsert.css}"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div id="container">
+        <div class="containerWrap noticeContainer">
+            <div class="notice-top">
+                <h1>공지사항</h1>
+                <span>등록하기</span>
+            </div>
+            <!--center-->
+            <div class="notice-insert">
+                <div class="notice-insert-top">
+                    <div class="notice-info">
+                        <span class="info-title">공지종류</span>
+                        <div class="info-wrapper">
+                            <select id="i_type" class="input-full">
+                                <option value="" disabled selected>분류를 선택하세요.</option>
+                                <option value="01">공지</option>
+                                <option value="02">이벤트</option>
+                                <option value="03">팝업</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="notice-info">
+                        <span class="info-title">제목</span>
+                        <div class="info-wrapper">
+                            <input class="input-full" type="text" id="i_title"/>
+                        </div>
+                    </div>
+                    <div class="notice-info">
+                        <span class="info-title">시작일시</span>
+                        <div class="info-wrapper">
+                            <input type="datetime-local" id="i_start_date">
+                            <input type="checkbox">
+                            <span>시작일시를 오늘로</span>
+                        </div>
+
+                    </div>
+                    <div class="notice-info">
+                        <span class="info-title">종료일시</span>
+                        <div class="info-wrapper">
+                            <input type="datetime-local" id="i_end_date">
+                            <select>
+                                <option>직접입력</option>
+                                <option>1일 후</option>
+                                <option>7일 후</option>
+                                <option>30일후</option>
+                                <option>무기한</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!--게시내용-->
+                <div class="editor-wrapper">
+                    <div id="editor"></div>
+                </div>
+                <div class="button-wrapper">
+                    <button class="list-button">목록으로</button>
+                    <button class="insert-button" onclick="insert_notice()">등록하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 공지사항 페이지 전용 JS -->
+<th:block layout:fragment="scripts">
+    <script th:src="@{/static/js/home/notice/notice.js}"></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+</th:block>
+
+</body>
+</html>

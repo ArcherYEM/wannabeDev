@@ -1,15 +1,34 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="footer">
-    <footer id="footer">
-        <div class="footerWrap">
-            <div>
-                <p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
-                <p>Since.2025.2.24~</p>
+<footer th:fragmen="footer" id="footer">
+    <div class="footerTopWrap">
+        <div class="footerTop">
+            <img src="/static/images/common/logo_full_w.png">
+            <div class="keywordBox">
+                <p>
+                    MY WORLD,
+                </p>
+                <p>
+                    FRIENDSHIP,
+                </p>
+                <p>
+                    MEMORIES.
+                </p>
             </div>
         </div>
-    </footer>
-
-    <link rel="stylesheet" href="/static/css/footer.css">
-</th:block>
-</html>
+    </div>
+    <div class="footerBotWrap">
+        <div class="footerBottom">
+            <div class="footerGitLink">
+                <img src="/static/images/common/icon/github-mark-w.svg" alt="github-mark" />
+                WannabeDev.git
+            </div>
+            <div class="copyright">
+                <p>
+                    <span>ⓒ2025.Team.</span>
+                    <span class="teamName">WannabeDev</span>
+                    <span>All rights reserved.</span>
+                </p>
+                <p>Since 2025.02.24</p>
+            </div>
+        </div>
+    </div>
+</footer>

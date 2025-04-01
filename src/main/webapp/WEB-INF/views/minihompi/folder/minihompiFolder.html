@@ -1,0 +1,46 @@
+    <div id="folderTitle"></div>
+    <hr>
+    <div id="calender">
+        <div id="folderWrap">
+            <div id="folderSelectWrap">
+                <button class="folderAddBtn"><img src="/static/images/common/minihompi/addFolder.png"> 폴더 추가</button>
+                <select class="statusSelect">
+                    <option value="33">전체 공개</option>
+                    <option value="32">일촌 공개</option>
+                    <option value="31">나만 보기</option>
+                </select>
+            </div>
+            <div class="folderNameWrap">
+                <input type="text" class="folderInput" placeholder="폴더명을 입력해주세요">
+                <button class="folderInputBtn">등록</button>
+            </div>
+        </div>
+    </div>
+    <div class="folderBottomWrap">
+        <div class="toggleBottomWrap">
+        <button><img src="/static/images/common/minihompi/folderEdit.png"> 폴더 관리하기</button>
+            <div class="editFolderMenu hidden">
+                <ul>
+                    <li id="folderEditBtn">수정</li>
+                    <li id="showDeleteBtn">삭제</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="folderEditModal">
+        <div class="modalContent">
+            <div class="folderModalTop">
+                <h2 class="folderModalTitle">폴더 이름 수정</h2>
+                <div>
+                    <span>변경할 폴더</span>
+                    <select class="selectModalFolder">
+                    </select>
+                </div>
+            </div>
+            <div class="modalContentsWrap">
+                <input type="text" class="folderNameInput">
+                <button id="updateFolderNameBtn">저장</button>
+                <button id="folderModalExit">취소</button>
+            </div>
+        </div>
+    </div>

@@ -9,9 +9,15 @@ public class NoticeDTO {
     private String noticeTitle;
     private String noticeContents;
     private String startDate;
+    private String startTime;
     private String endDate;
+    private String endTime;
     private String insertDT;
-    private String insertUserId;
+    private Long insertUserId;
+    private String updateDT;
+    private Long updateUserId;
+    private String startDateTime;
+    private String endDateTime;
 
     // 추가된 LOGIN_ID 필드
     private String loginId;  // 로그인 ID를 추가
@@ -47,6 +53,6 @@ public class NoticeDTO {
 
     // 날짜 범위를 반환하는 메서드 추가
     public String getDateRange() {
-        return this.startDate + " ~ " + this.endDate;
+        return this.startDateTime + " ~ \n" + this.endDateTime;
     }
 }

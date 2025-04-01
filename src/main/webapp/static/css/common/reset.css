@@ -1,0 +1,92 @@
+/* 마요가... 공통 css 정리중 */
+@charset "utf-8";
+
+/* reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,caption,
+article, aside, details, figcaption, figure, dialog,
+footer, header, hgroup, menu, nav, section {margin: 0; padding: 0; border: 0;}
+*{ box-sizing:border-box;}
+article, aside, details, figcaption, figure, dialog,
+footer, header, hgroup, menu, nav, section {display: block;}
+html, body {height: 100%; -webkit-text-size-adjust: 100%;}
+body {font-size: 14px;font-family: "Nanum Gothic", sans-serif; color:#333; line-height:1.5; letter-spacing:-0.25px;}
+
+:before,:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+html { font-size: 14px; }
+h1, h2, h3, h4, h5, h6 {font-size: 100%; font-weight: normal;}
+
+a {color: #333; text-decoration: none;}
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover {  text-decoration: none; }
+a:active {  text-decoration: none; }
+a:focus { text-decoration: none; }
+select, input, textarea { vertical-align: middle ; font-family:"Nanum Gothic", sans-serif;}
+input {margin: 0;padding: 0;outline: none;}
+
+ol, ul {list-style: none;}
+label {vertical-align:middle;}
+legend, caption {position:relative; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; text-indent:-9999px;}
+img {vertical-align: middle;image-rendering: -webkit-optimize-contrast;}
+
+em,address {font-style:normal;}
+table {clear:both;border-collapse:collapse;border-spacing:0px;border:0;}
+table th {font-weight: normal !important;}
+
+/* 기본 스타일 */
+body { color: var(--color-black);}
+
+h1, h2, h3, h4, h5, h6 {font-size: 100%; font-weight: normal;}
+a {color: #333; text-decoration: none;}
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover {  text-decoration: none; }
+a:active {  text-decoration: none; }
+a:focus { text-decoration: none; }
+
+/* 인풋, 버튼 등 스타일링 */
+input, textarea, select, button{ font-family: "Nanum Gothic", sans-serif;}
+input:disabled, select:disabled { background-color: #DFE0DF; }
+input, select{vertical-align: middle; color: #333;}
+
+button {cursor: pointer; border: 0}
+button,input {overflow: visible}
+button,select {text-transform: none}
+button,[type="button"],[type="reset"],[type="submit"] {-webkit-appearance: button}
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0
+}
+
+input[type="checkbox"]  { width: 16px; height: 16px; }
+input[type=radio], input[type=checkbox] {border:0px;vertical-align: middle;box-sizing: border-box;padding: 0}
+input[type=button] {padding:0 10px;}
+input[type=text], input[type=password] {padding:5px 10px;border:1px solid #cccccc;vertical-align:middle;background-color:#fff; box-sizing:border-box;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -o-appearance:none;
+    font-size: 14px;
+}
+
+select { outline: none; }
+
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(68, 68, 68, 0.5);
+    border-radius: 10px;
+}
+
+

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.PopupMessageMapper">
+
+    <select id="getMessageList" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT *
+        from FRIEND_MESSAGE
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <!-- 받은쪽지 리스트 나열-->
+<!--    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT *
+        FROM FRIEND_MESSAGE
+        WHERE USER_ID = ${param1}
+        ORDER BY INSERT_DT DESC
+        LIMIT ${param2} , ${param3}
+    </select>-->
+
+    <!-- 받은쪽지 리스트 나열-->
+    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT
+            fm.*,
+            ub.name
+        FROM
+            FRIEND_MESSAGE fm
+                LEFT JOIN
+            USER_BASIC ub
+        ON
+            fm.friend_user_id = ub.user_id
+        WHERE
+            fm.user_id = ${param1}
+        ORDER BY
+            fm.insert_dt DESC
+        LIMIT
+            ${param2}, ${param3}
+    </select>
+
+    <!-- 받은 쪽지 개수 -->
+    <select id="reciveMsgCount" resultType="int">
+        SELECT COUNT(*)
+        AS reciveMsg_count
+        FROM FRIEND_MESSAGE
+        WHERE USER_ID=#{userId}
+    </select>
+
+    <!-- 안읽은 쪽지 개수 -->
+    <select id="reciveUnreadMsgCount" resultType="int">
+        SELECT COUNT(*)
+        AS reciveMsg_count
+        FROM FRIEND_MESSAGE
+        WHERE USER_ID=#{userId} AND READ_YN = 'N'
+    </select>
+
+    <!-- 쪽지 상세보기 -->
+    <select id="getReciveMsgView" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT
+            fm.*,
+            ub.name
+        FROM
+            FRIEND_MESSAGE fm
+                LEFT JOIN
+            USER_BASIC ub
+            ON
+                fm.friend_user_id = ub.user_id
+        WHERE
+            fm.MESSAGE_ID = #{messageId}
+    </select>
+
+    <!-- 쪽지상세 보기 시 읽음 처리-->
+    <update id="messageReadUpdate">
+        UPDATE FRIEND_MESSAGE
+        SET READ_YN = 'Y'
+        WHERE MESSAGE_ID= #{messageId}
+    </update>
+
+    <!-- 쪽지보내기 유저이름 검색 -->
+    <select id="getSendSearchName" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT
+            fi.*,
+            ub.name
+        FROM
+            FRIEND_INFO fi
+        LEFT JOIN
+            USER_BASIC ub
+        ON
+            fi.friend_user_id = ub.user_id
+        WHERE
+            fi.user_id = #{param1}
+      AND (
+            fi.USER_NICKNAME LIKE CONCAT('%', #{param2}, '%') OR
+            fi.FRIEND_USER_NICKNAME LIKE CONCAT('%', #{param2}, '%') OR
+            ub.name LIKE CONCAT('%', #{param2}, '%')
+        )
+    </select>
+</mapper>

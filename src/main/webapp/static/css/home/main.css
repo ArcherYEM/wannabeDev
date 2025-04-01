@@ -1,0 +1,811 @@
+/* 메인 구조 */
+.mainContainer {
+    width: 100%;
+    padding-top: 10px;
+    font-size:14px;
+    cursor: default;
+}
+
+.containerWrap {
+    display: flex;
+    gap: 10px;
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 5px;
+    }
+}
+
+.mainLeft {
+    width: 25%;
+    gap: 40px;
+}
+
+.mainCenter {
+    width: 50%;
+    gap: 10px;
+}
+
+.mainRight {
+    width: 25%;
+    gap: 10px;
+}
+/* 메인 구조 끝 */
+
+/* 메인 공통 시작 */
+.mainTitleText {
+    font-size:16px;
+    font-weight:bold;
+    color: var(--color-brown);
+}
+
+.mainTitleText span{
+    font-size:14px;
+    color:#bbb;
+}
+/* 메인 공통 끝 */
+
+/* 좌측 로그인 & 인포 박스 */
+.mainLeftTop {
+    height: 200px;
+}
+
+/* 좌측 로그인 시작 */
+.loginWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.loginWrap .loginInputWrap {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.loginWrap .loginInputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    input {
+        width: 100%;
+        height: 40px;
+        background-color: var(--color-white);
+        border: solid 1px var(--color-lgray);
+        border-radius: 5px;
+    }
+}
+
+.loginWrap .loginBtnWrap {
+    width: 100%;
+
+    button {
+        font-size: 14px;
+        width: 100%;
+        height: 40px;
+        color: var(--color-white);
+        border: solid 1px var(--color-brown);
+        background-color: var(--color-brown);
+        border-radius: 5px;
+    }
+    button:hover {
+        color: var(--color-white);
+        border: solid 1px var(--color-lbrown);
+        background-color: var(--color-lbrown);
+    }
+}
+
+.loginWrap .loginLinkWrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 3px;
+
+    a {
+        cursor: pointer;
+        color: var(--color-lbrown);
+    }
+}
+/* 좌측 로그인 끝 */
+
+/* 좌측 프로필 영역 시작 */
+.profileWrap {
+    border: solid 2px var(--color-basic);
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(var(--color-basic) 80px, transparent 80px);
+    display: flex;
+    flex-direction: column;
+}
+
+.profileInfoTop {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: flex-end;
+    line-height: 1;
+
+    .personalWrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+
+        .personalFeat {
+            display: flex;
+            gap: 10px;
+            color: var(--color-white);
+
+            span {
+                cursor:pointer;
+            }
+
+            span:hover{
+                color: var(--color-brown);
+            }
+        }
+
+        .nameDisplay {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-white);
+        }
+    }
+}
+
+.profileImgWrap {
+    .profileImg {
+        background:var(--color-basic);
+        height:80px;
+        width:80px;
+        padding: 5px;
+        border: solid 3px var(--color-white);
+        border-radius:50%;
+        transform:translate(0px,20px);
+    }
+
+    img{
+    	height:64px;
+    	width:64px;
+    	border-radius:50%;
+    }
+}
+
+.profileInfoBot {
+    flex: 1;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .infoWrap {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .infoOnline {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .infoData {
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .alignBox {
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        line-height:1;
+
+        .stat {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            text-align: right;
+
+                img {
+                    width: 14px;
+                    height: 14px;
+                }
+
+                .text.new {
+                    font-weight: 700;
+                }
+        }
+    }
+
+    .messageBox {
+        cursor: pointer;
+    }
+
+    .stateDotori{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: solid 1px var(--color-basic);
+        border-radius: 15px;
+        padding: 2px;
+        line-height: 1;
+
+        .dotoriTitleWrap {
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
+            gap: 5px;
+
+            img {
+                width: 20px;
+                height: auto;
+            }
+        }
+
+        .chargeWrap {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .text {
+                font-weight: 700;
+            }
+        }
+
+        .rechargePageBtn {
+            padding: 5px 15px;
+            border-radius: 15px;
+            color: var(--color-white);
+            background-color: var(--color-basic);
+        }
+    }
+}
+
+/* 좌측 프로필 영역 끝 */
+
+/* 신규출시아이템 시작 */
+.mainLeftBot {
+    width: 100%;
+}
+
+.mainLeftBot .titleTextWrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .refreshText {
+        display: flex;
+        align-items: center;
+        height: 24px;
+        padding: 2px 5px;
+        font-size: 12px;
+        background: var(--color-lbrown);
+        border-radius: 5px;
+        color: var(--color-white);
+        cursor: pointer;
+
+        &:hover {
+            background: var(--color-basic);
+        }
+    }
+
+    .reloadIcon {
+        position: relative;
+        padding: 2px;
+        &:before, &:after {
+            content: '';
+            display: block;
+        }
+        &:before {
+            border-color: transparent white white white;
+            border-radius: 50%;
+            border-style: solid;
+            border-width: 2px;
+            height: 12px;
+            width: 12px;
+            transform: rotate(45deg);
+        }
+        &:after {
+            border-color: transparent transparent transparent white;
+            border-style: solid;
+            border-width: 4px 0 4px 6px;
+            height: 0;
+            position: absolute;
+            top: 0px;
+            left: 6px;
+            width: 0;
+        }
+    }
+}
+
+.newItemWrap {
+    margin-top: 10px;
+}
+
+.newItemWrap .categoryList {
+    display: flex;
+    gap: 2px;
+
+    button {
+        padding: 5px 10px;
+        color: var(--color-white);
+        border: solid 2px var(--color-basic);
+        background: var(--color-basic);
+        border-bottom: 0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    button:hover {
+        border: solid 2px var(--color-lbrown);
+        border-bottom: 0;
+        background: var(--color-lbrown);
+    }
+    button.active{
+        color: var(--color-basic);
+        border: solid 2px var(--color-basic);
+        border-bottom: 2px solid #fff;
+        background: var(--color-white);
+        margin-bottom: -2px;
+    }
+}
+
+.productContainer {
+    width: 100%;
+    border-top: solid 2px var(--color-basic);
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    text-align: center;
+    transition: transform 0.3s;
+    margin-bottom: 5px;
+
+    img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* 살짝 확대 */
+}
+
+.product-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-name {
+    font-size: 14px;
+    font-weight: bold;
+}
+/* 신규출시아이템 끝 */
+
+/* 메인슬라이더 시작 */
+.mainCenterTop {
+    width: 1280px;
+    margin: 0 auto 10px;
+    height: 230px;
+    border-radius: 15px;
+    padding: 0px 5px;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    display: none !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    display: none;
+}
+
+.swiper-pagination-bullet {
+    background: var(--color-basic) !important;
+    opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1 !important;
+}
+/* 메인슬라이더 끝 */
+
+/* 인기 급상승 유저 시작 */
+.topUserWrap {
+    width: 100%;
+
+    .topUserTitle {
+        width: 100%;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .mainTitleText {
+            font-size: 24px;
+            color: var(--color-basic);
+            font-weight: bold;
+        }
+
+        .infoText {
+            font-size: 14px;
+            color: var(--color-lbrown);
+        }
+    }
+}
+
+.topUserWrap .favoriteListWrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    font-family: "Jua", sans-serif;
+    color: var(--color-gray);
+
+    > li {
+        display: flex;
+        width: calc(50% - 5px);
+    }
+
+    .favoriteList {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.topUserWrap .favoriteItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    padding: 5px 20px;
+    background: var(--color-lgray);
+    border-radius: 20px;
+    gap: 10px;
+
+    .faText {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .todayWrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        margin-top: 5px;
+
+        .today {
+            font-size: 12px;
+        }
+
+        .todayNum{
+            margin-top: -10px;
+            font-size: 20px;
+        }
+    }
+
+    .name {
+        display:inline-block;
+        width: 100px;
+        font-size: 20px;
+        font-weight: 200;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.topUserWrap .rankWrap {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .rank {
+        width: 20px;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--color-gray)
+    }
+
+    .logoFace {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        font-weight:bold;
+        transform: rotate(90deg);
+    }
+
+    .faNum {
+        position:relative;
+        background: var(--color-white);
+        width:30px;
+        height:30px;
+        text-align:center;
+        line-height:20px;
+        display:block;
+        border:5px solid var(--color-gray);
+        border-radius:50%;
+    }
+}
+
+.favoriteList1 .favoriteItem:nth-of-type(1) .rank { color: var(--color-basic); }
+.favoriteList1 .favoriteItem:nth-of-type(2) .rank { color: var(--color-lbrown); }
+.favoriteList1 .favoriteItem:nth-of-type(3) .rank { color: var(--color-brown); }
+.favoriteList1 .favoriteItem:nth-of-type(1) .todayNum { color: var(--color-basic); }
+
+/* 랭킹 마크 디자인 */
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList > li{margin-bottom:5px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList > li .faNum span{position:absolute;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:first-child .faNum{border-color:#FFC300}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:first-child .faNum span:nth-child(2){bottom: -13px;left: 6px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:first-child .faNum span:nth-child(3){bottom: -10px;left: -1px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:first-child .faNum span:nth-child(4){bottom: -5px;left: -7px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:first-child .faNum span:nth-child(5){bottom: -5px;left: 18px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:first-child .faNum span:nth-child(6){bottom: -10px;left: 13px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(2) .faNum{border-color:var(--color-lbrown)}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(2) .faNum span:nth-child(2){bottom: -10px;left: -1px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(2) .faNum span:nth-child(3){bottom: -5px;left: -7px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(2) .faNum span:nth-child(4){bottom: -5px;left: 18px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(2) .faNum span:nth-child(5){bottom: -10px;left: 13px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(3) .faNum{border-color:var(--color-brown)}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(3) .faNum span:nth-child(2){bottom: -13px;left: 6px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(3) .faNum span:nth-child(3){bottom: -10px;left: -1px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(3) .faNum span:nth-child(4){bottom: -10px;left: 13px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(4) .faNum {border-color:var(--color-blue)}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(4) .faNum span:nth-child(2){bottom: -10px;left: -1px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(4) .faNum span:nth-child(3){bottom: -10px;left: 13px;}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(5) .faNum{border-color:var(--color-wine)}
+.mainContainer .mainCenter .topUserWrap .favoriteListWrap > li > .favoriteList1 > li:nth-child(5) .faNum span:nth-child(2){bottom: -13px;left: 6px;}
+/* 인기 급상승 유저 끝 */
+
+/* 뉴스 시작 */
+.newsWrap {
+    margin: 10px;
+}
+.newsList {
+    margin: 5px 0px 20px;
+
+    .news-item {
+        padding: 5px 0px;
+        border-bottom: solid 1px var(--color-lgray);
+    }
+
+    .news-item:last-child {
+        border: none;
+    }
+}
+
+/* 뉴스 끝 */
+
+/* 오늘의 날씨 시작 */
+.weather-container {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: var(--color-lbrown);
+    border: solid 1px var(--color-lbrown);
+    border-radius: 15px;
+
+    .mainTitleText {
+        margin-bottom: 5px;
+    }
+}
+
+.weather-content {
+    display: flex;
+    height: 120px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.weather-left {
+    display: flex;
+    flex-direction:column;
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+.weather-info {
+    border-left: solid 2px var(--color-white);
+    height: 120px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    line-height: 1;
+}
+
+.weather-info p {
+    padding: 2px 0px;
+    color: var(--color-white);
+
+    &.location {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    &.weather-text {
+        font-size: 12px;
+    }
+
+    &.temp span {
+        font-size: 40px;
+        font-weight: bold;
+    }
+}
+/* 오늘의 날씨 끝 */
+
+/* 오늘의 운세 시작 */
+.todayLucyWrap {
+    width: 100%;
+    background-color: var(--color-brown);
+    border: solid 1px var(--color-brown);
+    border-radius: 15px;
+    padding: 15px;
+    color: var(--color-white);
+
+    .mainTitleText {
+    color: var(--color-white);
+    }
+
+    .todayLuckyFrame {
+        margin-top: 5px;
+    }
+}
+/* 오늘의 운세 끝 */
+
+/* 영화 추천 시작 */
+.movieWrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 320px;
+    color: var(--color-gray);
+    gap: 10px;
+}
+
+.movieWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.movie {
+    width: 100%;
+    position: relative;
+    border-radius: 15px;
+
+    .rank {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-lbrown);
+        border: solid 3px var(--color-lbrown);
+        background-color: var(--color-white);
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: 700;
+    }
+}
+
+.movie_wrapper {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+}
+
+.movie_poster {
+    width: 60px;
+
+    img {
+        width: 60px;
+        height: auto;
+    }
+}
+
+.movie_info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+
+    p {
+        max-width:210px;
+        display: inline-block;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1;
+    }
+}
+
+.movie_info .movie_title {
+    width: 200px;
+    display: inline-block;
+    color: var(--color-basic);
+    font-size: 16px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.movie_day {
+    font-size: 12px;
+    color: var(--color-lbrown);
+}
+
+.scroll-animate {
+    text-align: left;
+    animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0%);
+    }
+    50% {
+        transform: translateX(-100%);
+    }
+    50.1% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+/* 영화 추천 끝 */

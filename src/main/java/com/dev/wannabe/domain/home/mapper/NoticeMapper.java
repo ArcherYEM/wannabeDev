@@ -9,8 +9,11 @@ import java.util.Map;
 @Mapper
 public interface NoticeMapper {
 
-//    // 공지사항 목록 조회
-    int getFilteredNoticesCount();
+    // 공지사항 목록 조회
+    Integer getFilteredNoticesCount(Map<String, Object> params);
 
     List<NoticeDTO> getFilteredNotices(Map<String, Object> params);
+
+    // 공지사항 등록
+    void insertNotice(NoticeDTO noticeDTO);
 }

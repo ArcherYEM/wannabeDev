@@ -1,0 +1,240 @@
+.btn{display:inline-block; height:30px; background:#fff; color:#555; border:1px solid var(--color-basic); padding:5px 10px; font-weight:bold; border-radius:5px; text-align:center; line-height:16px; box-sizing:border-box; transition:all,.5s; cursor:pointer}
+.btn:hover{color:var(--color-basic)}
+.btn.small{height:inherit; padding:0 10px;}
+.btn.nobtn{background:#595959; border:1px solid #595959; color:#fff}
+.btn.nobtn:hover{color:var(--color-basic)}
+.btn.btnRed{background:var(--color-red); border:1px solid var(--color-red);}
+.btn.btnGreen{background:var(--color-green); border:1px solid var(--color-green);}
+.btn.btnBlue{background:var(--color-blue); border:1px solid var(--color-blue);}
+.btn.btnGray{background:var(--color-gray); border:1px solid var(--color-gray); }
+#popupMessageNav ul li a:hover{color:var(--color-basic)}
+/*기본색 */
+:root {
+    --color-basic: #FF8000;
+    --color-red: #ff4f4f;
+    --color-green: #00a336d9 ;
+    --color-blue: #3700ffc7 ;
+    --color-gray: #595959;
+}
+
+.dFlex {
+    display: flex;
+}
+
+div#wrap {
+    width: 100%;
+    height: 80%;
+}
+
+ol, ul {
+    list-style: none;
+    margin:0; padding:0;
+}
+
+
+ul > li {
+    cursor: pointer;
+    font-size: 20px;
+    padding-right: 20px;
+    padding-left: 10px;
+}
+
+ul > li:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+input[type=text] {
+    font-size: 19px;
+    width: 200px;
+    padding: 5px;
+    border: 1px solid orange;
+}
+
+div.unread, div.read {
+    display: flex;
+    padding: 10px;
+    height: 40px;
+    border-bottom: 1px solid #617680;
+
+}
+div.unread:hover > * , div.read:hover > *{
+    cursor: pointer;
+    color: orange;
+    font-weight: bold;
+}
+.msgChkbox { margin: 2px; }
+.popMsg-insertUserId { width: 80px; text-align: center; }
+.popMsg-Msg { width: 200px; text-align: center;}
+.popMsg-date {width: 120px; text-align: center;}
+
+button {
+    background-color: orange;
+    cursor: pointer;
+    padding: 10px 25px;
+}
+
+header#header {
+    padding: 30px;
+    height: 20%;
+    text-align: center;
+
+}
+
+#header img {
+    margin-top: 20px;
+}
+
+
+main#main.dFlex {
+    flex-wrap: nowrap;
+
+    justify-content: center;
+    width: 100%;
+    height: 80%;
+    /*border: 1px solid red;*/
+}
+
+div#popupMessageNav {
+    width: 25%;
+    border-right: 1px solid black;
+    padding-top: 10px;
+    margin-top: 35px;
+}
+span.reciveMsgCount{
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+    position: relative;
+    top: -86px;
+    left: 130px;
+    pointer-events: none;
+}
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: green;
+}
+div#popupMessageMain {
+    width: 70%;
+    padding: 0px 15px;
+    /*border: 1px solid green;*/
+}
+
+div#popupMessageMain > #popupMessageMainHeader {
+    margin-bottom: 10px;
+
+}
+
+textarea {
+    padding: 10px;
+    width: 435px;
+    height: 350px;
+    margin-bottom: 30px;
+    border: 2px solid #989797;
+    border-radius: 0.5em;
+    resize: none;
+}
+
+#sendMessagePre, #reciveMessagePre {
+    padding: 10px;
+    width: 435px;
+    height: 350px;
+    margin-bottom: 30px;
+    border: 2px solid #989797;
+    border-radius: 0.5em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow: auto;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+p.receiveMessageTime {
+    font-weight: bold;
+    text-align: right;
+}
+div#popupMessageMainArea {
+    /*text-align: right;*/
+    margin: 0;
+}
+
+div#popupMessageSendBtnArea {
+    padding: 0px 10px;
+    text-align: right;
+}
+
+div#popupMessageReciveBtnArea.dFlex {
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+
+div#popupMessageSendboxBtnArea.dFlex {
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+
+
+div#popupMessageMainArea button#MessageSendBtn {
+    margin-right: 10px;
+}
+
+/* 읽지 않은 쪽지 (검은색 굵게) */
+.unread {
+    font-weight: bold;
+    color: black;
+}
+
+/* 읽은 쪽지 (연회색 얇게) */
+.read {
+    font-weight: normal;
+    color: lightgray;
+}
+
+/*페이지네이션 관련 css*/
+#pagination {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* 페이지네이션 버튼 스타일 */
+#popMsgList-container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#popMsgListTitle {
+    display: flex;
+    padding: 10px;
+    background: #f3d2bb;
+    color: black;
+    font-weight: bold;
+}
+
+.popMsgListBox {
+    display: flex;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+#pagination button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background: #ff8000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

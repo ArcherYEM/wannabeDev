@@ -1,0 +1,20 @@
+<!-- 공통 레이아웃 -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="/common/layout/fragments/head :: head"></div>
+<body>
+<div id="wrap">
+    <!-- 공통 헤더 -->
+    <div th:replace="/common/layout/fragments/header :: header"></div>
+    <!-- 본문 삽입 영역 -->
+    <main layout:fragment="content"></main>
+    <!-- 공통 푸터 -->
+    <div th:replace="/common/layout/fragments/footer :: footer"></div>
+</div>
+<!-- 공통 JS -->
+<th:block th:replace="/common/layout/fragments/loading :: loadingSpinner"/>
+<div th:replace="/common/layout/fragments/script-new :: script"></div>
+<!-- 개별 페이지 JS -->
+<th:block layout:fragment="scripts"></th:block>
+</body>
+</html>

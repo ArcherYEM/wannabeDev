@@ -1,0 +1,94 @@
+@charset "utf-8";
+
+/*기본색 s*/
+:root {
+	--color-basic: #FF8000;
+	--color-white: #FFFFFF;
+	--color-black: #000000;
+	--color-red: #ff4f4f;
+	--color-green: #00a336d9 ;
+	--color-blue: #455582;
+    --color-lgray: #DFE0DF;
+    --color-ngray: #9a9a9a;
+	--color-gray: #595959;
+	--color-dgray: #333;
+	--color-brown: #534439;
+	--color-lbrown: #BBA89C;
+	--color-wine: #670000;
+}
+
+.btn{display:inline-block; width:100%; height:30px; background:#fff; color:#555; border:1px solid var(--color-basic); padding:5px 10px; font-weight:bold; border-radius:5px; text-align:center; line-height:16px; box-sizing:border-box; transition:all,.5s; cursor:pointer}
+.btn:hover{color:var(--color-basic)}
+.btn.small{height:inherit; padding:0 10px;}
+.btn.nobtn{background:#595959; border:1px solid #595959; color:#fff}
+.btn.nobtn:hover{color:var(--color-basic)}
+.btn.btnRed{background:var(--color-red); border:1px solid var(--color-red);}
+.btn.btnGreen{background:var(--color-green); border:1px solid var(--color-green);}
+.btn.btnBlue{background:var(--color-blue); border:1px solid var(--color-blue);}
+.btn.btnGray{background:var(--color-gray); border:1px solid var(--color-gray); }
+
+.mainTitleText{font-size:16px; font-weight:bold; color: var(--color-basic);}
+.mainTitleText span{font-size:14px; color:#bbb;}
+
+#wrap{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+	position:relative;
+    font-family: "Nanum Gothic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*메인 s*/
+#container{}
+#container .containerWrap{max-width:1280px; margin:0 auto;}
+#container .containerWrap.joinContainer{max-width:500px;}
+#container .mainTop{width:100%; overflow:hidden; height:190px;}
+#container .mainTop > div{float:left;}
+#container .mainTop .mainTopLeft{width:25%; height:100%; padding:15px 0px; box-sizing:border-box;}
+/*메인 e*/
+
+/*공통 s*/
+#container{}
+#container .containerWrap{}
+#container .containerWrap .menuTitle{font-weight:bold; font-size:20px; margin:20px 0;}
+/*공통 e*/
+
+/*회원가입 s*/
+.joinDiv{}
+.joinDiv .joinTitle{font-weight:bold;}
+.joinDiv .joinInputWrap{position:relative; margin-bottom:10px;}
+.joinDiv .joinInputWrap a{position:absolute; top:6px; right:6px; width:inherit;}
+.joinDiv .joinInputWrap input{width:100%; height:30px; border-radius:5px; border:1px solid var(--color-basic)}
+.joinDiv .joinInputWrap ul{overflow:hidden;}
+.joinDiv .joinInputWrap ul li{float:left; width:32.33%; margin-right:1.5%}
+.joinDiv .joinInputWrap ul li:last-child{margin-right:0;}
+.joinDiv .joinInputWrap select{width:100%; height:30px; border-radius:5px; border:1px solid var(--color-basic)}
+.successChk{color:blue; margin-top:5px; display:none;}
+.failChk{color:red; margin-top:5px; display:none;}
+/*회원가입 e*/
+
+/*아디비번찾기 s*/
+.idPwSearchModal{background:#fff; width:500px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:block; padding:40px 30px; box-sizing:border-box; border-radius:10px;}
+.idPwSearchModal .idPwSearchTop{text-align:center;}
+.idPwSearchModal .idPwSearchTop img{}
+.idPwSearchModal .idPwSearchMid{margin:20px 0;}
+.idPwSearchModal .idPwSearchMid > div{margin:50px 0;}
+.idPwSearchModal .idPwSearchMid > ul{margin-bottom:20px;}
+.idPwSearchModal .idPwSearchMid ul li{float:left; width:49%}
+.idPwSearchModal .idPwSearchMid ul li:last-child{float:right;}
+.idPwSearchModal .joinTitle{font-weight:bold;}
+.idPwSearchModal .joinInputWrap{position:relative; margin-top:10px; margin-bottom:20px;}
+.idPwSearchModal .joinInputWrap a{position:absolute; top:6px; right:6px; width:inherit;}
+.idPwSearchModal .joinInputWrap input{width:100%; height:30px; border-radius:5px; border:1px solid var(--color-basic)}
+.idPwSearchModal .joinInputWrap select{width:100%; height:30px; border-radius:5px; border:1px solid var(--color-basic)}
+.idPwSearchModal .joinInputWrap ul{overflow:hidden;}
+.idPwSearchModal .joinInputWrap ul li{float:left; width:32.33%; margin-right:1.5%}
+.idPwSearchModal .joinInputWrap ul li:last-child{margin-right:0;}
+.idPwSearchModal .idPwSearchBot{}
+.idPwSearchModal .idPwSearchBot ul{}
+.idPwSearchModal .idPwSearchBot ul li{float:left; width:49%}
+.idPwSearchModal .idPwSearchBot ul li:last-child{float:right;}
+/*아디비번찾기 e*/

@@ -3,11 +3,12 @@
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.FolderMapper">
     <insert id="saveFolder" parameterType="HompiFolder">
         INSERT INTO HOMPI_FOLDER (
-            HOMPI_ID, FOLDER_NAME, CONTENTS_TYPE, AVAIL_STATUS,
+            HOMPI_ID, FOLDER_ID,FOLDER_NAME, CONTENTS_TYPE, AVAIL_STATUS,
             INSERT_USER_ID
         )
         VALUES (
             #{hompiId},
+            #{folderId},
             #{folderName},
             #{contentsType},
             #{availStatus},
@@ -17,6 +18,35 @@
             FOLDER_NAME = #{folderName},
             UPDATE_USER_ID = #{folderName}
     </insert>
+
+    <insert id="saveBasicFolder" parameterType="HompiFolderDTO">
+        INSERT INTO HOMPI_FOLDER (
+        HOMPI_ID, FOLDER_ID ,FOLDER_NAME, CONTENTS_TYPE, AVAIL_STATUS,
+            INSERT_USER_ID
+        )
+        VALUES (
+            #{hompiId}, #{folderId},
+            #{folderName}, '01',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, #{folderId},
+            #{folderName}, '02',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, #{folderId},
+            #{folderName}, '03',
+            #{availStatus}, #{insertUserId}
+        )
+    </insert>
+
+    <select id="findMaxFolderId" resultType="Long">
+        SELECT MAX(FOLDER_ID) AS folderId
+        FROM HOMPI_FOLDER
+        WHERE CONTENTS_TYPE = #{contentType}
+            AND HOMPI_ID = #{hompiId}
+    </select>
 
     <select id="findAllFolderByFolderFind" parameterType="FolderFindDTO" resultType="FolderDTO">
         SELECT FOLDER_ID, FOLDER_NAME
@@ -35,15 +65,15 @@
         </choose>
     </select>
 
-    <select id="findAllFolderContentByFolderFind" parameterType="FolderFindDTO" resultType="FolderContentsDTO">
+    <select id="findAllFolderContentByFolderFind" parameterType="FolderFindDTO" resultType="FolderDTO">
         <choose>
             <when test="contentsType == '01'"> <!--> 다이어리 <-->
-                SELECT DIARY_ID AS CONTENT_ID, DATE_FORMAT(INSERT_DT, '%Y%m%d') AS CONTENT_NAME
+                SELECT DIARY_ID AS CONTENT_ID, DIARY_NAME AS CONTENT_NAME
                 FROM HOMPI_DIARY
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
             <when test="contentsType == '02'"> <!--> 사진첩 <-->
-                SELECT ALBUM_ID AS CONTENT_ID, ALBUM_NAME AS CONTENT_NAME
+                SELECT ALBUM_ID AS CONTENT_ID, ALBUM_TITLE AS CONTENT_NAME
                 FROM HOMPI_ALBUM
                 WHERE FOLDER_ID = #{folderId} AND HOMPI_ID = #{hompiId}
             </when>
@@ -55,10 +85,11 @@
         </choose>
     </select>
 
-    <update id="updateFolder" parameterType="FolderDTO">
+    <update id="updateFolder" parameterType="UpdateFolderDTO">
         UPDATE HOMPI_FOLDER
         SET FOLDER_NAME = #{folderName}
         WHERE FOLDER_ID = #{folderId}
+            AND CONTENTS_TYPE = #{contentType}
     </update>
 
     <update id="updateFolderContent" parameterType="FolderContentsDTO">
@@ -81,4 +112,11 @@
         </choose>
     </update>
 
+    <delete id="deleteFolder">
+        DELETE
+        FROM HOMPI_FOLDER
+        WHERE HOMPI_ID = #{hompiId}
+            AND FOLDER_ID = #{folderId}
+            AND CONTENTS_TYPE = #{contentType}
+    </delete>
 </mapper>

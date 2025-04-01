@@ -1,0 +1,120 @@
+.modalBg{position:fixed; top:0; left:0; width:100%; height:100%; display:block; background:rgba(0,0,0,0.5); display:none;}
+.modal{position:absolute; top:50%; left:50%; width:50%; display:block; background:#fff; box-sizing:border-box; padding:30px; transform:translate(-50%,-50%); border-radius:10px; display:none;}
+.modal > p.title{text-align:center; font-weight:bold; font-size:24px;}
+.modal a.close{position:absolute; top:35px; right:25px;}
+.modal a.close img{width:80%;}
+.modal div{width:100%; height:350px; margin-top:20px; overflow-y:auto; border:1px solid #bbb; text-align:left; box-sizing:border-box; padding:10px;}
+.modal div > *{font-size:16px;}
+
+.confirmWrapper {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid var(--color-lgray);
+    padding: 5px 10px;
+
+    input[type="checkbox"] {
+        accent-color: var(--color-gray);
+        margin-right: 5px;
+    }
+
+}
+
+.dialog {
+    display: none; /* 처음에는 숨김 */
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* 가운데 정렬   */
+    justify-items:center;
+    align-content:center;
+}
+
+.dialog .tb {
+    display: flex;
+    justify-content: center;
+/*    align-items: center;*/
+    width: 80%;
+    height: 70%;
+}
+
+.dialog .tb .inner {
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+}
+
+/*header*/
+.dialog .top {
+    align-item: center;
+    border-bottom: 1px solid #ddd;
+/*    justify-content: space-between;*/
+    padding-bottom: 10px;
+    position:relative
+
+}
+
+.dialog .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    align-content: center;
+/*    position:absolute;*/
+}
+
+.dialog .img{
+    width:100%;
+    height:100%;
+    text-align:left;
+    position: absolute;
+/*    background-color: red;*/
+}
+
+.dialog .img img.close{
+    bottom:50%;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    position:absolute;
+}
+
+/*약관 동의 내용*/
+.dialog .ct{
+    max-height: 60vw;
+    height: 50vh;
+    border: 3px solid gray;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    overflow: auto;
+    padding: 15px;
+}
+
+.dialog .ct .text{
+    width: 100%;
+    height: 90%;
+    text-align:left;
+    position: relative;
+}
+
+.dialog .ct .check{
+    position:absolute;
+    text-align: center;
+    width: 100%;
+    height: 10%;
+}
+
+.dialog .ct .check{
+    width: 100%;
+    height: 10%;
+}
+/*.dialog .ct .check{*/
+/*    text-align: center;*/
+/*    border: 1px solid black;*/
+/*}*/

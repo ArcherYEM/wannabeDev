@@ -1,53 +1,52 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/common/layout/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>onlineMain</title>
-    <link rel="stylesheet" href="/static/css/reset.css">
-    <link rel="stylesheet" href="/static/css/onlineStyle.css">
-    <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
-    <!-- Swal -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.all.min.js"></script>
-    <!-- Custom -->
-    <link rel="stylesheet" href="/static/css/signup.css">
-    <link rel="stylesheet" href="/static/css/modal.css">
+    <title layout:fragment="title">회원가입</title>
+    <!-- 회원가입 페이지 전용 스타일 -->
+    <link rel="stylesheet" th:href="@{static/css/home/signup.css}" layout:fragment="styles">
+    <link rel="stylesheet" th:href="@{static/css/home/modal.css}" layout:fragment="styles">
 </head>
 <body>
-<div id="wrap">
-    <!--헤더 시작-->
-    <th:block th:include="/common/layout/fragments/header :: header"></th:block>
-    <!--헤더 끝-->
-
-    <!--메인 시작-->
+<div layout:fragment="content">
+    <!-- 회원가입 -->
     <div id="container">
         <div class="containerWrap joinContainer">
-            <div class="joinDiv mt30">
-
-                <p class="joinTitle">아이디</p>
-                <div class="joinInputWrap">
-                    <input type="text" id="loginId" placeholder="아이디 입력">
-                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicateLoginId">중복확인</a>
-                    <p class="checkMatch loginId"></p>
+            <h2>회원가입</h2>
+            <div class="joinDiv">
+                <div class="joinTitle">
+                    <p class="title">아이디</p>
+                    <p class="checkMatch loginId">&nbsp;</p>
                 </div>
-
-                <p class="joinTitle">비밀번호</p>
-                <div class="joinInputWrap">
-                    <input type="password" id="password" placeholder="비밀번호 입력">
+                <div class="joinInputWrap smallWrap">
+                    <input type="text" id="i_loginId" placeholder="아이디 입력">
+                    <button class="btn checkbtn checkDuplicate" id="checkDuplicateLoginId">중복확인</button>
                 </div>
-                <p class="joinTitle">비밀번호 확인</p>
-                <div class="joinInputWrap">
-                    <input type="password" id="passwordChk" placeholder="비밀번호 확인">
-                    <p class="checkMatch pwd"></p>
+                <div class="joinTitle">
+                    <p class="title">비밀번호</p>
                 </div>
-
-                <p class="joinTitle">이름</p>
+                <div class="joinInputWrap">
+                    <input type="password" id="i_password" placeholder="비밀번호 입력">
+                </div>
+                <div class="joinTitle">
+                    <p class="title">비밀번호 확인</p>
+                    <p class="checkMatch checkbtn pwd">&nbsp;</p>
+                </div>
+                <div class="joinInputWrap smallWrap">
+                    <input type="password" id="i_passwordChk" placeholder="비밀번호 확인">
+                </div>
+                <div class="joinTitle">
+                    <p class="title">이름</p>
+                </div>
                 <div class="joinInputWrap">
                     <input type="text" id="name" placeholder="이름 입력">
                 </div>
-
-                <p class="joinTitle">생년월일</p>
+                <div class="joinTitle">
+                    <p class="title">생년월일</p>
+                    <p class="checkMatch birth"></p>
+                </div>
                 <div class="joinInputWrap">
                     <ul id="birthSelectList">
                         <li>
@@ -66,10 +65,11 @@
                             </select>
                         </li>
                     </ul>
-                    <p class="checkMatch birth"></p>
-                </div>
 
-                <p class="joinTitle">성별</p>
+                </div>
+                <div class="joinTitle">
+                    <p class="title">성별</p>
+                </div>
                 <div class="joinInputWrap">
                     <select id="gender" class="select leftNotation">
                         <option value="" hidden selected>성별</option>
@@ -77,23 +77,23 @@
                         <option value="F">여자</option>
                     </select>
                 </div>
-
-                <p class="joinTitle">이메일</p>
-                <div class="joinInputWrap">
-                    <input type="text" id="email" placeholder="이메일 입력">
-                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicateEmail">중복확인</a>
+                <div class="joinTitle">
+                    <p class="title">이메일</p>
                     <p class="checkMatch email"></p>
                 </div>
-
-                <p class="joinTitle">휴대폰번호</p>
                 <div class="joinInputWrap">
-                    <input type="text" id="phoneNo" placeholder="휴대폰 번호 입력">
-                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicatePhoneNo">중복확인</a>
+                    <input type="text" id="email" placeholder="이메일 입력">
+                    <button class="btn checkbtn checkDuplicate" id="checkDuplicateEmail">중복확인</button>
+                </div>
+                <div class="joinTitle">
+                    <p class="title">휴대폰번호</p>
                     <p class="checkMatch phoneNo"></p>
                 </div>
-
+                <div class="joinInputWrap">
+                    <input type="text" id="phoneNo" placeholder="휴대폰 번호 입력">
+                    <button class="btn checkbtn smallcheckDuplicate" id="checkDuplicatePhoneNo">중복확인</button>
+                </div>
                 <div th:replace="/home/fragment/modal :: modalFragment"></div>
-
                 <div class="joinInputWrap">
                     <button id="signUpBtn" class="btn">회원가입</button>
                 </div>
@@ -101,14 +101,11 @@
             </div>
         </div>
     </div>
-    <!--메인 끝-->
-
-    <!--푸터 시작-->
-    <th:block th:include="/common/layout/fragments/footer :: footer"></th:block>
-    <!--푸터 끝-->
-  
 </div>
-<script src="/static/js/home/signup.js"></script>
-<script src="/static/js/home/modal.js"></script>
+<!-- 회원가입 페이지 전용 JS -->
+<th:block layout:fragment="scripts">
+    <script src="/static/js/home/signup.js"></script>
+    <script src="/static/js/home/modal.js"></script>
+</th:block>
 </body>
 </html>

@@ -12,7 +12,6 @@
 			<div class="mainImg">
 				<img id="profileImg" src="/static/images/common/loding.jpg">
 				<input type="file" id="profileImage" name="profileImage" accept="image/*" style="display:none;" />
-
 			</div>
 			  <button id="changePhotoBtn">사진 변경</button>
             </div>
@@ -130,11 +129,11 @@
 					<ul>
 						<li>Miniroom</li>
 					</ul>
-					<div class="miniRoom">
+					<div class="miniRoom"_>
 						<div class="talk">
 							미니룸 준비중
 						</div>
-						<img src="/static/images/common/minimi/human.png" class="human"/>
+						<img src="/static/images/common/minimi/defaultMinimi.png" class="human"/>
 					</div>
 				</div>
 				<div class="rightMainBottom">
@@ -151,61 +150,16 @@
 									<p class="fcWb">일촌평</p>
 								</td>
 								<td>
-									<input type="text" placeholder="일촌과 나누고 싶은 이야기를 남겨보세요~!">
+									<input type="text" id="fcContent" placeholder="일촌과 나누고 싶은 이야기를 남겨보세요~!">
 								</td>
 								<td>
-									<button type="button">확인</button>
+									<button type="button" id="fcBtn" >확인</button>
 								</td>
 							</tr>
 							</tbody>
 						</table>
 					</div>
 					<ul class="commentList">
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
-						<li>
-
-							<span class="comment">일촌평이다~</span>
-							<span class="star">(<span class="nickName fcWb">양응응</span>대왕) <span class="todayDate">2025.02.26</span><div class="deleteImg"><img src="/static/images/common/delete.png"></div></span>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -215,9 +169,9 @@
 		<ul>
 			<li class="on" id="moveHome" style="cursor:pointer;">홈</li>
 			<li id="moveProfile" style="cursor:pointer;">프로필</li>
-			<li id="moveDairy" style="cursor:pointer;">다이어리</li>
+			<li id="moveDairy1" style="cursor:pointer;">다이어리</li>
 			<li id="moveJukebox1" style="cursor:pointer;">쥬크박스</li>
-			<li id="movePhoto" style="cursor:pointer;">사진첩</li>
+			<li id="movePhoto1" style="cursor:pointer;">사진첩</li>
 			<li id="moveBoard" style="cursor:pointer;">게시판</li>
 			<li id="moveVisitor"  style="cursor:pointer;">방명록</li>
 			<li id="moveSetting"  style="cursor:pointer;">관리</li>
@@ -247,13 +201,11 @@
 	if (!window.jQuery) {
 		document.write('<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>');
 	}
+
 </script>
 <!-- CDN 라이브러리 끝 -->
-
 
 <script type="module" src="/static/js/common.js"></script>
 <!-- 푸터 인클루드 끝 부분 -->
 
 <script type="module" src="/static/js/minihompi/minihompiMain.js"></script>
-
-
