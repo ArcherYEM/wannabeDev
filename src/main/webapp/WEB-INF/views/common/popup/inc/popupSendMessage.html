@@ -1,17 +1,17 @@
 <div id="popupMessageMainHeader">
     <span>받는사람</span>
-    <input list="selectUserName" name="recipient" id="recipient"/>
+    <input list="selectUserName" name="recipient" id="recipient">
+    <a class="btn small di addsendBtn">추가</a>
     <datalist id="selectUserName"><datalist>
-    <a class="btn small di">추가</a>
 
 </div>
 <!--div#popupMessageMainHeader-->
 
 <div id="popupMessageMainArea">
-    <textarea placeholder="내용을 입력해 주세요"></textarea>
+    <textarea placeholder="내용을 입력해 주세요" id="sendTextArea"></textarea>
 
     <div id="popupMessageSendBtnArea">
-        <a class="btn small di">전송</a>
+        <a class="btn small di msgSendBtn">전송</a>
     </div>
     <!--div#popupMessageSendBtnArea-->
 
@@ -62,10 +62,9 @@
                 // 새로운 옵션 추가
                 for (let i = 0; i < data.length; i++) {
                     $("#selectUserName").append(
-                        `<option value="${data[i].friendUserId}">${data[i].name}</option>`
+                        `<option data-friendUserId="${data[i].friendUserId}" value="${data[i].name} (${data[i].friendUserNickName})"></option>`
                     );
                 }
-
 
             },
             error: function () {
@@ -73,4 +72,30 @@
             }
         });
     }
+
+$("a.msgSendBtn").click(function () {
+    var recipient = $("#recipient").val().trim();
+
+    if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined) {
+        alert("공백");
+    } else {
+         console.log("체인지");
+        var cut = recipient.indexOf('('); // (의 위치가 담김)
+        recipient = recipient.substring(0,cut-1);
+        var sendTextArea = $("#sendTextArea").val();
+        console.log("recipient : " + recipient);
+        console.log("sendTextArea : " + sendTextArea);
+    }
+
+});
+
+$("a.addsendBtn").click(function () {
+    console.log("추가 버튼 클릭");
+    var recipient = $("#recipient").val().trim();
+    if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined) {
+        alert("쪽지 보낼 사람을 추가 해 주세요!");
+    } else {
+        $("#recipient").attr("disabled",true);
+    }
+});
 </script>
