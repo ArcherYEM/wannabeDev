@@ -90,7 +90,7 @@ public class SampleController {
 
     @GetMapping("/popupReciveMessageBox")
     public String popupReciveMessageBox() {
-        return "common/popup/inc/popupReciveMessageBox";
+        return "popupSendMessageView";
     }
 
     @GetMapping("/popupSendMessageBox")
