@@ -39,12 +39,11 @@
     position:relative;
     margin-bottom:20px;
 
-    a {
+    button.checkbtn {
         position:absolute;
-        top:11px;
+        top:10px;
         right:11px;
         width:inherit;
-        padding: 5px 10px;
     }
     input {
         width:100%;

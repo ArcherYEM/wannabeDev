@@ -22,7 +22,7 @@
                 </div>
                 <div class="joinInputWrap smallWrap">
                     <input type="text" id="i_loginId" placeholder="아이디 입력">
-                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicateLoginId">중복확인</a>
+                    <button class="btn checkbtn checkDuplicate" id="checkDuplicateLoginId">중복확인</button>
                 </div>
                 <div class="joinTitle">
                     <p class="title">비밀번호</p>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="joinTitle">
                     <p class="title">비밀번호 확인</p>
-                    <p class="checkMatch pwd">&nbsp;</p>
+                    <p class="checkMatch checkbtn pwd">&nbsp;</p>
                 </div>
                 <div class="joinInputWrap smallWrap">
                     <input type="password" id="i_passwordChk" placeholder="비밀번호 확인">
@@ -83,7 +83,7 @@
                 </div>
                 <div class="joinInputWrap">
                     <input type="text" id="email" placeholder="이메일 입력">
-                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicateEmail">중복확인</a>
+                    <button class="btn checkbtn checkDuplicate" id="checkDuplicateEmail">중복확인</button>
                 </div>
                 <div class="joinTitle">
                     <p class="title">휴대폰번호</p>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="joinInputWrap">
                     <input type="text" id="phoneNo" placeholder="휴대폰 번호 입력">
-                    <a href="#" class="btn di small checkDuplicate" id="checkDuplicatePhoneNo">중복확인</a>
+                    <button class="btn checkbtn smallcheckDuplicate" id="checkDuplicatePhoneNo">중복확인</button>
                 </div>
                 <div th:replace="/home/fragment/modal :: modalFragment"></div>
                 <div class="joinInputWrap">

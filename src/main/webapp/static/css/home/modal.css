@@ -17,6 +17,7 @@
         accent-color: var(--color-gray);
         margin-right: 5px;
     }
+
 }
 
 .dialog {
@@ -74,15 +75,7 @@
 /*    background-color: red;*/
 }
 
-.dialog .img a{
-    width: 100%;
-    height: 100%;
-    margin:0;
-    position:absolute;
-}
-
-
-.dialog .img a .close{
+.dialog .img img.close{
     bottom:50%;
     right: 0;
     width: 15px;
