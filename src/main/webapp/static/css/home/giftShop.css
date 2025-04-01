@@ -7,12 +7,11 @@
 .bold{
     font-weight: 700;
 }
-
-
 /*전체*/
 .mainContainer {
     max-width: 1280px;
     margin: 0 auto;
+    padding-bottom: 150px;
 }
 /*상단 메뉴*/
 .giftMenu {
@@ -177,73 +176,6 @@
     color: var(--color-basic);
     cursor: pointer;
 }
-/*e: 최근 본 아이템*/
-
-/*본문 중앙*/
-.contentContainer {
-    margin-top: 100px;
-    margin-left: 30px;
-    margin-right: 30px;
-}
-.itemTitle {
-    text-align: center;
-    border-bottom: 3px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
-.itemContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-bottom: 40px;
-}
-
-.itemCard {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 0 8px;
-}
-
-.itemImg {
-    border: 1px solid black;
-    width: 175px;
-    height: 175px;
-}
-
-.itemImg img {
-    width: 100%;
-    height: 100%;
-}
-
-.itemDesc {
-    text-align: center;
-    margin: 10px 0;
-}
-
-.itemPrice {
-    margin-bottom: 10px;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-}
-
-.itemBuy {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2.5fr;
-}
-
-
-
-.itemPricing {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-}
-
 /*본문 우측*/
 .cartContainer {
     margin-top: 30px;
@@ -608,3 +540,70 @@
 }
 
 /* 좌측 프로필 영역 끝 */
+
+/*********************************************/
+
+/*main*/
+.contentContainer {
+    margin-top: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.itemTitle {
+    text-align: center;
+    border-bottom: 3px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.itemContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 40px;
+}
+
+.itemCard {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 8px;
+}
+
+.itemImg {
+    border: 1px solid black;
+    width: 175px;
+    height: 175px;
+}
+
+.itemImg img {
+    width: 100%;
+    height: 100%;
+}
+
+.itemDesc {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.itemPrice {
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+
+.itemBuy {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2.5fr;
+}
+
+
+
+.itemPricing {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
