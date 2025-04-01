@@ -4,49 +4,45 @@
 <mapper namespace="com.dev.wannabe.domain.minihompi.mapper.HompiDiaryMapper">
     <insert id="saveDiary" parameterType="HompiDiary">
         INSERT INTO HOMPI_DIARY (
-        DIARY_ID, HOMPI_ID, FOLDER_ID, DIARY_CONTENT, AVAIL_STATUS,
-        INSERT_USER_ID
+            DIARY_ID, HOMPI_ID, FOLDER_ID, DIARY_CONTENT, AVAIL_STATUS,
+            INSERT_USER_ID,DIARY_NAME
         )
         VALUES (
-        #{diaryId},
-        #{hompiId},
-        #{folderId},
-        #{diaryContent},
-        #{availStatus},
-        #{insertUserId}
+            #{diaryId},
+            #{hompiId},
+            #{folderId},
+            #{diaryContent},
+            #{availStatus},
+            #{insertUserId},
+            #{diaryName}
         )
-        ON DUPLICATE KEY UPDATE
-        DIARY_CONTENT = #{diaryContent},
-        UPDATE_USER_ID = #{insertUserId},
-        UPDATE_DT = CURRENT_TIMESTAMP
+            ON DUPLICATE KEY UPDATE
+            DIARY_CONTENT = #{diaryContent},
+            UPDATE_USER_ID = #{insertUserId},
+            UPDATE_DT = CURRENT_TIMESTAMP
     </insert>
 
     <select id="findDiaryByDiaryDTO" parameterType="HompiDiaryDTO" resultType="HompiDiaryDTO">
-        SELECT A.HOMPI_ID,A.DIARY_ID,A.DIARY_CONTENT,A.AVAIL_STATUS
-        FROM HOMPI_DIARY A
-            INNER JOIN HOMPI_FOLDER B
-                ON A.FOLDER_ID = B.FOLDER_ID
+        SELECT HOMPI_ID ,DIARY_ID,DIARY_CONTENT,AVAIL_STATUS
+        FROM HOMPI_DIARY
         WHERE 1=1
-        AND A.HOMPI_ID = #{hompiId}
+        AND HOMPI_ID = #{hompiId}
         <if test="diaryId != 0">
             AND DIARY_ID = #{diaryId}
         </if>
         <choose>
             <when test="availStatus == '31'">
-                AND A.AVAIL_STATUS IN ('31', '32', '33')
-                AND B.AVAIL_STATUS IN ('31', '32', '33')
+                AND AVAIL_STATUS IN ('31', '32', '33')
             </when>
             <when test="availStatus == '32'">
-                AND A.AVAIL_STATUS IN ('32', '33')
-                AND B.AVAIL_STATUS IN ('31', '32')
+                AND AVAIL_STATUS IN ('32', '33')
             </when>
             <otherwise>
-                AND A.AVAIL_STATUS = #{availStatus}
-                AND B.AVAIL_STATUS = #{availStatus}
+                AND AVAIL_STATUS = #{availStatus}
             </otherwise>
         </choose>
         <if test="diaryId == 0">
-            ORDER BY A.FOLDER_ID,A.INSERT_DT
+            ORDER BY FOLDER_ID ,INSERT_DT DESC
             LIMIT 1
         </if>
     </select>

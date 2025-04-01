@@ -81,16 +81,22 @@ $(document).ready(function(){
 
     $(document).on('click','#updateFolderNameBtn',function(){
         if($('.selectModalFolder option:selected').text().trim() === $('.folderNameInput').val().trim()){
-            alert('기존 폴더이름과 동일합니다!');
-            return;
+            return Swal.fire({
+                   title: "폴더 이름변경 실패",
+                   text: "기존 폴더 이름과 동일합니다!",
+                   icon: 'warning'
+            });
         }
         updateFolderName();
     })
 
     $(document).on('click','#showDeleteBtn',function(){
         if($('.folderName').length === 1){
-            alert('삭제할 수 있는 폴더가 없습니다');
-            return;
+            return Swal.fire({
+                    title: "삭제 실패",
+                    text: "삭제가 가능한 폴더가 없습니다",
+                    icon: 'warning'
+                });
         }
         $('.folderDelBtn').show();
     })
@@ -104,8 +110,6 @@ $(document).ready(function(){
     $(document).on('click', '#folderModalExit', function(){
         $('#folderEditModal').hide();
     })
-
-
 
 });
 let folderTitleList = ["다이어리","사진첩","게시판"];
@@ -128,7 +132,11 @@ function moveFolder() {
              $('#folderTitle').text(folderTitle);
          },
          error: function (xhr, status, error) {
-             alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+             Swal.fire({
+                   title: "폴더 가져오기 실패",
+                   text: "폴더 정보를 불러오지 못헀습니다",
+                   icon: 'warning'
+            });
          }
     });
 }
@@ -139,7 +147,11 @@ function addFolder(availStatus,folderInput){
         type: 'POST',
         url: "/api/folder/save/" + folderContentType + '/' + folderInput +'/' + availStatus,
         success: function(response){
-            alert('저장했습니다');
+             Swal.fire({
+                   title: "폴더 저장 성공",
+                   text: "폴더를 성공적으로 저장하였습니다!",
+                   icon: 'success'
+            });
             $('.statusSelect').hide();
             $('.folderNameWrap').hide();
             $('.folderInput').val('');
@@ -149,7 +161,11 @@ function addFolder(availStatus,folderInput){
             getFolder();
         },
         error: function (xhr, status, error) {
-            alert("페이지 로딩에 실패했습니다.\n오류내용: " + error);
+            return Swal.fire({
+                   title: "폴더 추가하기 실패",
+                   text: "폴더를 추가하지 못헀습니다. 다시 시도해 주세요!",
+                   icon: 'warning'
+            });
         }
     });
 }
@@ -212,7 +228,11 @@ function updateFolderName(){
         type: 'PUT',
         url: '/api/folder/update/' + hompiId + '/' + folderId + '/' + folderContentType + '/' + updateFolderName,
         success: function(){
-            alert('폴더 이름 변경 완료');
+             Swal.fire({
+                   title: "폴더 이름변경 완료",
+                   text: "폴더 이름이 변경되었습니다!",
+                   icon: 'success'
+            });
             getFolder();
             $('#folderEditModal').hide();
         },
@@ -224,18 +244,28 @@ function updateFolderName(){
 
 function deleteFolder(folderId){
     if(folderId === 1){
-        alert('기본 폴더는 삭제할 수 없습니다');
-        return;
+        return Swal.fire({
+            title: "폴더 삭제 실패",
+            text: "기본 폴더는 삭제가 불가합니다!",
+            icon: 'warning'
+        });
     }
     $.ajax({
         type: 'DELETE',
         url: '/api/folder/delete/' + hompiId + '/' + folderId + '/' + folderContentType,
         success: function(response){
             if(!response){
-                alert('삭제 실패');
-                return;
+            return Swal.fire({
+                   title: "폴더 삭제 실패",
+                   text: "폴더를 삭제하는데 실패했습니다!",
+                   icon: 'warning'
+            });
             }
-            alert('삭제 성공');
+             Swal.fire({
+                   title: "폴더 삭제 성공",
+                   text: "폴더를 성공적으로 삭제하셨습니다.",
+                   icon: 'success'
+            });
             getFolder();
         },
         error: function(error){
