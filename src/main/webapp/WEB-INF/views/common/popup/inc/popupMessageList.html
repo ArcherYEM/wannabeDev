@@ -1,20 +1,26 @@
-<div id="popMsgList-container">
+<div id="popMsgListContainer" th:attr="data-totalPages=${totalPages}, data-totalUnreadMsg=${reciveUnreadMsgCount}" >
     <div id="popMsgListTitle">
-        <input class="msgListTitle msgChkbox" type="checkbox"></input>
-        <span class="msgListTitle">보낸사람</span>
-        <span class="msgListTitle">내용</span>
-        <span class="popMsg-Msg">날짜</span>
+        <input class="msgListTitle msgChkbox" type="checkbox">
+        <span class="msgListTitle popMsg-insertUserId">보낸사람</span>
+        <span class="msgListTitle popMsg-Msg">내용</span>
+        <span class="msgListTitle popMsg-date">날짜</span>
     </div>
 
-    <div class="popMsgListBox" th:each="msgList : ${msgList}">
-        <input type="checkbox" ></input>
-        <span class="popMsg-insertUserId" th:if="${msgList.friendUserId == 0}">WANNABE</span>
-        <span class="popMsg-insertUserId" th:if="${msgList.friendUserId != 0}" th:text="${msgList.friendUserId}"></span>
-        <span class="popMsg-Msg" th:text="${#strings.abbreviate(msgList.message, 35)}"></span>
-        <span class="birthdate" th:text="${#dates.format(msgList.insertDT, 'yyyy.MM.dd HH:mm')}"></span>
+    <div id="msgListBox">
+        <div class="popMsgListBox dFlex"
+             th:each="msg : ${msgList}"
+             th:class="${msg.ReadYN == 'N' ? 'unread' : 'read'}">
+            <input type="checkbox" class="msgChkbox">
+            <span class="popMsg-insertUserId" style="color: #e07b00;" th:text="${msg.friendUserId == 0 ? 'WANNABE' : msg.name}"></span>
+            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 17)}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
+            <span class="popMsg-date" th:text="${#dates.format(msg.insertDT, 'yyyy.MM.dd HH:mm')}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
+        </div>
     </div>
-    <span th:text="${#lists.size(msgList)}"></span>
-    <!-- 페이지네이션 버튼 -->
 
+    <!-- 페이지네이션 -->
+    <div id="pagination">
+        <button id="prevPage" disabled>&lt;&lt;</button>
+        <span id="pageNumbers"></span> <!-- 페이지 번호 버튼을 여기에 추가 -->
+        <button id="nextPage">&gt;&gt;</button>
+    </div>
 </div>
-<div id="pagination"></div>
