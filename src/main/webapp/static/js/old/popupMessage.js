@@ -27,7 +27,7 @@ $(document).ready(function () {
 
 });
 
-/** 쪽지 팝업창 설정 **/
+/** 메인홈페이지에서 쪽지 팝업창 열기 **/
 function openPopupMessage() {
  var popupW = 650;
  var popupH = 650;

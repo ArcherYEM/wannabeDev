@@ -1,12 +1,12 @@
-<div id="popupMessageMainHeader">
-    <span>보낸사람 : </span> <span>김일촌</span>
-    <p class="receiveMessageTime">수신일시 : 2025-03-05 18:04:02</p>
+<div id="popupMessageMainHeader" th:each="msgView : ${reciveMsgView}">
+    <span>보낸사람 :</span> <span th:text="${msgView.name}">김일촌</span>
+    <p class="receiveMessageTime" >수신일시 : <span th:text="${#dates.format(msgView.insertDT, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
 </div>
 <!--div#popupMessageMainHeader-->
-
-<div id="popupMessageMainArea">
-    <pre id="reciveMessagePre">
-     <p>안녕하세요! 😊
+<!--<span th:text="${#lists.size(reciveMsgView)}"></span>-->
+<div id="popupMessageMainArea" th:each="msgView : ${reciveMsgView}">
+    <pre id="reciveMessagePre" th:text="${msgView.message}">
+안녕하세요! 😊
 오랜만에 안부 인사 전합니다. 잘 지내고 계시죠?
 요즘 날씨가 점점 따뜻해지고 있는데, 기분도 함께 밝아졌으면 좋겠어요.
 바쁜 일상 속에서도 건강 잘 챙기고 계신가요? 저는 그럭저럭 잘 지내고 있어요.
@@ -16,11 +16,9 @@
 조만간 만나서 같이 이야기 나누면 좋겠네요!
 항상 건강하고 행복하시길 바라며, 답장 기다릴게요!
 😊좋은 하루 보내세요! 💕
-     </p>
     </pre>
-
     <div id="popupMessageReciveBtnArea" class="dFlex">
-        <a class="btn small di">목록</a>
+        <a  class="btn small di" data-pageName="recive" onclick="fncBackPage(this)">목록</a>
         <a class="btn small di">답장</a>
         <a class="btn small di">삭제</a>
     </div>
