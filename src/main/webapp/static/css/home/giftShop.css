@@ -5,7 +5,7 @@
     position: relative;
 }
 .bold{
-    font-weight: bold;
+    font-weight: 700;
 }
 
 
@@ -96,7 +96,7 @@
 
 .menuminihompi h2 {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 10px;
 }
 
@@ -111,6 +111,7 @@
 }
 .menuminihompi a.active{
     color: var(--color-basic);
+    font-weight: 600;
 }
 .menuminihompi a:not(.active):hover{
     transform: translateX(5px);
@@ -173,6 +174,10 @@
     position: absolute;
     right: 0;
     top: 0;
+    padding: 0 2px;
+    aspect-ratio: 1/1;
+    font-size: 1.25rem;
+    border: 1px solid var(--color-gray) ;
 }
 .arrow{
     width: 100%;
@@ -366,6 +371,242 @@
     border-bottom: 1px solid #aaa;
     padding-bottom: 10px;
 }
+/* 좌측 로그인 시작 */
+.loginWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
+.loginWrap .loginInputWrap {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+}
 
+.loginWrap .loginInputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 
+    input {
+        width: 100%;
+        height: 40px;
+        background-color: var(--color-white);
+        border: solid 1px var(--color-lgray);
+        border-radius: 5px;
+    }
+}
+
+.loginWrap .loginBtnWrap {
+    width: 100%;
+
+    button {
+        font-size: 14px;
+        width: 100%;
+        height: 40px;
+        color: var(--color-white);
+        border: solid 1px var(--color-brown);
+        background-color: var(--color-brown);
+        border-radius: 5px;
+    }
+    button:hover {
+        color: var(--color-white);
+        border: solid 1px var(--color-lbrown);
+        background-color: var(--color-lbrown);
+    }
+}
+
+.loginWrap .loginLinkWrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 3px;
+
+    a {
+        cursor: pointer;
+        color: var(--color-lbrown);
+    }
+}
+/* 좌측 로그인 끝 */
+
+/* 좌측 프로필 영역 시작 */
+.profileWrap {
+    border: solid 2px var(--color-basic);
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(var(--color-basic) 220px, transparent 80px);
+    display: flex;
+    flex-direction: column;
+}
+
+.profileInfoTop {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    padding: 10px;
+    line-height: 1;
+
+    .personalWrap {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+        gap: 5px;
+
+        .personalFeat {
+            display: flex;
+            gap: 5px;
+            color: var(--color-white);
+            font-size: 12px ;
+
+            span {
+                cursor:pointer;
+            }
+
+            span:hover{
+                color: var(--color-brown);
+            }
+        }
+
+        .nameDisplay {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-white);
+        }
+    }
+}
+
+.profileImgWrap {
+    .profileImg {
+        background:var(--color-basic);
+        aspect-ratio: 1/1;
+        padding: 5px;
+        border: solid 3px var(--color-white);
+        border-radius:50%;
+        transform:translate(0px,20px);
+    }
+    .profileImg:hover img{
+        transform: scaleY(98%) translateY(1%);
+        cursor: grab;
+    }
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius:50%;
+        transition: all .3s;
+    }
+}
+
+.profileInfoBot {
+    flex: 1;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .infoWrap {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 20px;
+    }
+
+    .infoOnline {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        margin-bottom: 7px;
+    }
+
+    .infoData {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .alignBox {
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        line-height:1;
+
+        .stat {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            text-align: right;
+
+            img {
+                width: 14px;
+                height: 14px;
+            }
+
+            .text.new {
+                font-weight: 700;
+            }
+        }
+    }
+
+    .messageBox {
+        cursor: pointer;
+    }
+
+    .stateDotori{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border: solid 1px var(--color-basic);
+        border-radius: 15px;
+        padding: 5px;
+        line-height: 1;
+
+        .dotoriTitleWrap {
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
+            gap: 5px;
+            width: 100%;
+            justify-content: start;
+
+            img {
+                width: 20px;
+                height: auto;
+            }
+        }
+
+        .chargeWrap {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            justify-content: end;
+
+            .text {
+                font-weight: 700;
+            }
+        }
+
+        .rechargePageBtn {
+            padding: 5px 15px;
+            border-radius: 15px;
+            color: var(--color-white);
+            background-color: var(--color-basic);
+            border: 1px solid var(--color-basic);
+            transition: .3s all;
+        }
+        .rechargePageBtn:hover {
+            color: var(--color-basic);
+            background-color: var(--color-white);
+        }
+    }
+}
+
+/* 좌측 프로필 영역 끝 */
