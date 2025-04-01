@@ -14,30 +14,39 @@
     <!-- 회원가입 -->
     <div id="container">
         <div class="containerWrap joinContainer">
-            <div class="joinDiv mt30">
-                <p class="joinTitle">아이디</p>
-                <div class="joinInputWrap">
+            <h2>회원가입</h2>
+            <div class="joinDiv">
+                <div class="joinTitle">
+                    <p class="title">아이디</p>
+                    <p class="checkMatch loginId">&nbsp;</p>
+                </div>
+                <div class="joinInputWrap smallWrap">
                     <input type="text" id="i_loginId" placeholder="아이디 입력">
                     <a href="#" class="btn di small checkDuplicate" id="checkDuplicateLoginId">중복확인</a>
-                    <p class="checkMatch loginId"></p>
                 </div>
-
-                <p class="joinTitle">비밀번호</p>
+                <div class="joinTitle">
+                    <p class="title">비밀번호</p>
+                </div>
                 <div class="joinInputWrap">
                     <input type="password" id="i_password" placeholder="비밀번호 입력">
                 </div>
-                <p class="joinTitle">비밀번호 확인</p>
-                <div class="joinInputWrap">
-                    <input type="password" id="i_passwordChk" placeholder="비밀번호 확인">
-                    <p class="checkMatch pwd"></p>
+                <div class="joinTitle">
+                    <p class="title">비밀번호 확인</p>
+                    <p class="checkMatch pwd">&nbsp;</p>
                 </div>
-
-                <p class="joinTitle">이름</p>
+                <div class="joinInputWrap smallWrap">
+                    <input type="password" id="i_passwordChk" placeholder="비밀번호 확인">
+                </div>
+                <div class="joinTitle">
+                    <p class="title">이름</p>
+                </div>
                 <div class="joinInputWrap">
                     <input type="text" id="name" placeholder="이름 입력">
                 </div>
-
-                <p class="joinTitle">생년월일</p>
+                <div class="joinTitle">
+                    <p class="title">생년월일</p>
+                    <p class="checkMatch birth"></p>
+                </div>
                 <div class="joinInputWrap">
                     <ul id="birthSelectList">
                         <li>
@@ -56,10 +65,11 @@
                             </select>
                         </li>
                     </ul>
-                    <p class="checkMatch birth"></p>
-                </div>
 
-                <p class="joinTitle">성별</p>
+                </div>
+                <div class="joinTitle">
+                    <p class="title">성별</p>
+                </div>
                 <div class="joinInputWrap">
                     <select id="gender" class="select leftNotation">
                         <option value="" hidden selected>성별</option>
@@ -67,23 +77,23 @@
                         <option value="F">여자</option>
                     </select>
                 </div>
-
-                <p class="joinTitle">이메일</p>
+                <div class="joinTitle">
+                    <p class="title">이메일</p>
+                    <p class="checkMatch email"></p>
+                </div>
                 <div class="joinInputWrap">
                     <input type="text" id="email" placeholder="이메일 입력">
                     <a href="#" class="btn di small checkDuplicate" id="checkDuplicateEmail">중복확인</a>
-                    <p class="checkMatch email"></p>
                 </div>
-
-                <p class="joinTitle">휴대폰번호</p>
+                <div class="joinTitle">
+                    <p class="title">휴대폰번호</p>
+                    <p class="checkMatch phoneNo"></p>
+                </div>
                 <div class="joinInputWrap">
                     <input type="text" id="phoneNo" placeholder="휴대폰 번호 입력">
                     <a href="#" class="btn di small checkDuplicate" id="checkDuplicatePhoneNo">중복확인</a>
-                    <p class="checkMatch phoneNo"></p>
                 </div>
-
                 <div th:replace="/home/fragment/modal :: modalFragment"></div>
-
                 <div class="joinInputWrap">
                     <button id="signUpBtn" class="btn">회원가입</button>
                 </div>
