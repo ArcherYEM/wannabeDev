@@ -17,7 +17,7 @@
 
 #albumText {
     width: 599px;
-
+    height: 89px;
 }
 
 #previewImg{
@@ -83,4 +83,43 @@
     background: orange;
     height: 23px;
     border-radius: 5px;
+}
+
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap:7px;
+}
+
+.comment-user-content {
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+}
+
+.album-btn{
+    border: 1px solid black;
+    border-radius:5px;
+}
+
+.comment-date-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 7px;
+    padding-top: 10px;
+}
+
+.comment-info {
+    margin: 10px auto;
+    padding: 10px;
+}
+
+#albumAvailStatus {
+    margin-left: 10px;
+}
+
+.commentContentEdit {
+    width:500px;
 }
