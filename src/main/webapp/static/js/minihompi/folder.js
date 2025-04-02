@@ -181,7 +181,7 @@ function getFolder(){
             let code = '<div class="folderWrap">';
             folderList.forEach(function(folderDTO,index){
                 code += '<div class="smallFolderWrap"><div class="folderName"><button value="'+folderDTO.folderId
-                         + '"><img src="/images/common/icon/folder.png">'
+                         + '"><img src="/static/images/common/icon/folder.png">'
                          + " " +folderDTO.folderName + '</button>';
                          if(folderDTO.folderId !== 1){
                             code += '</div><button data-id="' + folderDTO.folderId +'"class="folderDelBtn">삭제</button></div>';
