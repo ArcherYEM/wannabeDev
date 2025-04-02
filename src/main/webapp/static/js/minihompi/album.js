@@ -592,19 +592,19 @@ function deleteComment(hompiIdAlbum, commentId, albumId) {
             commentId: commentId,
         }),
         success: function (response){
-            console.log("response: " + response);
+            console.log("response: ", response);
             Swal.fire({
-                icon: 'success ',
+                icon: 'success',
                 title: '댓글 삭제 성공!',
                 text: '댓글이 삭제되었습니다.'
             });
             getAlbumContent(albumId);
         },
         error: function(response){
-            console.log("response: " + response);
+            console.log("response: ", response);
             Swal.fire({
-                icon: 'error ',
-                title: '댓글 삭제 실패!',
+                icon: 'error',
+                title: '댓글 삭제 실패',
                 text: '다시 시도해주세요.'
             });
             getAlbumContent(albumId);
