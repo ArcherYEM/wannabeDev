@@ -264,8 +264,8 @@ document.addEventListener("DOMContentLoaded",function() {
     });
 
     //인증번호 전송 버튼
-    sendBtn.addEventListener('click',function(){
-        event.preventDefault();
+    sendBtn.addEventListener('click',function(e){
+        e.preventDefault();
         showLoadingSpinner();
         $.ajax({
             type:"POST",

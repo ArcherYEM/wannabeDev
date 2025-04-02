@@ -14,8 +14,13 @@ public interface FriendMapper {
 
     void saveFriendInfo(FriendInfo friendInfo);
 
+    FriendInfo findFriendByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId);
+    List<FriendInfo> findAllFriendInfoByUserId(Long userId);
+
+    void deleteFriendByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId);
+
     Boolean existsByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId);
 
-    List<FriendInfo> findAllFriendInfoByUserId(Long userId);
+
 
 }
