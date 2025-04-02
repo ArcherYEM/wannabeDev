@@ -184,39 +184,33 @@
     height: fit-content;
     gap: 10px;
     position: sticky;
-    top: 10vh;
+    top: 7vh;
 }
 /*s: 선택한 아이템을 */
 .selectedItemMenu {
-    border: 1px solid #999;
+    border: 1px solid #ccc;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 20px;
 }
 .selectItem {
+    display: flex;
     justify-self: center;
+    align-items: center;
     font-size: 14px;
     font-weight: 700;
-
 }
-.selectItem .bi{
+.selectItem i{
     color: var(--color-basic);
-    font-size: 16px;
+    font-size: 22px;
+    border-radius: 5px;
 }
 .itemBuyFinal {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: auto auto 1fr;
     padding-top: 10px;
+    gap: 5px
 }
-.itemBuyFinal div{
-    height: 34px;
-    aspect-ratio: 1/1;
-}
-.itemBuyFinal div:last-child{
-    aspect-ratio: unset;
-}
-
-
 .itemPurchaseFinal,
 .itemPurchase {
     border: 1px solid var(--color-basic);
@@ -237,9 +231,9 @@
 
 /*s: 장바구니 아이템*/
 .cart {
-    border: 1px solid #999;
+    border: 1px solid #ccc;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 .cart h2{
     font-size: 20px;
@@ -250,24 +244,65 @@
     height: 80px !important;
 }
 .cart .gift-swiper{
-    height: 260px;
+    height: 350px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 .cart .swiper-slide{
     border-bottom: 1px solid #ccc;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.cart .swiper-slide div:nth-child(1){
+    color: var(--color-gray);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+.cart .swiper-slide div:nth-child(1) i{
+    font-size: 22px;
+}
+.cart .swiper-slide p{
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+    width: 100%;
+}
+.cart .swiper-slide div:nth-child(3){
+    display: flex;
+    justify-content: end;
+    padding-top: 7px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.cart .swiper-slide div:nth-child(3) select{
+    margin-right: 5px;
+    border-radius: 5px;
+}
+.cart .swiper-slide div:nth-child(3) span{
+    color: var(--color-basic);
 }
 .itemSum {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    display: flex;
     gap: 5px;
+    justify-content: space-between;
     padding-top: 10px;
     padding-bottom: 10px;
+    align-items: center;
 }
-
+.itemSum .sum{
+    font-size: 16px;
+}
+.itemSum .dotori {
+    font-size: 22px;
+    font-weight: bold;
+}
+.itemSum .dotori span{
+    color: var(--color-basic);
+}
 .finalItemBuy {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: auto 1fr;
     gap: 10px;
 }
 /*e: 장바구니 아이템*/
@@ -642,18 +677,19 @@
     padding-top: 10px;
     padding-bottom: 10px;
     gap: 5px;
-    font-size:20px;
 }
 .itemGift,
 .itemGiftFinal,
 .itemCart {
+    font-size:16px;
     border: 1px solid #B5C0D0FF;
     border-radius: 5px;
-    padding: 6px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: .3s all;
+    color: var(--color-gray);
 }
 .itemGiftFinal:hover,
 .itemGift:hover,

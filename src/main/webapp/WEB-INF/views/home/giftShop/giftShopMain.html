@@ -45,7 +45,7 @@
                 <div class="menuRecentItems">
                     <h2>최근 아이템</h2>
                     <div class="arrow" id="up-arrow">
-                        <i class="bi bi-caret-up-fill"></i>
+                        <i class="xi-angle-up"></i>
                     </div>
                     <div class="gift-swiper" id="recent-item-swiper">
                         <div class="swiper-wrapper">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="arrow" id="down-arrow">
-                        <i class="bi bi-caret-down-fill"></i>
+                        <i class="xi-angle-down"></i>
                     </div>
                 </div>
             </div>
@@ -261,13 +261,13 @@
                 <div class="cart">
                     <h2>장바구니</h2>
                     <div class="item-up-arrow arrow" id="item-up-arrow">
-                        <i class="bi bi-caret-up-fill"></i>
+                        <i class="xi-angle-up"></i>
                     </div>
                     <div class="items">
                         <div id="item-swiper" class="gift-swiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" th:each="i : ${#numbers.sequence(1, 3)}">
-                                    <div><input id="" name="" type="checkbox"> <span>아이템종류</span></div>
+                                    <div><i class="xi-minus-square"></i> <span>아이템종류</span></div>
                                     <p>이건아이템이름입니..</p>
                                     <div>
                                         <select id="" name="">
@@ -284,7 +284,7 @@
                                     </div>
                                 </div>
                                 <div class="swiper-slide" th:each="i : ${#numbers.sequence(1, 3)}">
-                                    <div><input id="" name="" type="checkbox"> <span>아이템종류</span></div>
+                                    <div><i class="xi-minus-square"></i> <span>아이템종류</span></div>
                                     <p>이건아이템이름입니..</p>
                                     <div>
                                         <select id="" name="">
@@ -304,16 +304,14 @@
                         </div>
                     </div>
                     <div class="item-down-arrow arrow" id="item-down-arrow">
-                        <i class="bi bi-caret-down-fill"></i>
+                        <i class="xi-angle-down"></i>
                     </div>
                     <div class="itemSum">
-                        <div>
-                            합계(1)
+                        <div class="sum">
+                            합계(<span>1</span>)
                         </div>
                         <div class="dotori">
                             <img class="dotori-icon" src="/static/images/common/icon/dotori.png">
-                        </div>
-                        <div>
                             <span>000</span>개
                         </div>
                     </div>
