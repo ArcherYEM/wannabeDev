@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.wannabe.domain.home.mapper.PopularUserMapper">
+    <select id="findTopTenUser" resultType="PopularUserDTO" parameterType="String">
+        SELECT A.HOMPI_ID, B.TODAY_CNT, C.NAME
+            FROM HOMPI A
+                INNER JOIN HOMPI_DAILY_STATS B
+                    ON A.HOMPI_ID = B.HOMPI_ID
+                INNER JOIN USER_BASIC C
+                    ON A.OWNER_USER_ID = C.USER_ID
+        WHERE 1=1
+            AND B.DAY_STATS_DATE = #{todayDate}
+            AND B.TODAY_CNT != 0
+        ORDER BY B.TODAY_CNT DESC,A.TOTAL_CNT DESC,A.INSERT_DT
+        LIMIT 10
+    </select>
+</mapper>

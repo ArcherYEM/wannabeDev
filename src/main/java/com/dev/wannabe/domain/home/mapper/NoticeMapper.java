@@ -16,4 +16,6 @@ public interface NoticeMapper {
 
     // 공지사항 등록
     void insertNotice(NoticeDTO noticeDTO);
+
+    NoticeDTO getNoticeById(Long noticeId);
 }

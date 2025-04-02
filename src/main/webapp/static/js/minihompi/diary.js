@@ -355,7 +355,7 @@ function getDiaryComment(){
                                 ? `<span class="insertDate">${commentDTO.insertDt}고정</span>`
                                 : `<span class="insertDate">${commentDTO.insertDt}</span>`}
                             ${(commentDTO.userId == viewUserId || commentDTO.hompiId == hompiOwnerId)
-                            ? '<img src="/static/images/common/delete.png" class="diaryCommentDelBtn">' : ''}
+                            ? '<img src="/images/common/icon/delete.png" class="diaryCommentDelBtn">' : ''}
                         </li>`;
                         if(commentDTO.useYn == "Y"){
                             $('.commentList').prepend(commentHtml);
