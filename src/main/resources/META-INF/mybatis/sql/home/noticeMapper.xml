@@ -132,4 +132,26 @@
         )
     </insert>
 
+    <!-- 공지사항 ID로 공지사항 조회 -->
+    <select id="getNoticeById" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
+        SELECT n.NOTICE_ID,
+        n.NOTICE_TYPE,
+        n.NOTICE_TITLE,
+        n.NOTICE_CONTENTS,
+        n.START_DATE,
+        n.START_TIME,
+        n.END_DATE,
+        n.END_TIME,
+        n.INSERT_USER_ID,
+        DATE_FORMAT(n.INSERT_DT, '%Y-%m-%d %H:%i') AS INSERT_DT,
+        n.UPDATE_DT,
+        u.LOGIN_ID,
+        -- START_DATE와 START_TIME을 합쳐서 START_DATETIME으로 포맷팅
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
+        FROM NOTICE n
+        LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
+        WHERE n.NOTICE_ID = #{noticeId}
+    </select>
+
 </mapper>
