@@ -216,23 +216,7 @@
     aspect-ratio: unset;
 }
 
-.itemGift,
-.itemGiftFinal,
-.itemCart {
-    border: 1px solid #B5C0D0FF;
-    border-radius: 5px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: .3s all;
-}
-.itemGiftFinal:hover,
-.itemGift:hover,
-.itemCart:hover{
-    background-color: #B5C0D0FF;
-    color: #fff
-}
+
 .itemPurchaseFinal,
 .itemPurchase {
     border: 1px solid var(--color-basic);
@@ -545,65 +529,137 @@
 
 /*main*/
 .contentContainer {
-    margin-top: 100px;
+    margin-top: 40px;
     margin-left: 30px;
     margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px
 }
 .itemTitle {
-    text-align: center;
-    border-bottom: 3px solid #ccc;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-basic);
+    border-bottom: 2px solid #aaa;
     padding-bottom: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
+.itemTitle h2{
+    font-weight: inherit;
+}
+.itemTitle a{
+    display: inline-block;
+    font-size: 14px;
+    color: var(--color-white);
+    padding: 5px 10px;
+    background-color: var(--color-basic);
+    height: max-content;
+    border-radius: 10px;
+    border: 1px solid var(--color-basic);
+    transition: .3s all;
+}
+.itemTitle a:hover{
+    background-color: var(--color-white);
+    color: var(--color-basic);
+}
 .itemContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-bottom: 40px;
+    display: flex;
+    gap: 15px;
 }
 
 .itemCard {
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 5px;
-    margin: 0 8px;
+    padding: 20px;
+    transition: all .3s;
+}
+.itemCard:hover{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .itemImg {
-    border: 1px solid black;
-    width: 175px;
-    height: 175px;
+    width: 100%;
 }
 
 .itemImg img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
 }
-
+/*아이템이름영역*/
 .itemDesc {
     text-align: center;
-    margin: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-
+.itemDesc span{
+    display: inline-block;
+    padding-bottom: 3px;
+    font-size: 12px;
+    color: var(--color-gray);
+}
+.itemDesc h3{
+    font-size: 16px;
+    font-weight: 600;
+}
+/*아이템 가격영역*/
+.itemPricing {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+}
+.itemPricing .selectBox{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.itemPricing select{
+    border-radius: 5px;
+}
 .itemPrice {
-    margin-bottom: 10px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding: 10px;
+}
+.price span{
+    padding-left: 2px;
+    padding-right: 2px;
+    display: inline-block;
 }
 
 .itemBuy {
     display: grid;
-    grid-template-columns: 1fr 1fr 2.5fr;
+    grid-template-columns: auto auto 1fr;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 5px;
+    font-size:20px;
+}
+.itemGift,
+.itemGiftFinal,
+.itemCart {
+    border: 1px solid #B5C0D0FF;
+    border-radius: 5px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s all;
+}
+.itemGiftFinal:hover,
+.itemGift:hover,
+.itemCart:hover{
+    background-color: #B5C0D0FF;
+    color: #fff
 }
 
 
-
-.itemPricing {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-}
