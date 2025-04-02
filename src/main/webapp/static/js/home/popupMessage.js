@@ -48,8 +48,13 @@ $(document).ready(function () {
 
         $("#popupMessageMain").load(`/popupMessage/MessageList?userId=${userId}&offset=${offset}&pageSize=${pageSize}`, function () {
             totalMessage = parseInt($("#popMsgListContainer").attr("data-totalunreadmsg"));
+            if (totalMessage === 0) {
+                /*console.log("안읽은메시지 없음");*/
+                $(".reciveMsgCount").removeAttr("class","circle");
+            } else {
+                $(".reciveMsgCount").text(totalMessage);
+            }
 
-            $(".reciveMsgCount").text(totalMessage);
             // 서버에서 totalPages를 받아와서 업데이트
             totalPages = parseInt($("#popMsgListContainer").attr("data-totalPages"), 10) || 0;
             renderPagination(totalPages, currentPage);

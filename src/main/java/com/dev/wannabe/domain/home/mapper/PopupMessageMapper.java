@@ -4,6 +4,7 @@ import com.dev.wannabe.domain.home.model.dto.PopupMessageDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -22,4 +23,6 @@ public interface PopupMessageMapper {
     int messageReadUpdate(String messageId);
 
     List<PopupMessageDTO> getSendSearchName(String userId, String searchName);
+
+    int SendFriendMessage(Map<String,Object> map);
 }

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.List;
 import java.util.Map;
 
@@ -45,5 +46,8 @@ public class PopupMessageService {
 
     public List<PopupMessageDTO> getSendSearchName(String userId, String searchName) {
         return popupMessageMapper.getSendSearchName(userId, searchName);
+    }
+    public int SendFriendMessage(Map<String,Object> map) {
+        return popupMessageMapper.SendFriendMessage(map);
     }
 }

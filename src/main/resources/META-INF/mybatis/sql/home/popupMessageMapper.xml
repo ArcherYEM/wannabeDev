@@ -94,4 +94,12 @@
             ub.name LIKE CONCAT('%', #{param2}, '%')
         )
     </select>
+
+    <!-- 쪽지 보내기 -->
+    <insert id="SendFriendMessage" parameterType="map">
+        insert INTO FRIEND_MESSAGE
+        (USER_ID, FRIEND_USER_ID, MESSAGE, READ_YN, INSERT_USER_ID, INSERT_DT,UPDATE_USER_ID, UPDATE_DT) values
+        (#{recipient}, #{userId}, #{sendMessage}, 'N', #{userId}, now(), #{userId}, now())
+    </insert>
+
 </mapper>
