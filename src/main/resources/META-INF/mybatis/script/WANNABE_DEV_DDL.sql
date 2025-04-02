@@ -424,14 +424,14 @@ CREATE TABLE RECEIVED_GIFT (
 
 
 /**
-* NAME     : LOGIN_USER
+* NAME     : USER_LOGIN
 * TYPE     : TABLE
 * AUTHOR   : Ahah
 * DATE     : 2025-04-03
 * DESC     : 현재 로그인한 회원 목록
 * =============================================START=============================================
 */
-CREATE TABLE LOGIN_USER (
+CREATE TABLE USER_LOGIN (
                             USER_ID BIGINT AUTO_INCREMENT COMMENT '회원 ID',
                             REMARKS VARCHAR(500) COMMENT '비고',
                             INSERT_USER_ID BIGINT COMMENT '등록자 ID',
