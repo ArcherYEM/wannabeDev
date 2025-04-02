@@ -16,6 +16,16 @@
         FROM USER_LOGIN
         WHERE USER_ID = #{userId}
     </delete>
+    
+    <select id="isExistUser" parameterType="Long" resultType="int">
+        SELECT
+            CASE
+                WHEN COUNT(*) > 0 THEN TRUE
+                ELSE FALSE
+            END
+        FROM USER_LOGIN
+        WHERE USER_ID = #{userId}
+    </select>
 
     <select id="loggedInFriendsByUserId" parameterType="Long" resultType="Long">
         SELECT FI.FRIEND_USER_ID

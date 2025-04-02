@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class FriendController {
 
     @PostMapping("/request/{friendId}")
     @ResponseBody
-    public ResponseEntity<Void> FriendRequest(@PathVariable Long friendId, HttpServletRequest request) {
+    public ResponseEntity<Void> friendRequest(@PathVariable Long friendId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.badRequest().build(); }
         Object userData = session.getAttribute("userData");
@@ -41,7 +42,7 @@ public class FriendController {
 
     @PostMapping("/accept/{requestUserId}")
     @ResponseBody
-    public ResponseEntity<Void> AcceptFriend(@PathVariable Long requestUserId, HttpServletRequest request) {
+    public ResponseEntity<Void> acceptFriend(@PathVariable Long requestUserId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.badRequest().build(); }
         Object userData = session.getAttribute("userData");
@@ -58,7 +59,7 @@ public class FriendController {
 
     @PostMapping("/reject/{requestUserId}")
     @ResponseBody
-    public ResponseEntity<Void> RejectFriend(@PathVariable Long requestUserId, HttpServletRequest request) {
+    public ResponseEntity<Void> rejectFriend(@PathVariable Long requestUserId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.badRequest().build(); }
         Object userData = session.getAttribute("userData");
@@ -71,6 +72,20 @@ public class FriendController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @GetMapping("/logged")
+    @ResponseBody
+    public ResponseEntity<List<Long>> loggedFirends(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.badRequest().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.badRequest().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        List<Long> loggedFriends = friendService.getLoggedFriends(sessionUser.getUserId());
+
+        return ResponseEntity.ok(loggedFriends);
     }
 
 

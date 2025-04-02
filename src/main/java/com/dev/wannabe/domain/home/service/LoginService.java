@@ -56,7 +56,9 @@ public class LoginService {
             session.setAttribute("userData", sessionUserDTO);
             session.setMaxInactiveInterval(60 * 60); // 단위 : 초 -> null point exception
 
-            userLoginMapper.saveUserLogin(userId);
+            if (!isExistUser(userId)) {
+                userLoginMapper.saveUserLogin(userId);
+            }
 
             loginMapper.saveLoginLog(loginLog);
             return true;
@@ -119,6 +121,10 @@ public class LoginService {
                 .hompiURL(hompiBasicInfo.getHompiURL())
                 .hompiTitle(hompiBasicInfo.getHompiTitle())
                 .build();
+    }
+
+    private Boolean isExistUser(Long userId) {
+        return userLoginMapper.isExistUser(userId) > 0;
     }
 
 }

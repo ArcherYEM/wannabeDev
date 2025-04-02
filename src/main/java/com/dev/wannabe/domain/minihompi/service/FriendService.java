@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.minihompi.service;
 
+import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.minihompi.mapper.FriendMapper;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class FriendService {
 
     private final FriendMapper friendMapper;
     private final UserMapper userMapper;
+    private final UserLoginMapper userLoginMapper;
 
     @Transactional
     public void requestNewFriend(FriendInfo newFriend) {
@@ -62,7 +66,6 @@ public class FriendService {
 
     @Transactional
     public void rejectFriend(Long userId, Long friendId) {
-        FriendInfo friendRequest = friendMapper.findFriendByUserIdAndFriendId(userId, friendId);
         friendMapper.deleteFriendByUserIdAndFriendId(userId, friendId);
     }
 
@@ -77,5 +80,10 @@ public class FriendService {
                 .build();
 
         friendMapper.saveFriendMessage(friendMessage);
+    }
+
+    @Transactional
+    public List<Long> getLoggedFriends(Long userId) {
+        return userLoginMapper.loggedInFriendsByUserId(userId);
     }
 }
