@@ -4,6 +4,9 @@ import com.dev.wannabe.domain.home.mapper.NoticeMapper;
 import com.dev.wannabe.domain.home.model.dto.NoticeDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -110,6 +113,10 @@ public class NoticeService {
             if (notice == null) {
                 throw new NoSuchElementException("해당 ID의 공지를 찾을 수 없습니다: " + noticeId);
             }
+
+            // XSS 방지: 공지사항 내용 필터링
+            String sanitizedContent = Jsoup.clean(notice.getNoticeContents(), Safelist.basic());
+            notice.setNoticeContents(sanitizedContent);
 
             return notice;
         } catch (DataAccessException e) {
