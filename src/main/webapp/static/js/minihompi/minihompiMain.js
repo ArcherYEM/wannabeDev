@@ -518,7 +518,7 @@ $(document).ready(function () {
                         <div id="fcWUser" style="display: none">${FriendCommentDTO.writeUserId}</div>
                         ${FriendCommentDTO.writeUserId == viewUserId || hompiAuth == "0" ?
                     '<div class="deleteImg">' +
-                    '<img src="/static/images/common/delete.png" class="deleteBtn"></div>'
+                    '<img src="/images/common/icon/delete.png" class="deleteBtn"></div>'
                     : ''}
                     </span>
                 </li>
