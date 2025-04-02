@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.UserLoginMapper">
+    <insert id="saveUserLogin" parameterType="Long">
+        INSERT INTO USER_LOGIN (
+            USER_ID
+        )
+        VALUES (
+            #{userId}
+        )
+    </insert>
+
+    <delete id="deleteUserLogin" parameterType="Long">
+        DELETE
+        FROM USER_LOGIN
+        WHERE USER_ID = #{userId}
+    </delete>
+
+    <select id="loggedInFriendsByUserId" parameterType="Long" resultType="Long">
+        SELECT FI.FRIEND_USER_ID
+        FROM FRIEND_INFO AS FI
+        INNER JOIN
+            USER_LOGIN AS UL
+        ON
+            FI.FRIEND_USER_ID = UL.USER_ID
+        WHERE
+            FI.USER_ID = #{userId}
+    </select>
+
+</mapper>
