@@ -9,7 +9,7 @@ const recentSwiper = new Swiper("#recent-item-swiper", {
 //카트 아이템리스트 슬라이드
 const itemBuySwiper = new Swiper("#item-swiper", {
     direction: "vertical",
-    slidesPerView: 2.5,
+    slidesPerView: 2.6,
     spaceBetween: 25,
     mousewheel: true,
     resistanceRatio: 0.5,
