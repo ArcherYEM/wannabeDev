@@ -84,12 +84,15 @@ public class AlbumCommentService {
 
     public Integer deleteComment(Long hompiId, Long commentId, HttpSession session){
 
+        log.info("hompiId: " + hompiId);
+        log.info("commentId: " + commentId);
+
         Long insertUserId  = albumCommentMapper.findUserIdByCommentId(commentId); // 댓글 작성자ID
         SessionUserDTO visitUser = (SessionUserDTO) session.getAttribute("userData");
 
         if(!(insertUserId == visitUser.getUserId())){ // 본인 작성한 댓글 본인이 삭제하는게 아닐 때
             return 0;
-        }else if((hompiId == visitUser.getHompiId())){  // 홈피 주인이 아닐 때
+        }else if(!(hompiId == visitUser.getHompiId())){  // 홈피 주인이 아닐 때
             return 0;
         }
 

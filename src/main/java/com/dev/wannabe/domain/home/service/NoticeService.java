@@ -98,5 +98,11 @@ public class NoticeService {
             return false;
         }
     }
+
+    // 공지사항 상세 페이지
+    @Transactional
+    public NoticeDTO getNoticeById(Long noticeId){
+        return noticeMapper.getNoticeById(noticeId);
+    }
 }
 

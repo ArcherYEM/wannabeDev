@@ -1,6 +1,9 @@
 /* 마요가... 공통 css 정리중 */
 @charset "utf-8";
 
+/* noto sans */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
 /* reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -16,7 +19,8 @@ footer, header, hgroup, menu, nav, section {margin: 0; padding: 0; border: 0;}
 article, aside, details, figcaption, figure, dialog,
 footer, header, hgroup, menu, nav, section {display: block;}
 html, body {height: 100%; -webkit-text-size-adjust: 100%;}
-body {font-size: 14px;font-family: "Nanum Gothic", sans-serif; color:#333; line-height:1.5; letter-spacing:-0.25px;}
+/*body {font-size: 14px;font-family: "Nanum Gothic", sans-serif; color:#333; line-height:1.5; letter-spacing:-0.25px;}*/
+body {font-size: 14px;font-family: "Noto Sans KR", sans-serif; color:#333; line-height:1.5; letter-spacing:-0.25px;}
 
 :before,:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 html { font-size: 14px; }
@@ -28,7 +32,8 @@ a:visited { text-decoration: none; }
 a:hover {  text-decoration: none; }
 a:active {  text-decoration: none; }
 a:focus { text-decoration: none; }
-select, input, textarea { vertical-align: middle ; font-family:"Nanum Gothic", sans-serif;}
+/*select, input, textarea { vertical-align: middle ; font-family:"Nanum Gothic", sans-serif;}*/
+select, input, textarea { vertical-align: middle ; font-family: "Noto Sans KR", sans-serif;}
 input {margin: 0;padding: 0;outline: none;}
 
 ol, ul {list-style: none;}
@@ -52,7 +57,8 @@ a:active {  text-decoration: none; }
 a:focus { text-decoration: none; }
 
 /* 인풋, 버튼 등 스타일링 */
-input, textarea, select, button{ font-family: "Nanum Gothic", sans-serif;}
+/*input, textarea, select, button{ font-family: "Nanum Gothic", sans-serif;}*/
+input, textarea, select, button{ font-family: "Noto Sans KR", sans-serif;}
 input:disabled, select:disabled { background-color: #DFE0DF; }
 input, select{vertical-align: middle; color: #333;}
 
@@ -71,11 +77,11 @@ button::-moz-focus-inner,
 input[type="checkbox"]  { width: 16px; height: 16px; }
 input[type=radio], input[type=checkbox] {border:0px;vertical-align: middle;box-sizing: border-box;padding: 0}
 input[type=button] {padding:0 10px;}
-input[type=text], input[type=password] {height:40px;padding:0 10px;border:1px solid #cccccc;vertical-align:middle;background-color:#fff; box-sizing:border-box;
+input[type=text], input[type=password] {padding:5px 10px;border:1px solid #cccccc;vertical-align:middle;background-color:#fff; box-sizing:border-box;
     -webkit-appearance:none;
     -moz-appearance:none;
     -o-appearance:none;
-    font-size: 1rem;
+    font-size: 14px;
 }
 
 select { outline: none; }

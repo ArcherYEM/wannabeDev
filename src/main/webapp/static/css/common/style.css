@@ -26,20 +26,27 @@
     display:flex;
     flex-direction:column;
 	position:relative;
-    font-family: "Nanum Gothic", sans-serif;
+    /*font-family: "Nanum Gothic", sans-serif;*/
+    font-family: "Noto Sans KR", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+
+.containerWrap {
+    width: 1280px;
+    margin: 0 auto;
 }
 
 /* 버튼 */
 .btn{
     display:inline-block;
-    height:30px;
-    padding:5px 10px;
+    padding:8px 10px;
+    height: 30px;
     font-weight:bold;
+    font-size: 14px;
     border-radius:5px;
     text-align:center;
-    line-height:16px;
+    line-height:1;
     box-sizing:border-box;
     transition:all,.5s;
     cursor:pointer;

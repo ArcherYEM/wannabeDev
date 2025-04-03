@@ -23,26 +23,43 @@
 
     <insert id="saveFriendInfo" parameterType="FriendInfo">
         INSERT INTO FRIEND_INFO (
-            USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME
+            USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS
         )
         VALUES (
             #{userId},
             #{friendUserId},
             #{userNickname},
-            #{friendUserNickname}
+            #{friendUserNickname},
+            #{availStatus}
         )
+        ON DUPLICATE KEY UPDATE
+            USER_NICKNAME = #{userNickname},
+            FRIEND_USER_NICKNAME = #{friendUserNickname},
+            AVAIL_STATUS = #{availStatus}
     </insert>
 
-    <select id="existsByUserIdAndFriendId" parameterType="Map" resultType="Boolean">
-        SELECT COUNT(*) > 0
+    <select id="findFriendByUserIdAndFriendId" resultType="FriendInfo">
+        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS
         FROM FRIEND_INFO
-        WHERE USER_ID = #{userId}
-            AND FRIEND_USER_ID = #{friendId}
+        WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendId}
     </select>
 
     <select id="findAllFriendInfoByUserId" parameterType="Long" resultType="FriendInfo">
-        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME
+        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS
         FROM FRIEND_INFO
         WHERE USER_ID = #{userId}
+    </select>
+
+    <delete id="deleteFriendByUserIdAndFriendId">
+        DELETE
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendId}
+    </delete>
+
+    <select id="existsByUserIdAndFriendId" resultType="Boolean">
+        SELECT COUNT(*) > 0
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId}
+          AND FRIEND_USER_ID = #{friendId}
     </select>
 </mapper>

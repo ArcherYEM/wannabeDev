@@ -83,7 +83,6 @@ $(document).ready(function() {
     // 아이디 중복 확인
     $("#checkDuplicateLoginId").on("click", function () {
         let loginIdValue = $('#i_loginId').val().trim();
-        console.log("입력된 아이디:", loginIdValue);
         if (loginIdValue === "") {
             $(".checkMatch.loginId").text("아이디를 입력하세요.").css({
                 "color":"red"
@@ -110,7 +109,7 @@ $(document).ready(function() {
         });
 
         // 값이 바뀌면 중복 false 처리
-        loginId.on("keyup", function () {
+        $("#i_loginId").on("keyup", function () {
             $("#checkDuplicateLoginId").addClass("checkDuplicate").removeClass("checkedDuplicate")
             isLoginIdValid = false;
         });
