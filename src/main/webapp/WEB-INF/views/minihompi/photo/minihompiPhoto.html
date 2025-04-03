@@ -40,7 +40,7 @@
         <!-- 등록-->
         <div class="upload-content" style="display: none;">
             <div class="upload-img">
-                <img id="previewImg" src="/static/images/common/loding.jpg" alt="업로드 사진 미리보기" style="height: 100px; width:100px;">
+                <img id="previewImg" src="/static/images/common/default/loding.jpg" alt="업로드 사진 미리보기" style="height: 100px; width:100px;">
                 <input type="file" id="albumImage" name="albumImage" accept="image/*" style=" display: none;" >
                 <button id="uploadPhoto">사진 변경</button>
             </div>
@@ -69,13 +69,16 @@
     <!---- 삭제 수정 탭 ---->
     <div class="actions-container">
         <div class="reg-btn">
-            <button class="register-album-btn" id="saveBtn">등록</button>
-        </div>
-        <div class="dlt-btn">
-            <button class="delete-album-btn" id="deleteAlbumBtn">삭제</button>
+            <button class="register-album-btn album-btn" id="saveBtn">등록</button>
         </div>
         <div class="mod-btn">
-            <button class="edit-album-btn" id="editAlbumBtn">수정</button>
+            <button class="edit-album-btn album-btn" id="editAlbumBtn">수정</button>
+        </div>
+        <div class="dlt-btn">
+            <button class="delete-album-btn album-btn" id="deleteAlbumBtn">삭제</button>
+        </div>
+        <div class="back-btn">
+            <button class="back-alum-btn album-btn" id="backAlbumBtn">돌아가기</button>
         </div>
     </div>
     <!-- 삭제 수정 탭-->
@@ -83,21 +86,18 @@
     <!-- 댓글 작성 탭-->
     <div class="friendSay">
         <div class="comment-section">
-            <span id="comment-name"> 댓글 작성</span><input type="text" >
-            <button>등록</button>
+            <span id="comment-name"> 댓글 작성</span>
+            <input type="text" id="commentContent"/>
+            <button id="saveCommentBtn">등록</button>
         </div>
     </div>
     <!-- 댓글 작성 탭-->
 
     <!-- 댓글 목록 탭-->
     <div class="comments-list">
-        <div>
-            <div class="commentUser"><strong>리자몽</strong></div> : 개발자가 되고싶다
+        <div class="comment-container">
+
         </div>
-        <span>2025.03.07 18:45</span>
-        <span><a href="#" style="cursor: pointer"> 수정</a> | <a href="#" style="cursor: pointer">삭제</a></span>
-        <span>미니홈피 주인이 고정한 댓글입니다.</span>
-        <div class="star-rating">★32</div>
     </div>
     <!-- 댓글 목록 탭-->
 </div>

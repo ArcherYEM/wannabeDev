@@ -215,10 +215,15 @@ button{
     margin-bottom: 3px;
 }
 
-
-
 .diarySelectWrap{
     text-align: center;
+    display: flex;
+    gap: 5px;
+}
+
+input[type="text"].diaryTitle{
+    border-radius: 10px;
+    height: 20px;
 }
 
 .diarySelectWrap select{

@@ -1,17 +1,101 @@
 <div id="popupMessageMainHeader">
     <span>받는사람</span>
-    <input type="text" name="" id="">
-    <a class="btn small di">추가</a>
+    <input list="selectUserName" name="recipient" id="recipient">
+    <a class="btn small di addsendBtn">추가</a>
+    <datalist id="selectUserName"><datalist>
+
 </div>
 <!--div#popupMessageMainHeader-->
 
 <div id="popupMessageMainArea">
-    <textarea placeholder="내용을 입력해 주세요"></textarea>
+    <textarea placeholder="내용을 입력해 주세요" id="sendTextArea"></textarea>
 
     <div id="popupMessageSendBtnArea">
-        <a class="btn small di">전송</a>
+        <a class="btn small di msgSendBtn">전송</a>
     </div>
     <!--div#popupMessageSendBtnArea-->
 
 </div>
 <!--div#popupMessageMainArea-->
+<script>
+    $("#recipient").on("change keyup paste",function () {
+        let textValue = $("#recipient").val();
+        console.log("변경되고있음 : " + textValue);
+        $.ajax({
+            type: "GET",
+            url: "../userInfo",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                userId = response.userId;
+                if (userId) {
+                    console.log("userid = " + userId);
+                    fncSearchName(userId, textValue);
+                }
+            },
+            error: function () {
+                alert("비정상적인 접근입니다.");
+            }
+        });
+    });
+    function fncSearchName(userId, textValue) {
+        console.log ("======fncSearchName 시작========");
+        console.log ("userId == " + userId);
+        console.log ("textValue == " + textValue);
+        console.log ("======fncSearchName 끝========");
+        $.ajax({
+            type: "GET",
+            url: "../popupMessage/SendSearchName",
+            contentType: "application/json",
+            dataType: "json",
+            async: true,
+            data: {
+              "userId" : userId,
+              "recipient" : textValue
+            },
+            success: function (data) {
+                console.log("=========이름검색결과 시작=========");
+                console.log(data);
+                console.log("=========이름검색결과 끝=========");
+                $("#selectUserName").html("");
+
+                // 새로운 옵션 추가
+                for (let i = 0; i < data.length; i++) {
+                    $("#selectUserName").append(
+                        `<option data-friendUserId="${data[i].friendUserId}" value="${data[i].name} (${data[i].friendUserNickName})"></option>`
+                    );
+                }
+
+            },
+            error: function () {
+                console.log("비정상적인 접근입니다.");
+            }
+        });
+    }
+
+$("a.msgSendBtn").click(function () {
+    var recipient = $("#recipient").val().trim();
+
+    if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined) {
+        alert("공백");
+    } else {
+         console.log("체인지");
+        var cut = recipient.indexOf('('); // (의 위치가 담김)
+        recipient = recipient.substring(0,cut-1);
+        var sendTextArea = $("#sendTextArea").val();
+        console.log("recipient : " + recipient);
+        console.log("sendTextArea : " + sendTextArea);
+    }
+
+});
+
+$("a.addsendBtn").click(function () {
+    console.log("추가 버튼 클릭");
+    var recipient = $("#recipient").val().trim();
+    if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined) {
+        alert("쪽지 보낼 사람을 추가 해 주세요!");
+    } else {
+        $("#recipient").attr("disabled",true);
+    }
+});
+</script>

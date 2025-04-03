@@ -32,7 +32,7 @@
                             <span class="state">(게시중)</span>
                         </div>
                         <div>
-                            <img src="/static/images/common/icon/icon-clock.svg" alt="clock" />
+                            <img src="/static/images/common/icon/icon_clock.svg" alt="clock" />
                             <!-- startDate의 날짜만 출력 -->
                             <span th:text="${notice.startDate}">2025.03.10</span>
                         </div>
@@ -61,7 +61,7 @@
                     <div class="content-list next">
                         <div class="item-info">
                             <a href="/"></a>
-                            <img src="/static/images/common/up.png">
+                            <img src="/static/images/common/icon/up.png">
                             <p class="title">이전글</p>
                             <p th:text="${previousNoticeTitle}">2/24 운영정책 위반 단속 결과 안내</p>
                         </div>
@@ -72,7 +72,7 @@
                     <div class="content-list prev">
                         <div class="item-info">
                             <a href="/"></a>
-                            <img src="/static/images/common/down.png">
+                            <img src="/static/images/common/icon/down.png">
                             <p class="title">다음글</p>
                             <p class="no-content" th:text="${nextNoticeTitle}">다음글이 없습니다.</p>
                         </div>

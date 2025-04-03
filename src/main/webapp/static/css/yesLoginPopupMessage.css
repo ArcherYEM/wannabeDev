@@ -1,4 +1,4 @@
-.btn{display:inline-block; width:100%; height:30px; background:#fff; color:#555; border:1px solid var(--color-basic); padding:5px 10px; font-weight:bold; border-radius:5px; text-align:center; line-height:16px; box-sizing:border-box; transition:all,.5s; cursor:pointer}
+.btn{display:inline-block; height:30px; background:#fff; color:#555; border:1px solid var(--color-basic); padding:5px 10px; font-weight:bold; border-radius:5px; text-align:center; line-height:16px; box-sizing:border-box; transition:all,.5s; cursor:pointer}
 .btn:hover{color:var(--color-basic)}
 .btn.small{height:inherit; padding:0 10px;}
 .btn.nobtn{background:#595959; border:1px solid #595959; color:#fff}
@@ -22,8 +22,8 @@
 }
 
 div#wrap {
-    width: 650px;
-    height: 600px;
+    width: 100%;
+    height: 80%;
 }
 
 ol, ul {
@@ -35,8 +35,8 @@ ol, ul {
 ul > li {
     cursor: pointer;
     font-size: 20px;
-    padding-right: 30px;
-    padding-left: 15px;
+    padding-right: 20px;
+    padding-left: 10px;
 }
 
 ul > li:not(:last-child) {
@@ -50,6 +50,22 @@ input[type=text] {
     border: 1px solid orange;
 }
 
+div.unread, div.read {
+    display: flex;
+    padding: 10px;
+    height: 40px;
+    border-bottom: 1px solid #617680;
+
+}
+div.unread:hover > * , div.read:hover > *{
+    cursor: pointer;
+    color: orange;
+    font-weight: bold;
+}
+.msgChkbox { margin: 2px; }
+.popMsg-insertUserId { width: 80px; text-align: center; }
+.popMsg-Msg { width: 200px; text-align: center;}
+.popMsg-date {width: 120px; text-align: center;}
 
 button {
     background-color: orange;
@@ -71,7 +87,7 @@ header#header {
 
 main#main.dFlex {
     flex-wrap: nowrap;
-    justify-content: space-between;
+
     justify-content: center;
     width: 100%;
     height: 80%;
@@ -80,11 +96,27 @@ main#main.dFlex {
 
 div#popupMessageNav {
     width: 25%;
-    border-right: 1px solid red;
+    border-right: 1px solid black;
     padding-top: 10px;
     margin-top: 35px;
 }
-
+span.reciveMsgCount{
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+    position: relative;
+    top: -86px;
+    left: 130px;
+    pointer-events: none;
+}
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: green;
+}
 div#popupMessageMain {
     width: 70%;
     padding: 0px 15px;
@@ -149,51 +181,60 @@ div#popupMessageMainArea button#MessageSendBtn {
     margin-right: 10px;
 }
 
+/* 읽지 않은 쪽지 (검은색 굵게) */
+.unread {
+    font-weight: bold;
+    color: black;
+}
+
+/* 읽은 쪽지 (연회색 얇게) */
+.read {
+    font-weight: normal;
+    color: lightgray;
+}
+
 /*페이지네이션 관련 css*/
-/* 페이지네이션 컨테이너 */
 #pagination {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 /* 페이지네이션 버튼 스타일 */
-.page-btn {
-    display: inline-block;
-    padding: 8px 12px;
+#popMsgList-container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#popMsgListTitle {
+    display: flex;
+    padding: 10px;
+    background: #f3d2bb;
+    color: black;
+    font-weight: bold;
+}
+
+.popMsgListBox {
+    display: flex;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+#pagination button {
+    padding: 5px 10px;
     margin: 0 5px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 5px;
-    transition: all 0.3s;
-}
-
-/* 현재 페이지 버튼 스타일 */
-.page-btn.active {
-    background-color: #007bff;
+    background: #ff8000;
     color: white;
-    border-color: #007bff;
-    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* 이전, 다음 버튼 스타일 */
-.page-btn.prev,
-.page-btn.next {
-    font-size: 16px;
-}
-
-/* 비활성화된 버튼 */
-.page-btn:disabled {
-    background-color: #f1f1f1;
-    color: #ccc;
+#pagination button:disabled {
+    background: #ccc;
     cursor: not-allowed;
-}
-
-/* 페이지 간격 (...) */
-.ellipsis {
-    padding: 8px 10px;
-    color: #888;
-    font-weight: bold;
 }

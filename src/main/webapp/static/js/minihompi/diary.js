@@ -14,19 +14,22 @@ $(document).ready(function(){
     //다이어리 생성 함수: textarea 없으면 textarea 생성
     $(document).on('click','#registerBtn',function(){
         if($('#diaryStatus').is('.updateContent')){
-            alert('수정 버튼을 클릭해주세요.');
-            return;
+            return Swal.fire({
+                   title: "버틀 클릭 오류",
+                   text: "수정 버튼을 눌러주세요!",
+                   icon: 'warning'
+            });
         }
         diaryText = $('#diary textarea');
         if(diaryText.length === 0){
             $('.diaryContent').empty();
-            let content = `<div class="diarySelectWrap">댓글 허용: <select id="diaryStatus" class="addContent">
+            let content = `<div class="diarySelectWrap">다이어리 제목:<input type="text" class="diaryTitle"> 댓글 허용: <select id="diaryStatus" class="addContent">
                 <option value="33">전체 허용</option>
                 <option value="32">일촌 허용</option>
                 <option value="31">전체 비허용</option>
             </select><span class="folderSpan">선택 폴더: </span>
             <select id="selectFolder">`;
-                $('.folderWrap button').each(function(index,element){
+                $('.folderName button').each(function(index,element){
                     content += `<option value="${$(this).val()}">${$(this).text()}</option>`
                 });
                 content += `</select></div><textarea></textarea>`;
@@ -34,8 +37,11 @@ $(document).ready(function(){
                 return;
         }
         if(diaryText.val().trim().length === 0){
-            alert('글을 작성해주세요!');
-            return;
+            return Swal.fire({
+                   title: "다이어리 작성 실패",
+                   text: "다이어리 내용을 작성해주세요!",
+                   icon: 'warning'
+            });
         }
         const folderId = $('#selectFolder').val();
         addDiaryContent(folderId,diaryText.val());
@@ -44,8 +50,11 @@ $(document).ready(function(){
     $(document).on('click','.edit-btn',function(){
         const editBtn = $(this);
         if($('.diaryContent').length === 0){
-            alert('다리어리가 존재하지 않습니다.')
-            return;
+            return Swal.fire({
+                   title: "다리어리 가져오기 실패",
+                   text: "다리어리를 가져오는데 실패했습니다!",
+                   icon: 'warning'
+            });
         }
         const text = $('.diaryContent').text();
         diaryText = $('#diary textarea');
@@ -60,12 +69,18 @@ $(document).ready(function(){
             return;
         }
         if($('#diaryStatus').is('.addContent')){
-            alert('등록 버튼을 클릭해주세요.');
-            return;
+            return Swal.fire({
+                   title: "버튼 클릭 오류",
+                   text: "수정버튼을 눌러주세요!",
+                   icon: 'warning'
+            });
         }
         if(diaryText.val().trim().length === 0){
-            alert('글을 작성해주세요!');
-            return;
+            return Swal.fire({
+                   title: "다이어리 작성 실패",
+                   text: "다이어리 내용을 작성해주세요!",
+                   icon: 'warning'
+            });
         }
         const diaryId = $('.diaryContent').data('id');
         updateDiary(diaryId,diaryText.val());
@@ -73,8 +88,11 @@ $(document).ready(function(){
 
     $(document).on('click','.delete-btn',function(){
     if($('.diaryContent').length === 0){
-        alert('다리어리가 존재하지 않습니다.')
-        return;
+            return Swal.fire({
+                   title: "다이어리 삭제 실패",
+                   text: "삭제할 다이어리가 없습니다!",
+                   icon: 'warning'
+            });
     }
         const deleteBtn = $(this);
         const diaryId = $('.diaryContent').data('id');
@@ -85,8 +103,11 @@ $(document).ready(function(){
     $(document).on('click','#diaryCommentBtn',function(){
         const comment = $('#diaryComment');
         if(comment.val().trim().length === 0){
-            alert('댓글을 작성해주세요');
-            return;
+            return Swal.fire({
+                   title: "댓글 작성 실패",
+                   text: "댓글을 작성해주세요",
+                   icon: 'warning'
+            });
         }
         addDiaryComment(comment.val());
     })
@@ -154,21 +175,30 @@ function getMonthDate(){
 }
 
 function addDiaryContent(folderId, diaryContent){
+    const diaryTitle = $('.diaryTitle').val();
     if(!folderId){
         alert('폴더를 선택해주세요');
         return;
     }
-    const availStatus = $('#diaryStatus').val();
+    const availStatus = $('#diaryStatus option:selected').val();
+    console.log(availStatus);
     $.ajax({
         type: 'POST',
-        url: '/api/minihompi/add/diary/' + folderId + '/' +hompiOwnerId,
+        url: '/api/minihompi/add/diary/' + folderId + '/' + diaryTitle + '/' +hompiOwnerId,
         data: {availStatus: availStatus,diaryContent: diaryContent},
         success: function(response){
             if(!response){
-                alert('이미 해당 폴더에 오늘 작성한 다이어리가 있습니다.');
-                return;
+            return Swal.fire({
+                   title: "다이어리 작성 실패",
+                   text: "이매 오늘 작성한 다이어리가 있습니다!",
+                   icon: 'warning'
+                });
             }
-            alert('저장 완료');
+            Swal.fire({
+               title: "다이어리 저장",
+               text: "다디어리를 성공적으로 저장하였습니다!",
+               icon: 'success'
+            });
             getDiaryContent(0);
         },
         error: function(error){
@@ -202,16 +232,22 @@ function getDiaryContent(diaryId){
 function getDiaryByDay(day){
     const folderId = $('.folderOn').val();
     if(!folderId){
-        alert('폴더를 선택해주세요');
-        return;
+            return Swal.fire({
+                   title: "다이어리 가져오기 실패",
+                   text: "폴더를 먼저 선택해주세요",
+                   icon: 'warning'
+            });
     }
     $.ajax({
         type: 'GET',
         url: '/api/minihompi/get/diary-day/'+ day + '/' + folderId + "/" + hompiOwnerId,
         success: function(response){
             if(!response){
-                alert('해당 날짜에 다이어리가 존재하지 않습니다')
-                return;
+            return Swal.fire({
+                   title: "다이어리 가져오기 실패",
+                   text: "해당 날짜에 다이어리가 존재하지 않습니다!",
+                   icon: 'warning'
+            });
             }
             $('#diary').children().remove();
             $('#diary').append(`
@@ -231,30 +267,46 @@ function deleteDiary(diaryId){
         url: '/api/minihompi/delete/diary/' + diaryId + '/' + hompiOwnerId,
         dataType: 'json',
         success: function(response){
-            alert('삭제 성공')
+            Swal.fire({
+                   title: "다이어리 삭제 성공",
+                   text: "다이어리를 성공적으로 삭제했습니다!",
+                   icon: 'success'
+            });
             getDiaryContent(0);
-            getDiaryFolder();
         },
         error: function(error){
             console.error(error);
-            alert('삭제 실패.')
+            Swal.fire({
+                   title: "다이어리 삭제 실패",
+                   text: "다이어리 삭제를 실패했습니다!",
+                   icon: 'warning'
+            });
         }
     })
 }
 
 function updateDiary(diaryId, diaryContent){
-    const availStatus = $('#diaryStatus').val();
+    const availStatus = $('#diaryStatus option:selected').val();
+    console.log(availStatus);
     $.ajax({
         type: 'POST',
         url: '/api/minihompi/update/diary/' + diaryId +'/' + hompiOwnerId,
         data: {diaryContent: diaryContent, availStatus: availStatus},
         dataType: 'json',
         success: function(response){
-            alert('수정 성공')
+            Swal.fire({
+                   title: "다이어리 수정 성공",
+                   text: "다이어리를 성공적으로 수정하였습니다!",
+                   icon: 'success'
+            });
             getDiaryContent(response);
         },
         error: function(error){
-            alert('수정 실패')
+            Swal.fire({
+                   title: "다이어리 수정 실패",
+                   text: "다이어리 수정을 실패했습니다!",
+                   icon: 'warning'
+            });
             console.error(error);
         }
     })
@@ -268,12 +320,20 @@ function addDiaryComment(comment){
         url: '/api/mini-hompi/diary-comment/save/' + diaryId + '/' + hompiOwnerId,
         data: {comment: comment, availStatus: availStatus},
         success: function(response){
-            alert('댓글 작성 성공');
+            Swal.fire({
+                   title: "댓글 작성 성공",
+                   text: "댓글을 성공적으로 작성하였습니다!",
+                   icon: 'success'
+            });
             getDiaryComment();
             $('#diaryComment').val('');
         },
         error: function(error){
-            alert('댓글을 작성할 권한이 없습니다');
+            Swal.fire({
+                   title: "댓글 작성 실패",
+                   text: "댓글을 작성할 권한이 없습니다!",
+                   icon: 'warning'
+            });
             console.error(error);
         }
     })
@@ -295,7 +355,7 @@ function getDiaryComment(){
                                 ? `<span class="insertDate">${commentDTO.insertDt}고정</span>`
                                 : `<span class="insertDate">${commentDTO.insertDt}</span>`}
                             ${(commentDTO.userId == viewUserId || commentDTO.hompiId == hompiOwnerId)
-                            ? '<img src="/static/images/common/delete.png" class="diaryCommentDelBtn">' : ''}
+                            ? '<img src="/images/common/icon/delete.png" class="diaryCommentDelBtn">' : ''}
                         </li>`;
                         if(commentDTO.useYn == "Y"){
                             $('.commentList').prepend(commentHtml);
@@ -324,7 +384,11 @@ function deleteDiaryComment(commentId){
         type: 'DELETE',
         url: '/api/mini-hompi/diary-comment/delete/' + commentId +'/' + viewUserId + '/' + hompiOwnerId,
         success: function(response){
-            alert('삭제 성공')
+            Swal.fire({
+                   title: "댓글 삭제 성공",
+                   text: "댓글을 성공적으로 삭제하였습니다!",
+                   icon: 'success'
+            });
             getDiaryComment();
         },
         error: function(error){
