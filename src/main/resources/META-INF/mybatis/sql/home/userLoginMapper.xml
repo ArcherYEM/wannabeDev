@@ -35,7 +35,7 @@
         ON
             FI.FRIEND_USER_ID = UL.USER_ID
         WHERE
-            FI.USER_ID = #{userId}
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = "02"
     </select>
 
 </mapper>
