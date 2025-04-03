@@ -21,37 +21,26 @@
                     <div class="notice-title">
                         <!-- 공지글 종류에 따라 라벨 클래스 변경 -->
                         <label class="bg-announcement">공지사항</label>
-                        <p th:text="${notice.noticeTitle}">3/7긴급 점검 안내 완료 및 보상 안내</p>
+                        <p th:text="${notice.noticeTitle}"></p>
                     </div>
                     <div class="time-info">
                         <div>
                             <!-- startDate와 endDate를 String 그대로 출력 -->
-                            <span th:text="${notice.startDate}">2025.03.10 12:00</span>
+                            <span th:text="${notice.startDate}"></span>
                             <span>~</span>
-                            <span th:text="${notice.endDate}">2025.05.20 18:00</span>
+                            <span th:text="${notice.endDate}"></span>
                             <span class="state">(게시중)</span>
                         </div>
                         <div>
                             <img src="/static/images/common/icon/icon_clock.svg" alt="clock" />
                             <!-- startDate의 날짜만 출력 -->
-                            <span th:text="${notice.startDate}">2025.03.10</span>
+                            <span th:text="${notice.startDate}"></span>
                         </div>
                     </div>
                 </div>
                 <div class="notice-body">
                     <div class="notice-content">
-                        <p th:utext="${notice.noticeContents}">안녕하세요. 워너비 팀입니다.<br>
-                            2025년 3월 20일, 서비스 안정화를 위해 긴급 점검을 진행하였으며
-                            현재 정상적으로 완료 되었습니다.<br>
-                            점검 기간 동안 서비스를 이용하지 못하신 점에 대해 깊이 사과드립니다.<br>
-                            <br>
-                            이에 대한 보상으로 도토리 5개를 지급해드렸습니다.<br>
-                            보상을 확인하시려면 쪽시함을 확인해 주세요.<br>
-                            <br>
-                            저희 워너비팀은 앞으로 더욱 안정적인 서비스를 제공하기 위해 최선을 다하겠습니다.<br>
-                            이용해 주셔서 감사합니다.<br>
-                            <br>
-                            워너비 팀 드림</p>
+                        <p th:utext="${notice.noticeContents}">
                     </div>
                     <div class="notice-modify">
                         <button>수정</button>
