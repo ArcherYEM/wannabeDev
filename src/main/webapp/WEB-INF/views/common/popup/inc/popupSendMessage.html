@@ -8,8 +8,7 @@
 <!--div#popupMessageMainHeader-->
 
 <div id="popupMessageMainArea">
-    <textarea placeholder="내용을 입력해 주세요" id="sendTextArea">
-    </textarea>
+    <textarea placeholder="내용을 입력해 주세요" id="sendTextArea"></textarea>
 
     <div id="popupMessageSendBtnArea">
         <a class="btn small di msgSendBtn">전송</a>
@@ -21,7 +20,7 @@
 <script>
     $("#recipient").on("change keyup paste",function () {
         let textValue = $("#recipient").val();
-        console.log("변경되고있음 : " + textValue);
+        /*console.log("변경되고있음 : " + textValue);*/
         $.ajax({
             type: "GET",
             url: "../userInfo",
@@ -30,7 +29,7 @@
             success: function (response) {
                 userId = response.userId;
                 if (userId) {
-                    console.log("userid = " + userId);
+                    /*console.log("userid = " + userId);*/
                     fncSearchName(userId, textValue);
                 }
             },
@@ -41,7 +40,7 @@
     });
 
     $("a.addsendBtn").click(function () { //일촌이름입력 후 추가 버튼 클릭 이벤트
-        console.log("추가 버튼 클릭");
+        /*console.log("추가 버튼 클릭");*/
 
         var recipient = $("#recipient").val().trim();
         $("#recipient").val(recipient);
@@ -54,16 +53,11 @@
     $("a.msgSendBtn").click(function () { //전송버튼 클릭 이벤트
         var recipient = $("#recipient").val().trim();
         var chk = $("#recipient").attr("disabled");
-        if (chk === "disabled") {
-            console.log("recipient비활성 묶임 : " + chk);
-        } else {
-            console.log("recipient비활성 안묶임 : " + chk);
-        }
 
         if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined ) {
             alert("공백을 제거 해 주세요");
         } else if (! chk) {
-            console.log("recipient undefined 시");
+            /*console.log("recipient undefined 시");*/
             alert("추가 버튼을 눌러 주세요.")
         } else {
             var cut = recipient.indexOf('('); // ( '('의 위치가 담김)
@@ -72,21 +66,22 @@
                 alert("일촌을 확인해주세요.");
                 $("#recipient").removeAttr("disabled");
             } else {
-                var sendTextArea = $("#sendTextArea").val();
-                 window.location.href = "/popupMessage/SendMessageProc?userId="+userId+"&recipient="+recipient+"&sendTextArea="+sendTextArea;
+                var sendTextArea = $("#sendTextArea").val().replace(/\n/g, "<br>");
+                window.location.href = "/popupMessage/SendMessageProc?userId="+userId+"&recipient="+recipient+"&sendTextArea="+sendTextArea;
+
             }
 
-            console.log("가공한 recipient : " + recipient);
-            console.log("sendTextArea : " + sendTextArea);
+            /*console.log("가공한 recipient : " + recipient);
+            console.log("sendTextArea : " + sendTextArea);*/
 
         }
     });
 
     function fncSearchName(userId, textValue) {
-        console.log ("======fncSearchName 시작========");
+        /*console.log ("======fncSearchName 시작========");
         console.log ("userId == " + userId);
         console.log ("textValue == " + textValue);
-        console.log ("======fncSearchName 끝========");
+        console.log ("======fncSearchName 끝========");*/
         $.ajax({
             type: "GET",
             url: "../popupMessage/SendSearchName",
@@ -98,12 +93,11 @@
                 "recipient" : textValue
             },
             success: function (data) {
-                console.log("=========이름검색결과 시작=========");
+                /*console.log("=========이름검색결과 시작=========");
                 console.log(data);
-                console.log("=========이름검색결과 끝=========");
+                console.log("=========이름검색결과 끝=========");*/
                 $("#selectUserName").html("");
 
-                // 새로운 옵션 추가
                 for (let i = 0; i < data.length; i++) {
                     $("#selectUserName").append(
                         `<option data-friendUserId="${data[i].friendUserId}" value="${data[i].name} (${data[i].friendUserNickName})"></option>`
@@ -112,7 +106,7 @@
 
             },
             error: function () {
-                console.log("비정상적인 접근입니다.");
+                alert("비정상적인 접근입니다.");
             }
         });
     }

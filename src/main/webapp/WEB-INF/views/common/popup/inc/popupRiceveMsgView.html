@@ -3,7 +3,7 @@
     <p class="receiveMessageTime" >수신일시 : <span th:text="${#dates.format(msgView.insertDT, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
 </div>
 <!--div#popupMessageMainHeader-->
-<!--<span th:text="${#lists.size(reciveMsgView)}"></span>-->
+
 <div id="popupMessageMainArea" th:each="msgView : ${reciveMsgView}">
     <pre id="reciveMessagePre" th:text="${msgView.message}">
 안녕하세요! 😊

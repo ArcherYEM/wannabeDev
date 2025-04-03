@@ -12,7 +12,7 @@
              th:class="${msg.ReadYN == 'N' ? 'unread' : 'read'}">
             <input type="checkbox" class="msgChkbox">
             <span class="popMsg-insertUserId" style="color: #e07b00;" th:text="${msg.friendUserId == 0 ? 'WANNABE' : msg.name}"></span>
-            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 17)}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
+            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 15)}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
             <span class="popMsg-date" th:text="${#dates.format(msg.insertDT, 'yyyy.MM.dd HH:mm')}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
         </div>
     </div>

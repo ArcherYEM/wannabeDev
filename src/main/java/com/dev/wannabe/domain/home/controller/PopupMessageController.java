@@ -50,12 +50,13 @@ public class PopupMessageController {
 
         System.out.println("/SendMessageProc 진입 :: getFriendUserId ::" + popupMessageDTO.get(0).getFriendUserId());
         Map<String,Object> map = new HashMap<>();
-
+        /*sendMessage = sendMessage.replace("<br>","\r\n");*/
         map.put("userId", userId); // 쪽지 보낸 이
         map.put("recipient", String.valueOf(popupMessageDTO.get(0).getFriendUserId())); // 쪽지 받는 이
         map.put("sendMessage", sendMessage); // 보낸쪽지내용
         int sendChk = popupMessageService.SendFriendMessage(map);
-        System.out.println("/SendMessageProc 진입 :: sendChk ::" + sendChk);
+
+        System.out.println("/SendMessageProc 진입 :: sendMessage내용 ::" + sendMessage);
         if (sendChk == 1) {
             System.out.println(userId+ " 님 이" + String.valueOf(popupMessageDTO.get(0).getFriendUserId()) + " 에게 메세지 전송 성공");
         } else {
@@ -75,10 +76,10 @@ public class PopupMessageController {
         String messageId = request.getParameter("messageId");
         List<PopupMessageDTO> reciveMsgView = popupMessageService.getReciveMsgView(messageId);
         System.out.println("messageId :::: " + messageId);
-
+        String viewMessage = reciveMsgView.get(0).getMessage().replace("<br>","\r\n");
+        reciveMsgView.get(0).setMessage(viewMessage);
         model.addAttribute("reciveMsgView", reciveMsgView);
         popupMessageService.messageReadUpdate(messageId); // 메세지 읽음처리
-
         return "common/popup/inc/popupRiceveMsgView";
     }
 
@@ -106,6 +107,10 @@ public class PopupMessageController {
         String pageSize = request.getParameter("pageSize");
 
         List<PopupMessageDTO> popupMessageDTO = popupMessageService.getReciveMsglist(userId, offset, pageSize); //전체 메세지불러오기
+        for (int i = 0; i < popupMessageDTO.size(); i++) {
+            String brMsg = popupMessageDTO.get(i).getMessage().replace("<br>","\r\n");
+            popupMessageDTO.get(i).setMessage(brMsg);
+        }
         model.addAttribute("msgList", popupMessageDTO);
 
         int reciveMsgCount = popupMessageService.reciveMsgCount(userId); //전체 쪽지 갯수
