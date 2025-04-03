@@ -31,5 +31,6 @@ $(document).ready(function() {
     // 체크박스 동기화
     $(".checkbox").on("change", function(){
         $(".checkbox").prop("checked", $(this).prop("checked"));
+        closeModal();
     });
 });
