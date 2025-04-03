@@ -1,12 +1,16 @@
 package com.dev.wannabe.domain.home.model.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserBasic {
 
     private Long userId;  // PK

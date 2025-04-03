@@ -422,6 +422,30 @@ CREATE TABLE RECEIVED_GIFT (
 */
 
 
+
+/**
+* NAME     : USER_LOGIN
+* TYPE     : TABLE
+* AUTHOR   : Ahah
+* DATE     : 2025-04-03
+* DESC     : 현재 로그인한 회원 목록
+* =============================================START=============================================
+*/
+CREATE TABLE USER_LOGIN (
+                            USER_ID BIGINT AUTO_INCREMENT COMMENT '회원 ID',
+                            REMARKS VARCHAR(500) COMMENT '비고',
+                            INSERT_USER_ID BIGINT COMMENT '등록자 ID',
+                            INSERT_DT DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '등록일시',
+                            UPDATE_USER_ID BIGINT COMMENT '변경자 ID',
+                            UPDATE_DT DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '변경일시',
+                            PRIMARY KEY (USER_ID)
+) COMMENT='현재 로그인한 회원 목록';
+/**
+* ==============================================END==============================================
+*/
+
+
+
 /**
 * NAME     : HOMPI
 * TYPE     : TABLE
