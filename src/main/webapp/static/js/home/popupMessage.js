@@ -64,7 +64,6 @@ $(document).ready(function () {
     /** 페이지네이션 렌더링 **/
     function renderPagination(totalPages, currentPage) {
 
-
         // 페이지 번호 버튼 생성
         let paginationHtml = `<button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>&lt;&lt;</button>`;
 

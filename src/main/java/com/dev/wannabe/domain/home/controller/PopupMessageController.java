@@ -50,7 +50,7 @@ public class PopupMessageController {
 
         System.out.println("/SendMessageProc 진입 :: getFriendUserId ::" + popupMessageDTO.get(0).getFriendUserId());
         Map<String,Object> map = new HashMap<>();
-        /*sendMessage = sendMessage.replace("<br>","\r\n");*/
+
         map.put("userId", userId); // 쪽지 보낸 이
         map.put("recipient", String.valueOf(popupMessageDTO.get(0).getFriendUserId())); // 쪽지 받는 이
         map.put("sendMessage", sendMessage); // 보낸쪽지내용
@@ -63,11 +63,7 @@ public class PopupMessageController {
             System.out.println(userId+ " 님 이" + String.valueOf(popupMessageDTO.get(0).getFriendUserId()) + " 에게 메세지 전송 실패");
         }
         System.out.println("/SendMessageProc 진입 :: sendChk ::" + sendChk);
-        /*
-            작업 해야 할것
-            "recipient" 를 본인계정의 친구리스트에 존재하는지 확인 존재한다면 보낼친구의 id(int)값 을 가져오고,
-            가져온 후 해당유저 id(int)값 을기준 쪽지를보낸유저id(int)값 과 "sendMessage" 를 insert 해준다.
-        */
+
         return popupMessageDTO;
     }
 

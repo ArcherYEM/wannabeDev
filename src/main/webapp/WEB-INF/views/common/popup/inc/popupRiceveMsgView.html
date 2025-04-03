@@ -1,5 +1,5 @@
 <div id="popupMessageMainHeader" th:each="msgView : ${reciveMsgView}">
-    <span>보낸사람 :</span> <span th:text="${msgView.name}">김일촌</span>
+    <span>보낸사람 :</span> <span class="sendMsgName" th:text="${msgView.name}">김일촌</span>
     <p class="receiveMessageTime" >수신일시 : <span th:text="${#dates.format(msgView.insertDT, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
 </div>
 <!--div#popupMessageMainHeader-->
@@ -19,10 +19,24 @@
     </pre>
     <div id="popupMessageReciveBtnArea" class="dFlex">
         <a  class="btn small di" data-pageName="recive" onclick="fncBackPage(this)">목록</a>
-        <a class="btn small di">답장</a>
+        <a class="btn small di replyMsg">답장</a>
         <a class="btn small di">삭제</a>
     </div>
     <!--div#popupMessageReciveBtnArea-->
 
 </div>
 <!--div#popupMessageMainArea-->
+
+<script>
+    $(".replyMsg").click(function (){
+        console.log("답장하기 버튼 클릭");
+        var recipient = $(".sendMsgName").text();
+        console.log("답장 보낼사람 : " + recipient);
+        $("#popupMessageMain").load("/popupMessage/SendMessage?recipient=" + recipient, function () {
+            /*현재 해당부분작업중*/
+            $("#recipient").val(recipient);
+            $("#recipient").attr("disabled",true);
+            /* 값 넘기는부분까지는 ok 하지만, 일촌명까지 적어져야 전송이되는 이슈로 현재 해결방안 생각중..*/
+        });
+    });
+</script>
