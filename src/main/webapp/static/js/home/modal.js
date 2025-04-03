@@ -11,7 +11,7 @@ $(document).ready(function() {
     }
 
     // 모달 닫기
-    $(document).on("click", ".close", function(e) {
+    $(document).on("click", "#closeImg", function(e) {
         e.preventDefault();
         closeModal();
     });
@@ -24,7 +24,7 @@ $(document).ready(function() {
         $(".dialog").fadeOut();
     }
 
-    $(document).on("click", ".tb", function(e) {
+    $(document).on("click", ".inner", function(e) {
         e.stopPropagation();
     });
 
