@@ -43,7 +43,7 @@ public class LoginController {
             if (loginService.login(loginData)) {
                 return ResponseEntity.status(HttpStatus.OK).body(LoginResponse.success());
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(LoginResponse.notFound());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(LoginResponse.badRequest());
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(LoginResponse.serverError());
@@ -70,7 +70,7 @@ public class LoginController {
             if (loginService.logout()) {
                 return ResponseEntity.status(HttpStatus.OK).body(LoginResponse.success());
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(LoginResponse.notFound());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(LoginResponse.badRequest());
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(LoginResponse.serverError());
