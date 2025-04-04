@@ -113,24 +113,12 @@ function insert_notice() {
     const startDateTemp = $('#i_start_date').val().trim();
     const endDateTemp   = $('#i_end_date').val().trim();
 
-    // 시작일시 분리
-    const [startDate_, startTime_]  = startDateTemp.split(' ');
-    const startDate                 = startDate_.replace(/-/g, '');
-    const startTime                 = startTime_.replace(/:/g, '');
-
-    // 종료일시 분리
-    const [endDate_, endTime_]  = endDateTemp.split(' ');
-    const endDate               = endDate_.replace(/-/g, '');
-    const endTime               = endTime_.replace(/:/g, '');
-
     const noticeData = {
         noticeType      : type,         // 분류
         noticeTitle     : title,        // 제목
         noticeContents  : contents,     // 내용
-        startDate       : startDate,    // 시작일자
-        startTime       : startTime,    // 시작시간
-        endDate         : endDate,      // 종료일자
-        endTime         : endTime       // 종료시간
+        startDateTime   : startDateTemp,
+        endDateTime     : endDateTemp
     }
 
     $.ajax({

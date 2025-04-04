@@ -95,7 +95,21 @@ public class NoticeService {
     // 공지사항 등록
     @Transactional
     public boolean insertNotice(NoticeDTO noticeDTO){
-        try{
+        try {
+            // 날짜/시간 분리
+            if (noticeDTO.getStartDateTime() != null && noticeDTO.getStartDateTime().contains("T")) {
+                String[] startParts = noticeDTO.getStartDateTime().split("T");
+                noticeDTO.setStartDate(startParts[0].replace("-",""));  // 예: 2025-04-04
+                noticeDTO.setStartTime(startParts[1].replace(":", "")); // 예: 2005
+            }
+
+            if (noticeDTO.getEndDateTime() != null && noticeDTO.getEndDateTime().contains("T")) {
+                String[] endParts = noticeDTO.getEndDateTime().split("T");
+                noticeDTO.setEndDate(endParts[0].replace("-",""));      // 예: 2025-04-06
+                noticeDTO.setEndTime(endParts[1].replace(":", ""));     // 예: 1800
+            }
+
+            // 실제 등록
             noticeMapper.insertNotice(noticeDTO);
             return true;
         } catch (Exception e) {
