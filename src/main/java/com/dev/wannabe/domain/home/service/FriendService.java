@@ -70,6 +70,12 @@ public class FriendService {
     }
 
     @Transactional
+    public void deleteFriend(Long userId, Long friendId) {
+        friendMapper.deleteFriendByUserIdAndFriendId(userId, friendId);
+        friendMapper.deleteFriendByUserIdAndFriendId(friendId, userId);
+    }
+
+    @Transactional
     public void sendFriendMessage(SendMessageDTO sendMessage) {
         FriendMessage friendMessage = FriendMessage.builder()
                 .userId(sendMessage.getToUserId())

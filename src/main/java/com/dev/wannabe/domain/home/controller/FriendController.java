@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -68,6 +69,23 @@ public class FriendController {
 
         try {
             friendService.rejectFriend(requestUserId, sessionUser.getUserId());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @DeleteMapping("/myfriend/{friendId}")
+    @ResponseBody
+    public ResponseEntity<Void> deleteFriend(@PathVariable Long friendId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.badRequest().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.badRequest().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        try {
+            friendService.deleteFriend(sessionUser.getUserId(), friendId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
