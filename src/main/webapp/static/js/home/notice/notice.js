@@ -5,6 +5,7 @@ $(document).ready(function () {
     initFieldFromUrl();
     initEditor();
     initInsertPage();
+    initSetTodayCheckbox();
 });
 
 // 전체 선택/해제 및 개별 선택 처리
@@ -144,4 +145,27 @@ function insert_notice() {
             });
         }
     });
+}
+
+// 공지사항 시작 체크박스 체크시 오늘로 설정
+function initSetTodayCheckbox() {
+    const checkbox = document.getElementById('set_today_start');
+    const input = document.getElementById('i_start_date');
+
+    if (checkbox && input) {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hour = String(now.getHours()).padStart(2, '0');
+                const minute = String(now.getMinutes()).padStart(2, '0');
+                const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
+                input.value = formatted;
+            } else {
+                input.value = ''; // 체크 해제 시 초기화할지 말지는 선택사항
+            }
+        });
+    }
 }
