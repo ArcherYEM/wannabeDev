@@ -22,21 +22,20 @@ public class PopupMessageService {
         return popupMessageMapper.getMessageList(userId);
     }
 
-    /*아래는 페이징 테스트*/
-    public List<PopupMessageDTO> getReciveMsglist(String userId, String offset, String pageSize) {
-        return popupMessageMapper.getReciveMsglist(userId, offset, pageSize);
+    public List<PopupMessageDTO> getReceiveMsglist(String userId, String offset, String pageSize) {
+        return popupMessageMapper.getReceiveMsglist(userId, offset, pageSize);
     }
 
-    public int reciveMsgCount(String userId) {
-        return popupMessageMapper.reciveMsgCount(userId);
+    public int rceiveMsgCount(String userId) {
+        return popupMessageMapper.receiveMsgCount(userId);
     }
 
-    public int reciveUnreadMsgCount(String userId) {
-        return popupMessageMapper.reciveUnreadMsgCount(userId);
+    public int receiveUnreadMsgCount(String userId) {
+        return popupMessageMapper.receiveUnreadMsgCount(userId);
     }
 
-    public List<PopupMessageDTO> getReciveMsgView(String messageId) {
-        return popupMessageMapper.getReciveMsgView(messageId);
+    public List<PopupMessageDTO> getMsgView(String messageId) {
+        return popupMessageMapper.getMsgView(messageId);
     }
 
     public int messageReadUpdate(String messageId) {
@@ -46,4 +45,17 @@ public class PopupMessageService {
     public List<PopupMessageDTO> getSendSearchName(String userId, String searchName) {
         return popupMessageMapper.getSendSearchName(userId, searchName);
     }
+
+    public boolean SendFriendMessage(Map<String,Object> map) {
+        return popupMessageMapper.SendFriendMessage(map);
+    }
+
+    public List<PopupMessageDTO> getSendMsglist(String userId, String offset, String pageSize) {
+        return popupMessageMapper.getSendMsglist(userId, offset, pageSize);
+    }
+
+    public int sendMsgCount(String userId) {
+        return popupMessageMapper.sendMsgCount(userId);
+    }
+
 }

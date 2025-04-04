@@ -1,0 +1,58 @@
+<!--
+<div id="popupMessageMainHeader">
+    <span>받는사람 : </span> <span>김일촌</span>
+    <p class="receiveMessageTime">수신일시 : 2025-03-05 18:04:02</p>
+</div>
+&lt;!&ndash;div#popupMessageMainHeader&ndash;&gt;
+
+<div id="popupMessageMainArea">
+<pre id="sendMessagePre">
+     <p>안녕하세요! 😊
+오랜만에 안부 인사 전합니다. 잘 지내고 계시죠?
+요즘 날씨가 점점 따뜻해지고 있는데, 기분도 함께 밝아졌으면 좋겠어요.
+바쁜 일상 속에서도 건강 잘 챙기고 계신가요? 저는 그럭저럭 잘 지내고 있어요.
+최근에 새로운 취미를 시작했는데, 생각보다 재미있더라고요.
+혹시 요즘 하고 있는 일이나 새롭게 도전하는 게 있나요?
+시간이 지나도 변함없이 좋은 일들이 가득하길 바라요. 가끔은 쉬어가면서 맛있는 것도 먹고, 여유도 즐기셨으면 해요.
+조만간 만나서 같이 이야기 나누면 좋겠네요!
+항상 건강하고 행복하시길 바라며, 답장 기다릴게요!
+😊좋은 하루 보내세요! 💕
+     </p>
+    </pre>
+
+    <div id="popupMessageSendboxBtnArea" class="dFlex">
+        <a class="btn small di">목록</a>
+        <a class="btn small di">삭제</a>
+    </div>
+    &lt;!&ndash;div#popupMessageReciveBtnArea&ndash;&gt;
+
+</div>
+&lt;!&ndash;div#popupMessageMainArea&ndash;&gt;
+-->
+
+<div id="popMsgListContainer" th:attr="data-totalPages=${totalPages}" >
+    <div id="popMsgListTitle">
+        <input class="msgListTitle msgChkbox" type="checkbox">
+        <span class="msgListTitle popMsg-insertUserId">받는사람</span>
+        <span class="msgListTitle popMsg-Msg">내용</span>
+        <span class="msgListTitle popMsg-date">날짜</span>
+    </div>
+
+    <div id="msgListBox">
+        <div class="popMsgListBox dFlex"
+             th:each="msg : ${msgList}"
+             th:class="${msg.ReadYN == 'N' ? 'unread' : 'read'}">
+            <input type="checkbox" class="msgChkbox">
+            <span class="popMsg-insertUserId" style="color: #e07b00;" th:text="${msg.userId == 0 ? 'WANNABE' : msg.name}"></span>
+            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 15)}" th:attr="onclick=|fncMsgView(${msg.messageId}, this, 'send')|"></span>
+            <span class="popMsg-date" th:text="${#dates.format(msg.insertDT, 'yyyy.MM.dd HH:mm')}" th:attr="onclick=|fncMsgView(${msg.messageId}, this, 'send')|"></span>
+        </div>
+    </div>
+
+    <!-- 페이지네이션 -->
+    <div id="pagination">
+        <!--<button id="prevPage">&lt;&lt;</button>-->
+        <span id="pageNumbers"></span> <!-- 페이지 번호 버튼을 여기에 추가 -->
+        <!--<button id="nextPage">&gt;&gt;</button>-->
+    </div>
+</div>

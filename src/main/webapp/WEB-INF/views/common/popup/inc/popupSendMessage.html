@@ -2,8 +2,7 @@
     <span>받는사람</span>
     <input list="selectUserName" name="recipient" id="recipient">
     <a class="btn small di addsendBtn">추가</a>
-    <datalist id="selectUserName"><datalist>
-
+    <datalist id="selectUserName"></datalist>
 </div>
 <!--div#popupMessageMainHeader-->
 
@@ -20,7 +19,7 @@
 <script>
     $("#recipient").on("change keyup paste",function () {
         let textValue = $("#recipient").val();
-        console.log("변경되고있음 : " + textValue);
+        /*console.log("변경되고있음 : " + textValue);*/
         $.ajax({
             type: "GET",
             url: "../userInfo",
@@ -29,7 +28,7 @@
             success: function (response) {
                 userId = response.userId;
                 if (userId) {
-                    console.log("userid = " + userId);
+                    /*console.log("userid = " + userId);*/
                     fncSearchName(userId, textValue);
                 }
             },
@@ -38,11 +37,64 @@
             }
         });
     });
+
+    $("a.addsendBtn").click(function () { //일촌이름입력 후 추가 버튼 클릭 이벤트
+        /*console.log("추가 버튼 클릭");*/
+
+        var recipient = $("#recipient").val().trim();
+        $("#recipient").val(recipient);
+        if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined) {
+            alert("쪽지 보낼 사람을 추가 해 주세요!");
+        } else {
+            $("#recipient").attr("disabled",true);
+        }
+    });
+
+    $("a.msgSendBtn").click(function () { //전송버튼 클릭 이벤트
+        var recipient = $("#recipient").val().trim();
+        var chk = $("#recipient").attr("disabled");
+
+        if (! recipient) {
+            alert("공백을 제거 해 주세요");
+        } else if (! chk) {
+            /*console.log("recipient undefined 시");*/
+            alert("추가 버튼을 눌러 주세요.");
+        } else {
+            var cut = recipient.indexOf('('); // ( '('의 위치가 담김)
+            recipient = recipient.substring(0,cut-1);
+            if (cut !== -1) {
+                recipient = recipient.substring(0,cut-1);
+            }
+            if (! recipient) {
+                alert("일촌을 확인해주세요.");
+                $("#recipient").removeAttr("disabled");
+            } else {
+                var sendTextArea = $("#sendTextArea").val().replace(/\n/g, "<br>");
+                $.ajax({
+                    type: "POST",
+                    url: "/popupMessage/SendMessageProc",
+                    data: {
+                        userId: userId,
+                        recipient: recipient,
+                        sendTextArea: sendTextArea
+                    },
+                    success: function (response) {
+                        alert("쪽지가 정상적으로 전송되었습니다.");
+                        window.location.href = "/popupMessage/main";
+                    },
+                    error: function () {
+                        alert("쪽지 전송에 실패했습니다. 다시 시도해주세요.");
+                    }
+                });
+            }
+        }
+    });
+
     function fncSearchName(userId, textValue) {
-        console.log ("======fncSearchName 시작========");
+        /*console.log ("======fncSearchName 시작========");
         console.log ("userId == " + userId);
         console.log ("textValue == " + textValue);
-        console.log ("======fncSearchName 끝========");
+        console.log ("======fncSearchName 끝========");*/
         $.ajax({
             type: "GET",
             url: "../popupMessage/SendSearchName",
@@ -50,16 +102,15 @@
             dataType: "json",
             async: true,
             data: {
-              "userId" : userId,
-              "recipient" : textValue
+                "userId" : userId,
+                "recipient" : textValue
             },
             success: function (data) {
-                console.log("=========이름검색결과 시작=========");
+                /*console.log("=========이름검색결과 시작=========");
                 console.log(data);
-                console.log("=========이름검색결과 끝=========");
+                console.log("=========이름검색결과 끝=========");*/
                 $("#selectUserName").html("");
 
-                // 새로운 옵션 추가
                 for (let i = 0; i < data.length; i++) {
                     $("#selectUserName").append(
                         `<option data-friendUserId="${data[i].friendUserId}" value="${data[i].name} (${data[i].friendUserNickName})"></option>`
@@ -68,34 +119,8 @@
 
             },
             error: function () {
-                console.log("비정상적인 접근입니다.");
+                alert("비정상적인 접근입니다.");
             }
         });
     }
-
-$("a.msgSendBtn").click(function () {
-    var recipient = $("#recipient").val().trim();
-
-    if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined) {
-        alert("공백");
-    } else {
-         console.log("체인지");
-        var cut = recipient.indexOf('('); // (의 위치가 담김)
-        recipient = recipient.substring(0,cut-1);
-        var sendTextArea = $("#sendTextArea").val();
-        console.log("recipient : " + recipient);
-        console.log("sendTextArea : " + sendTextArea);
-    }
-
-});
-
-$("a.addsendBtn").click(function () {
-    console.log("추가 버튼 클릭");
-    var recipient = $("#recipient").val().trim();
-    if (recipient == "" || recipient.length == 0 || recipient == null || recipient == undefined) {
-        alert("쪽지 보낼 사람을 추가 해 주세요!");
-    } else {
-        $("#recipient").attr("disabled",true);
-    }
-});
 </script>

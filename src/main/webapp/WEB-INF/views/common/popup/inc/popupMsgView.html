@@ -1,0 +1,68 @@
+<div id="popupMessageMainHeader">
+    <span th:if="${type == 'receive'}">보낸사람 :</span>
+    <span th:if="${type == 'receive'}" class="sendMsgName" th:text="${msgView.recipientName}"></span>
+
+    <span th:if="${type == 'send'}">받는사람 :</span>
+    <span th:if="${type == 'send'}" class="sendMsgName" th:text="${msgView.senderName}"></span>
+
+    <p class="receiveMessageTime">
+        <span th:text="${type == 'receive' ? '수신일시 :' : '발신일시 :'}"></span>
+        <span th:text="${#dates.format(msgView.insertDT, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    </p>
+</div>
+
+<div id="popupMessageMainArea">
+    <pre id="receiveMessagePre" th:text="${msgView.message}"></pre>
+
+    <div id="popupMessageReceiveBtnArea" class="dFlex">
+        <a class="btn small di" th:attr="data-pageName=${type}" onclick="fncBackPage(this)">목록</a>
+        <a class="btn small di replyMsg" th:if="${type == 'receive'}">답장</a>
+        <a class="btn small di" th:attr="data-pageName=${type}" onclick="fncMsgDelPage(this)">삭제</a>
+    </div>
+</div>
+
+<script>
+    $(".replyMsg").click(function (){
+
+        console.log("답장하기 버튼 클릭");
+        var recipient = $(".sendMsgName").text();
+        console.log("답장 보낼사람 : " + recipient);
+
+        $("#popupMessageMain").load("/popupMessage/SendMessage?recipient=" + recipient, function () {
+            $.ajax({
+                type: "GET",
+                url: "../userInfo",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    userId = response.userId;
+                    if (userId) {
+                        $("a.receiveMsgbox").css({"color": "#333333"});
+                        $("a.sendMsgFrm").css({"color": "#ff8000"});
+                        console.log("userid = " + userId);
+                        console.log("recipient 바꾸기전 = " + recipient);
+                        $("#recipient").val(recipient);
+                        fncSearchName(userId, recipient);
+
+                        setTimeout(function () {
+                            let optionValue = $("#selectUserName option").first().val();
+                            /*console.log("optionValue 확인: " + optionValue);*/
+
+                            if (optionValue) {
+                                $("#recipient").val(optionValue);
+                                $("#recipient").attr("disabled", true);
+
+                                /*console.log("recipient 바뀐 값: " + $("#recipient").val());*/
+                            } else {
+                                alert("답장 하기 중 오류가 발생하였습니다.");
+                            }
+                        }, 500);
+                    }
+                },
+                error: function () {
+                    alert("비정상적인 접근입니다.");
+                }
+            });
+        });
+    });
+</script>
