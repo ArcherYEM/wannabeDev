@@ -4,13 +4,18 @@ import com.dev.wannabe.domain.home.mapper.NoticeMapper;
 import com.dev.wannabe.domain.home.model.dto.NoticeDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -102,7 +107,21 @@ public class NoticeService {
     // 공지사항 상세 페이지
     @Transactional
     public NoticeDTO getNoticeById(Long noticeId){
-        return noticeMapper.getNoticeById(noticeId);
+        try {
+            NoticeDTO notice = noticeMapper.getNoticeById(noticeId);
+            // 공지가 없을 경우 예외 발생
+            if (notice == null) {
+                throw new NoSuchElementException("해당 ID의 공지를 찾을 수 없습니다: " + noticeId);
+            }
+
+            // XSS 방지: 공지사항 내용 필터링
+            String sanitizedContent = Jsoup.clean(notice.getNoticeContents(), Safelist.basic());
+            notice.setNoticeContents(sanitizedContent);
+
+            return notice;
+        } catch (DataAccessException e) {
+            throw new RuntimeException("데이터베이스 접근 중 오류 발생", e);
+        }
     }
 }
 
