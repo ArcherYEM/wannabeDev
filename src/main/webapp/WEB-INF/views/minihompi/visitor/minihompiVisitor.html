@@ -3,8 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <link rel="stylesheet" href="/static/css/minihompiVisitor.css">
 </head>
 <body>
-미니홈피 방명록입니다
+  <div id="visit">
+    <form id="insert" action="">
+      <div class="profile_img">
+        <img>
+      </div>
+      <div class="insert_body">
+        <div class="check"><label><input type="checkbox"> 비밀글</label></div>
+        <div class="text"><textarea type="text"></textarea></div>
+      </div>
+      <div class="insert_bottom">
+        <button> 등록 </button>
+      </div>
+    </form>
+
+    <div id="read"> 방명록 </div>
+<!--  방명록 글   -->
+    <form id="select" action="">
+      <div class="profile_img">
+        <img>
+      </div>
+      <div class="insert_body">
+        <div class="insert_user">
+          <p>아이디</p>
+          <p>날짜</p>
+        </div>
+<!--        <div class="check"><label><input type="checkbox"> 비밀글</label></div>-->
+        <div class="text"><textarea type="text"></textarea></div>
+      </div>
+      <div class="insert_bottom">
+        <button class="update"> 수정 </button>
+        <button class="delete"> 삭제 </button>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
+

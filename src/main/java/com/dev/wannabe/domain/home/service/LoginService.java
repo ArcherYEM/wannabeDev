@@ -75,6 +75,12 @@ public class LoginService {
 
             userLoginMapper.deleteUserLogin(sessionUser.getUserId());
 
+            HttpSession session = SessionUtil.getSession();
+            if (session != null) {
+                session.removeAttribute("userData");
+                session.invalidate();
+            }
+
             return true;
         } catch (Exception e) {
             log.error("로그아웃 실패 {}", e.getMessage());
