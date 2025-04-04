@@ -1,45 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" href="/static/css/minihompiVisitor.css">
 </head>
 <body>
-  <div id="visit">
-    <form id="insert" action="">
-      <div class="profile_img">
-        <img>
-      </div>
-      <div class="insert_body">
-        <div class="check"><label><input type="checkbox"> 비밀글</label></div>
-        <div class="text"><textarea type="text"></textarea></div>
-      </div>
-      <div class="insert_bottom">
-        <button> 등록 </button>
-      </div>
-    </form>
+<div id="visit">
+  <div id="insert">
+    <div class="profile_img">
+      <img src="/static/images/common/minimi/은모.png">
+    </div>
+    <div class="insert_body">
+      <div class="check"><label><input type="checkbox" name="secret" id="secret_check"> 비밀글</label></div>
+      <div class="text"><textarea type="text" name="content" id="content"></textarea></div>
+    </div>
+    <div class="insert_bottom">
+      <button type="submit" id="insert_btn"> 등록 </button>
+    </div>
+  </div>
 
-    <div id="read"> 방명록 </div>
-<!--  방명록 글   -->
-    <form id="select" action="">
+  <div id="read"> 방명록 </div>
+  <!--  방명록 글   -->
+    <div id="select"   th:each="item : ${visitorList}" class="visitor_item"  th:data-id="${item.guestBookId}">
       <div class="profile_img">
-        <img>
+        <img src="/static/images/common/minimi/은철.png">
       </div>
       <div class="insert_body">
         <div class="insert_user">
-          <p>아이디</p>
-          <p>날짜</p>
+          <p th:text="${item.loginId}">아이디</p>
+          <p th:text="${item.updateDt != null ? item.updateDt : item.insertDt}">날짜</p>
         </div>
-<!--        <div class="check"><label><input type="checkbox"> 비밀글</label></div>-->
-        <div class="text"><textarea type="text"></textarea></div>
+        <div class="visitor_content" >
+          <textarea readonly class="textarea"
+                    th:utext="${item.secretCheck == 'Y' and (session.userData.userId != item.insertUserId and session.userData.userId != item.ownerUserId)
+                       ? '비밀글입니다.'
+                       : item.guestBookContent}">
+          </textarea>
+        </div>
       </div>
-      <div class="insert_bottom">
-        <button class="update"> 수정 </button>
-        <button class="delete"> 삭제 </button>
+      <div class="insert_bottom" th:if="${session.userData.userId == item.insertUserId}" >
+        <button class="update_btn"> 수정 </button>
+        <button class="delete_btn"> 삭제 </button>
       </div>
-    </form>
+    </div>
   </div>
 </body>
+
+<script src="/static/js/minihompi/visitor.js"></script>
+
 </html>
 

@@ -62,6 +62,12 @@
         WHERE HOMPI_ID = #{hompiId}
     </select>
 
+<!--    <select id="findOwnerHompiId" resultType="map">-->
+<!--        SELECT HOMPI_ID AS hompiId-->
+<!--        FROM HOMPI-->
+<!--        WHERE USER_ID = #{userId}-->
+<!--    </select>-->
+
     <select id="selectTodayCount" parameterType="map">
         SELECT COUNT(*)
         FROM HOMPI_DAILY_STATS

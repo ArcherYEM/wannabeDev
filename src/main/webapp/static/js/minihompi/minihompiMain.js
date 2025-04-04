@@ -32,7 +32,7 @@ $(document).ready(function () {
     const dairy_url = "/mini-hompi/dairy";
     const photo_url = "/mini-hompi/photo";
     const board_url = "/mini-hompi/board";
-    const visitor_url = "/mini-hompi/visitor";
+    const visitor_url = `/mini-hompi/visitor/${hompiId}`;
     const minihompiUp = "/mini-hompi/titleUpdate";
 
     const droupdown = $("#nameWrap");
