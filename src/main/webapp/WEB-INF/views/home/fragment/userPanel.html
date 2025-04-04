@@ -22,8 +22,8 @@
                         <div class="infoOnline">
                             <div class="alignBox">
                                 <span class="title">일촌ON</span>
-                                <div class="stat">
-                                    <span class="text">11</span>
+                                <div id="friendOn" class="stat">
+                                    <span id="friendOnCntDisplay" class="text">11</span>
                                 </div>
                             </div>
                             <div class="alignBox">
@@ -90,4 +90,5 @@
     </div>
     <!-- 모달 임베딩 위치 -->
     <div th:replace="/home/fragment/findIdModal :: findModal"></div>
+    <div th:replace="/home/fragment/friendModal :: friendListModal"></div>
 </div>

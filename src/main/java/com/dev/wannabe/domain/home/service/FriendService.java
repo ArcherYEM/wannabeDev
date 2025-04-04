@@ -76,6 +76,14 @@ public class FriendService {
     }
 
     @Transactional
+    public Long logInFriendCount(Long userId) { return userLoginMapper.logInFriendCount(userId); }
+
+    @Transactional
+    public List<Long> getLoggedFriends(Long userId) {
+        return userLoginMapper.loggedInFriendsByUserId(userId);
+    }
+
+    @Transactional
     public void sendFriendMessage(SendMessageDTO sendMessage) {
         FriendMessage friendMessage = FriendMessage.builder()
                 .userId(sendMessage.getToUserId())
@@ -86,10 +94,5 @@ public class FriendService {
                 .build();
 
         friendMapper.saveFriendMessage(friendMessage);
-    }
-
-    @Transactional
-    public List<Long> getLoggedFriends(Long userId) {
-        return userLoginMapper.loggedInFriendsByUserId(userId);
     }
 }

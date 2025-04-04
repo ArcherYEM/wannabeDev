@@ -38,4 +38,15 @@
             FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = "02"
     </select>
 
+    <select id="logInFriendCount" parameterType="Long" resultType="Long">
+        SELECT COUNT(*)
+        FROM FRIEND_INFO AS FI
+        INNER JOIN
+            USER_LOGIN AS UL
+        ON
+            FI.FRIEND_USER_ID = UL.USER_ID
+        WHERE
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = "02"
+    </select>
+
 </mapper>
