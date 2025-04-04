@@ -23,4 +23,8 @@ public class LoginResponse {
 	public static LoginResponse serverError() {
 		return new LoginResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버 오류가 발생하였습니다.");
 	}
+	
+	public static LoginResponse badRequest() {
+		return new LoginResponse(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.value(), "잘못된 요청입니다.");
+	}
 }

@@ -83,7 +83,6 @@ $(document).ready(function() {
     // 아이디 중복 확인
     $("#checkDuplicateLoginId").on("click", function () {
         let loginIdValue = $('#i_loginId').val().trim();
-        console.log("입력된 아이디:", loginIdValue);
         if (loginIdValue === "") {
             $(".checkMatch.loginId").text("아이디를 입력하세요.").css({
                 "color":"red"
@@ -110,10 +109,30 @@ $(document).ready(function() {
         });
 
         // 값이 바뀌면 중복 false 처리
-        loginId.on("keyup", function () {
+        $("#i_loginId").on("keyup", function () {
             $("#checkDuplicateLoginId").addClass("checkDuplicate").removeClass("checkedDuplicate")
             isLoginIdValid = false;
         });
+    })
+
+    // 이메일 입력
+    $("#email").on("input", function() {
+        let emailValue = $(this).val().trim();
+        const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+        if (pattern.test(emailValue) === false) {
+            $(".checkMatch.email").text("유효하지 않은 이메일 주소입니다.").css({
+                "color":"red"
+            });
+        } else {
+            if (isEmailValid === false) {
+                $(".checkMatch.email").text("중복 확인이 필요합니다.").css({
+                    "color":"red"
+                });
+            } else {
+                $(".checkMatch.email").text("");
+            }
+        }
+
     })
     
     // 이메일 중복 확인
@@ -124,6 +143,11 @@ $(document).ready(function() {
             $(".checkMatch.email").text("이메일을 입력하세요.").css({
                 "color":"red"
             });
+            return;
+        }
+
+        const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+        if (pattern.test(emailValue) === false) {
             return;
         }
 
@@ -152,6 +176,33 @@ $(document).ready(function() {
         });
     });
 
+    // 전화번호 입력
+    $("#phoneNo").on("input", function() {
+        let phoneNoValue = $(this).val().replace(/[^0-9]/g, '');
+        phoneNoValue = phoneNoValue.slice(0, 11);
+
+        if (phoneNoValue.length <= 3) {
+            $(this).val(phoneNoValue);
+        } else if (phoneNoValue.length <= 7) {
+            $(this).val(phoneNoValue.replace(/(\d{3})(\d+)/, '$1-$2'));
+        } else {
+            $(this).val(phoneNoValue.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3'));
+        }
+        if (phoneNoValue.length < 11) {
+            $(".checkMatch.phoneNo").text("전화번호를 모두 입력해주세요.").css({
+                "color":"red"
+            });
+        } else {
+            if (isPhoneValid === false) {
+                $(".checkMatch.phoneNo").text("중복 확인이 필요합니다.").css({
+                    "color":"red"
+                });
+            } else {
+                $(".checkMatch.phoneNo").text("");
+            }
+        }
+    })
+
     // 전화번호 중복 확인
     $("#checkDuplicatePhoneNo").on("click", function () {
         const phoneNo = $("#phoneNo");
@@ -160,6 +211,10 @@ $(document).ready(function() {
             $(".checkMatch.phoneNo").text("전화번호를 입력하세요.").css({
                 "color":"red"
             });
+            return;
+        }
+
+        if (phoneNoValue.length < 13) {
             return;
         }
 

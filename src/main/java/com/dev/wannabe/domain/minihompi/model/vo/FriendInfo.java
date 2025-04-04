@@ -4,12 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder(toBuilder = true)
 public class FriendInfo {
 
     private Long userId;
-    private Long FriendUserId;
+    private Long friendUserId;
     private String userNickname;
     private String friendUserNickname;
+    private String availStatus;
 
 }

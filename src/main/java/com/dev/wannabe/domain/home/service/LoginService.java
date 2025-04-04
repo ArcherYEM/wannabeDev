@@ -1,10 +1,10 @@
 package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.LoginMapper;
+import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDTO;
 import com.dev.wannabe.domain.home.model.vo.LoginLog;
-import com.dev.wannabe.domain.home.model.vo.UserRole;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO;
 import com.dev.wannabe.global.model.SessionUserDTO;
@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -28,6 +27,7 @@ public class LoginService {
     private final LoginMapper loginMapper;
     private final HompiMapper hompiMapper;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final UserLoginMapper userLoginMapper;
 
     @Transactional
     public Boolean login(LoginDTO loginData) {
@@ -56,6 +56,10 @@ public class LoginService {
             session.setAttribute("userData", sessionUserDTO);
             session.setMaxInactiveInterval(60 * 60); // 단위 : 초 -> null point exception
 
+            if (!isExistUser(userId)) {
+                userLoginMapper.saveUserLogin(userId);
+            }
+
             loginMapper.saveLoginLog(loginLog);
             return true;
         } catch (Exception e) {
@@ -69,19 +73,8 @@ public class LoginService {
             HttpServletRequest request = SessionUtil.getRequest();
             SessionUserDTO sessionUser = getSessionUserData(request);
 
-            LoginLog loginLog = LoginLog.builder()
-                    .accessIp(sessionUser.getAccessIp())
-                    .userId(sessionUser.getUserId())
-                    .logoutDt(LocalDateTime.now())
-                    .updateUserId(sessionUser.getUserId())
-                    .build();
-            loginMapper.saveLoginLog(loginLog);
+            userLoginMapper.deleteUserLogin(sessionUser.getUserId());
 
-            HttpSession session = SessionUtil.getSession();
-            if (session != null) {
-                session.removeAttribute("userData");
-                session.invalidate();
-            }
             return true;
         } catch (Exception e) {
             log.error("로그아웃 실패 {}", e.getMessage());
@@ -128,6 +121,10 @@ public class LoginService {
                 .hompiURL(hompiBasicInfo.getHompiURL())
                 .hompiTitle(hompiBasicInfo.getHompiTitle())
                 .build();
+    }
+
+    private Boolean isExistUser(Long userId) {
+        return userLoginMapper.isExistUser(userId) > 0;
     }
 
 }

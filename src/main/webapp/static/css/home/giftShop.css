@@ -184,54 +184,32 @@
     height: fit-content;
     gap: 10px;
     position: sticky;
-    top: 10vh;
+    top: 7vh;
 }
 /*s: 선택한 아이템을 */
 .selectedItemMenu {
-    border: 1px solid #999;
+    border: 1px solid #ccc;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 20px;
 }
 .selectItem {
+    display: flex;
     justify-self: center;
+    align-items: center;
     font-size: 14px;
     font-weight: 700;
-
 }
-.selectItem .bi{
+.selectItem i{
     color: var(--color-basic);
-    font-size: 16px;
+    font-size: 22px;
+    border-radius: 5px;
 }
 .itemBuyFinal {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: auto auto 1fr;
     padding-top: 10px;
-}
-.itemBuyFinal div{
-    height: 34px;
-    aspect-ratio: 1/1;
-}
-.itemBuyFinal div:last-child{
-    aspect-ratio: unset;
-}
-
-.itemGift,
-.itemGiftFinal,
-.itemCart {
-    border: 1px solid #B5C0D0FF;
-    border-radius: 5px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: .3s all;
-}
-.itemGiftFinal:hover,
-.itemGift:hover,
-.itemCart:hover{
-    background-color: #B5C0D0FF;
-    color: #fff
+    gap: 5px
 }
 .itemPurchaseFinal,
 .itemPurchase {
@@ -253,9 +231,9 @@
 
 /*s: 장바구니 아이템*/
 .cart {
-    border: 1px solid #999;
+    border: 1px solid #ccc;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 .cart h2{
     font-size: 20px;
@@ -266,24 +244,65 @@
     height: 80px !important;
 }
 .cart .gift-swiper{
-    height: 260px;
+    height: 350px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 .cart .swiper-slide{
     border-bottom: 1px solid #ccc;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.cart .swiper-slide div:nth-child(1){
+    color: var(--color-gray);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+.cart .swiper-slide div:nth-child(1) i{
+    font-size: 22px;
+}
+.cart .swiper-slide p{
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+    width: 100%;
+}
+.cart .swiper-slide div:nth-child(3){
+    display: flex;
+    justify-content: end;
+    padding-top: 7px;
+    font-weight: 600;
+    font-size: 16px;
+}
+.cart .swiper-slide div:nth-child(3) select{
+    margin-right: 5px;
+    border-radius: 5px;
+}
+.cart .swiper-slide div:nth-child(3) span{
+    color: var(--color-basic);
 }
 .itemSum {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    display: flex;
     gap: 5px;
+    justify-content: space-between;
     padding-top: 10px;
     padding-bottom: 10px;
+    align-items: center;
 }
-
+.itemSum .sum{
+    font-size: 16px;
+}
+.itemSum .dotori {
+    font-size: 22px;
+    font-weight: bold;
+}
+.itemSum .dotori span{
+    color: var(--color-basic);
+}
 .finalItemBuy {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: auto 1fr;
     gap: 10px;
 }
 /*e: 장바구니 아이템*/
@@ -545,65 +564,138 @@
 
 /*main*/
 .contentContainer {
-    margin-top: 100px;
+    margin-top: 40px;
     margin-left: 30px;
     margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px
 }
 .itemTitle {
-    text-align: center;
-    border-bottom: 3px solid #ccc;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-basic);
+    border-bottom: 2px solid #ccc;
     padding-bottom: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
+.itemTitle h2{
+    font-weight: inherit;
+}
+.itemTitle a{
+    display: inline-block;
+    font-size: 14px;
+    color: var(--color-white);
+    padding: 5px 10px;
+    background-color: var(--color-basic);
+    height: max-content;
+    border-radius: 10px;
+    border: 1px solid var(--color-basic);
+    transition: .3s all;
+}
+.itemTitle a:hover{
+    background-color: var(--color-white);
+    color: var(--color-basic);
+}
 .itemContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-bottom: 40px;
+    display: flex;
+    gap: 15px;
 }
 
 .itemCard {
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 5px;
-    margin: 0 8px;
+    padding: 20px;
+    transition: all .3s;
+}
+.itemCard:hover{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .itemImg {
-    border: 1px solid black;
-    width: 175px;
-    height: 175px;
+    width: 100%;
 }
 
 .itemImg img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
 }
-
+/*아이템이름영역*/
 .itemDesc {
     text-align: center;
-    margin: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-
+.itemDesc span{
+    display: inline-block;
+    padding-bottom: 3px;
+    font-size: 12px;
+    color: var(--color-gray);
+}
+.itemDesc h3{
+    font-size: 16px;
+    font-weight: 600;
+}
+/*아이템 가격영역*/
+.itemPricing {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+}
+.itemPricing .selectBox{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.itemPricing select{
+    border-radius: 5px;
+}
 .itemPrice {
-    margin-bottom: 10px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding: 10px;
+}
+.price span{
+    padding-left: 2px;
+    padding-right: 2px;
+    display: inline-block;
 }
 
 .itemBuy {
     display: grid;
-    grid-template-columns: 1fr 1fr 2.5fr;
+    grid-template-columns: auto auto 1fr;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 5px;
 }
-
-
-
-.itemPricing {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 10px;
+.itemGift,
+.itemGiftFinal,
+.itemCart {
+    font-size:16px;
+    border: 1px solid #B5C0D0FF;
+    border-radius: 5px;
     padding: 10px;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s all;
+    color: var(--color-gray);
 }
+.itemGiftFinal:hover,
+.itemGift:hover,
+.itemCart:hover{
+    background-color: #B5C0D0FF;
+    color: #fff
+}
+
+
