@@ -23,7 +23,6 @@ public class PopupMessageService {
         return popupMessageMapper.getMessageList(userId);
     }
 
-    /*아래는 페이징 테스트*/
     public List<PopupMessageDTO> getReciveMsglist(String userId, String offset, String pageSize) {
         return popupMessageMapper.getReciveMsglist(userId, offset, pageSize);
     }
@@ -47,7 +46,13 @@ public class PopupMessageService {
     public List<PopupMessageDTO> getSendSearchName(String userId, String searchName) {
         return popupMessageMapper.getSendSearchName(userId, searchName);
     }
-    public int SendFriendMessage(Map<String,Object> map) {
+
+    public boolean SendFriendMessage(Map<String,Object> map) {
         return popupMessageMapper.SendFriendMessage(map);
     }
+
+    public List<PopupMessageDTO> getSendMsglist(String userId, String offset, String pageSize) {
+        return popupMessageMapper.getSendMsglist(userId, offset, pageSize);
+    }
+
 }

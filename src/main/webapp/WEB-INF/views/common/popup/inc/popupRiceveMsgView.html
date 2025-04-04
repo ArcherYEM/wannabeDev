@@ -29,14 +29,43 @@
 
 <script>
     $(".replyMsg").click(function (){
+
         console.log("답장하기 버튼 클릭");
         var recipient = $(".sendMsgName").text();
         console.log("답장 보낼사람 : " + recipient);
+
         $("#popupMessageMain").load("/popupMessage/SendMessage?recipient=" + recipient, function () {
-            /*현재 해당부분작업중*/
-            $("#recipient").val(recipient);
-            $("#recipient").attr("disabled",true);
-            /* 값 넘기는부분까지는 ok 하지만, 일촌명까지 적어져야 전송이되는 이슈로 현재 해결방안 생각중..*/
+            $.ajax({
+                type: "GET",
+                url: "../userInfo",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    userId = response.userId;
+                    if (userId) {
+                        console.log("userid = " + userId);
+                        console.log("recipient 바꾸기전 = " + recipient);
+                        $("#recipient").val(recipient);
+                        fncSearchName(userId, recipient);
+
+                        setTimeout(function () {
+                            let optionValue = $("#selectUserName option").first().val();
+                            /*console.log("optionValue 확인: " + optionValue);*/
+
+                            if (optionValue) {
+                                $("#recipient").val(optionValue);
+                                $("#recipient").attr("disabled", true);
+                                /*console.log("recipient 바뀐 값: " + $("#recipient").val());*/
+                            } else {
+                                alert("답장 하기 중 오류가 발생하였습니다.");
+                            }
+                        }, 500);
+                    }
+                },
+                error: function () {
+                    alert("비정상적인 접근입니다.");
+                }
+            });
         });
     });
 </script>

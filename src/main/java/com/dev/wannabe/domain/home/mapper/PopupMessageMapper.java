@@ -24,5 +24,7 @@ public interface PopupMessageMapper {
 
     List<PopupMessageDTO> getSendSearchName(String userId, String searchName);
 
-    int SendFriendMessage(Map<String,Object> map);
+    boolean SendFriendMessage(Map<String,Object> map);
+
+    public List<PopupMessageDTO> getSendMsglist(String userId, String offset, String pageSize);
 }

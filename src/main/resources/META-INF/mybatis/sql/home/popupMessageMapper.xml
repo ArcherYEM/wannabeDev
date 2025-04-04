@@ -10,15 +10,6 @@
     </select>
 
     <!-- 받은쪽지 리스트 나열-->
-<!--    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
-        SELECT *
-        FROM FRIEND_MESSAGE
-        WHERE USER_ID = ${param1}
-        ORDER BY INSERT_DT DESC
-        LIMIT ${param2} , ${param3}
-    </select>-->
-
-    <!-- 받은쪽지 리스트 나열-->
     <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
         SELECT
             fm.*,
@@ -102,4 +93,30 @@
         (#{recipient}, #{userId}, #{sendMessage}, 'N', #{userId}, now(), #{userId}, now())
     </insert>
 
+    <!-- 보낸 쪽지 리스트 -->
+    <select id="getSendMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT
+            fm.*,
+            ub.name
+        FROM
+            FRIEND_MESSAGE fm
+                LEFT JOIN
+            USER_BASIC ub
+        ON
+            fm.friend_user_id = ub.user_id
+        WHERE
+            fm.FRIEND_USER_ID = ${param1}
+        ORDER BY
+            fm.insert_dt DESC
+        LIMIT
+            ${param2}, ${param3}
+    </select>
+
+    <!-- 보낸 쪽지 개수 -->
+    <select id="sendMsgCount" resultType="int">
+        SELECT COUNT(*)
+        AS sendMsg_count
+        FROM FRIEND_MESSAGE
+        WHERE FRIEND_USER_ID=#{userId}
+    </select>
 </mapper>
