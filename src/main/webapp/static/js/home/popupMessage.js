@@ -1,6 +1,9 @@
 $(document).ready(function () {
     let userId = 0;
-    let currentPage = 1;
+   /* let currentPage = 1;*/
+    let currentReceivePage = 1;
+    let currentSendPage = 1;
+    let messageType = "receive"; // 현재 어떤 타입인지 추적용
     let pageSize = 9; // 페이지당 메시지 개수
     let totalPages = 0;
     let totalMessage = 0;
@@ -15,7 +18,7 @@ $(document).ready(function () {
             userId = response.userId;
 
             if (userId) {
-                loadMessages(currentPage);
+                loadMessages(currentReceivePage, "receive");
             }
         },
         error: function () {
@@ -35,29 +38,43 @@ $(document).ready(function () {
             $("#popupMessageMain").load("/popupMessage/SendMessage");
         }
         if (className === "receiveMsgbox") {
-            loadMessages(currentPage);
+            currentReceivePage = 1;
+            messageType = "receive";
+            loadMessages(currentReceivePage, "receive");
         }
         if (className === "sendMsgBox") {
-            $("#popupMessageMain").load("/popupMessage/SendMessageBox");
+            currentSendPage = 1;
+            messageType = "send";
+            loadMessages(currentSendPage, "send");
         }
     });
 
     /** 쪽지 리스트 로드 **/
-    function loadMessages(page) {
+    function loadMessages(page, type = "receive") {
+        messageType = type; // 현재 타입 업데이트
         let offset = (page - 1) * pageSize;
+        let url = "";
 
-        $("#popupMessageMain").load(`/popupMessage/MessageList?userId=${userId}&offset=${offset}&pageSize=${pageSize}`, function () {
-            totalMessage = parseInt($("#popMsgListContainer").attr("data-totalunreadmsg"));
-            if (totalMessage === 0) {
-                /*console.log("안읽은메시지 없음");*/
-                $(".reciveMsgCount").removeAttr("class","circle");
-            } else {
-                $(".reciveMsgCount").text(totalMessage);
+        if (type === "receive") {
+            currentReceivePage = page; // 현재 페이지 상태 저장
+            url = `/popupMessage/ReceiveMessageList?userId=${userId}&offset=${offset}&pageSize=${pageSize}`;
+        } else if (type === "send") {
+            currentSendPage = page;
+            url = `/popupMessage/SendMessageList?userId=${userId}&offset=${offset}&pageSize=${pageSize}`;
+        }
+
+        $("#popupMessageMain").load(url, function () {
+            if (type === "receive") {
+                totalMessage = parseInt($("#popMsgListContainer").attr("data-totalunreadmsg"));
+                if (totalMessage === 0) {
+                    $(".receiveMsgCount").removeAttr("class", "circle");
+                } else {
+                    $(".receiveMsgCount").text(totalMessage);
+                }
             }
 
-            // 서버에서 totalPages를 받아와서 업데이트
             totalPages = parseInt($("#popMsgListContainer").attr("data-totalPages"), 10) || 0;
-            renderPagination(totalPages, currentPage);
+            renderPagination(totalPages, page);
         });
     }
 
@@ -81,23 +98,30 @@ $(document).ready(function () {
     //  페이지 번호 클릭
     $(document).on("click", ".pageNumber", function () {
         let selectedPage = $(this).data("page");
-        currentPage = selectedPage;
-        loadMessages(currentPage);
+        if (messageType === "receive") {
+            loadMessages(selectedPage, "receive");
+        } else {
+            loadMessages(selectedPage, "send");
+        }
     });
 
     //  이전 페이지 클릭
     $(document).on("click", "#prevPage", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            loadMessages(currentPage);
+        if (messageType === "receive" && currentReceivePage > 1) {
+            loadMessages(currentReceivePage - 1, "receive");
+        }
+        if (messageType === "send" && currentSendPage > 1) {
+            loadMessages(currentSendPage - 1, "send");
         }
     });
 
     //  다음 페이지 클릭
     $(document).on("click", "#nextPage", function () {
-        if (currentPage < totalPages) {
-            currentPage++;
-            loadMessages(currentPage);
+        if (messageType === "receive" && currentReceivePage < totalPages) {
+            loadMessages(currentReceivePage + 1, "receive");
+        }
+        if (messageType === "send" && currentSendPage < totalPages) {
+            loadMessages(currentSendPage + 1, "send");
         }
     });
 
@@ -115,25 +139,34 @@ function openPopupMessage() {
         'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }
 
-function fncMsgView(messageId, element) {
+function fncMsgView(messageId, element, type) {
     console.log("이 메세지를 볼꺼에요 : " + messageId);
-    $("#popupMessageMain").load(`/popupMessage/ReciveMessageView?messageId=` + messageId);
-    var chk = $(element).parent().attr("class");
-    if (chk === "unread"){
-        var msgCount = $("span.reciveMsgCount").text();
-        $("span.reciveMsgCount").text(msgCount-1);
-    }
+    $("#popupMessageMain").load(`/popupMessage/MessageView?messageId=${messageId}&type=${type}`);
 
+    if (type === "receive") {
+        const chk = $(element).parent().attr("class");
+        if (chk === "unread") {
+            let msgCount = $("span.receiveMsgCount").text();
+            $("span.receiveMsgCount").text(msgCount - 1);
+        }
+    }
 }
 
-function fncBackPage(element){
+function fncBackPage(element) {
     let pageName = $(element).attr("data-pageName");
     console.log("pageName : " + pageName);
-    if (pageName === "recive") {
-        $("a.receiveMsgbox").click();
+    if (pageName === "receive") {
+        $("a.receiveMsgbox").click(); // 받은쪽함수
+        console.log("receive pageName : " + pageName);
+    } else if (pageName === "send") {
+        $("a.sendMsgBox").click(); // 보낸쪽함수
+        console.log("send pageName : " + pageName);
+    } else {
+        console.warn("정의되지 않은 pageName: " + pageName);
     }
-    if (pageName === "test"){
-        console.log("test");
-    }
+}
 
+function fncMsgDelPage(element) {
+    let pageName = $(element).attr("data-pageName");
+    console.log("pageName : " + pageName);
 }

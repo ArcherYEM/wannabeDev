@@ -4,7 +4,6 @@ import com.dev.wannabe.domain.home.model.dto.PopupMessageDTO;
 import com.dev.wannabe.domain.home.service.LoginService;
 
 import com.dev.wannabe.domain.home.service.PopupMessageService;
-import com.sun.mail.iap.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,20 +67,36 @@ public class PopupMessageController {
         }
     }
 
-    @GetMapping("/ReciveMessageView")
-    public String popupReciveMessageView(HttpServletRequest request, Model model) {
+    @GetMapping("/MessageView")
+    public String popupMessageView(HttpServletRequest request, Model model) {
         String messageId = request.getParameter("messageId");
-        List<PopupMessageDTO> reciveMsgView = popupMessageService.getReciveMsgView(messageId);
-        System.out.println("messageId :::: " + messageId);
-        String viewMessage = reciveMsgView.get(0).getMessage().replace("<br>","\r\n");
-        reciveMsgView.get(0).setMessage(viewMessage);
-        model.addAttribute("reciveMsgView", reciveMsgView);
-        popupMessageService.messageReadUpdate(messageId); // 메세지 읽음처리
-        return "common/popup/inc/popupRiceveMsgView";
+        String type = request.getParameter("type"); // "receive" 또는 "send"
+        System.out.println(":::::::: MessageView 진입 ::::::");
+        System.out.println("messageId :: "+ messageId);
+        System.out.println("type :: "+ type);
+        System.out.println(":::::::: MessageView 진입끝 ::::::");
+        List<PopupMessageDTO> msgView;
+
+        if ("send".equals(type)) {
+            msgView = popupMessageService.getMsgView(messageId);
+        } else {
+            msgView = popupMessageService.getMsgView(messageId);
+            popupMessageService.messageReadUpdate(messageId); // 받은 메시지만 읽음처리
+        }
+
+        if (!msgView.isEmpty()) {
+            PopupMessageDTO oneMsg = msgView.get(0);
+            String viewMessage = oneMsg.getMessage().replace("<br>", "\r\n");
+            oneMsg.setMessage(viewMessage);
+
+            model.addAttribute("msgView", oneMsg);  // 단일 객체로 넣기
+            model.addAttribute("type", type);
+        }
+        return "common/popup/inc/popupMsgView";
     }
 
-    @GetMapping("/SendMessageBox")
-    public String popupSendMessageBox(HttpServletRequest request, Model model) {
+    @GetMapping("/SendMessageList")
+    public String popupSendMessageList(HttpServletRequest request, Model model) {
         String userId = request.getParameter("userId");
         System.out.println("보낸쪽지함userId ::: " +userId);
         String offset = request.getParameter("offset");
@@ -96,16 +111,15 @@ public class PopupMessageController {
         }
         model.addAttribute("msgList", popupMessageDTO);
 
-        int reciveMsgCount = popupMessageService.reciveMsgCount(userId); //전체 쪽지 갯수
-        model.addAttribute("reciveMsgCount", reciveMsgCount);
-        int reciveUnreadMsgCount = popupMessageService.reciveUnreadMsgCount(userId); // 안읽은 쪽지 갯수
-        model.addAttribute("reciveUnreadMsgCount", reciveUnreadMsgCount);
+        int sendMsgCount = popupMessageService.sendMsgCount(userId); //전체 쪽지 갯수
+        model.addAttribute("sendMsgCount", sendMsgCount);
+
         // 페이지네이션을 위한 totalPages 계산
-        int totalPages = (int) Math.ceil((double) reciveMsgCount / Integer.parseInt(pageSize));
+        int totalPages = (int) Math.ceil((double) sendMsgCount / Integer.parseInt(pageSize));
         model.addAttribute("totalPages", totalPages);  // totalPages를 모델에 추가
 
 
-        return "common/popup/inc/popupSendMessageBox";
+        return "common/popup/inc/popupSendMessageList";
     }
 
     @GetMapping("/SendSearchName")
@@ -120,27 +134,27 @@ public class PopupMessageController {
         return PopupMessageDTO;
     }
 
-    @GetMapping("/MessageList")
+    @GetMapping("/ReceiveMessageList")
     public String popupMessageList(HttpServletRequest request, Model model) {
         String userId = request.getParameter("userId");
         String offset = request.getParameter("offset");
         String pageSize = request.getParameter("pageSize");
-        List<PopupMessageDTO> popupMessageDTO = popupMessageService.getReciveMsglist(userId, offset, pageSize); //전체 메세지불러오기
+        List<PopupMessageDTO> popupMessageDTO = popupMessageService.getReceiveMsglist(userId, offset, pageSize); //전체 메세지불러오기
         for (int i = 0; i < popupMessageDTO.size(); i++) {
             String brMsg = popupMessageDTO.get(i).getMessage().replace("<br>","\r\n");
             popupMessageDTO.get(i).setMessage(brMsg);
         }
         model.addAttribute("msgList", popupMessageDTO);
 
-        int reciveMsgCount = popupMessageService.reciveMsgCount(userId); //전체 쪽지 갯수
-        model.addAttribute("reciveMsgCount", reciveMsgCount);
-        int reciveUnreadMsgCount = popupMessageService.reciveUnreadMsgCount(userId); // 안읽은 쪽지 갯수
-        model.addAttribute("reciveUnreadMsgCount", reciveUnreadMsgCount);
+        int receiveMsgCount = popupMessageService.rceiveMsgCount(userId); //전체 쪽지 갯수
+        model.addAttribute("receiveMsgCount", receiveMsgCount);
+        int receiveUnreadMsgCount = popupMessageService.receiveUnreadMsgCount(userId); // 안읽은 쪽지 갯수
+        model.addAttribute("receiveUnreadMsgCount", receiveUnreadMsgCount);
         // 페이지네이션을 위한 totalPages 계산
-        int totalPages = (int) Math.ceil((double) reciveMsgCount / Integer.parseInt(pageSize));
+        int totalPages = (int) Math.ceil((double) receiveMsgCount / Integer.parseInt(pageSize));
         model.addAttribute("totalPages", totalPages);  // totalPages를 모델에 추가
 
-        return "common/popup/inc/popupMessageList";
+        return "common/popup/inc/popupReceiveMessageList";
     }
 
 }

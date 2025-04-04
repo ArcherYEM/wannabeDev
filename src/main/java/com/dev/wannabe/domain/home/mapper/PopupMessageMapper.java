@@ -12,13 +12,13 @@ public interface PopupMessageMapper {
 
     List<PopupMessageDTO> getMessageList(String userId);
 
-    List<PopupMessageDTO> getReciveMsglist (String userId, String offset, String pageSize);
+    List<PopupMessageDTO> getReceiveMsglist (String userId, String offset, String pageSize);
 
-    int reciveMsgCount(String userId);
+    int receiveMsgCount(String userId);
 
-    int reciveUnreadMsgCount(String userId);
+    int receiveUnreadMsgCount(String userId);
 
-    List<PopupMessageDTO> getReciveMsgView (String messageId);
+    List<PopupMessageDTO> getMsgView (String messageId);
 
     int messageReadUpdate(String messageId);
 
@@ -27,4 +27,6 @@ public interface PopupMessageMapper {
     boolean SendFriendMessage(Map<String,Object> map);
 
     public List<PopupMessageDTO> getSendMsglist(String userId, String offset, String pageSize);
+
+    int sendMsgCount(String userId);
 }

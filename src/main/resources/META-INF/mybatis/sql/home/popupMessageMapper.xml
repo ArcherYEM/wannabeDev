@@ -10,7 +10,7 @@
     </select>
 
     <!-- 받은쪽지 리스트 나열-->
-    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+    <select id="getReceiveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
         SELECT
             fm.*,
             ub.name
@@ -29,32 +29,31 @@
     </select>
 
     <!-- 받은 쪽지 개수 -->
-    <select id="reciveMsgCount" resultType="int">
+    <select id="receiveMsgCount" resultType="int">
         SELECT COUNT(*)
-        AS reciveMsg_count
+        AS receiveMsg_count
         FROM FRIEND_MESSAGE
         WHERE USER_ID=#{userId}
     </select>
 
     <!-- 안읽은 쪽지 개수 -->
-    <select id="reciveUnreadMsgCount" resultType="int">
+    <select id="receiveUnreadMsgCount" resultType="int">
         SELECT COUNT(*)
-        AS reciveMsg_count
+        AS receiveMsg_count
         FROM FRIEND_MESSAGE
         WHERE USER_ID=#{userId} AND READ_YN = 'N'
     </select>
 
     <!-- 쪽지 상세보기 -->
-    <select id="getReciveMsgView" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+    <select id="getMsgView" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
         SELECT
             fm.*,
-            ub.name
+            sender.name AS senderName,
+            receiver.name AS recipientName
         FROM
             FRIEND_MESSAGE fm
-                LEFT JOIN
-            USER_BASIC ub
-            ON
-                fm.friend_user_id = ub.user_id
+        LEFT JOIN USER_BASIC sender ON fm.user_id = sender.user_id
+        LEFT JOIN USER_BASIC receiver ON fm.friend_user_id = receiver.user_id
         WHERE
             fm.MESSAGE_ID = #{messageId}
     </select>
@@ -103,7 +102,7 @@
                 LEFT JOIN
             USER_BASIC ub
         ON
-            fm.friend_user_id = ub.user_id
+            fm.user_id = ub.user_id
         WHERE
             fm.FRIEND_USER_ID = ${param1}
         ORDER BY
@@ -119,4 +118,8 @@
         FROM FRIEND_MESSAGE
         WHERE FRIEND_USER_ID=#{userId}
     </select>
+
+    <delete id="msgDelete" parameterType="int">
+
+    </delete>
 </mapper>
