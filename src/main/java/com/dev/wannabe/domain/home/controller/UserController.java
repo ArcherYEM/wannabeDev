@@ -9,7 +9,7 @@ import com.dev.wannabe.domain.minihompi.model.dto.CreateHompiDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.MinimiInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.MiniroomInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.SendMessageDTO;
-import com.dev.wannabe.domain.minihompi.service.FriendService;
+import com.dev.wannabe.domain.home.service.FriendService;
 import com.dev.wannabe.domain.minihompi.service.HompiService;
 import com.dev.wannabe.domain.minihompi.service.MinimiService;
 import com.dev.wannabe.domain.minihompi.service.MiniroomService;

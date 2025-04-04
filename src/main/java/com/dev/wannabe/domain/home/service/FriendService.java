@@ -1,12 +1,12 @@
-package com.dev.wannabe.domain.minihompi.service;
+package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
-import com.dev.wannabe.domain.minihompi.mapper.FriendMapper;
+import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.SendMessageDTO;
-import com.dev.wannabe.domain.minihompi.model.vo.FriendInfo;
-import com.dev.wannabe.domain.minihompi.model.vo.FriendMessage;
+import com.dev.wannabe.domain.home.model.vo.FriendInfo;
+import com.dev.wannabe.domain.home.model.vo.FriendMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

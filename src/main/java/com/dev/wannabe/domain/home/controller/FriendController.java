@@ -1,7 +1,7 @@
-package com.dev.wannabe.domain.minihompi.controller;
+package com.dev.wannabe.domain.home.controller;
 
-import com.dev.wannabe.domain.minihompi.model.vo.FriendInfo;
-import com.dev.wannabe.domain.minihompi.service.FriendService;
+import com.dev.wannabe.domain.home.model.vo.FriendInfo;
+import com.dev.wannabe.domain.home.service.FriendService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

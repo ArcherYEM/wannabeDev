@@ -27,8 +27,8 @@
 		<!--> login <-->
 		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
 		<!--> friend <-->
-		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.minihompi.model.vo.FriendMessage"/>
-		<typeAlias alias="FriendInfo" type="com.dev.wannabe.domain.minihompi.model.vo.FriendInfo"/>
+		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.home.model.vo.FriendMessage"/>
+		<typeAlias alias="FriendInfo" type="com.dev.wannabe.domain.home.model.vo.FriendInfo"/>
 		<!--> hompi <-->
 		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.vo.Hompi"/>
 		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.vo.HompiConfig"/>

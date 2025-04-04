@@ -1,7 +1,7 @@
-package com.dev.wannabe.domain.minihompi.mapper;
+package com.dev.wannabe.domain.home.mapper;
 
-import com.dev.wannabe.domain.minihompi.model.vo.FriendInfo;
-import com.dev.wannabe.domain.minihompi.model.vo.FriendMessage;
+import com.dev.wannabe.domain.home.model.vo.FriendInfo;
+import com.dev.wannabe.domain.home.model.vo.FriendMessage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
