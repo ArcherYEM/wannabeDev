@@ -32,8 +32,8 @@ public class MinihompiController {
     @GetMapping("/board")
     public String Board() {return "minihompi/board/minihompiBoard";}
 
-    @GetMapping("/visitor")
-    public String Visitor() {return "minihompi/visitor/minihompiVisitor";}
+//    @GetMapping("/visitor")
+//    public String Visitor() {return "minihompi/visitor/minihompiVisitor";}
 
     @GetMapping("/setting")
     public String Setting() {return "minihompi/setting/minihompiSetting";}
