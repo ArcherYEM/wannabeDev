@@ -53,6 +53,17 @@ public class NoticeDTO {
 
     // 날짜 범위를 반환하는 메서드 추가
     public String getDateRange() {
-        return this.startDateTime + " ~ \n" + this.endDateTime;
+        boolean hasStart = startDateTime != null && !startDateTime.trim().isEmpty();
+        boolean hasEnd = endDateTime != null && !endDateTime.trim().isEmpty();
+
+        if (hasStart && hasEnd) {
+            return startDateTime + " ~ " + endDateTime;
+        } else if (hasStart) {
+            return startDateTime + " ~";
+        } else if (hasEnd) {
+            return "~ " + endDateTime;
+        } else {
+            return "기한 없음";
+        }
     }
 }
