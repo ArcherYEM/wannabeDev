@@ -14,7 +14,7 @@ $(document).ready(function () {
   if (className === "sendMsgFrm") { $("#popupMessageMain").load("/sample/popupSendMessage"); }
   /* 받은 쪽지함*/
   if (className === "receiveMsgbox") {
-   $("#popupMessageMain").load("/sample/popupReciveMessageBox");
+   $("#popupMessageMain").load("/sample/popupReceiveMessageBox");
 
   }
   /* 보낸 쪽지함*/

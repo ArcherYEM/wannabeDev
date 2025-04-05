@@ -88,13 +88,13 @@ public class SampleController {
         return "common/popup/inc/popupSendMessage";
     }
 
-    @GetMapping("/popupReciveMessageBox")
-    public String popupReciveMessageBox() {
+    @GetMapping("/popupReceiveMessageBox")
+    public String popupReceiveMessageBox() {
         return "popupSendMessageView";
     }
 
     @GetMapping("/popupSendMessageBox")
     public String popupSendMessageBox() {
-        return "common/popup/inc/popupSendMessageBox";
+        return "common/popup/inc/popupSendMessageList";
     }
 }

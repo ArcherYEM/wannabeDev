@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 방명록 등록 -->
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.MinihompiMapper">
+    <insert id="insertVisitor" parameterType="com.dev.wannabe.domain.minihompi.model.vo.HompiVisitor">
+        INSERT INTO HOMPI_GUEST_BOOK (
+        HOMPI_ID,
+        GUEST_BOOK_CONTENT,
+        REMARKS,
+        INSERT_USER_ID,
+        INSERT_DT,
+        UPDATE_USER_ID,
+        UPDATE_DT,
+        SECRET_CHECK
+        ) VALUES (
+        #{hompiId},
+        #{guestBookContent},
+        #{remarks},
+        #{insertUserId},
+        #{insertDt},
+        #{updateUserId},
+        #{updateDt},
+        #{secretCheck}
+        )
+    </insert>
+
+
+    <!-- ✅ 방명록 리스트 조회 쿼리 -->
+    <select id="selectVisitorList" parameterType="com.dev.wannabe.domain.minihompi.model.dto.HompiVisitorDTO">
+        SELECT
+        v.GUEST_BOOK_ID,
+        v.HOMPI_ID,
+        v.GUEST_BOOK_CONTENT,
+        v.REMARKS,
+        v.INSERT_USER_ID,
+        v.INSERT_DT,
+        v.UPDATE_USER_ID,
+        v.UPDATE_DT,
+        v.SECRET_CHECK,
+        u.LOGIN_ID,
+        h.OWNER_USER_ID
+        FROM HOMPI_GUEST_BOOK v
+        JOIN USER_BASIC u ON v.INSERT_USER_ID = u.USER_ID
+        JOIN HOMPI h ON v.HOMPI_ID = h.HOMPI_ID  <!-- hompi 주인 id 찾기  -->
+        WHERE v.HOMPI_ID = #{hompiId}
+        ORDER BY v.INSERT_DT DESC
+    </select>
+
+
+    <update id="updateVisitor" parameterType="map">
+        UPDATE HOMPI_GUEST_BOOK
+        SET
+        GUEST_BOOK_CONTENT = #{guestBookContent},
+        UPDATE_DT = #{updateDt},
+        UPDATE_USER_ID = #{updateUserId}
+        WHERE GUEST_BOOK_ID = #{guestBookId}
+    </update>
+
+    <delete id="deleteVisitor" parameterType="map">
+        DELETE FROM HOMPI_GUEST_BOOK
+        WHERE GUEST_BOOK_ID = #{guestBookId}
+        AND INSERT_USER_ID = #{userId}
+    </delete>
+
+
+</mapper>

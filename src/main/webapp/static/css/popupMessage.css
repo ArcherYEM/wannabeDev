@@ -99,7 +99,7 @@ textarea {
     resize: none;
 }
 
-#sendMessagePre, #reciveMessagePre {
+#sendMessagePre, #receiveMessagePre {
     padding: 10px;
     width: 435px;
     height: 350px;
@@ -127,7 +127,7 @@ div#popupMessageSendBtnArea {
     text-align: right;
 }
 
-div#popupMessageReciveBtnArea.dFlex {
+div#popupMessageReceiveBtnArea.dFlex {
     padding: 0px 10px;
     justify-content: space-between;
 }

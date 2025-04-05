@@ -10,16 +10,7 @@
     </select>
 
     <!-- 받은쪽지 리스트 나열-->
-<!--    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
-        SELECT *
-        FROM FRIEND_MESSAGE
-        WHERE USER_ID = ${param1}
-        ORDER BY INSERT_DT DESC
-        LIMIT ${param2} , ${param3}
-    </select>-->
-
-    <!-- 받은쪽지 리스트 나열-->
-    <select id="getReciveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+    <select id="getReceiveMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
         SELECT
             fm.*,
             ub.name
@@ -38,32 +29,31 @@
     </select>
 
     <!-- 받은 쪽지 개수 -->
-    <select id="reciveMsgCount" resultType="int">
+    <select id="receiveMsgCount" resultType="int">
         SELECT COUNT(*)
-        AS reciveMsg_count
+        AS receiveMsg_count
         FROM FRIEND_MESSAGE
         WHERE USER_ID=#{userId}
     </select>
 
     <!-- 안읽은 쪽지 개수 -->
-    <select id="reciveUnreadMsgCount" resultType="int">
+    <select id="receiveUnreadMsgCount" resultType="int">
         SELECT COUNT(*)
-        AS reciveMsg_count
+        AS receiveMsg_count
         FROM FRIEND_MESSAGE
         WHERE USER_ID=#{userId} AND READ_YN = 'N'
     </select>
 
     <!-- 쪽지 상세보기 -->
-    <select id="getReciveMsgView" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+    <select id="getMsgView" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
         SELECT
             fm.*,
-            ub.name
+            sender.name AS senderName,
+            receiver.name AS recipientName
         FROM
             FRIEND_MESSAGE fm
-                LEFT JOIN
-            USER_BASIC ub
-            ON
-                fm.friend_user_id = ub.user_id
+        LEFT JOIN USER_BASIC sender ON fm.user_id = sender.user_id
+        LEFT JOIN USER_BASIC receiver ON fm.friend_user_id = receiver.user_id
         WHERE
             fm.MESSAGE_ID = #{messageId}
     </select>
@@ -94,4 +84,42 @@
             ub.name LIKE CONCAT('%', #{param2}, '%')
         )
     </select>
+
+    <!-- 쪽지 보내기 -->
+    <insert id="SendFriendMessage" parameterType="map">
+        insert INTO FRIEND_MESSAGE
+        (USER_ID, FRIEND_USER_ID, MESSAGE, READ_YN, INSERT_USER_ID, INSERT_DT,UPDATE_USER_ID, UPDATE_DT) values
+        (#{recipient}, #{userId}, #{sendMessage}, 'N', #{userId}, now(), #{userId}, now())
+    </insert>
+
+    <!-- 보낸 쪽지 리스트 -->
+    <select id="getSendMsglist" resultType="com.dev.wannabe.domain.home.model.dto.PopupMessageDTO">
+        SELECT
+            fm.*,
+            ub.name
+        FROM
+            FRIEND_MESSAGE fm
+                LEFT JOIN
+            USER_BASIC ub
+        ON
+            fm.user_id = ub.user_id
+        WHERE
+            fm.FRIEND_USER_ID = ${param1}
+        ORDER BY
+            fm.insert_dt DESC
+        LIMIT
+            ${param2}, ${param3}
+    </select>
+
+    <!-- 보낸 쪽지 개수 -->
+    <select id="sendMsgCount" resultType="int">
+        SELECT COUNT(*)
+        AS sendMsg_count
+        FROM FRIEND_MESSAGE
+        WHERE FRIEND_USER_ID=#{userId}
+    </select>
+
+    <delete id="msgDelete" parameterType="int">
+
+    </delete>
 </mapper>
