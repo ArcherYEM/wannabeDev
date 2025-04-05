@@ -1,6 +1,6 @@
 <div id="popMsgListContainer" th:attr="data-totalPages=${totalPages}, data-totalUnreadMsg=${receiveUnreadMsgCount}" >
     <div id="popMsgListTitle">
-        <input class="msgListTitle msgChkbox" type="checkbox">
+        <input class="msgListTitle receivemsgChkbox" type="checkbox">
         <span class="msgListTitle popMsg-insertUserId">보낸사람</span>
         <span class="msgListTitle popMsg-Msg">내용</span>
         <span class="msgListTitle popMsg-date">날짜</span>
@@ -24,3 +24,33 @@
         <!--<button id="nextPage">&gt;&gt;</button>-->
     </div>
 </div>
+
+<script>
+    let totalChkBox;
+    $(".receivemsgChkbox").click(function (){
+        console.log("받은메세지함전체선택")
+        let receivemsgChkbox = $(".receivemsgChkbox").prop("checked");
+
+        if (receivemsgChkbox) {
+            $(".receivemsgChkbox").prop("checked",true)
+            $(".msgChkbox").prop("checked", true);
+            totalChkBox = $(".msgChkbox:checked").length;
+            console.log("totalChkBox : " + totalChkBox);
+            console.log("===========");
+        } else {
+            $(".msgChkbox").prop("checked", false);
+        }
+
+    });
+    $(".msgChkbox").click(function (){
+        let msgChkbox = $(".msgChkbox:checked").length;
+
+       if (msgChkbox === totalChkBox) {
+         $(".receivemsgChkbox").prop("checked",true);
+       } else {
+           $(".receivemsgChkbox").prop("checked", false);
+       }
+        console.log("msgChkbox : " + msgChkbox);
+        console.log("totalChkBox : " + totalChkBox);
+    });
+</script>
