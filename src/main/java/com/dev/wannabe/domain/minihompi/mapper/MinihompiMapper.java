@@ -1,6 +1,9 @@
 package com.dev.wannabe.domain.minihompi.mapper;
 
 import com.dev.wannabe.domain.minihompi.model.dto.FriendCommentDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.HompiVisitorDTO;
+import com.dev.wannabe.domain.minihompi.model.dto.MinimiInfoDTO;
+import com.dev.wannabe.domain.minihompi.model.vo.HompiVisitor;
 import com.dev.wannabe.domain.minihompi.model.vo.MinihompiTotal;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -39,5 +42,20 @@ public interface MinihompiMapper {
     int updateprofileImg(Map<String, Object> param);
 
     Map<String, Object> getMiniroom(Long hompiId);
+
+
+    //방명록 저장
+    void insertVisitor(HompiVisitor hompiVisitor);
+
+    // 방명록 불러오기
+    List<HompiVisitorDTO> selectVisitorList(Long hompiId);
+
+    // 방명록 수정
+    int updateVisitor(Map<String, Object> param);
+
+    // 방명록 삭제
+    int deleteVisitor(Map<String, Object> param);
+
+
 }
 
