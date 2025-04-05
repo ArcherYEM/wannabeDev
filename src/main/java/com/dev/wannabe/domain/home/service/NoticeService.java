@@ -96,20 +96,19 @@ public class NoticeService {
     @Transactional
     public boolean insertNotice(NoticeDTO noticeDTO){
         try {
-            // 날짜/시간 분리
-            if (noticeDTO.getStartDateTime() != null && noticeDTO.getStartDateTime().contains("T")) {
-                String[] startParts = noticeDTO.getStartDateTime().split("T");
-                noticeDTO.setStartDate(startParts[0].replace("-",""));  // 예: 2025-04-04
-                noticeDTO.setStartTime(startParts[1].replace(":", "")); // 예: 2005
-            }
+            // XSS 방지 처리
+            String cleanTitle = Jsoup.clean(noticeDTO.getNoticeTitle(), Safelist.basic());
 
-            if (noticeDTO.getEndDateTime() != null && noticeDTO.getEndDateTime().contains("T")) {
-                String[] endParts = noticeDTO.getEndDateTime().split("T");
-                noticeDTO.setEndDate(endParts[0].replace("-",""));      // 예: 2025-04-06
-                noticeDTO.setEndTime(endParts[1].replace(":", ""));     // 예: 1800
-            }
+            Safelist safelist = Safelist.relaxed()
+                .addTags("h1", "h2", "h3", "h4", "h5", "h6");
 
-            // 실제 등록
+            String cleanContents = Jsoup.clean(noticeDTO.getNoticeContents(), safelist);
+
+            noticeDTO.setNoticeTitle(cleanTitle);
+            noticeDTO.setNoticeContents(cleanContents);
+
+            splitDateTime(noticeDTO);
+
             noticeMapper.insertNotice(noticeDTO);
             return true;
         } catch (Exception e) {
@@ -117,6 +116,22 @@ public class NoticeService {
             return false;
         }
     }
+
+    private void splitDateTime(NoticeDTO dto) {
+        if (dto.getStartDateTime() != null && dto.getStartDateTime().contains("T")) {
+            String[] parts = dto.getStartDateTime().split("T");
+            dto.setStartDate(parts[0].replace("-", ""));   // 예: 20250404
+            dto.setStartTime(parts[1].replace(":", ""));   // 예: 1800
+        }
+
+        if (dto.getEndDateTime() != null && dto.getEndDateTime().contains("T")) {
+            String[] parts = dto.getEndDateTime().split("T");
+            dto.setEndDate(parts[0].replace("-", ""));     // 예: 20250406
+            dto.setEndTime(parts[1].replace(":", ""));     // 예: 2100
+        }
+    }
+
+
 
     // 공지사항 상세 페이지
     @Transactional
@@ -129,7 +144,7 @@ public class NoticeService {
             }
 
             // XSS 방지: 공지사항 내용 필터링
-            String sanitizedContent = Jsoup.clean(notice.getNoticeContents(), Safelist.basic());
+            String sanitizedContent = Jsoup.clean(notice.getNoticeContents(), Safelist.relaxed());
             notice.setNoticeContents(sanitizedContent);
 
             return notice;

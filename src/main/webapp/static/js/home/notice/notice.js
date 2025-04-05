@@ -109,16 +109,42 @@ function initEditor() {
 function insert_notice() {
     const type          = $('#i_type').val();
     const title         = $('#i_title').val().trim();
-    const contents      = window.noticeEditor
+    let contents        = window.noticeEditor
                         ? window.noticeEditor.getHTML()
                         : '';
     const startDateTemp = $('#i_start_date').val().trim();
     const endDateTemp   = $('#i_end_date').val().trim();
 
+    // 유효성 검사
+    if (!type) {
+        Swal.fire('등록실패', '분류를 선택해주세요.', 'warning');
+        return;
+    }
+
+    if (!title) {
+        Swal.fire('등록실패', '제목을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!contents || contents === '<p><br></p>') { // Toast UI Editor 비어있을 때
+        Swal.fire('등록실패', '내용을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!startDateTemp) {
+        Swal.fire('등록실패', '시작일을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!endDateTemp) {
+        Swal.fire('등록실패', '종료일을 입력해주세요.', 'warning');
+        return;
+    }
+
     const noticeData = {
-        noticeType      : type,         // 분류
-        noticeTitle     : title,        // 제목
-        noticeContents  : contents,     // 내용
+        noticeType      : type,
+        noticeTitle     : title,
+        noticeContents  : contents,
         startDateTime   : startDateTemp,
         endDateTime     : endDateTemp
     }
@@ -128,22 +154,17 @@ function insert_notice() {
         method      : 'post',
         contentType : 'application/json',
         data        : JSON.stringify(noticeData),
-
         success     : function(result){
             if(result){
-                Swal.fire('공지사항 등록 성공', `[${title}] 공지가 등록되었습니다`, 'success').then(() => {
-                    location.href = '/notice';
-                });
+                Swal.fire('공지사항 등록 성공', `[${title}] 공지가 등록되었습니다`, 'success')
+                    .then(() => { location.href = '/notice'; });
             } else {
-                Swal.fire('등록실패', '공지 등록 권한이 없습니다.', 'error').then(() => {
-                    location.href = '/notice';
-                });
+                Swal.fire('등록실패', '공지 등록 권한이 없습니다.', 'error')
+                    .then(() => { location.href = '/notice'; });
             }
         },
         error       : function(error){
-            Swal.fire('등록실패', `서버 오류 발생: ${error.status} - ${error.statusText}`, 'error').then(() => {
-                return;
-            });
+            Swal.fire('등록실패', `서버 오류 발생: ${error.status} - ${error.statusText}`, 'error');
         }
     });
 }
