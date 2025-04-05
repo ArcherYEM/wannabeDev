@@ -58,4 +58,5 @@ public class PopupMessageService {
         return popupMessageMapper.sendMsgCount(userId);
     }
 
+    public boolean msgDelete(String messageId) { return popupMessageMapper.msgDelete(messageId); }
 }

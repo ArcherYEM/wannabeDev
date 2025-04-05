@@ -71,10 +71,10 @@ public class PopupMessageController {
     public String popupMessageView(HttpServletRequest request, Model model) {
         String messageId = request.getParameter("messageId");
         String type = request.getParameter("type"); // "receive" 또는 "send"
-        System.out.println(":::::::: MessageView 진입 ::::::");
+        /*System.out.println(":::::::: MessageView 진입 ::::::");
         System.out.println("messageId :: "+ messageId);
         System.out.println("type :: "+ type);
-        System.out.println(":::::::: MessageView 진입끝 ::::::");
+        System.out.println(":::::::: MessageView 진입끝 ::::::");*/
         List<PopupMessageDTO> msgView;
 
         if ("send".equals(type)) {
@@ -98,13 +98,13 @@ public class PopupMessageController {
     @GetMapping("/SendMessageList")
     public String popupSendMessageList(HttpServletRequest request, Model model) {
         String userId = request.getParameter("userId");
-        System.out.println("보낸쪽지함userId ::: " +userId);
+        /*System.out.println("보낸쪽지함userId ::: " +userId);*/
         String offset = request.getParameter("offset");
-        System.out.println("보낸쪽지함offset ::: " +offset);
+        /*System.out.println("보낸쪽지함offset ::: " +offset);*/
         String pageSize = request.getParameter("pageSize");
-        System.out.println("보낸쪽지함pageSize ::: " +pageSize);
+        /*System.out.println("보낸쪽지함pageSize ::: " +pageSize);*/
         List<PopupMessageDTO> popupMessageDTO = popupMessageService.getSendMsglist(userId, offset, pageSize); //전체 보낸메세지 불러오기
-        System.out.println("보낸쪽지함 ::: " + popupMessageDTO);
+        /*System.out.println("보낸쪽지함 ::: " + popupMessageDTO);*/
         for (int i = 0; i < popupMessageDTO.size(); i++) {
             String brMsg = popupMessageDTO.get(i).getMessage().replace("<br>","\r\n");
             popupMessageDTO.get(i).setMessage(brMsg);
@@ -118,7 +118,6 @@ public class PopupMessageController {
         int totalPages = (int) Math.ceil((double) sendMsgCount / Integer.parseInt(pageSize));
         model.addAttribute("totalPages", totalPages);  // totalPages를 모델에 추가
 
-
         return "common/popup/inc/popupSendMessageList";
     }
 
@@ -127,10 +126,10 @@ public class PopupMessageController {
     public List<PopupMessageDTO> popSendMsgSearchName(HttpServletRequest request) {
         String userId = request.getParameter("userId");
         String recipient = request.getParameter("recipient");
-        System.out.println("userId :: " + userId);
-        System.out.println("recipient :: " + recipient);
+        /*System.out.println("userId :: " + userId);
+        System.out.println("recipient :: " + recipient);*/
         List<PopupMessageDTO> PopupMessageDTO = popupMessageService.getSendSearchName(userId, recipient);
-        System.out.println("PopupMessageDTO :: " + PopupMessageDTO);
+        /*System.out.println("PopupMessageDTO :: " + PopupMessageDTO);*/
         return PopupMessageDTO;
     }
 
@@ -155,6 +154,28 @@ public class PopupMessageController {
         model.addAttribute("totalPages", totalPages);  // totalPages를 모델에 추가
 
         return "common/popup/inc/popupReceiveMessageList";
+    }
+
+    @GetMapping(value = "/DeleteMessage", produces = "text/plain; charset=UTF-8")
+    @ResponseBody
+    public ResponseEntity<String> popupDeleteMessage(HttpServletRequest request) {
+        String messageId = request.getParameter("messageId");
+        String type = request.getParameter("type"); // "receive" 또는 "send"
+        System.out.println("/DeleteMessage 진입 :: messageId ::" + messageId);
+        System.out.println("/DeleteMessage 진입 :: type ::" + type);
+
+        boolean delMsg = popupMessageService.msgDelete(messageId); // 삭제체크
+
+        System.out.println("/DeleteMessage 진입 :: delMsg ::" + delMsg);
+
+        if (delMsg) {
+            System.out.println("( messageId : " + messageId + " ) 메세지 삭제 성공");
+            return ResponseEntity.ok("쪽지를 삭제 하였습니다.");
+        } else {
+            System.out.println("( messageId : " + messageId + " ) 메세지 삭제 실패");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("쪽지를 삭제하는 도중 오류가 발생하였습니다.\r\n 다시 시도하여 주세요");
+        }
     }
 
 }

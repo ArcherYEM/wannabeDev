@@ -80,9 +80,9 @@ $(document).ready(function () {
 
     /** 페이지네이션 렌더링 **/
     function renderPagination(totalPages, currentPage) {
-
+        let paginationHtml = `<button class="chkDeleteBtn">선택삭제</button>`;
         // 페이지 번호 버튼 생성
-        let paginationHtml = `<button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>&lt;&lt;</button>`;
+         paginationHtml += `<button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>&lt;&lt;</button>`;
 
         // 1부터 totalPages까지 페이지 번호 버튼 생성
         for (let i = 1; i <= totalPages; i++) {
@@ -125,7 +125,6 @@ $(document).ready(function () {
         }
     });
 
-
 });
 
 /**  쪽지 팝업창 설정 **/
@@ -167,6 +166,37 @@ function fncBackPage(element) {
 }
 
 function fncMsgDelPage(element) {
-    let pageName = $(element).attr("data-pageName");
-    console.log("pageName : " + pageName);
+    let type = $(element).attr("data-pageName");
+    let messageId = $("pre#receiveMessagePre").attr("data-messageId");
+    console.log("messageId : " + messageId);
+    console.log("type : " + type);
+    if (confirm("쪽지를 삭제 하시겠습니까?")) {
+        /*console.log("확인누름");*/
+
+        $.ajax({
+            type: "GET",
+            url: "/popupMessage/DeleteMessage",
+            data: {
+              messageId : messageId,
+              type : type
+            },
+            success: function (response) {
+                alert(response);
+                if (type === "send"){
+                    $("a.sendMsgBox").click();
+                } else {
+                    $("a.receiveMsgbox").click();
+                }
+
+            },
+            error: function () {
+                alert("비정상적인 접근입니다.");
+            }
+        });
+
+    } else {
+        console.log("삭제 취소");
+    }
+
+
 }
