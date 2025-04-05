@@ -26,6 +26,17 @@
     flex-direction: column;
 }
 
+.modal-close-wrapper {
+    display: flex;
+    justify-content: right;
+}
+
+#friend-modal-close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
 .modal-header {
     height: 100px;
     display: flex;

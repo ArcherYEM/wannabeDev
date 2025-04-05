@@ -24,7 +24,7 @@ $(document).ready(function () {
 
 });
 
-$(document).on("click", "#friend-modal-layer", function(e) {
+$(document).on("click", "#friend-modal-layer, #friend-modal-close", function(e) {
     if (e.target === this) {
         modalClose();
     }
