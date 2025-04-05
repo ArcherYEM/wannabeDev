@@ -38,10 +38,10 @@
 }
 
 .modal-header {
-    height: 100px;
+    height: 80px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 .modal-header .modal-logo {
     text-align: center;
@@ -79,7 +79,7 @@
     border-radius: 50%;
     text-align: center;
     color: white;
-    background-color: var(--color-basic);;
+    background-color: var(--color-basic);
 }
 
 .modal-main-content {

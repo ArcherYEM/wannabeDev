@@ -56,6 +56,12 @@
         WHERE USER_ID = #{userId} AND AVAIL_STATUS = '02'
     </select>
 
+    <select id="getFriendRequestNumByUserId" parameterType="Long" resultType="Long">
+        SELECT COUNT(*)
+        FROM FRIEND_INFO
+        WHERE FRIEND_USER_ID = #{userId} AND AVAIL_STATUS = '01'
+    </select>
+
     <delete id="deleteFriendByUserIdAndFriendId">
         DELETE
         FROM FRIEND_INFO

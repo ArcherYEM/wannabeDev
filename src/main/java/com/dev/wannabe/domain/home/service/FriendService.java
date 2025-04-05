@@ -78,7 +78,7 @@ public class FriendService {
     @Transactional
     public Long logInFriendCount(Long userId) { return userLoginMapper.logInFriendCount(userId); }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Long> getLoggedFriends(Long userId) {
         return userLoginMapper.loggedInFriendsByUserId(userId);
     }
@@ -96,8 +96,13 @@ public class FriendService {
         friendMapper.saveFriendMessage(friendMessage);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Long getFriendsNum(Long userId) {
         return friendMapper.getFriendsNumByUserId(userId);
+    }
+
+    @Transactional(readOnly = true)
+    public Long getFriendRequestNum(Long userId) {
+        return friendMapper.getFriendRequestNumByUserId(userId);
     }
 }

@@ -818,9 +818,11 @@
 
 
 /* 일촌 관련 메인 페이지 css */
-#friendOnCntDisplay {
+#friend-on-num {
     cursor: pointer;
 }
-
+#friend-request-num {
+    cursor: pointer;
+}
 
 /* 일촌 관련 메인 페이지 css 끝 */

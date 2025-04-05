@@ -109,6 +109,23 @@ public class FriendController {
         }
     }
 
+    @GetMapping("/request/num")
+    @ResponseBody
+    public ResponseEntity<Long> getFriendsRequestNum(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        try {
+            Long friendRequestNum = friendService.getFriendRequestNum(sessionUser.getUserId());
+            return ResponseEntity.ok(friendRequestNum);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
     @GetMapping("/logged/info")
     @ResponseBody
     public ResponseEntity<List<Long>> loggedFriends(HttpServletRequest request) {
