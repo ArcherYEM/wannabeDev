@@ -6,6 +6,7 @@ $(document).ready(function () {
     initEditor();
     initInsertPage();
     initSetTodayCheckbox();
+    initEndDateSelect();
 });
 
 // 전체 선택/해제 및 개별 선택 처리
@@ -169,3 +170,35 @@ function initSetTodayCheckbox() {
         });
     }
 }
+
+// 공지사항 종료 셀렉트 박스 체크 기능
+function initEndDateSelect() {
+    const select = document.getElementById('end_date_selector');
+    const input = document.getElementById('i_end_date');
+
+    select.addEventListener('change', function () {
+        const value = this.value;
+        const now = new Date();
+
+        if (value === '직접입력') {
+            input.disabled = false;
+            input.value = '';
+        } else if (value === '무기한') {
+            input.disabled = true;
+            input.value = '';
+        } else {
+            // 날짜 계산
+            input.disabled = false;
+            now.setDate(now.getDate() + parseInt(value));
+
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            const minute = String(now.getMinutes()).padStart(2, '0');
+
+            input.value = `${year}-${month}-${day}T${hour}:${minute}`;
+        }
+    });
+}
+
