@@ -4,6 +4,7 @@ import com.dev.wannabe.domain.home.model.dto.PopupMessageDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -11,15 +12,21 @@ public interface PopupMessageMapper {
 
     List<PopupMessageDTO> getMessageList(String userId);
 
-    List<PopupMessageDTO> getReciveMsglist (String userId, String offset, String pageSize);
+    List<PopupMessageDTO> getReceiveMsglist (String userId, String offset, String pageSize);
 
-    int reciveMsgCount(String userId);
+    int receiveMsgCount(String userId);
 
-    int reciveUnreadMsgCount(String userId);
+    int receiveUnreadMsgCount(String userId);
 
-    List<PopupMessageDTO> getReciveMsgView (String messageId);
+    List<PopupMessageDTO> getMsgView (String messageId);
 
     int messageReadUpdate(String messageId);
 
     List<PopupMessageDTO> getSendSearchName(String userId, String searchName);
+
+    boolean SendFriendMessage(Map<String,Object> map);
+
+    public List<PopupMessageDTO> getSendMsglist(String userId, String offset, String pageSize);
+
+    int sendMsgCount(String userId);
 }

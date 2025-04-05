@@ -1,4 +1,4 @@
-<div id="popMsgListContainer" th:attr="data-totalPages=${totalPages}, data-totalUnreadMsg=${reciveUnreadMsgCount}" >
+<div id="popMsgListContainer" th:attr="data-totalPages=${totalPages}, data-totalUnreadMsg=${receiveUnreadMsgCount}" >
     <div id="popMsgListTitle">
         <input class="msgListTitle msgChkbox" type="checkbox">
         <span class="msgListTitle popMsg-insertUserId">보낸사람</span>
@@ -12,15 +12,15 @@
              th:class="${msg.ReadYN == 'N' ? 'unread' : 'read'}">
             <input type="checkbox" class="msgChkbox">
             <span class="popMsg-insertUserId" style="color: #e07b00;" th:text="${msg.friendUserId == 0 ? 'WANNABE' : msg.name}"></span>
-            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 17)}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
-            <span class="popMsg-date" th:text="${#dates.format(msg.insertDT, 'yyyy.MM.dd HH:mm')}" th:attr="onclick=|fncMsgView(${msg.messageId},this)|"></span>
+            <span class="popMsg-Msg" th:text="${#strings.abbreviate(msg.message, 15)}" th:attr="onclick=|fncMsgView(${msg.messageId}, this, 'receive')|"></span>
+            <span class="popMsg-date" th:text="${#dates.format(msg.insertDT, 'yyyy.MM.dd HH:mm')}" th:attr="onclick=|fncMsgView(${msg.messageId}, this, 'receive')|"></span>
         </div>
     </div>
 
     <!-- 페이지네이션 -->
     <div id="pagination">
-        <button id="prevPage" disabled>&lt;&lt;</button>
+        <!--<button id="prevPage">&lt;&lt;</button>-->
         <span id="pageNumbers"></span> <!-- 페이지 번호 버튼을 여기에 추가 -->
-        <button id="nextPage">&gt;&gt;</button>
+        <!--<button id="nextPage">&gt;&gt;</button>-->
     </div>
 </div>
