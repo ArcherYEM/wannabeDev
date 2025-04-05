@@ -47,7 +47,13 @@
     <select id="findAllFriendInfoByUserId" parameterType="Long" resultType="FriendInfo">
         SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS
         FROM FRIEND_INFO
-        WHERE USER_ID = #{userId}
+        WHERE USER_ID = #{userId} AND AVAIL_STATUS = '02'
+    </select>
+
+    <select id="getFriendsNumByUserId" parameterType="Long" resultType="Long">
+        SELECT COUNT(*)
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId} AND AVAIL_STATUS = '02'
     </select>
 
     <delete id="deleteFriendByUserIdAndFriendId">

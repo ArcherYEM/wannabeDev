@@ -1,0 +1,37 @@
+<div th:fragment="friendListModal">
+    <!-- 일촌 모달 영역 -->
+    <div class="modal-layer hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="/static/images/common/logo/logo_full.png" alt="Logo" style="max-width: 100%;">
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- 일촌 목록/신청 탭 영역 -->
+                <div class="modal-side-tabs">
+                    <div class="side-tab-content">
+                        <span class="side-tab-text">일촌 목록</span>
+                        <div id="side-tab-now-login-friends" class="side-tab-data"></div>
+                    </div>
+                    <div class="side-tab-content">
+                        <span class="side-tab-text">일촌 신청</span>
+                        <div id="side-tab-friend-request" class="side-tab-data"></div>
+                    </div>
+                </div>
+                <!-- 일촌 목록 -->
+                <div class="modal-main-content">
+                    <div id="now-friend">
+                        <div id="now-friend-display"></div>
+                        <span>/</span>
+                        <div id="all-friend-display"></div>
+                    </div>
+                    <div id="friend-list">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

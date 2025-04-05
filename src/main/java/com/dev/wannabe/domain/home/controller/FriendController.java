@@ -75,7 +75,7 @@ public class FriendController {
         }
     }
 
-    @DeleteMapping("/myfriend/{friendId}")
+    @DeleteMapping("/my/{friendId}")
     @ResponseBody
     public ResponseEntity<Void> deleteFriend(@PathVariable Long friendId, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -92,11 +92,28 @@ public class FriendController {
         }
     }
 
+    @GetMapping("/friends/num")
+    @ResponseBody
+    public ResponseEntity<Long> getFriendsNum(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        try {
+            Long friendsNum = friendService.getFriendsNum(sessionUser.getUserId());
+            return ResponseEntity.ok(friendsNum);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
     @GetMapping("/logged/info")
     @ResponseBody
     public ResponseEntity<List<Long>> loggedFriends(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session == null) { return ResponseEntity.badRequest().build(); }
+        if (session == null) { return ResponseEntity.ok().build(); }
         Object userData = session.getAttribute("userData");
         if (userData == null) {return ResponseEntity.badRequest().build(); }
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
@@ -110,9 +127,9 @@ public class FriendController {
     @ResponseBody
     public ResponseEntity<Long> loggedFriendsCnt(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session == null) { return ResponseEntity.badRequest().build(); }
+        if (session == null) { return ResponseEntity.ok().build(); }
         Object userData = session.getAttribute("userData");
-        if (userData == null) {return ResponseEntity.badRequest().build(); }
+        if (userData == null) {return ResponseEntity.ok().build(); }
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
 
         Long loginFriendsCnt = friendService.logInFriendCount(sessionUser.getUserId());

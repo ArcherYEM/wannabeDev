@@ -95,4 +95,9 @@ public class FriendService {
 
         friendMapper.saveFriendMessage(friendMessage);
     }
+
+    @Transactional
+    public Long getFriendsNum(Long userId) {
+        return friendMapper.getFriendsNumByUserId(userId);
+    }
 }

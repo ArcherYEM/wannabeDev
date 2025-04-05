@@ -815,3 +815,12 @@
     }
 }
 /* 영화 추천 끝 */
+
+
+/* 일촌 관련 메인 페이지 css */
+#friendOnCntDisplay {
+    cursor: pointer;
+}
+
+
+/* 일촌 관련 메인 페이지 css 끝 */
