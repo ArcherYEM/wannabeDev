@@ -24,6 +24,16 @@ $(document).ready(function () {
 
 });
 
+$(document).on("click", "#friend-modal-layer", function(e) {
+    if (e.target === this) {
+        modalClose();
+    }
+});
+
+function modalClose() {
+    $("#friend-modal-layer").addClass("hidden");
+}
+
 function nowLoginFriendCnt(nowLoginFriends) {
     $.ajax({
         type:"GET",
