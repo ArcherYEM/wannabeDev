@@ -65,6 +65,9 @@
 		<!--> miniroom <-->
 
 		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>
+		<!--> giftShop <-->
+		<typeAlias alias="ProductDTO" type="com.dev.wannabe.domain.home.model.dto.ProductDTO"/>
+		<typeAlias alias="BgmProductDTO" type="com.dev.wannabe.domain.home.model.dto.BgmProductDTO"/>
 	</typeAliases>
 
 </configuration>
