@@ -119,7 +119,10 @@
         WHERE FRIEND_USER_ID=#{userId}
     </select>
 
-    <delete id="msgDelete" parameterType="int">
-
+    <delete id="msgDelete" parameterType="String">
+        DELETE
+            FROM FRIEND_MESSAGE
+        WHERE
+            MESSAGE_ID = #{messageId}
     </delete>
 </mapper>

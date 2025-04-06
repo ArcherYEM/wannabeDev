@@ -29,4 +29,7 @@ public interface PopupMessageMapper {
     public List<PopupMessageDTO> getSendMsglist(String userId, String offset, String pageSize);
 
     int sendMsgCount(String userId);
+
+    public boolean msgDelete(String messageId);
+
 }

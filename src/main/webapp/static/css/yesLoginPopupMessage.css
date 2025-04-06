@@ -241,6 +241,12 @@ div#popupMessageMainArea button#MessageSendBtn {
     cursor: pointer;
 }
 
+#pagination button.chkDeleteBtn {
+    background : red;
+    position: absolute;
+    left: 210px;
+}
+
 #pagination button:disabled {
     background: #ccc;
     cursor: not-allowed;

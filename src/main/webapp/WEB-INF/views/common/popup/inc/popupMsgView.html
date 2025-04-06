@@ -12,7 +12,7 @@
 </div>
 
 <div id="popupMessageMainArea">
-    <pre id="receiveMessagePre" th:text="${msgView.message}"></pre>
+    <pre id="receiveMessagePre" th:attr="data-messageId=${msgView.messageId}" th:text="${msgView.message}"></pre>
 
     <div id="popupMessageReceiveBtnArea" class="dFlex">
         <a class="btn small di" th:attr="data-pageName=${type}" onclick="fncBackPage(this)">목록</a>
