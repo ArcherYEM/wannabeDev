@@ -314,15 +314,24 @@
     flex-direction: row;
     font-weight: bold;
     font-size: 20px;
-    gap: 13px;
     position: relative;
+    gap: 13px;
 }
 .friend-request-item .friend-request-hompi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1px;
+    padding-left: 1px;
 }
-.friend-request-item .friend-request-hompi friend-home-icon {
-    width: 10px;
-    height: 10px;
+.friend-request-item .friend-request-hompi .friend-home-icon {
+    width: 25px;
+    height: 25px;
     cursor: pointer;
+}
+.friend-request-item .friend-request-text {
+    display: flex;
+    flex-direction: row;
 }
 .friend-request-item .friend-request-name {
     color: var(--color-basic);
@@ -340,7 +349,7 @@
 }
 .friend-request-item .friend-request-user {
     padding-top: 3px;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     padding-left: 10px;
 }
 

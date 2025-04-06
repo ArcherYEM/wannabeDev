@@ -13,5 +13,6 @@ public class FriendRequestDTO {
     private Long friendId;
     private Long friendHompiId;
     private String friendRequestDT;
+    private String friendMinimi;
 
 }

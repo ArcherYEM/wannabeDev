@@ -1,8 +1,8 @@
 let friendListStart = 0;
 let friendListSize = 10;
 
-let friendReceiveStart = 0;
-let friendReceiveSize = 10;
+let friendRequestStart = 0;
+let friendRequestSize = 10;
 
 $(document).ready(function () {
     let friendOn = $("#friend-on");
@@ -201,7 +201,7 @@ function makeFriendReceive() {
         friendRequestDT: "2015.04.04 15:42",
         friendId: 2,
         friendHompiId: 2,
-        minimi: "/static/images/common/minimi/예진.png"
+        friendMinimi: "/static/images/common/minimi/예진.png"
     }
     let friendReceiveItem = createFriendReceive(friendReceive);
 
@@ -209,8 +209,8 @@ function makeFriendReceive() {
     for (let i=0; i < 10; i++) {
         $("#friends-container").append(friendReceiveItem);
     }
-    LoadFriendRequestListPage(friendReceiveStart, friendReceiveSize);
-    friendReceiveStart = friendReceiveStart + friendReceiveSize;
+    LoadFriendReceiveListPage(friendRequestStart, friendRequestSize);
+    friendRequestStart = friendRequestStart + friendRequestSize;
 
 }
 
@@ -228,7 +228,7 @@ function makeFriendSend() {
         friendRequestDT: "2015.04.04 15:42",
         friendId: 2,
         friendHompiId: 2,
-        minimi: "/static/images/common/minimi/예진.png"
+        friendMinimi: "/static/images/common/minimi/예진.png"
     }
     let friendSendItem = createFriendSend(friendSend);
     $("#friends-container").append(`
@@ -239,6 +239,8 @@ function makeFriendSend() {
     for (let i=0; i < 10; i++) {
         $("#friends-container").append(friendSendItem);
     }
+    LoadFriendSendListPage(friendRequestStart, friendRequestSize);
+    friendRequestStart = friendRequestStart + friendRequestSize;
 
 }
 
@@ -263,8 +265,8 @@ function friendListModalClear() {
 }
 // 일촌 요청 모달 닫기
 function friendRequestModalClear() {
-    friendReceiveStart = 0;
-    friendReceiveSize = 10;
+    friendRequestStart = 0;
+    friendRequestSize = 10;
     $("#side-request-text").css("color", "black");
     $("#friends-container").removeClass("friend-request-container").empty();
     friendSendModalClear();
@@ -337,7 +339,7 @@ function LoadFriendListPage(start, size) {
             response.forEach(friend => {
                 if (friend.mood === null) { friend.mood = ""; }
                 let friendItem = $(createFriendItem(friend));
-                if (friend.loginStatus === "LOGOUT") {
+                if (friend.friendLoginStatus === "LOGOUT") {
                     friendItem.css("filter", "grayscale(100%)");
                 }
                 $("#friends-container").append(friendItem)
@@ -349,9 +351,46 @@ function LoadFriendListPage(start, size) {
     });
 }
 
-function LoadFriendRequestListPage(start, size) {
-    $.ajax({
 
+function LoadFriendReceiveListPage(start, size) {
+
+    $.ajax({
+        type:"GET",
+        url:`/api/friend/receive/${start}/${size}`,
+        contentType: "application/json",
+        success: function(response){
+            if (!response) { return; }
+
+            response.forEach(friend => {
+                console.log(friend)
+                let friendReceiveItem = createFriendReceive(friend);
+                $("#friends-container").append(friendReceiveItem);
+            });
+        },
+        error: function(error) {
+            console.log(error)
+        }
+    });
+
+}
+
+function LoadFriendSendListPage(start, size) {
+    $.ajax({
+        type:"GET",
+        url:`/api/friend/send/${start}/${size}`,
+        contentType: "application/json",
+        success: function(response){
+            if (!response) { return; }
+
+            response.forEach(friend => {
+                console.log(friend)
+                let friendSendItem = createFriendSend(friend);
+                $("#friends-container").append(friendSendItem);
+            });
+        },
+        error: function(error) {
+            console.log(error)
+        }
     });
 }
 
@@ -360,7 +399,7 @@ function createFriendItem(friendData) {
     <div class="friend-list-item">
         <div class="friend-content-container">
             <div class="friend-minimi-container">
-                <img class="friend-minimi" src=${friendData.minimi} alt="minimi">
+                <img class="friend-minimi" src=${friendData.friendMinimi} alt="minimi">
             </div>
             <div class="friend-content">
                 <div class="friend-list-item-head">
@@ -374,18 +413,18 @@ function createFriendItem(friendData) {
                             <div class="friend-dropbox-item friend-dropbox-delete" data-hidden-value=${friendData.friendId}>일촌 삭제</div>
                         </div>
                     </div>
-                    <img class="friend-home-icon" src="/static/images/common/icon/icon_home.svg" alt="미니홈피" data-hidden-value=${friendData.hompiId}>
+                    <img class="friend-home-icon" src="/static/images/common/icon/icon_home.svg" alt="미니홈피" data-hidden-value=${friendData.friendHompiId}>
                 </div>
                 <div class="friend-list-item-body">
                     <span class="friend-title">일촌명</span>
                     <div class="friend-title-container">
-                        <span class="friend-name">${friendData.name}</span>
-                        <span class="friend-mood">${friendData.mood}</span>
+                        <span class="friend-name">${friendData.friendName}</span>
+                        <span class="friend-mood">${friendData.friendMood}</span>
                     </div>
                 </div>
                 <div class="friend-list-item-foot">
                     <div class="friend-send-message" data-hidden-value=${friendData.friendId}>쪽지 보내기</div>
-                    <span class="friend-login-status">${friendData.loginStatus}</span>
+                    <span class="friend-login-status">${friendData.friendLoginStatus}</span>
                 </div>
             </div>
         </div>
@@ -399,7 +438,7 @@ function createFriendReceive(friendRequest) {
         <div class="friend-request-item">
             <div class="friend-content-container">
                 <div class="friend-minimi-container">
-                    <img class="friend-minimi" src="${friendRequest.minimi}" alt="minimi">
+                    <img class="friend-minimi" src="${friendRequest.friendMinimi}" alt="minimi">
                 </div>
                 
                 <div class="friend-content">
@@ -410,8 +449,10 @@ function createFriendReceive(friendRequest) {
                                     data-hidden-value=${friendRequest.friendHompiId}
                                 />
                             </div>
-                            <div class="friend-request-name">${friendRequest.friendNickname}</div>
-                            <div class="request-head-text">님의 일촌신청</div>
+                            <div class="friend-request-text">
+                                <div class="friend-request-name">${friendRequest.friendNickname}</div>
+                                <div class="request-head-text">님의 일촌신청</div>
+                            </div>
                         </div>
                         <div class="friend-request-datetime" data-hidden-value=${friendRequest.friendRequestDT}></div>
                     </div>
@@ -443,9 +484,8 @@ function createFriendSend(friendSend) {
         <div class="friend-request-item">
             <div class="friend-content-container">
                 <div class="friend-minimi-container">
-                    <img class="friend-minimi" src="${friendSend.minimi}" alt="minimi">
+                    <img class="friend-minimi" src="${friendSend.friendMinimi}" alt="minimi">
                 </div>
-                
                 <div class="friend-content">
                     <div class="friend-request-item-head">
                         <div class="friend-request-title">
@@ -454,8 +494,10 @@ function createFriendSend(friendSend) {
                                     data-hidden-value=${friendSend.friendHompiId}
                                 />
                             </div>
-                            <div class="friend-request-name">${friendSend.friendNickname}</div>
-                            <div class="request-head-text">님의 일촌신청</div>
+                            <div class="friend-request-text">
+                                <div class="friend-request-name">${friendSend.friendNickname}</div>
+                                <div class="request-head-text">님에게 일촌신청</div>
+                            </div>
                         </div>
                         <div class="friend-request-datetime" data-hidden-value=${friendSend.friendRequestDT}></div>
                     </div>
