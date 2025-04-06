@@ -1,6 +1,7 @@
 package com.dev.wannabe.domain.home.controller;
 
 import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
+import com.dev.wannabe.domain.home.model.dto.FriendRequestDTO;
 import com.dev.wannabe.domain.home.model.vo.FriendInfo;
 import com.dev.wannabe.domain.home.service.FriendService;
 import com.dev.wannabe.global.model.SessionUserDTO;
@@ -170,4 +171,31 @@ public class FriendController {
         return ResponseEntity.ok(loginFriendsCnt);
     }
 
+    @GetMapping("/receive/{start}/{size}")
+    @ResponseBody
+    public ResponseEntity<List<FriendRequestDTO>> getFriendReceiveByPage(@PathVariable Integer start, @PathVariable Integer size, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        List<FriendRequestDTO> receive = friendService.getFriendReceiveListByPage(sessionUser.getUserId(), start, size);
+
+        return ResponseEntity.ok(receive);
+    }
+
+    @GetMapping("/send/{start}/{size}")
+    @ResponseBody
+    public ResponseEntity<List<FriendRequestDTO>> getFriendSendByPage(@PathVariable Integer start, @PathVariable Integer size, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        List<FriendRequestDTO> receive = friendService.getFriendSendListByPage(sessionUser.getUserId(), start, size);
+
+        return ResponseEntity.ok(receive);
+    }
 }

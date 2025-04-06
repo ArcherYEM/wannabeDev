@@ -90,21 +90,21 @@
 
     <select id="getFriendPanelInfoByPage" resultType="FriendPanelDTO">
         SELECT
-            FI.FRIEND_USER_ID,
-            H.HOMPI_ID,
-            FI.FRIEND_USER_NICKNAME,
-            HC.HOMPI_CONFIG_CONTENT,
-            AFM.FILE_PATH,
+            FI.FRIEND_USER_ID AS FRIEND_ID,
+            H.HOMPI_ID AS FRIEND_HOMPI_ID,
+            FI.FRIEND_USER_NICKNAME AS FRIEND_NAME,
+            HC.HOMPI_CONFIG_CONTENT AS FRIEND_MOOD,
+            AFM.FILE_PATH AS FRIEND_MINIMI,
             CASE
                 WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 'LOGIN'
                 ELSE 'LOGOUT'
-                END AS LOGIN_STATUS
+                END AS FRIEND_LOGIN_STATUS
         FROM FRIEND_INFO AS FI
-                 JOIN HOMPI AS H ON FI.FRIEND_USER_ID = H.OWNER_USER_ID
-                 JOIN HOMPI_CONFIG AS HC ON H.HOMPI_ID = HC.HOMPI_ID AND HC.HOMPI_CONFIG_CODE = '04'
-                 JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
-                 JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
-                 JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+            JOIN HOMPI AS H ON FI.FRIEND_USER_ID = H.OWNER_USER_ID
+            JOIN HOMPI_CONFIG AS HC ON H.HOMPI_ID = HC.HOMPI_ID AND HC.HOMPI_CONFIG_CODE = '04'
+            JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+            JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+            JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
         WHERE
             FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '02'
         ORDER BY
@@ -112,6 +112,46 @@
                 WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
                 ELSE 1
                 END ASC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="getFriendReceiveInfoByPage" resultType="FriendRequestDTO">
+        SELECT
+            UBU.USER_ID AS USER_NAME,
+            FI.USER_NICKNAME AS USER_NICKNAME,
+            UBF.USER_ID AS FRIEND_NAME,
+            FI.FRIEND_USER_NICKNAME AS FRIEND_NICKNAME,
+            FI.FRIEND_USER_ID AS FRIEND_ID,
+            H.HOMPI_ID AS FRIEND_HOMPI_ID,
+            FI.INSERT_DT AS FRIEND_REQUEST_DT
+        FROM FRIEND_INFO AS FI
+                 JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.USER_ID
+                 JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.FRIEND_USER_ID
+                 JOIN HOMPI AS H ON H.OWNER_USER_ID = FI.FRIEND_USER_ID
+        WHERE
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '01'
+        ORDER BY
+            FI.INSERT_DT DESC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="getFriendSendInfoByPage" resultType="FriendRequestDTO">
+        SELECT
+            UBU.USER_ID AS USER_NAME,
+            FI.USER_NICKNAME AS USER_NICKNAME,
+            UBF.USER_ID AS FRIEND_NAME,
+            FI.FRIEND_USER_NICKNAME AS FRIEND_NICKNAME,
+            FI.FRIEND_USER_ID AS FRIEND_ID,
+            H.HOMPI_ID AS FRIEND_HOMPI_ID,
+            FI.INSERT_DT AS FRIEND_REQUEST_DT
+        FROM FRIEND_INFO AS FI
+                 JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.USER_ID
+                 JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.FRIEND_USER_ID
+                 JOIN HOMPI AS H ON H.OWNER_USER_ID = FI.FRIEND_USER_ID
+        WHERE
+            FI.FRIEND_USER_ID = #{userId} AND FI.AVAIL_STATUS = '01'
+        ORDER BY
+            FI.INSERT_DT DESC
         LIMIT #{start}, #{size}
     </select>
 

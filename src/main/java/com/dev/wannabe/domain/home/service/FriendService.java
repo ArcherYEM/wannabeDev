@@ -3,6 +3,7 @@ package com.dev.wannabe.domain.home.service;
 import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
+import com.dev.wannabe.domain.home.model.dto.FriendRequestDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.SendMessageDTO;
@@ -87,6 +88,16 @@ public class FriendService {
     @Transactional(readOnly = true)
     public List<FriendPanelDTO> getFriendPanelByPage(Long userId, Integer start, Integer size) {
         return friendMapper.getFriendPanelInfoByPage(userId, start, size);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FriendRequestDTO> getFriendReceiveListByPage(Long userId, Integer start, Integer size) {
+        return friendMapper.getFriendReceiveInfoByPage(userId, start, size);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FriendRequestDTO> getFriendSendListByPage(Long userId, Integer start, Integer size) {
+        return friendMapper.getFriendSendInfoByPage(userId, start, size);
     }
 
     @Transactional
