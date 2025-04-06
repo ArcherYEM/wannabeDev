@@ -43,8 +43,9 @@ $(document).ready(function () {
         friendsNum = allFriends;
     });
     $("#friends-container").on("scroll", function () {
+        if (!$(this).is(".friend-list-container")) { return; }
         if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight && friendListStart < friendsNum) {
-            LoadFriendPage(friendListStart, friendListSize);
+            LoadFriendListPage(friendListStart, friendListSize);
             friendListStart = friendListStart + friendListSize;
         }
     });
@@ -100,7 +101,7 @@ $(document).on("click", "#friend-request, #side-request-text", function () {
 // 받은 일촌신청
 $(document).on("click", "#side-friend-received", function () {
     friendListModalClear();
-    friendSendModalClear();
+    friendRequestModalClear();
     $("#side-request-text").css("color", "#FF8000");
 
     makeFriendReceive();
@@ -109,7 +110,7 @@ $(document).on("click", "#side-friend-received", function () {
 // 보낸 일촌신청
 $(document).on("click", "#side-friend-send", function () {
     friendListModalClear();
-    friendReceiveModalClear();
+    friendRequestModalClear();
 
     $("#side-request-text").css("color", "#FF8000");
 
@@ -159,19 +160,42 @@ function makeFriendList() {
             `);
         });
     });
+
     // 일촌 목록 생성
-    LoadFriendPage(friendListStart, friendListSize);
+    $("#friends-container").addClass("friend-list-container");
+    LoadFriendListPage(friendListStart, friendListSize);
     friendListStart = friendListStart + friendListSize;
 }
 
 
 // 받은 일촌 신청 모달 생성
 function makeFriendReceive() {
+    $("#friends-container").addClass("friend-request-container");
+
     $("#side-friend-received").css("color", "#FF8000");
+
+    $("#friends-container").append(`
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+        <div class="friend-request-item"> </div>
+    `);
 }
 
 // 보낸 일촌 신청 모달 생성
 function makeFriendSend() {
+    $("#friends-container").addClass("friend-request-container");
+
     $("#side-friend-send").css("color", "#FF8000");
 }
 
@@ -187,16 +211,18 @@ function modalClose() {
 }
 // 일촌 목록 모달 닫기
 function friendListModalClear() {
-    $("#friends-container").empty();
+
     friendListStart = 0;
     friendListSize = 10;
     $("#now-friend-status").empty();
     $("#friend-modal-layer").removeClass("selected-friend-list");
+    $("#friends-container").removeClass("friend-list-container").empty();
     $("#side-list-text").css("color", "black");
 }
 // 일촌 요청 모달 닫기
 function friendRequestModalClear() {
     $("#side-request-text").css("color", "black");
+    $("#friends-container").removeClass("friend-request-container").empty();
     friendSendModalClear();
     friendReceiveModalClear();
 }
@@ -257,7 +283,7 @@ function friendRequestNumFunc(requestNum) {
     });
 }
 
-function LoadFriendPage(start, size) {
+function LoadFriendListPage(start, size) {
     $.ajax({
         type:"GET",
         url:`/api/friend/info/${start}/${size}`,
@@ -265,7 +291,7 @@ function LoadFriendPage(start, size) {
         success: function(response){
             if (!response) { return; }
             response.forEach(friend => {
-                if (friend.mood === null) {friend.mood = "";}
+                if (friend.mood === null) { friend.mood = ""; }
                 let friendItem = $(createFriendItem(friend));
                 if (friend.loginStatus === "LOGOUT") {
                     friendItem.css("filter", "grayscale(100%)");
@@ -282,13 +308,13 @@ function LoadFriendPage(start, size) {
 
 function createFriendItem(friendData) {
     return `
-    <div class="friend-item">
+    <div class="friend-list-item">
         <div class="friend-content-container">
             <div class="friend-minimi-container">
                 <img class="friend-minimi" src=${friendData.minimi} alt="minimi">
             </div>
             <div class="friend-content">
-                <div class="friend-item-head">
+                <div class="friend-list-item-head">
                     <div class="friend-edit-dropbox">
                         <div class="friend-edit-container">
                             <img class="friend-setting-icon" src="/static/images/common/icon/icon_setting.svg" alt="일촌수정">
@@ -301,14 +327,14 @@ function createFriendItem(friendData) {
                     </div>
                     <img class="friend-home-icon" src="/static/images/common/icon/icon_home.svg" alt="미니홈피" data-hidden-value=${friendData.hompiId}>
                 </div>
-                <div class="friend-item-body">
+                <div class="friend-list-item-body">
                     <span class="friend-title">일촌명</span>
                     <div class="friend-title-container">
                         <span class="friend-name">${friendData.name}</span>
                         <span class="friend-mood">${friendData.mood}</span>
                     </div>
                 </div>
-                <div class="friend-item-foot">
+                <div class="friend-list-item-foot">
                     <div class="friend-send-message" data-hidden-value=${friendData.friendId}>쪽지 보내기</div>
                     <span class="friend-login-status">${friendData.loginStatus}</span>
                 </div>
