@@ -142,7 +142,18 @@ $(document).on("click", ".friend-dropbox-name", function () {
 // 일촌 삭제
 $(document).on("click", ".friend-dropbox-delete", function () {
     let friendId = $(this).data("hidden-value");
-    console.log("일촌 삭제", friendId);
+    $.ajax({
+        type:"DELETE",
+        url:`/api/friend/my/${friendId}`,
+        contentType: "application/json",
+        success: function(response){
+            friendListModalClear();
+            makeFriendList();
+        },
+        error: function(error) {
+            console.log(error)
+        }
+    });
 });
 // 일촌 미니홈피 열기
 $(document).on("click", ".friend-home-icon", function () {
