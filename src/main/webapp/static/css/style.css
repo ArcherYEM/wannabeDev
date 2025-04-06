@@ -1,5 +1,24 @@
 @charset "utf-8";
 
+/* 공통 색상 */
+/* color: var(--color-basic); 형식으로 사용 */
+:root {
+    --color-basic: #FF8000;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-red: #FF4F4F;
+    --color-green: #006E5E;
+    --color-lgreen: #00C5A4;
+    --color-blue: #455582;
+    --color-lgray: #DFE0DF;
+    --color-ngray: #9A9A9A;
+    --color-gray: #595959;
+    --color-dgray: #333;
+    --color-brown: #534439;
+    --color-lbrown: #BBA89C;
+    --color-wine: #670000;
+}
+
 .dongle-regular {
     font-family: "Dongle", sans-serif;
     font-weight: 400;
