@@ -80,7 +80,7 @@
                  JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
                  JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
         WHERE
-            FI.USER_ID = #{userId}
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '02'
         ORDER BY
             CASE
                 WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
@@ -106,7 +106,7 @@
                  JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
                  JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
         WHERE
-            FI.USER_ID = #{userId}
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '02'
         ORDER BY
             CASE
                 WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
