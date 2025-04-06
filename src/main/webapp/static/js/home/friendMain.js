@@ -12,9 +12,6 @@ $(document).ready(function () {
     let sideLoggedFriends = $("#side-logged-friends");
     let sideFriendRequest = $("#side-friend-request");
 
-    let nowFriendDisplay = $("#now-friend-display");
-    let allFriendDisplay = $("#all-friend-display");
-
     // 유저 패널
     friendOnNumFunc(function (nowLoginFriends) {
         friendOnNum.text(nowLoginFriends);
@@ -29,19 +26,36 @@ $(document).ready(function () {
         sideRequestText.css("color", "#FF8000");
     });
 
-    // 모달 내부
+    // 모달 공용 데이터
     friendOnNumFunc(function (nowLoginFriends) {
-        nowFriendDisplay.text(`${nowLoginFriends} 명 접속 중`);
         sideLoggedFriends.text(`${nowLoginFriends}`);
-    });
-    allFriendCnt(function (allFriends) {
-        allFriendDisplay.text(`전체 ${allFriends} 명`);
     });
     friendRequestNumFunc(function (requestNum) {
         sideFriendRequest.text(requestNum);
     });
 
-    LoadFriends();
+    // 일촌 목록 무한 스크롤
+    $("#friends-container").on("scroll", function () {
+        if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight ) {
+            console.log("바닥");
+            for (let i = 0; i<10; i++) {
+                let friendData = {
+                    minimi: "/static/images/common/minimi/은모.png",
+                    name: "김김김",
+                    mood: "화가남",
+                    loginStatus: "LOGOUT",
+                    friendId: i,
+                    hompiId: i
+                };
+                let testFriendItem = $(createFriendItem(friendData));
+                if (friendData.loginStatus === "LOGOUT") {
+                    testFriendItem.css("filter", "grayscale(100%)");
+                }
+                $("#friends-container").append(testFriendItem)
+            }
+        }
+    });
+
 });
 // 모달 닫기
 $(document).on("click", "#friend-modal-layer, #friend-modal-close", function(e) {
@@ -54,24 +68,45 @@ $(document).on("click", "#friend-modal-layer, #friend-modal-close", function(e) 
  * 일촌 모달 열기
  */
 // 일촌 목록 모달
-$(document).on("click", "#friend-on", function () {
+$(document).on("click", "#friend-on, #side-list-text", function () {
+    // 공통
     $("body").css("overflow", "hidden");
     let modal = $("#friend-modal-layer");
     let sideFriendListText = $("#side-list-text");
-
+    let sideRequestText = $("#side-request-text");
     modal.removeClass("hidden");
-    sideFriendListText.css("color", "#FF8000");
 
+    let nowFriendDisplay = $("#now-friend-display");
+    let allFriendDisplay = $("#all-friend-display");
+
+    sideFriendListText.css("color", "#FF8000");
+    sideRequestText.css("color", "black");
+
+    friendOnNumFunc(function (nowLoginFriends) {
+        nowFriendDisplay.text(`${nowLoginFriends} 명 접속 중`);
+    });
+    allFriendCnt(function (allFriends) {
+        allFriendDisplay.text(`전체 ${allFriends} 명`);
+    });
+
+
+
+    // 일촌 목록 생성
+    LoadFriends();
 });
 
 // 일촌 신청 모달 ( 기본적으로 받은 일촌신청으로 연결 )
-$(document).on("click", "#friend-request", function () {
+$(document).on("click", "#friend-request, #side-request-text", function () {
+    // 공통
     $("body").css("overflow", "hidden");
     let modal = $("#friend-modal-layer");
+    let sideFriendListText = $("#side-list-text");
     let sideRequestText = $("#side-request-text");
-
     modal.removeClass("hidden");
+
+    // 일촌 신청
     sideRequestText.css("color", "#FF8000");
+    sideFriendListText.css("color", "black");
 });
 
 /*
@@ -85,25 +120,24 @@ $(document).on("click", ".friend-setting-icon", function () {
 $(document).on("click", ".friend-dropbox-name", function () {
     let friendId = $(this).data("hidden-value");
     console.log("일촌명 변경", friendId);
-})
+});
 // 일촌 삭제
 $(document).on("click", ".friend-dropbox-delete", function () {
     let friendId = $(this).data("hidden-value");
     console.log("일촌 삭제", friendId);
-})
+});
 
 
 // 일촌 미니홈피 열기
 $(document).on("click", ".friend-home-icon", function () {
     let hompiId = $(this).data("hidden-value");
     openMinihompiPop(hompiId);
-})
+});
 // 일촌 미니홈피 열기
 $(document).on("click", ".friend-send-message", function () {
     let friendId = $(this).data("hidden-value");
     console.log("쪽지 보내기", friendId);
-})
-
+});
 
 
 
@@ -163,7 +197,6 @@ function LoadFriends() {
         contentType: "application/json",
         success: function(response){
             if (!response) { return; }
-            console.log(response)
             response.forEach(friend => {
                 let friendItem = $(createFriendItem(friend));
                 if (friend.loginStatus === "LOGOUT") {

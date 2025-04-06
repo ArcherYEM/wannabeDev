@@ -91,7 +91,7 @@
     flex-direction: column;
 }
 
-#now-friend {
+#now-friend-status {
     display: flex;
     justify-content: center;
     font-weight: bold;
