@@ -55,10 +55,9 @@ $(document).on("click", "#friend-modal-layer, #friend-modal-close", function(e) 
  */
 // 일촌 목록 모달
 $(document).on("click", "#friend-on", function () {
+    $("body").css("overflow", "hidden");
     let modal = $("#friend-modal-layer");
-
     let sideFriendListText = $("#side-list-text");
-
 
     modal.removeClass("hidden");
     sideFriendListText.css("color", "#FF8000");
@@ -67,8 +66,8 @@ $(document).on("click", "#friend-on", function () {
 
 // 일촌 신청 모달 ( 기본적으로 받은 일촌신청으로 연결 )
 $(document).on("click", "#friend-request", function () {
+    $("body").css("overflow", "hidden");
     let modal = $("#friend-modal-layer");
-
     let sideRequestText = $("#side-request-text");
 
     modal.removeClass("hidden");
@@ -97,7 +96,6 @@ $(document).on("click", ".friend-dropbox-delete", function () {
 // 일촌 미니홈피 열기
 $(document).on("click", ".friend-home-icon", function () {
     let hompiId = $(this).data("hidden-value");
-    console.log("일촌 미니홈피 열기", hompiId);
     openMinihompiPop(hompiId);
 })
 // 일촌 미니홈피 열기
@@ -113,6 +111,7 @@ function modalClose() {
     $("#friend-modal-layer").addClass("hidden");
     $("#side-list-text").css("color", "black");
     $("#side-request-text").css("color", "black");
+    $("body").css("overflow", "");
 }
 
 function friendOnNumFunc(onNum) {
@@ -168,11 +167,26 @@ function LoadFriends() {
             response.forEach(friend => {
                 let friendItem = $(createFriendItem(friend));
                 if (friend.loginStatus === "LOGOUT") {
-                    console.log("tt", friend.loginStatus);
                     friendItem.css("filter", "grayscale(100%)");
                 }
                 $("#friends-container").append(friendItem)
             });
+
+            for (let i = 0; i<8; i++) {
+                let friendData = {
+                    minimi: "/static/images/common/minimi/은모.png",
+                    name: "김김김",
+                    mood: "화가남",
+                    loginStatus: "LOGOUT",
+                    friendId: i,
+                    hompiId: i
+                };
+                let testFriendItem = $(createFriendItem(friendData));
+                if (friendData.loginStatus === "LOGOUT") {
+                    testFriendItem.css("filter", "grayscale(100%)");
+                }
+                $("#friends-container").append(testFriendItem)
+            }
         },
         error: function(error) {
             console.log(error)
