@@ -26,7 +26,7 @@ $(document).on("click", "#insert_btn", function (e) {
     e.preventDefault();
 
     const content = $("#content").val();
-    const secret = $("#secret_check").is(":checked") ? "Y" : null;
+    const secret = $("#secret_check").is(":checked") ? "Y" : "N";
 
     if (!content.trim()) {
         alert("내용을 입력해주세요.");

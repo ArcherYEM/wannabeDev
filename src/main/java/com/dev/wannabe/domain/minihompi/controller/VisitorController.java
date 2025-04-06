@@ -70,7 +70,7 @@ public class VisitorController {
     public ResponseEntity<String> insertGuestBook(@PathVariable("hompiId") Long hompiId,
                                                   HttpSession session,
                                                   @RequestParam("content") String content,
-                                                  @RequestParam(value = "secret", required = false) String secretCheck) {
+                                                  @RequestParam(value = "secret", required = false, defaultValue = "N") String secretCheck) {
         SessionUserDTO loginUser = (SessionUserDTO) session.getAttribute("userData");
         if (loginUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
@@ -86,7 +86,7 @@ public class VisitorController {
                 .insertDt(LocalDateTime.now())
                 .updateUserId(null)
                 .updateDt(null)
-                .secretCheck(secretCheck != null ? "Y" : "N")
+                .secretCheck(secretCheck)
                 .build();
 
         log.info("📩 insert visitor info: {}", vo);

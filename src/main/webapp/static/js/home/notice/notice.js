@@ -5,6 +5,8 @@ $(document).ready(function () {
     initFieldFromUrl();
     initEditor();
     initInsertPage();
+    initSetTodayCheckbox();
+    initEndDateSelect();
 });
 
 // 전체 선택/해제 및 개별 선택 처리
@@ -107,30 +109,44 @@ function initEditor() {
 function insert_notice() {
     const type          = $('#i_type').val();
     const title         = $('#i_title').val().trim();
-    const contents      = window.noticeEditor
+    let contents        = window.noticeEditor
                         ? window.noticeEditor.getHTML()
                         : '';
     const startDateTemp = $('#i_start_date').val().trim();
     const endDateTemp   = $('#i_end_date').val().trim();
 
-    // 시작일시 분리
-    const [startDate_, startTime_]  = startDateTemp.split(' ');
-    const startDate                 = startDate_.replace(/-/g, '');
-    const startTime                 = startTime_.replace(/:/g, '');
+    // 유효성 검사
+    if (!type) {
+        Swal.fire('등록실패', '분류를 선택해주세요.', 'warning');
+        return;
+    }
 
-    // 종료일시 분리
-    const [endDate_, endTime_]  = endDateTemp.split(' ');
-    const endDate               = endDate_.replace(/-/g, '');
-    const endTime               = endTime_.replace(/:/g, '');
+    if (!title) {
+        Swal.fire('등록실패', '제목을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!contents || contents === '<p><br></p>') { // Toast UI Editor 비어있을 때
+        Swal.fire('등록실패', '내용을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!startDateTemp) {
+        Swal.fire('등록실패', '시작일을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!endDateTemp) {
+        Swal.fire('등록실패', '종료일을 입력해주세요.', 'warning');
+        return;
+    }
 
     const noticeData = {
-        noticeType      : type,         // 분류
-        noticeTitle     : title,        // 제목
-        noticeContents  : contents,     // 내용
-        startDate       : startDate,    // 시작일자
-        startTime       : startTime,    // 시작시간
-        endDate         : endDate,      // 종료일자
-        endTime         : endTime       // 종료시간
+        noticeType      : type,
+        noticeTitle     : title,
+        noticeContents  : contents,
+        startDateTime   : startDateTemp,
+        endDateTime     : endDateTemp
     }
 
     $.ajax({
@@ -138,22 +154,72 @@ function insert_notice() {
         method      : 'post',
         contentType : 'application/json',
         data        : JSON.stringify(noticeData),
-
         success     : function(result){
             if(result){
-                Swal.fire('공지사항 등록 성공', `[${title}] 공지가 등록되었습니다`, 'success').then(() => {
-                    location.href = '/notice';
-                });
+                Swal.fire('공지사항 등록 성공', `[${title}] 공지가 등록되었습니다`, 'success')
+                    .then(() => { location.href = '/notice'; });
             } else {
-                Swal.fire('등록실패', '공지 등록 권한이 없습니다.', 'error').then(() => {
-                    location.href = '/notice';
-                });
+                Swal.fire('등록실패', '공지 등록 권한이 없습니다.', 'error')
+                    .then(() => { location.href = '/notice'; });
             }
         },
         error       : function(error){
-            Swal.fire('등록실패', `서버 오류 발생: ${error.status} - ${error.statusText}`, 'error').then(() => {
-                return;
-            });
+            Swal.fire('등록실패', `서버 오류 발생: ${error.status} - ${error.statusText}`, 'error');
         }
     });
 }
+
+// 공지사항 시작 체크박스 체크시 오늘로 설정
+function initSetTodayCheckbox() {
+    const checkbox = document.getElementById('set_today_start');
+    const input = document.getElementById('i_start_date');
+
+    if (checkbox && input) {
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                const hour = String(now.getHours()).padStart(2, '0');
+                const minute = String(now.getMinutes()).padStart(2, '0');
+                const formatted = `${year}-${month}-${day}T${hour}:${minute}`;
+                input.value = formatted;
+            } else {
+                input.value = ''; // 체크 해제 시 초기화할지 말지는 선택사항
+            }
+        });
+    }
+}
+
+// 공지사항 종료 셀렉트 박스 체크 기능
+function initEndDateSelect() {
+    const select = document.getElementById('end_date_selector');
+    const input = document.getElementById('i_end_date');
+
+    select.addEventListener('change', function () {
+        const value = this.value;
+        const now = new Date();
+
+        if (value === '직접입력') {
+            input.disabled = false;
+            input.value = '';
+        } else if (value === '무기한') {
+            input.disabled = true;
+            input.value = '';
+        } else {
+            // 날짜 계산
+            input.disabled = false;
+            now.setDate(now.getDate() + parseInt(value));
+
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hour = String(now.getHours()).padStart(2, '0');
+            const minute = String(now.getMinutes()).padStart(2, '0');
+
+            input.value = `${year}-${month}-${day}T${hour}:${minute}`;
+        }
+    });
+}
+
