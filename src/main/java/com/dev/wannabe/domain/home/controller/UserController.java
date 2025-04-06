@@ -71,7 +71,7 @@ public class UserController {
 
         MinimiInfoDTO minimiInfo = MinimiInfoDTO.builder()
                 .userId(userId)
-                .productId(1L)
+                .productId(16L)
                 .upsertUserId(userId)
                 .build();
         minimiService.createMinimi(minimiInfo);

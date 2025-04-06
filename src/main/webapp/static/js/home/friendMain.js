@@ -158,9 +158,32 @@ function friendRequestNumFunc(requestNum) {
 }
 
 function LoadFriends() {
+    $.ajax({
+        type:"GET",
+        url:"/api/friend/logged/info",
+        contentType: "application/json",
+        success: function(response){
+            if (!response) { return; }
+            console.log(response)
+            response.forEach(friend => {
+                let friendItem = $(createFriendItem(friend));
+                if (friend.loginStatus === "LOGOUT") {
+                    console.log("tt", friend.loginStatus);
+                    friendItem.css("filter", "grayscale(100%)");
+                }
+                $("#friends-container").append(friendItem)
+            });
+        },
+        error: function(error) {
+            console.log(error)
+        }
+    });
+
+
+    /*
     for (let i = 0; i<10; i++) {
         let friendData = {
-            minimiSrc: "/static/images/common/minimi/은모.png",
+            minimi: "/static/images/common/minimi/은모.png",
             name: "김김김",
             mood: "화가남",
             loginStatus: "접속중",
@@ -169,14 +192,15 @@ function LoadFriends() {
         };
         addFriendItem(friendData)
     }
+    */
 }
 
-function addFriendItem(friendData) {
+function createFriendItem(friendData) {
     let friendItem = `
     <div class="friend-item">
         <div class="friend-content-container">
             <div class="friend-minimi-container">
-                <img class="friend-minimi" src=${friendData.minimiSrc} alt="minimi">
+                <img class="friend-minimi" src=${friendData.minimi} alt="minimi">
             </div>
             <div class="friend-content">
                 <div class="friend-item-head">
@@ -207,7 +231,7 @@ function addFriendItem(friendData) {
         </div>
     </div>
     `
-    $("#friends-container").append(friendItem)
+    return friendItem;
 }
 
 

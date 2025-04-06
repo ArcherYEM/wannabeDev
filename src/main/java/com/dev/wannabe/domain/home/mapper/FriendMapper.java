@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.home.mapper;
 
+import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
 import com.dev.wannabe.domain.home.model.vo.FriendInfo;
 import com.dev.wannabe.domain.home.model.vo.FriendMessage;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,6 +17,8 @@ public interface FriendMapper {
 
     FriendInfo findFriendByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId);
     List<FriendInfo> findAllFriendInfoByUserId(Long userId);
+
+    List<FriendPanelDTO> getFriendPaneInfo(Long userId);
 
     Long getFriendsNumByUserId(Long userId);
     Long getFriendRequestNumByUserId(Long userId);

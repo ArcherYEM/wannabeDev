@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.home.controller;
 
+import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
 import com.dev.wannabe.domain.home.model.vo.FriendInfo;
 import com.dev.wannabe.domain.home.service.FriendService;
 import com.dev.wannabe.global.model.SessionUserDTO;
@@ -128,14 +129,14 @@ public class FriendController {
 
     @GetMapping("/logged/info")
     @ResponseBody
-    public ResponseEntity<List<Long>> loggedFriends(HttpServletRequest request) {
+    public ResponseEntity<List<FriendPanelDTO>> loggedFriends(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.ok().build(); }
         Object userData = session.getAttribute("userData");
-        if (userData == null) {return ResponseEntity.badRequest().build(); }
+        if (userData == null) {return ResponseEntity.ok().build(); }
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
 
-        List<Long> loggedFriends = friendService.getLoggedFriends(sessionUser.getUserId());
+        List<FriendPanelDTO> loggedFriends = friendService.getLoggedFriendInfos(sessionUser.getUserId());
 
         return ResponseEntity.ok(loggedFriends);
     }

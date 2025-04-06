@@ -50,6 +50,7 @@
 		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
 		<!--> login <-->
 		<!--> friend <-->
+		<typeAlias alias="FriendPanelDTO" type="com.dev.wannabe.domain.home.model.dto.FriendPanelDTO" />
 		<!--> hompi <-->
 		<typeAlias alias="HompiBasicInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO"/>
 		<typeAlias alias="FolderFindDTO" type="com.dev.wannabe.domain.minihompi.model.dto.FolderFindDTO"/>

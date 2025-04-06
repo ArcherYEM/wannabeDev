@@ -2,6 +2,7 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
+import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.SendMessageDTO;
@@ -79,8 +80,8 @@ public class FriendService {
     public Long logInFriendCount(Long userId) { return userLoginMapper.logInFriendCount(userId); }
 
     @Transactional(readOnly = true)
-    public List<Long> getLoggedFriends(Long userId) {
-        return userLoginMapper.loggedInFriendsByUserId(userId);
+    public List<FriendPanelDTO> getLoggedFriendInfos(Long userId) {
+        return friendMapper.getFriendPaneInfo(userId);
     }
 
     @Transactional
