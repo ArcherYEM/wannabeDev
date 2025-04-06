@@ -1,12 +1,13 @@
 $(document).ready(function () {
     let userId = 0;
-   /* let currentPage = 1;*/
+    /* let currentPage = 1;*/
     let currentReceivePage = 1;
     let currentSendPage = 1;
     let messageType = "receive"; // 현재 어떤 타입인지 추적용
     let pageSize = 9; // 페이지당 메시지 개수
     let totalPages = 0;
     let totalMessage = 0;
+    let totalChkBox = 0;
 
     // 유저 정보 가져오기
     $.ajax({
@@ -47,6 +48,34 @@ $(document).ready(function () {
             messageType = "send";
             loadMessages(currentSendPage, "send");
         }
+
+        $(".receivemsgChkbox").click(function (){
+            console.log("받은메세지함전체선택")
+            let receivemsgChkbox = $(".receivemsgChkbox").prop("checked");
+
+            if (receivemsgChkbox) {
+                $(".receivemsgChkbox").prop("checked",true)
+                $(".msgChkbox").prop("checked", true);
+                totalChkBox = $(".msgChkbox:checked").length;
+                console.log("totalChkBox : " + totalChkBox);
+                console.log("===========");
+            } else {
+                $(".msgChkbox").prop("checked", false);
+            }
+
+        });
+        $(".msgChkbox").click(function (){
+            let msgChkbox = $(".msgChkbox:checked").length;
+
+            if (msgChkbox === totalChkBox) {
+                $(".receivemsgChkbox").prop("checked",true);
+            } else {
+                $(".receivemsgChkbox").prop("checked", false);
+            }
+            console.log("msgChkbox : " + msgChkbox);
+            console.log("totalChkBox : " + totalChkBox);
+        });
+
     });
 
     /** 쪽지 리스트 로드 **/
@@ -74,15 +103,17 @@ $(document).ready(function () {
             }
 
             totalPages = parseInt($("#popMsgListContainer").attr("data-totalPages"), 10) || 0;
-            renderPagination(totalPages, page);
+            renderPagination(totalPages, page, messageType);
         });
     }
 
     /** 페이지네이션 렌더링 **/
-    function renderPagination(totalPages, currentPage) {
-        let paginationHtml = `<button class="chkDeleteBtn">선택삭제</button>`;
+    function renderPagination(totalPages, currentPage, messageType) {
+
+        console.log("렌더링 messageType : " + messageType);
+        let paginationHtml = `<button class="chkDeleteBtn" onclick="fncDeleteMsgBtn('${messageType}')">선택삭제</button>`;
         // 페이지 번호 버튼 생성
-         paginationHtml += `<button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>&lt;&lt;</button>`;
+        paginationHtml += `<button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>&lt;&lt;</button>`;
 
         // 1부터 totalPages까지 페이지 번호 버튼 생성
         for (let i = 1; i <= totalPages; i++) {
@@ -177,8 +208,8 @@ function fncMsgDelPage(element) {
             type: "GET",
             url: "/popupMessage/DeleteMessage",
             data: {
-              messageId : messageId,
-              type : type
+                messageId : messageId,
+                type : type
             },
             success: function (response) {
                 alert(response);
@@ -197,6 +228,78 @@ function fncMsgDelPage(element) {
     } else {
         console.log("삭제 취소");
     }
+}
 
+function fncMsgListAllChkBox() {
+    console.log("받은메세지함 전체선택");
+    let isChecked = $(".msgChkbox").prop("checked"); // 전체선택 체크박스 상태
+
+    $(".msgChkboxList").prop("checked", isChecked); // 개별 체크박스 일괄 설정
+
+    let totalChecked = $(".msgChkboxList:checked").length;
+    console.log("총 선택된 개수 : " + totalChecked);
+    console.log("===========");
+}
+
+function fncMsgChkBox() {
+    // 선택된 체크박스 개수
+    let checkedCount = $(".msgChkboxList:checked").length;
+    // 전체 체크박스 개수
+    let totalCount = $(".msgChkboxList").length;
+
+    // 모두 체크된 상태면 전체 체크박스도 체크
+    if (checkedCount === totalCount) {
+        $(".msgChkbox").prop("checked", true);
+    } else {
+        $(".msgChkbox").prop("checked", false);
+    }
+
+    console.log("개별 선택 checkedCount : " + checkedCount);
+    console.log("전체 totalCount : " + totalCount);
+}
+
+function fncDeleteMsgBtn(messageType) {
+    messageType = messageType+"s"
+    let chkMsgID = [];
+    console.log("선택삭제버튼 클릭");
+    console.log("messageType : " + messageType);
+
+    $(".msgChkboxList:checked").each(function () {
+        let msgId = $(this).attr("data-messageId");
+        chkMsgID.push(msgId);
+    });
+
+    console.log("선택한 메시지들:", chkMsgID);
+
+    if (chkMsgID.length === 0) {
+        alert("삭제할 메시지를 선택해주세요.");
+        return;
+    }
+    if (!confirm("선택한 쪽지를 삭제하시겠습니까?")) {
+        return;
+    }
+    let params = new URLSearchParams();
+    chkMsgID.forEach(function(id) {
+        params.append("messageId", id); // messageId=12&messageId=13 이런 식으로 여러 개 붙음
+    });
+    params.append("type", messageType);
+
+    $.ajax({
+        type: "GET",
+        url: "/popupMessage/DeleteMessage?"+params.toString(),
+
+        success: function (response) {
+            alert(response);
+
+            if (messageType === "receives") {
+                $("a.receiveMsgbox").click();
+            } else {
+                $("a.sendMsgBox").click();
+            }
+        },
+        error: function () {
+            alert("삭제 중 오류가 발생했습니다.");
+        }
+    });
 
 }
