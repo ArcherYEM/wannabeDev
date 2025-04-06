@@ -1,3 +1,6 @@
+let friendListStart = 0;
+let friendListSize = 10;
+
 $(document).ready(function () {
     let friendOn = $("#friend-on");
     let friendOnNum = $("#friend-on-num");
@@ -35,24 +38,14 @@ $(document).ready(function () {
     });
 
     // 일촌 목록 무한 스크롤
+    let friendsNum;
+    friendAllNumFunc(function (allFriends) {
+        friendsNum = allFriends;
+    });
     $("#friends-container").on("scroll", function () {
-        if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight ) {
-            console.log("바닥");
-            for (let i = 0; i<10; i++) {
-                let friendData = {
-                    minimi: "/static/images/common/minimi/은모.png",
-                    name: "김김김",
-                    mood: "화가남",
-                    loginStatus: "LOGOUT",
-                    friendId: i,
-                    hompiId: i
-                };
-                let testFriendItem = $(createFriendItem(friendData));
-                if (friendData.loginStatus === "LOGOUT") {
-                    testFriendItem.css("filter", "grayscale(100%)");
-                }
-                $("#friends-container").append(testFriendItem)
-            }
+        if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight && friendListStart < friendsNum) {
+            LoadFriendPage(friendListStart, friendListSize);
+            friendListStart = friendListStart + friendListSize;
         }
     });
 
@@ -85,14 +78,13 @@ $(document).on("click", "#friend-on, #side-list-text", function () {
     friendOnNumFunc(function (nowLoginFriends) {
         nowFriendDisplay.text(`${nowLoginFriends} 명 접속 중`);
     });
-    allFriendCnt(function (allFriends) {
+    friendAllNumFunc(function (allFriends) {
         allFriendDisplay.text(`전체 ${allFriends} 명`);
     });
 
-
-
     // 일촌 목록 생성
-    LoadFriends();
+    LoadFriendPage(friendListStart, friendListSize);
+    friendListStart = friendListStart + friendListSize;
 });
 
 // 일촌 신청 모달 ( 기본적으로 받은 일촌신청으로 연결 )
@@ -146,6 +138,9 @@ function modalClose() {
     $("#side-list-text").css("color", "black");
     $("#side-request-text").css("color", "black");
     $("body").css("overflow", "");
+    $("#friends-container").empty();
+    friendListStart = 1;
+    friendListSize = 10;
 }
 
 function friendOnNumFunc(onNum) {
@@ -162,7 +157,7 @@ function friendOnNumFunc(onNum) {
     });
 }
 
-function allFriendCnt(allFriends) {
+function friendAllNumFunc(allFriends) {
     $.ajax({
         type:"GET",
         url:"/api/friend/friends/num",
@@ -190,60 +185,31 @@ function friendRequestNumFunc(requestNum) {
     });
 }
 
-function LoadFriends() {
+function LoadFriendPage(start, size) {
     $.ajax({
         type:"GET",
-        url:"/api/friend/logged/info",
+        url:`/api/friend/info/${start}/${size}`,
         contentType: "application/json",
         success: function(response){
             if (!response) { return; }
             response.forEach(friend => {
+                if (friend.mood === null) {friend.mood = "";}
                 let friendItem = $(createFriendItem(friend));
                 if (friend.loginStatus === "LOGOUT") {
                     friendItem.css("filter", "grayscale(100%)");
                 }
                 $("#friends-container").append(friendItem)
             });
-
-            for (let i = 0; i<8; i++) {
-                let friendData = {
-                    minimi: "/static/images/common/minimi/은모.png",
-                    name: "김김김",
-                    mood: "화가남",
-                    loginStatus: "LOGOUT",
-                    friendId: i,
-                    hompiId: i
-                };
-                let testFriendItem = $(createFriendItem(friendData));
-                if (friendData.loginStatus === "LOGOUT") {
-                    testFriendItem.css("filter", "grayscale(100%)");
-                }
-                $("#friends-container").append(testFriendItem)
-            }
         },
         error: function(error) {
             console.log(error)
         }
     });
-
-
-    /*
-    for (let i = 0; i<10; i++) {
-        let friendData = {
-            minimi: "/static/images/common/minimi/은모.png",
-            name: "김김김",
-            mood: "화가남",
-            loginStatus: "접속중",
-            friendId: i,
-            hompiId: i
-        };
-        addFriendItem(friendData)
-    }
-    */
 }
 
+
 function createFriendItem(friendData) {
-    let friendItem = `
+    return `
     <div class="friend-item">
         <div class="friend-content-container">
             <div class="friend-minimi-container">
@@ -278,7 +244,6 @@ function createFriendItem(friendData) {
         </div>
     </div>
     `
-    return friendItem;
 }
 
 

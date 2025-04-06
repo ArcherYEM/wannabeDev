@@ -80,8 +80,13 @@ public class FriendService {
     public Long logInFriendCount(Long userId) { return userLoginMapper.logInFriendCount(userId); }
 
     @Transactional(readOnly = true)
-    public List<FriendPanelDTO> getLoggedFriendInfos(Long userId) {
-        return friendMapper.getFriendPaneInfo(userId);
+    public List<FriendPanelDTO> getAllFriendPanelInfo(Long userId) {
+        return friendMapper.getAllFriendPaneInfo(userId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FriendPanelDTO> getFriendPanelByPage(Long userId, Integer start, Integer size) {
+        return friendMapper.getFriendPanelInfoByPage(userId, start, size);
     }
 
     @Transactional

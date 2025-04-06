@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.file.Path;
 import java.util.List;
 
 @Controller
@@ -127,16 +128,30 @@ public class FriendController {
         }
     }
 
-    @GetMapping("/logged/info")
+    @GetMapping("/info/all")
     @ResponseBody
-    public ResponseEntity<List<FriendPanelDTO>> loggedFriends(HttpServletRequest request) {
+    public ResponseEntity<List<FriendPanelDTO>> friendInfoAll(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.ok().build(); }
         Object userData = session.getAttribute("userData");
         if (userData == null) {return ResponseEntity.ok().build(); }
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
 
-        List<FriendPanelDTO> loggedFriends = friendService.getLoggedFriendInfos(sessionUser.getUserId());
+        List<FriendPanelDTO> loggedFriends = friendService.getAllFriendPanelInfo(sessionUser.getUserId());
+
+        return ResponseEntity.ok(loggedFriends);
+    }
+
+    @GetMapping("/info/{start}/{size}")
+    @ResponseBody
+    public ResponseEntity<List<FriendPanelDTO>> fridnInfoPage(@PathVariable Integer start, @PathVariable Integer size, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        List<FriendPanelDTO> loggedFriends = friendService.getFriendPanelByPage(sessionUser.getUserId(), start, size);
 
         return ResponseEntity.ok(loggedFriends);
     }

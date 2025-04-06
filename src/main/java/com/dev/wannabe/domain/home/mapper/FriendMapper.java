@@ -18,7 +18,8 @@ public interface FriendMapper {
     FriendInfo findFriendByUserIdAndFriendId(@Param("userId") Long userId, @Param("friendId") Long friendId);
     List<FriendInfo> findAllFriendInfoByUserId(Long userId);
 
-    List<FriendPanelDTO> getFriendPaneInfo(Long userId);
+    List<FriendPanelDTO> getAllFriendPaneInfo(Long userId);
+    List<FriendPanelDTO> getFriendPanelInfoByPage(@Param("userId") Long userId, @Param("start") Integer start, @Param("size") Integer size);
 
     Long getFriendsNumByUserId(Long userId);
     Long getFriendRequestNumByUserId(Long userId);

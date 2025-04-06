@@ -62,11 +62,11 @@
         WHERE FRIEND_USER_ID = #{userId} AND AVAIL_STATUS = '01'
     </select>
 
-    <select id="getFriendPaneInfo" parameterType="Long" resultType="FriendPanelDTO">
+    <select id="getAllFriendPaneInfo" parameterType="Long" resultType="FriendPanelDTO">
         SELECT
             FI.FRIEND_USER_ID,
             H.HOMPI_ID,
-            UB.NAME,
+            FI.FRIEND_USER_NICKNAME,
             HC.HOMPI_CONFIG_CONTENT,
             AFM.FILE_PATH,
             CASE
@@ -75,7 +75,6 @@
                 END AS LOGIN_STATUS
         FROM FRIEND_INFO AS FI
                  JOIN HOMPI AS H ON FI.FRIEND_USER_ID = H.OWNER_USER_ID
-                 JOIN USER_BASIC AS UB ON FI.FRIEND_USER_ID = UB.USER_ID
                  JOIN HOMPI_CONFIG AS HC ON H.HOMPI_ID = HC.HOMPI_ID AND HC.HOMPI_CONFIG_CODE = '04'
                  JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
                  JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
@@ -86,8 +85,34 @@
             CASE
                 WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
                 ELSE 1
-            END ASC,
-            UB.NAME ASC
+            END ASC
+    </select>
+
+    <select id="getFriendPanelInfoByPage" resultType="FriendPanelDTO">
+        SELECT
+            FI.FRIEND_USER_ID,
+            H.HOMPI_ID,
+            FI.FRIEND_USER_NICKNAME,
+            HC.HOMPI_CONFIG_CONTENT,
+            AFM.FILE_PATH,
+            CASE
+                WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 'LOGIN'
+                ELSE 'LOGOUT'
+                END AS LOGIN_STATUS
+        FROM FRIEND_INFO AS FI
+                 JOIN HOMPI AS H ON FI.FRIEND_USER_ID = H.OWNER_USER_ID
+                 JOIN HOMPI_CONFIG AS HC ON H.HOMPI_ID = HC.HOMPI_ID AND HC.HOMPI_CONFIG_CODE = '04'
+                 JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+                 JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+                 JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+        WHERE
+            FI.USER_ID = #{userId}
+        ORDER BY
+            CASE
+                WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
+                ELSE 1
+                END ASC
+        LIMIT #{start}, #{size}
     </select>
 
     <delete id="deleteFriendByUserIdAndFriendId">
