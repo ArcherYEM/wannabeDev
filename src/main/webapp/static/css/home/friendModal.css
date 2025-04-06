@@ -124,18 +124,19 @@
     margin-top: 20px;
     padding-left: 5px;
     padding-right: 5px;
-    overflow-y: scroll;
 }
 .friend-list-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
+    overflow-y: scroll;
 }
 .friend-request-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px
+    height: 100%;
+    overflow-y: scroll;
+
 }
 
 .friend-list-item {
@@ -268,7 +269,7 @@
 
 .friend-request-item {
     width: 600px;
-    height: 100px;
+    height: 300px;
     border: solid 1px grey;
     border-radius: 8px;
 }
