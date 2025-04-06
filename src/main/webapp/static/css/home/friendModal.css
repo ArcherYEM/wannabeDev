@@ -124,19 +124,20 @@
     margin-top: 20px;
     padding-left: 5px;
     padding-right: 5px;
+    overflow-y: scroll;
 }
 .friend-list-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
-    overflow-y: scroll;
+
 }
 .friend-request-container {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow-y: scroll;
-
+    align-items: center;
+    gap: 10px;
 }
 
 .friend-list-item {
@@ -269,9 +270,120 @@
 
 .friend-request-item {
     width: 600px;
-    height: 300px;
+    height: 150px;
     border: solid 1px grey;
     border-radius: 8px;
+    flex-shrink: 0;
+    position: relative;
+}
+.friend-request-item .friend-content-container {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.friend-request-item .friend-minimi-container {
+    width: 130px;
+    height: 130px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.friend-request-item .friend-minimi {
+    width: 120px;
+    height: 120px;
+}
+.friend-request-item .friend-content {
+    width: 445px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+}
+.friend-request-item .friend-request-item-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.friend-request-item .friend-request-title {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    font-size: 20px;
+    gap: 13px;
+    position: relative;
+}
+.friend-request-item .friend-request-hompi {
+}
+.friend-request-item .friend-request-hompi friend-home-icon {
+    width: 10px;
+    height: 10px;
+}
+.friend-request-item .friend-request-name {
+    color: var(--color-basic);
+}
+.friend-request-item .friend-receive-name {
+    color: var(--color-basic);
+}
+.friend-request-item .friend-request-datetime {
+    font-size: 13px;
+    color: grey;
+}
+
+.friend-request-item .friend-request-item-body {
+
+}
+.friend-request-item .friend-request-user {
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+}
+
+.friend-request-item .friend-request-item-foot {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.friend-request-item .friend-request-msg {
+    width: 350px;
+    height: 70px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    padding: 5px;
+    overflow-y: scroll;
+}
+.friend-request-item .friend-request-btn {
+    width: 100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.friend-request-item .friend-request-accept {
+    height: 32px;
+    border-radius: 8px;
+    color: white;
+    background-color: #FF8000FF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.friend-request-item .friend-request-deny {
+    height: 32px;
+    border-radius: 8px;
+    color: white;
+    background-color: #616161;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .hidden {

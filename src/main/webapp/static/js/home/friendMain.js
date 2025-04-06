@@ -174,22 +174,22 @@ function makeFriendReceive() {
 
     $("#side-friend-received").css("color", "#FF8000");
 
-    $("#friends-container").append(`
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-        <div class="friend-request-item"> </div>
-    `);
+    let friendRequest = {
+        friendNickname: "김김김",
+        friendName: "김김이",
+        userNickname: "박박박",
+        userName: "박박이",
+        friendRequestDT: "2015.04.04 15:42",
+        friendId: 2,
+        friendHompiId: 2,
+        minimi: "/static/images/common/minimi/예진.png"
+    }
+    let friendRequestItem = createFriendRequest(friendRequest);
+
+    for (let i=0; i < 10; i++) {
+        $("#friends-container").append(friendRequestItem);
+    }
+
 }
 
 // 보낸 일촌 신청 모달 생성
@@ -342,6 +342,50 @@ function createFriendItem(friendData) {
         </div>
     </div>
     `
+}
+
+function createFriendRequest(friendRequest) {
+    return `
+        <div class="friend-request-item">
+            <div class="friend-content-container">
+                <div class="friend-minimi-container">
+                    <img class="friend-minimi" src="${friendRequest.minimi}" alt="minimi">
+                </div>
+                
+                <div class="friend-content">
+                    <div class="friend-request-item-head">
+                        <div class="friend-request-title">
+                            <div class="friend-request-hompi">
+                                <img class="friend-home-icon" src="/static/images/common/icon/icon_home.svg" alt="미니홈피"
+                                    data-hidden-value=${friendRequest.friendHompiId}
+                                />
+                            </div>
+                            <div class="friend-request-name">${friendRequest.friendNickname}</div>
+                            <div class="request-head-text">님의 일촌신청</div>
+                        </div>
+                        <div class="friend-request-datetime" data-hidden-value=${friendRequest.friendRequestDT}></div>
+                    </div>
+                    <div class="friend-request-item-body">
+                        <div class="friend-request-user">
+                            <span class="friend-request-name">${friendRequest.friendNickname}</span>
+                            <span class="friend-request-username">(${friendRequest.friendName})</span>
+                            <span>-</span>
+                            <span class="friend-receive-name">${friendRequest.userNickname}</span>
+                            <span class="friend-receive-username">(${friendRequest.userName})</span>
+                        </div>
+                    </div>
+                    <div class="friend-request-item-foot">
+                        <p class="friend-request-msg">
+                            일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자
+                        </p>
+                        <div class="friend-request-btn">
+                            <div class="friend-request-accept" data-hidden-value=${friendRequest.friendId}>일촌맺기</div>
+                            <div class="friend-request-deny" data-hidden-value=${friendRequest.friendId}>거절하기</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
 }
 
 
