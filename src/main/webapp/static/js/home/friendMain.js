@@ -1,6 +1,9 @@
 let friendListStart = 0;
 let friendListSize = 10;
 
+let friendReceiveStart = 0;
+let friendReceiveSize = 10;
+
 $(document).ready(function () {
     let friendOn = $("#friend-on");
     let friendOnNum = $("#friend-on-num");
@@ -43,10 +46,14 @@ $(document).ready(function () {
         friendsNum = allFriends;
     });
     $("#friends-container").on("scroll", function () {
-        if (!$(this).is(".friend-list-container")) { return; }
+
         if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight && friendListStart < friendsNum) {
-            LoadFriendListPage(friendListStart, friendListSize);
-            friendListStart = friendListStart + friendListSize;
+            if ($(this).is(".friend-list-container")) {
+                LoadFriendListPage(friendListStart, friendListSize);
+                friendListStart = friendListStart + friendListSize;
+            }
+
+
         }
     });
 
@@ -114,6 +121,7 @@ $(document).on("click", "#side-friend-send", function () {
 
     $("#side-request-text").css("color", "#FF8000");
 
+
     makeFriendSend();
 
 });
@@ -174,7 +182,7 @@ function makeFriendReceive() {
 
     $("#side-friend-received").css("color", "#FF8000");
 
-    let friendRequest = {
+    let friendReceive = {
         friendNickname: "김김김",
         friendName: "김김이",
         userNickname: "박박박",
@@ -184,11 +192,14 @@ function makeFriendReceive() {
         friendHompiId: 2,
         minimi: "/static/images/common/minimi/예진.png"
     }
-    let friendRequestItem = createFriendRequest(friendRequest);
+    let friendReceiveItem = createFriendReceive(friendReceive);
 
+    // 일촌 신청 모달 생성
     for (let i=0; i < 10; i++) {
-        $("#friends-container").append(friendRequestItem);
+        $("#friends-container").append(friendReceiveItem);
     }
+    LoadFriendRequestListPage(friendReceiveStart, friendReceiveSize);
+    friendReceiveStart = friendReceiveStart + friendReceiveSize;
 
 }
 
@@ -197,6 +208,27 @@ function makeFriendSend() {
     $("#friends-container").addClass("friend-request-container");
 
     $("#side-friend-send").css("color", "#FF8000");
+
+    let friendSend = {
+        friendNickname: "김김김",
+        friendName: "김김이",
+        userNickname: "박박박",
+        userName: "박박이",
+        friendRequestDT: "2015.04.04 15:42",
+        friendId: 2,
+        friendHompiId: 2,
+        minimi: "/static/images/common/minimi/예진.png"
+    }
+    let friendSendItem = createFriendSend(friendSend);
+    $("#friends-container").append(`
+        <div>대기중인 신청만 표시됩니다.</div>
+    `);
+
+    // 일촌 요청 모달 생성
+    for (let i=0; i < 10; i++) {
+        $("#friends-container").append(friendSendItem);
+    }
+
 }
 
 
@@ -211,7 +243,6 @@ function modalClose() {
 }
 // 일촌 목록 모달 닫기
 function friendListModalClear() {
-
     friendListStart = 0;
     friendListSize = 10;
     $("#now-friend-status").empty();
@@ -221,6 +252,8 @@ function friendListModalClear() {
 }
 // 일촌 요청 모달 닫기
 function friendRequestModalClear() {
+    friendReceiveStart = 0;
+    friendReceiveSize = 10;
     $("#side-request-text").css("color", "black");
     $("#friends-container").removeClass("friend-request-container").empty();
     friendSendModalClear();
@@ -305,6 +338,11 @@ function LoadFriendListPage(start, size) {
     });
 }
 
+function LoadFriendRequestListPage(start, size) {
+    $.ajax({
+
+    });
+}
 
 function createFriendItem(friendData) {
     return `
@@ -344,7 +382,8 @@ function createFriendItem(friendData) {
     `
 }
 
-function createFriendRequest(friendRequest) {
+
+function createFriendReceive(friendRequest) {
     return `
         <div class="friend-request-item">
             <div class="friend-content-container">
@@ -379,8 +418,51 @@ function createFriendRequest(friendRequest) {
                             일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자
                         </p>
                         <div class="friend-request-btn">
-                            <div class="friend-request-accept" data-hidden-value=${friendRequest.friendId}>일촌맺기</div>
-                            <div class="friend-request-deny" data-hidden-value=${friendRequest.friendId}>거절하기</div>
+                            <div class="friend-receive-accept" data-hidden-value=${friendRequest.friendId}>일촌맺기</div>
+                            <div class="friend-receive-deny" data-hidden-value=${friendRequest.friendId}>거절하기</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+}
+
+function createFriendSend(friendSend) {
+    return `
+        <div class="friend-request-item">
+            <div class="friend-content-container">
+                <div class="friend-minimi-container">
+                    <img class="friend-minimi" src="${friendSend.minimi}" alt="minimi">
+                </div>
+                
+                <div class="friend-content">
+                    <div class="friend-request-item-head">
+                        <div class="friend-request-title">
+                            <div class="friend-request-hompi">
+                                <img class="friend-home-icon" src="/static/images/common/icon/icon_home.svg" alt="미니홈피"
+                                    data-hidden-value=${friendSend.friendHompiId}
+                                />
+                            </div>
+                            <div class="friend-request-name">${friendSend.friendNickname}</div>
+                            <div class="request-head-text">님의 일촌신청</div>
+                        </div>
+                        <div class="friend-request-datetime" data-hidden-value=${friendSend.friendRequestDT}></div>
+                    </div>
+                    <div class="friend-request-item-body">
+                        <div class="friend-request-user">
+                            <span class="friend-request-name">${friendSend.friendNickname}</span>
+                            <span class="friend-request-username">(${friendSend.friendName})</span>
+                            <span>-</span>
+                            <span class="friend-receive-name">${friendSend.userNickname}</span>
+                            <span class="friend-receive-username">(${friendSend.userName})</span>
+                        </div>
+                    </div>
+                    <div class="friend-request-item-foot">
+                        <p class="friend-request-msg">
+                            일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자
+                        </p>
+                        <div class="friend-request-btn">
+                            <div class="friend-send-reject" data-hidden-value=${friendSend.friendId}>취소</div>
                         </div>
                     </div>
                 </div>
