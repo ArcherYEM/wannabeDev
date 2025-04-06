@@ -59,16 +59,27 @@
     border-right: solid 1px black;
     display: flex;
     flex-direction: column;
+    padding-right: 20px;
+    gap: 20px;
 }
 .side-tab-content {
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.side-tab-content .side-tab-title {
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
     gap: 10px;
+}
+.side-tab-content .side-tab-sub {
+    text-align: right;
     cursor: pointer;
 }
+
 .side-tab-text {
     font-weight: bold;
     font-size: 25px;

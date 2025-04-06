@@ -66,25 +66,20 @@ $(document).on("click", "#friend-on, #side-list-text", function () {
     $("body").css("overflow", "hidden");
     let modal = $("#friend-modal-layer");
     let sideFriendListText = $("#side-list-text");
-    let sideRequestText = $("#side-request-text");
+
     modal.removeClass("hidden");
 
-    let nowFriendDisplay = $("#now-friend-display");
-    let allFriendDisplay = $("#all-friend-display");
+    if (modal.hasClass("selected-friend-list")) { return ; }
+
+    friendListModalClear();
+    friendRequestModalClear();
+
+    modal.addClass("selected-friend-list");
 
     sideFriendListText.css("color", "#FF8000");
-    sideRequestText.css("color", "black");
 
-    friendOnNumFunc(function (nowLoginFriends) {
-        nowFriendDisplay.text(`${nowLoginFriends} 명 접속 중`);
-    });
-    friendAllNumFunc(function (allFriends) {
-        allFriendDisplay.text(`전체 ${allFriends} 명`);
-    });
-
-    // 일촌 목록 생성
-    LoadFriendPage(friendListStart, friendListSize);
-    friendListStart = friendListStart + friendListSize;
+    // 일촌 목록 모달 페이지 생성
+    makeFriendList();
 });
 
 // 일촌 신청 모달 ( 기본적으로 받은 일촌신청으로 연결 )
@@ -92,14 +87,36 @@ $(document).on("click", "#friend-request, #side-request-text", function () {
     // 공통
     $("body").css("overflow", "hidden");
     let modal = $("#friend-modal-layer");
-    let sideFriendListText = $("#side-list-text");
     let sideRequestText = $("#side-request-text");
     modal.removeClass("hidden");
+    friendListModalClear();
+    friendRequestModalClear();
 
-    // 일촌 신청
     sideRequestText.css("color", "#FF8000");
-    sideFriendListText.css("color", "black");
+
+    // 받은 일촌신청
+    makeFriendReceive();
 });
+// 받은 일촌신청
+$(document).on("click", "#side-friend-received", function () {
+    friendListModalClear();
+    friendSendModalClear();
+    $("#side-request-text").css("color", "#FF8000");
+
+    makeFriendReceive();
+
+});
+// 보낸 일촌신청
+$(document).on("click", "#side-friend-send", function () {
+    friendListModalClear();
+    friendReceiveModalClear();
+
+    $("#side-request-text").css("color", "#FF8000");
+
+    makeFriendSend();
+
+});
+
 
 /*
  * 일촌 모달 기능
@@ -118,8 +135,6 @@ $(document).on("click", ".friend-dropbox-delete", function () {
     let friendId = $(this).data("hidden-value");
     console.log("일촌 삭제", friendId);
 });
-
-
 // 일촌 미니홈피 열기
 $(document).on("click", ".friend-home-icon", function () {
     let hompiId = $(this).data("hidden-value");
@@ -132,17 +147,74 @@ $(document).on("click", ".friend-send-message", function () {
 });
 
 
+/*     함수     */
+// 일촌 목록 모달 생성
+function makeFriendList() {
+    friendOnNumFunc(function (nowLoginFriends) {
+        friendAllNumFunc(function (allFriends) {
+            $("#now-friend-status").append(`
+                <div id="now-friend-display">${nowLoginFriends} 명 접속 중</div>
+                <span>/</span>
+                <div id="all-friend-display">전체 ${allFriends} 명</div>
+            `);
+        });
+    });
+    // 일촌 목록 생성
+    LoadFriendPage(friendListStart, friendListSize);
+    friendListStart = friendListStart + friendListSize;
+}
 
+
+// 받은 일촌 신청 모달 생성
+function makeFriendReceive() {
+    $("#side-friend-received").css("color", "#FF8000");
+}
+
+// 보낸 일촌 신청 모달 생성
+function makeFriendSend() {
+    $("#side-friend-send").css("color", "#FF8000");
+}
+
+
+// 모달 종료
 function modalClose() {
     $("#friend-modal-layer").addClass("hidden");
     $("#side-list-text").css("color", "black");
     $("#side-request-text").css("color", "black");
     $("body").css("overflow", "");
+    friendListModalClear();
+    friendRequestModalClear();
+}
+// 일촌 목록 모달 닫기
+function friendListModalClear() {
     $("#friends-container").empty();
-    friendListStart = 1;
+    friendListStart = 0;
     friendListSize = 10;
+    $("#now-friend-status").empty();
+    $("#friend-modal-layer").removeClass("selected-friend-list");
+    $("#side-list-text").css("color", "black");
+}
+// 일촌 요청 모달 닫기
+function friendRequestModalClear() {
+    $("#side-request-text").css("color", "black");
+    friendSendModalClear();
+    friendReceiveModalClear();
+}
+// 받은 일촌 목록 모달 닫기
+function friendReceiveModalClear() {
+    $("#friends-container").empty();
+    $("#side-friend-received").css("color", "black");
+}
+// 보낸 일촌 목록 모달 닫기
+function friendSendModalClear() {
+    $("#friends-container").empty();
+    $("#side-friend-send").css("color", "black");
 }
 
+
+
+
+// 현재 로그인한 일촌 수
 function friendOnNumFunc(onNum) {
     $.ajax({
         type:"GET",
@@ -156,7 +228,7 @@ function friendOnNumFunc(onNum) {
         }
     });
 }
-
+// 내 일촌 수
 function friendAllNumFunc(allFriends) {
     $.ajax({
         type:"GET",
