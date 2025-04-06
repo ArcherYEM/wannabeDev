@@ -95,7 +95,20 @@ public class NoticeService {
     // 공지사항 등록
     @Transactional
     public boolean insertNotice(NoticeDTO noticeDTO){
-        try{
+        try {
+            // XSS 방지 처리
+            String cleanTitle = Jsoup.clean(noticeDTO.getNoticeTitle(), Safelist.basic());
+
+            Safelist safelist = Safelist.relaxed()
+                .addTags("h1", "h2", "h3", "h4", "h5", "h6");
+
+            String cleanContents = Jsoup.clean(noticeDTO.getNoticeContents(), safelist);
+
+            noticeDTO.setNoticeTitle(cleanTitle);
+            noticeDTO.setNoticeContents(cleanContents);
+
+            splitDateTime(noticeDTO);
+
             noticeMapper.insertNotice(noticeDTO);
             return true;
         } catch (Exception e) {
@@ -103,6 +116,22 @@ public class NoticeService {
             return false;
         }
     }
+
+    private void splitDateTime(NoticeDTO dto) {
+        if (dto.getStartDateTime() != null && dto.getStartDateTime().contains("T")) {
+            String[] parts = dto.getStartDateTime().split("T");
+            dto.setStartDate(parts[0].replace("-", ""));   // 예: 20250404
+            dto.setStartTime(parts[1].replace(":", ""));   // 예: 1800
+        }
+
+        if (dto.getEndDateTime() != null && dto.getEndDateTime().contains("T")) {
+            String[] parts = dto.getEndDateTime().split("T");
+            dto.setEndDate(parts[0].replace("-", ""));     // 예: 20250406
+            dto.setEndTime(parts[1].replace(":", ""));     // 예: 2100
+        }
+    }
+
+
 
     // 공지사항 상세 페이지
     @Transactional
@@ -115,7 +144,7 @@ public class NoticeService {
             }
 
             // XSS 방지: 공지사항 내용 필터링
-            String sanitizedContent = Jsoup.clean(notice.getNoticeContents(), Safelist.basic());
+            String sanitizedContent = Jsoup.clean(notice.getNoticeContents(), Safelist.relaxed());
             notice.setNoticeContents(sanitizedContent);
 
             return notice;
