@@ -379,12 +379,14 @@ function fetchTopProducts(productType) {
                 return;
             }
             data.forEach((product) => {
-                const imageUrl = product.filePath.trim();
+                const imageUrl = product.FILE_PATH;
+
+                // 명확하게 대문자 키 사용
                 const itemHtml = `
                     <div class="product-card">
                         <a href="/giftShop/main" class="product-link">
-                            <img src="${imageUrl}" alt="${product.productName}">
-                            <div class="product-name">${product.productName}</div>
+                            <img src="${imageUrl}" alt="${product.PRODUCT_NAME}">
+                            <div class="product-name">${product.PRODUCT_NAME}</div>
                         </a>
                     </div>
                 `;
@@ -396,6 +398,7 @@ function fetchTopProducts(productType) {
         }
     );
 }
+
 
 // 뉴스 데이터 조회 및 렌더링
 function fetchNews() {

@@ -68,4 +68,9 @@ public class HomeController {
     public String goToUserUpdate(HttpServletRequest request){
         return "home/user/userUpdate";
     }
+
+    @GetMapping("/about-us")
+    public String aboutUS (){
+        return "home/aboutus";
+    }
 }

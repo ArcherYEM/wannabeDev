@@ -274,3 +274,7 @@ input[type="text"].diaryTitle{
     display: none;
 }
 
+#day td.active{
+    font-weight: bold;
+}
+

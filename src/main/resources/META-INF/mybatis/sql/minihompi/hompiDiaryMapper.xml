@@ -47,6 +47,15 @@
         </if>
     </select>
 
+    <select id="checkDiary" parameterType="DiaryExistenceDTO" resultType="String">
+        SELECT DAY(INSERT_DT)
+            FROM HOMPI_DIARY
+        WHERE FOLDER_ID = #{folderId}
+            AND HOMPI_ID = #{hompiId}
+            AND YEAR(INSERT_DT) = #{year}
+            AND MONTH(INSERT_DT) = #{month}
+    </select>
+
     <select id="findDiaryByDay" resultType="HompiDiaryDTO">
         SELECT HOMPI_ID,DIARY_ID,DIARY_CONTENT,AVAIL_STATUS
             FROM HOMPI_DIARY

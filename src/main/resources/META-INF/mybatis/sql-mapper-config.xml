@@ -64,10 +64,14 @@
 		<typeAlias alias="HompiFolderDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiFolderDTO"/>
 		<typeAlias alias="AlbumCommentDTO" type="com.dev.wannabe.domain.minihompi.model.dto.AlbumCommentDTO"/>
 		<typeAlias alias="UpdateFolderDTO" type="com.dev.wannabe.domain.minihompi.model.dto.UpdateFolderDTO"/>
+		<typeAlias alias="DiaryExistenceDTO" type="com.dev.wannabe.domain.minihompi.model.dto.DiaryExistenceDTO"/>
 
 		<!--> miniroom <-->
 
 		<typeAlias alias="HompiBgmDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBgmDTO"/>
+		<!--> giftShop <-->
+		<typeAlias alias="ProductDTO" type="com.dev.wannabe.domain.home.model.dto.ProductDTO"/>
+		<typeAlias alias="BgmProductDTO" type="com.dev.wannabe.domain.home.model.dto.BgmProductDTO"/>
 	</typeAliases>
 
 </configuration>
