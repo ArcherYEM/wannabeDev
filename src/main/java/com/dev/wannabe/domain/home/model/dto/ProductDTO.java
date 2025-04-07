@@ -14,9 +14,10 @@ public class ProductDTO {
     private Long productId;
     private String productName;
     private String productType;
-    private String productDesc;
     private String filePath;
     private String fileName;
+
+    private String productDesc;
     private String prices;
 
     public String getImageUrl() {
