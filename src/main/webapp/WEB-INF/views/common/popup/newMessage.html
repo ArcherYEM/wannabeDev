@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
 <head>
+
+  <script   src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
+
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>쪽지 보내기</title>
+
+  <!--<link rel="stylesheet" href="/static/css/common/reset.css">-->
+  <link rel="stylesheet" href="/static/css/minihompiMessage.css">
+
 </head>
 <body>
-쪽지 창입니당
+  <div id="wrap" class="newMessageWrap">
+    <header id="header">
+      <a href="#" class="logo">
+        <img src="/static/images/common/logo/logo_full.png">
+      </a>
+    </header>
+    <!--header#header-->
+    <div id="popupMessageMainHeader">
+      <span>받는사람</span>
+      <input type="text" name="recipientView" id="recipientView" th:value="${recipientView}" readonly>
+      <form id="minihompiMsgFrm" method="POST"></form>
+        <input type="hidden" name="sendUserId" id="sendUserId" form="minihompiMsgFrm" th:value="${userId}" readonly>
+        <input type="hidden" name="recipient" id="recipient" form="minihompiMsgFrm" th:value="${recipient}" readonly>
+
+    </div>
+    <!--div#popupMessageMainHeader-->
+    <div id="popupMessageMainArea">
+      <textarea placeholder="내용을 입력해 주세요" name="sendTextArea" id="sendTextArea" form="minihompiMsgFrm"></textarea>
+
+      <div id="popupMessageSendBtnArea">
+        <a class="btn small di msgSendBtn">전송</a>
+      </div>
+      <!--div#popupMessageSendBtnArea-->
+
+    </div>
+    <!--div#popupMessageMainArea-->
+  </div>
+  <!--div#wrap.newMessageWrap-->
+
+<script src="/static/js/minihompi/minihompiMessage.js"></script>
 </body>
-</html>

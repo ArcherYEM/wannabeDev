@@ -306,17 +306,26 @@ $(document).ready(function () {
     }
 
     /** 쪽지 팝업창 설정 **/
-    function onpneMessage() {
-        var popupW = 500;
-        var popupH = 500;
+    window.onpneMessage = function() {
+        const userId = sessionStorage.getItem('userId');
+
+        console.log("userId : " + userId);
+        console.log("hompiId : " + hompiId);
+        var popupW = 700;
+        var popupH = 700;
         var left = Math.ceil((window.screen.width - popupW) / 2);
         var top = Math.ceil((window.screen.height - popupH) / 2);
-
-        var popup = window.open('/mini-hompi/newMessage',
+        if (userId === 'null') {
+            alert("로그인 후 이용해주세요.");
+            return;
+        } else if (userId === hompiId) {
+            alert("자신에게는 쪽지를 보낼 수 없습니다.");
+            return;
+        }
+       window.open(`/mini-hompi/newMessage?userId=${userId}&recipient=${hompiId}`,
             '쪽지 보내기',
             'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
     }
-
 
     /** 홈 화면으로 이동, js 중복실행 방지 **/
     $(document).on("click", "#moveHome", function (e) {
@@ -594,6 +603,5 @@ $(document).ready(function () {
             }
         });
     }
-
 
 });
