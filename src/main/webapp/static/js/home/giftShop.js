@@ -128,7 +128,8 @@ $(function () {
                 return;
             }
             let code = `<li data-id="${$(item).attr('data-id')}" data-type="${$(item).attr('data-type')}">
-                        <div><span class="selectItemName">${$(item).find('h3').text()}</span><div><img class="dotoriImg" src="/static/images/common/icon/dotori.png">
+                        <div><span class="selectItemName">${$(item).find('h3').text()}</span><div>
+                        <img class="dotoriImg" src="/static/images/common/icon/dotori.png">
                         <span class="dotoriPrice"></span></div></div>
                         <div class="selectItem"><img src="${$(this).closest('.itemCard').find('img').attr('src')}">
                         <input type="checkbox">`
@@ -171,7 +172,8 @@ $(function () {
            return;
         };
         let code = `<li data-id="${checkItemId}" data-type="${itemCard.attr('data-type')}">
-                <div><span class="selectItemName">${itemCard.find('h3').text()}</span><div><img class="dotoriImg" src="/static/images/common/icon/dotori.png">
+                <div><span class="selectItemName">${itemCard.find('h3').text()}</span><div>
+                <img class="dotoriImg" src="/static/images/common/icon/dotori.png">
                 <span class="dotoriPrice"></span></div></div>
                 <div class="selectItem"><img src="${$(this).closest('.itemCard').find('img').attr('src')}">
                 <input type="checkbox">`
