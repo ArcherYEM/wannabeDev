@@ -3,6 +3,7 @@ package com.dev.wannabe.domain.minihompi.service;
 import com.dev.wannabe.domain.minihompi.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiDiaryMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
+import com.dev.wannabe.domain.minihompi.model.dto.DiaryExistenceDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.HompiDiaryDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.MonthDayDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiDiary;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,5 +151,19 @@ public class DiaryService {
         }else{
             return ResponseEntity.ok("33");
         }
+    }
+
+    public ResponseEntity<List<String>> checkDiary(Long folderId, Long hompiId) {
+        DiaryExistenceDTO diaryExistenceDTO = DiaryExistenceDTO.builder()
+                .folderId(folderId)
+                .hompiId(hompiId)
+                .year(LocalDateTime.now().getYear())
+                .month(LocalDateTime.now().getMonth().getValue())
+                .build();
+        List<String> days = diaryMapper.checkDiary(diaryExistenceDTO);
+        if(days == null){
+            return ResponseEntity.ok(null);
+        }
+        return ResponseEntity.ok(days);
     }
 }

@@ -51,6 +51,7 @@ $(document).ready(function(){
         $('.folderName button').removeClass('folderOn');
         $(this).addClass('folderOn');
         getFolderContents(folderId, appendHere);
+        checkDiary();
     });
 
     $(document).on('click','.folderContentWrap p',function(){
@@ -195,6 +196,7 @@ function getFolder(){
                 $('.toggleBottomWrap').show();
             }
             $('#folderWrap').append(code);
+        checkDiary();
         },
         error: function(error){
             console.error(error);
@@ -272,4 +274,25 @@ function deleteFolder(folderId){
             console.error(error);
         }
     });
+}
+
+// 해당 폴더에 다이어리 작성된 날짜에 볼드 처리
+function checkDiary(){
+    let folderId = $('.folderOn').val();
+    if(!folderId){
+        $('.folderName button').first().addClass('folderOn');
+        folderId = $('.folderName button').first().val();
+    }
+    $.ajax({
+        type: 'GET',
+        url: '/api/minihompi/get/diary-day/' + folderId + '/' + hompiOwnerId,
+        success: function(response){
+            $('#day td').removeClass('active');
+            response.forEach(function(day,index){
+                $('#day td').filter(function(){
+                    return $(this).text() === day;
+                }).addClass('active');
+            })
+        }
+    })
 }

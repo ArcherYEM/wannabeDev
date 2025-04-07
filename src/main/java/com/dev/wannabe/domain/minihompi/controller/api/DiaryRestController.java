@@ -2,15 +2,14 @@ package com.dev.wannabe.domain.minihompi.controller.api;
 
 import com.dev.wannabe.domain.minihompi.model.dto.HompiDiaryDTO;
 import com.dev.wannabe.domain.minihompi.service.DiaryService;
-import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/minihompi")
@@ -45,6 +44,12 @@ public class DiaryRestController {
                                                   HttpServletRequest request){
         HompiDiaryDTO diary = diaryService.getDiary(diaryId, hompiId, request);
         return ResponseEntity.ok(diary);
+    }
+
+    //폴더 ID에 존재하는 다이어리 일수 가져오기
+    @GetMapping("/get/diary-day/{folderId}/{hompiId}")
+    public ResponseEntity<List<String>> checkDayDiary(@PathVariable Long folderId, @PathVariable Long hompiId){
+        return diaryService.checkDiary(folderId,hompiId);
     }
 
     @PostMapping("/update/diary/{diaryId}/{hompiId}")
