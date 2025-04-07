@@ -1,55 +1,16 @@
-<!doctype html>
-<html lang="ko">
- <head>
-  <meta charset="UTF-8">
-  <meta name="Generator" content="EditPlus®">
-  <meta name="Author" content="">
-  <meta name="Keywords" content="">
-  <meta name="Description" content="">
-  <title>onlineMain</title>
-  <link rel="stylesheet" href="../../../static/css/old/onlineStyle.css">
-  <link rel="stylesheet" href="../../../static/css/aboutus.css">
-  <link rel="stylesheet" href="../../../static/css/old/reset.css">
-  <link rel="stylesheet" href="../../../static/css/old/header-old.css">
-  <link rel="stylesheet" href="../../../static/css/common/footer.css">
-  <link rel="stylesheet" href="../../../static/css/gnb.css">
-  <link rel="stylesheet" href="../../../static/css/container.css">
-  <link href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css" rel="stylesheet">
-  <script   src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="  crossorigin="anonymous"></script>
- </head>
+<!DOCTYPE html>
+<html lang="ko"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{/common/layout/layout}">
+<head layout:fragment="styles">
+	<!-- 메인 페이지 전용 스타일 -->
+	<title layout:fragment="title">ABOUT-US</title>
+	<link rel="stylesheet" th:href="@{/static/css/aboutus.css}" />
+</head>
 
  <body>
-	<div id="wrap">
-		<!--헤더 시작-->
-		<div id="header">
-			<div class="headerLeft">
-				<a href="#" class="logo"><img src="./images/logo.png"></a>
-			</div>
-			<div class="headerRight">
-				<ul>
-					<li><input type="text" name="" id="" placeholder="아이디"></li>
-					<li><input type="password" name="" id="" placeholder="비밀번호"></li>
-					<li><a href="#" class="btn">로그인</a></li>
-					<li><a href="#" class="btn">회원가입</a></li>
-				</ul>
-			</div>
-		</div>
-		<!--헤더 끝-->
-
-		<!--gnb 시작-->
-		<div id="gnb">
-			<div>
-				<ul>
-					<li><a href="#">내미니홈피</a></li>
-					<li><a href="#">선물가게</a></li>
-					<li><a href="#">장바구니</a></li>
-					<li><a href="#">공지사항</a></li>
-					<li><a href="#">ABOUT US</a></li>
-				</ul>
-			</div>
-		</div>
-		<!--gnb 끝-->
-
+	<div layout:fragment="content">
 		<!--메인 시작-->
 		<div id="container">
 			<div class="containerWrap">
@@ -128,17 +89,6 @@
 			</div>
 		</div>
 		<!--메인 끝-->
-       
-		<!--푸터 시작-->
-		<div id="footer">
-			<div class="footerWrap">
-				<div>
-					<p>ⓒ2025.<span>Team. <span class="basic">WannabeDev</span></span>All rights reserved.</p>
-					<p>Since.2025.2.24~</p>
-				</div>
-			</div>
-		</div>
-		<!--푸터 끝-->
 	</div>
  </body>
 </html>
