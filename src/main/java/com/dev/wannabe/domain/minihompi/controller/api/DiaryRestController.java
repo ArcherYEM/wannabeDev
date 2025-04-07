@@ -18,15 +18,15 @@ public class DiaryRestController {
 
     private final DiaryService diaryService;
 
-    @PostMapping("/add/diary/{folderId}/{diaryTitle}/{hompiId}")
-    public ResponseEntity<Boolean> addDiary(@PathVariable Long folderId, @PathVariable Long hompiId,@PathVariable String diaryTitle,
+    @PostMapping("/add/diary/{folderId}/{hompiId}")
+    public ResponseEntity<Boolean> addDiary(@PathVariable Long folderId, @PathVariable Long hompiId,
                                             @RequestParam String availStatus, @RequestParam String diaryContent,
                                             HttpServletRequest request){
         HttpSession session = request.getSession();
         if(session == null){
             return ResponseEntity.badRequest().build();
         }
-        return diaryService.addDiary(hompiId,folderId,session,diaryContent,availStatus,diaryTitle);
+        return diaryService.addDiary(hompiId,folderId,session,diaryContent,availStatus);
     }
 
     @GetMapping("/get/diary-day/{day}/{folderId}/{hompiId}")

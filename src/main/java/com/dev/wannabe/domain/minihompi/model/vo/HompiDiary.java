@@ -12,7 +12,6 @@ public class HompiDiary {
     private Long diaryId;
     private Long hompiId;
     private Long folderId;
-    private String diaryName;
     private String diaryContent;
     private String availStatus;
 

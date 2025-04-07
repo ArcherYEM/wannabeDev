@@ -86,6 +86,9 @@ public class FolderService {
     }
 
     public ResponseEntity<Boolean> deleteFolder(Long hompiId, Long folderId, String contentType) {
+        if(contentType.equals("04")){
+            return ResponseEntity.ok(null);
+        }
         Integer deleteNum = folderMapper.deleteFolder(hompiId,folderId,contentType);
         if(deleteNum == 0){
             return ResponseEntity.ok(null);

@@ -52,7 +52,7 @@ public class DiaryService {
 
     @Transactional
     public ResponseEntity<Boolean> addDiary(Long hompiId, Long folderId, HttpSession session,
-                                            String diaryContent, String availStatus,String diaryTitle){
+                                            String diaryContent, String availStatus){
 
         SessionUserDTO visitUser = (SessionUserDTO)session.getAttribute("userData");
         if(diaryMapper.findDiaryByDay(LocalDate.now(), hompiId, folderId) != null){
@@ -66,7 +66,6 @@ public class DiaryService {
                 .diaryContent(diaryContent)
                 .availStatus(availStatus)
                 .folderId(folderId)
-                .diaryName(diaryTitle)
                 .build();
         if(diaryMapper.saveDiary(diary) == 0){
             return ResponseEntity.badRequest().build();
