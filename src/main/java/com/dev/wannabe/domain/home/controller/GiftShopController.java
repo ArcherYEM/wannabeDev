@@ -16,4 +16,10 @@ public class GiftShopController {
     public String giftShop(){
         return "home/giftShop/giftShopMain";
     }
+
+    @GetMapping("/sub")
+    public String giftShopSub(){
+        return "home/giftShop/giftShopTheme";
+    }
+
 }

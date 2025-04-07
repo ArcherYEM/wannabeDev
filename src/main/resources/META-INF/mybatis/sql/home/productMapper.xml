@@ -18,5 +18,131 @@
         ORDER BY P.INSERT_DT DESC
             LIMIT 6
     </select>
+    <select id="getGiftShopList" resultType="ProductDTO">
+        SELECT
+            A.PRODUCT_ID,
+            A.PRODUCT_NAME,
+            A.PRODUCT_TYPE,
+            A.PRODUCT_DESC,
+            B.FILE_PATH,
+            B.FILE_NAME,
+            GROUP_CONCAT(C.PRICE ORDER BY C.PRICE SEPARATOR ',') AS prices
+        FROM PRODUCT A
+            INNER JOIN ATTACH_FILE_MANAGE B
+                ON A.ATTACH_FILE_ID = B.ATTACH_FILE_ID
+            INNER JOIN PRODUCT_PRICE C
+                ON A.PRODUCT_ID = C.PRODUCT_ID
+        WHERE A.PRODUCT_TYPE = #{productType}
+        <if test="searchText != null and searchText != ''">
+            AND A.PRODUCT_NAME LIKE CONCAT('%', #{searchText}, '%')
+        </if>
+        GROUP BY A.PRODUCT_ID,A.PRODUCT_NAME,A.PRODUCT_TYPE,B.FILE_PATH,B.FILE_NAME
+        ORDER BY A.INSERT_DT DESC
+        <if test="offset != null">
+            LIMIT #{offset} , 12
+        </if>
+    </select>
 
+    <select id="getNewItem" resultType="productDTO">
+        SELECT
+            A.PRODUCT_ID,
+            A.PRODUCT_NAME,
+            A.PRODUCT_TYPE,
+            A.PRODUCT_DESC,
+            B.FILE_PATH,
+            B.FILE_NAME,
+            GROUP_CONCAT(C.PRICE ORDER BY C.PRICE SEPARATOR ',') AS prices
+        FROM PRODUCT A
+            INNER JOIN ATTACH_FILE_MANAGE B
+                ON A.ATTACH_FILE_ID = B.ATTACH_FILE_ID
+            INNER JOIN PRODUCT_PRICE C
+                ON A.PRODUCT_ID = C.PRODUCT_ID
+        GROUP BY A.PRODUCT_ID,A.PRODUCT_NAME,A.PRODUCT_TYPE,B.FILE_PATH,B.FILE_NAME
+        ORDER BY A.INSERT_DT DESC
+        LIMIT 4
+    </select>
+
+    <select id="getBgmList" resultType="bgmProductDTO">
+        SELECT
+            A.BGM_ID,
+            A.BGM_NAME,
+            A.ARTIST,
+            A.LYRICS,
+            B.FILE_PATH,
+            C.PRICE
+        FROM BGM A
+            INNER JOIN ATTACH_FILE_MANAGE  B
+                ON A.IMAGE_FILE_ATTACH_ID = B.ATTACH_FILE_ID
+            INNER JOIN BGM_PRICE C
+                ON A.BGM_ID = C.BGM_ID
+        <if test="searchText != null and searchText != ''">
+            WHERE A.BGM_NAME LIKE CONCAT('%', #{searchText}, '%')
+        </if>
+        ORDER BY A.BGM_ID DESC
+        <if test="offset != null">
+            LIMIT #{offset} , 12
+        </if>
+    </select>
+
+    <select id="getPopularProduct" resultType="ProductDTO">
+    SELECT
+        A.PRODUCT_ID,
+        A.PRODUCT_NAME,
+        A.PRODUCT_TYPE,
+        A.PRODUCT_DESC,
+        B.FILE_PATH,
+        B.FILE_NAME,
+        GROUP_CONCAT(DISTINCT C.PRICE ORDER BY C.PRICE SEPARATOR ',') AS prices
+    FROM PRODUCT A
+        INNER JOIN ATTACH_FILE_MANAGE B
+            ON A.ATTACH_FILE_ID = B.ATTACH_FILE_ID
+        INNER JOIN PRODUCT_PRICE C
+            ON A.PRODUCT_ID = C.PRODUCT_ID
+        LEFT JOIN USER_ITEM_INVENTORY D
+            ON A.PRODUCT_ID = D.ITEM_ID
+    WHERE D.ITEM_TYPE = 'P'
+    GROUP BY A.PRODUCT_ID, A.PRODUCT_NAME, A.PRODUCT_TYPE, B.FILE_PATH, B.FILE_NAME
+    ORDER BY COUNT(D.ITEM_ID) DESC, A.INSERT_DT DESC
+    LIMIT 4
+    </select>
+
+    <select id="getPopularBgm" resultType="bgmProductDTO">
+        SELECT
+            B.BGM_ID,
+            B.BGM_NAME,
+            B.ARTIST,
+            B.LYRICS,
+            C.FILE_PATH,
+            D.PRICE
+        FROM USER_ITEM_INVENTORY A
+            INNER JOIN BGM B
+                ON A.ITEM_ID = B.BGM_ID
+            INNER JOIN ATTACH_FILE_MANAGE C
+                ON B.IMAGE_FILE_ATTACH_ID = C.ATTACH_FILE_ID
+            INNER JOIN BGM_PRICE D
+                ON B.BGM_ID = D.BGM_ID
+        WHERE A.ITEM_TYPE = 'M'
+        GROUP BY B.BGM_ID,B.BGM_NAME,B.ARTIST,C.FILE_PATH
+        ORDER BY COUNT(A.ITEM_ID) DESC
+        LIMIT 4
+    </select>
+
+    <select id="getProductCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM PRODUCT
+        WHERE PRODUCT_TYPE = #{productType}
+        <if test="searchText != null and searchText != ''">
+            AND PRODUCT_NAME LIKE CONCAT('%', #{searchText}, '%')
+        </if>
+    </select>
+
+    <select id="getBgmCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM BGM
+        <if test="searchText != null and searchText != ''">
+            WHERE BGM_NAME LIKE CONCAT('%', #{searchText}, '%')
+        </if>
+    </select>
 </mapper>
