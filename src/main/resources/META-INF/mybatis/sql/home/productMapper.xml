@@ -5,7 +5,9 @@
 <!-- ProductMapper.xml -->
 <mapper namespace="com.dev.wannabe.domain.home.mapper.ProductMapper">
 
-    <select id="selectTop6ByProductTypeSortedByInsertDt" resultType="com.dev.wannabe.domain.home.model.dto.ProductDTO">
+    <select id="selectTop6ByProductTypeSortedByInsertDt"
+            parameterType="com.dev.wannabe.domain.home.model.dto.ProductDTO"
+            resultType="map">
         SELECT
             P.PRODUCT_ID,
             P.PRODUCT_NAME,
