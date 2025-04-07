@@ -201,10 +201,6 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
-.friend-list-item .friend-dropbox-line {
-    height: 1px;
-    background-color: gray;
-}
 .friend-list-item .friend-dropbox-menu {
     border: 1px solid gray;
     z-index: 1000;

@@ -198,4 +198,18 @@ public class FriendController {
 
         return ResponseEntity.ok(receive);
     }
+
+    @DeleteMapping("send/{friendId}")
+    @ResponseBody
+    public ResponseEntity<Void> sendCancel(@PathVariable Long friendId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        friendService.deleteRequestCancel(sessionUser.getUserId(), friendId);
+
+        return ResponseEntity.ok().build();
+    }
 }

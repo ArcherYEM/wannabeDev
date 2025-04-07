@@ -84,11 +84,11 @@
         ORDER BY
             CASE
                 WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
-                ELSE 1
+                ELSE 1,
             END ASC
     </select>
 
-    <select id="getFriendPanelInfoByPage" resultType="FriendPanelDTO">
+    <select id="getFriendPanelInfoByPage" parameterType="RequestFriendCardDTO" resultType="FriendPanelDTO">
         SELECT
             FI.FRIEND_USER_ID AS FRIEND_ID,
             H.HOMPI_ID AS FRIEND_HOMPI_ID,
@@ -111,11 +111,12 @@
             CASE
                 WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
                 ELSE 1
-                END ASC
+                END ASC,
+            FI.FRIEND_USER_ID ASC
         LIMIT #{start}, #{size}
     </select>
 
-    <select id="getFriendReceiveInfoByPage" resultType="FriendRequestDTO">
+    <select id="getFriendReceiveInfoByPage" parameterType="RequestFriendCardDTO" resultType="FriendRequestDTO">
         SELECT
             UBU.NAME AS USER_NAME,
             FI.USER_NICKNAME AS USER_NICKNAME,
@@ -123,7 +124,31 @@
             FI.FRIEND_USER_NICKNAME AS FRIEND_NICKNAME,
             FI.FRIEND_USER_ID AS FRIEND_ID,
             H.HOMPI_ID AS FRIEND_HOMPI_ID,
-            FI.INSERT_DT AS FRIEND_REQUEST_DT,
+            DATE_FORMAT(FI.INSERT_DT, '%Y.%m.%d %H:%i') AS FRIEND_REQUEST_DT,
+            AFM.FILE_PATH AS FRIEND_MINIMI
+        FROM FRIEND_INFO AS FI
+                 JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.USER_ID
+                 JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.FRIEND_USER_ID
+                 JOIN HOMPI AS H ON H.OWNER_USER_ID = FI.FRIEND_USER_ID
+                 JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+                 JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+                 JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+        WHERE
+            FI.FRIEND_USER_ID = #{userId} AND FI.AVAIL_STATUS = '01'
+        ORDER BY
+            FI.INSERT_DT DESC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="getFriendSendInfoByPage" parameterType="RequestFriendCardDTO" resultType="FriendRequestDTO">
+        SELECT
+            UBU.NAME AS USER_NAME,
+            FI.USER_NICKNAME AS USER_NICKNAME,
+            UBF.NAME AS FRIEND_NAME,
+            FI.FRIEND_USER_NICKNAME AS FRIEND_NICKNAME,
+            FI.FRIEND_USER_ID AS FRIEND_ID,
+            H.HOMPI_ID AS FRIEND_HOMPI_ID,
+            DATE_FORMAT(FI.INSERT_DT, '%Y.%m.%d %H:%i') AS FRIEND_REQUEST_DT,
             AFM.FILE_PATH AS FRIEND_MINIMI
         FROM FRIEND_INFO AS FI
                  JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.USER_ID
@@ -139,37 +164,13 @@
         LIMIT #{start}, #{size}
     </select>
 
-    <select id="getFriendSendInfoByPage" resultType="FriendRequestDTO">
-        SELECT
-            UBU.NAME AS USER_NAME,
-            FI.USER_NICKNAME AS USER_NICKNAME,
-            UBF.NAME AS FRIEND_NAME,
-            FI.FRIEND_USER_NICKNAME AS FRIEND_NICKNAME,
-            FI.FRIEND_USER_ID AS FRIEND_ID,
-            H.HOMPI_ID AS FRIEND_HOMPI_ID,
-            FI.INSERT_DT AS FRIEND_REQUEST_DT,
-            AFM.FILE_PATH AS FRIEND_MINIMI
-        FROM FRIEND_INFO AS FI
-                 JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.USER_ID
-                 JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.FRIEND_USER_ID
-                 JOIN HOMPI AS H ON H.OWNER_USER_ID = FI.FRIEND_USER_ID
-                 JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
-                 JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
-                 JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
-        WHERE
-            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '01'
-        ORDER BY
-            FI.INSERT_DT DESC
-        LIMIT #{start}, #{size}
-    </select>
-
-    <delete id="deleteFriendByUserIdAndFriendId">
+    <delete id="deleteFriendByUserIdAndFriendId" parameterType="Map">
         DELETE
         FROM FRIEND_INFO
         WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendId}
     </delete>
 
-    <select id="existsByUserIdAndFriendId" resultType="Boolean">
+    <select id="existsByUserIdAndFriendId" parameterType="Map" resultType="Boolean">
         SELECT COUNT(*) > 0
         FROM FRIEND_INFO
         WHERE USER_ID = #{userId}

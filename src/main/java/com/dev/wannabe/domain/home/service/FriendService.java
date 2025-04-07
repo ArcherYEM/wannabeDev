@@ -4,6 +4,7 @@ import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
 import com.dev.wannabe.domain.home.model.dto.FriendRequestDTO;
+import com.dev.wannabe.domain.home.model.dto.RequestFriendCardDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.SendMessageDTO;
@@ -78,6 +79,11 @@ public class FriendService {
     }
 
     @Transactional
+    public void deleteRequestCancel(Long userId, Long friendId) {
+        friendMapper.deleteFriendByUserIdAndFriendId(userId, friendId);
+    }
+
+    @Transactional
     public Long logInFriendCount(Long userId) { return userLoginMapper.logInFriendCount(userId); }
 
     @Transactional(readOnly = true)
@@ -87,17 +93,32 @@ public class FriendService {
 
     @Transactional(readOnly = true)
     public List<FriendPanelDTO> getFriendPanelByPage(Long userId, Integer start, Integer size) {
-        return friendMapper.getFriendPanelInfoByPage(userId, start, size);
+        RequestFriendCardDTO requestFriend = RequestFriendCardDTO.builder()
+                .userId(userId)
+                .start(start)
+                .size(size)
+                .build();
+        return friendMapper.getFriendPanelInfoByPage(requestFriend);
     }
 
     @Transactional(readOnly = true)
     public List<FriendRequestDTO> getFriendReceiveListByPage(Long userId, Integer start, Integer size) {
-        return friendMapper.getFriendReceiveInfoByPage(userId, start, size);
+        RequestFriendCardDTO requestFriend = RequestFriendCardDTO.builder()
+                .userId(userId)
+                .start(start)
+                .size(size)
+                .build();
+        return friendMapper.getFriendReceiveInfoByPage(requestFriend);
     }
 
     @Transactional(readOnly = true)
     public List<FriendRequestDTO> getFriendSendListByPage(Long userId, Integer start, Integer size) {
-        return friendMapper.getFriendSendInfoByPage(userId, start, size);
+        RequestFriendCardDTO requestFriend = RequestFriendCardDTO.builder()
+                .userId(userId)
+                .start(start)
+                .size(size)
+                .build();
+        return friendMapper.getFriendSendInfoByPage(requestFriend);
     }
 
     @Transactional

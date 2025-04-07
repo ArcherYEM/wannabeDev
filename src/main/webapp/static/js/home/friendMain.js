@@ -52,8 +52,10 @@ $(document).ready(function () {
                 LoadFriendListPage(friendListStart, friendListSize);
                 friendListStart = friendListStart + friendListSize;
             }
-
-
+            if ($(this).is(".friend-request-container")) {
+                LoadFriendSendListPage(friendRequestStart, friendRequestSize);
+                friendRequestStart = friendRequestStart + friendRequestSize;
+            }
         }
     });
 
@@ -100,6 +102,9 @@ $(document).on("click", "#friend-request, #side-request-text", function () {
     friendListModalClear();
     friendRequestModalClear();
 
+    friendListModalClear();
+    friendRequestModalClear();
+
     sideRequestText.css("color", "#FF8000");
 
     // 받은 일촌신청
@@ -109,6 +114,7 @@ $(document).on("click", "#friend-request, #side-request-text", function () {
 $(document).on("click", "#side-friend-received", function () {
     friendListModalClear();
     friendRequestModalClear();
+    console.log(friendRequestStart, friendRequestSize, 't');
     $("#side-request-text").css("color", "#FF8000");
 
     makeFriendReceive();
@@ -134,11 +140,6 @@ $(document).on("click", "#side-friend-send", function () {
 $(document).on("click", ".friend-setting-icon", function () {
     $(this).closest(".friend-edit-dropbox").find(".friend-dropbox-menu").toggleClass("hidden");
 })
-// 일촌명 변경
-$(document).on("click", ".friend-dropbox-name", function () {
-    let friendId = $(this).data("hidden-value");
-    console.log("일촌명 변경", friendId);
-});
 // 일촌 삭제
 $(document).on("click", ".friend-dropbox-delete", function () {
     let friendId = $(this).data("hidden-value");
@@ -166,6 +167,22 @@ $(document).on("click", ".friend-send-message", function () {
     console.log("쪽지 보내기", friendId);
 });
 
+// 일촌 신청 취소
+$(document).on("click", ".friend-request-btn", function () {
+    let friendId = $(this).find(".friend-send-reject").data("hidden-value");
+    $.ajax({
+        type:"DELETE",
+        url:`/api/friend/send/${friendId}`,
+        contentType: "application/json",
+        success: function(response){
+            friendRequestModalClear();
+            makeFriendSend();
+        },
+        error: function(error) {
+            console.log(error)
+        }
+    });
+});
 
 /*     함수     */
 // 일촌 목록 모달 생성
@@ -193,25 +210,8 @@ function makeFriendReceive() {
 
     $("#side-friend-received").css("color", "#FF8000");
 
-    let friendReceive = {
-        friendNickname: "김김김",
-        friendName: "김김이",
-        userNickname: "박박박",
-        userName: "박박이",
-        friendRequestDT: "2015.04.04 15:42",
-        friendId: 2,
-        friendHompiId: 2,
-        friendMinimi: "/static/images/common/minimi/예진.png"
-    }
-    let friendReceiveItem = createFriendReceive(friendReceive);
-
-    // 일촌 신청 모달 생성
-    for (let i=0; i < 10; i++) {
-        $("#friends-container").append(friendReceiveItem);
-    }
     LoadFriendReceiveListPage(friendRequestStart, friendRequestSize);
     friendRequestStart = friendRequestStart + friendRequestSize;
-
 }
 
 // 보낸 일촌 신청 모달 생성
@@ -220,28 +220,8 @@ function makeFriendSend() {
 
     $("#side-friend-send").css("color", "#FF8000");
 
-    let friendSend = {
-        friendNickname: "김김김",
-        friendName: "김김이",
-        userNickname: "박박박",
-        userName: "박박이",
-        friendRequestDT: "2015.04.04 15:42",
-        friendId: 2,
-        friendHompiId: 2,
-        friendMinimi: "/static/images/common/minimi/예진.png"
-    }
-    let friendSendItem = createFriendSend(friendSend);
-    $("#friends-container").append(`
-        <div>대기중인 신청만 표시됩니다.</div>
-    `);
-
-    // 일촌 요청 모달 생성
-    for (let i=0; i < 10; i++) {
-        $("#friends-container").append(friendSendItem);
-    }
     LoadFriendSendListPage(friendRequestStart, friendRequestSize);
     friendRequestStart = friendRequestStart + friendRequestSize;
-
 }
 
 
@@ -265,8 +245,6 @@ function friendListModalClear() {
 }
 // 일촌 요청 모달 닫기
 function friendRequestModalClear() {
-    friendRequestStart = 0;
-    friendRequestSize = 10;
     $("#side-request-text").css("color", "black");
     $("#friends-container").removeClass("friend-request-container").empty();
     friendSendModalClear();
@@ -274,11 +252,15 @@ function friendRequestModalClear() {
 }
 // 받은 일촌 목록 모달 닫기
 function friendReceiveModalClear() {
+    friendRequestStart = 0;
+    friendRequestSize = 10;
     $("#friends-container").empty();
     $("#side-friend-received").css("color", "black");
 }
 // 보낸 일촌 목록 모달 닫기
 function friendSendModalClear() {
+    friendRequestStart = 0;
+    friendRequestSize = 10;
     $("#friends-container").empty();
     $("#side-friend-send").css("color", "black");
 }
@@ -337,7 +319,7 @@ function LoadFriendListPage(start, size) {
         success: function(response){
             if (!response) { return; }
             response.forEach(friend => {
-                if (friend.mood === null) { friend.mood = ""; }
+                if (!friend.friendMood) { friend.friendMood = ""; }
                 let friendItem = $(createFriendItem(friend));
                 if (friend.friendLoginStatus === "LOGOUT") {
                     friendItem.css("filter", "grayscale(100%)");
@@ -362,7 +344,6 @@ function LoadFriendReceiveListPage(start, size) {
             if (!response) { return; }
 
             response.forEach(friend => {
-                console.log(friend)
                 let friendReceiveItem = createFriendReceive(friend);
                 $("#friends-container").append(friendReceiveItem);
             });
@@ -383,7 +364,6 @@ function LoadFriendSendListPage(start, size) {
             if (!response) { return; }
 
             response.forEach(friend => {
-                console.log(friend)
                 let friendSendItem = createFriendSend(friend);
                 $("#friends-container").append(friendSendItem);
             });
@@ -408,8 +388,6 @@ function createFriendItem(friendData) {
                             <img class="friend-setting-icon" src="/static/images/common/icon/icon_setting.svg" alt="일촌수정">
                         </div>
                         <div class="friend-dropbox-menu hidden">
-                            <div class="friend-dropbox-item friend-dropbox-name" data-hidden-value=${friendData.friendId}>일촌명 변경</div>
-                            <div class="friend-dropbox-line"></div>
                             <div class="friend-dropbox-item friend-dropbox-delete" data-hidden-value=${friendData.friendId}>일촌 삭제</div>
                         </div>
                     </div>
@@ -454,7 +432,7 @@ function createFriendReceive(friendRequest) {
                                 <div class="request-head-text">님의 일촌신청</div>
                             </div>
                         </div>
-                        <div class="friend-request-datetime" data-hidden-value=${friendRequest.friendRequestDT}></div>
+                        <div class="friend-request-datetime">${friendRequest.friendRequestDT}</div>
                     </div>
                     <div class="friend-request-item-body">
                         <div class="friend-request-user">
@@ -499,7 +477,7 @@ function createFriendSend(friendSend) {
                                 <div class="request-head-text">님에게 일촌신청</div>
                             </div>
                         </div>
-                        <div class="friend-request-datetime" data-hidden-value=${friendSend.friendRequestDT}></div>
+                        <div class="friend-request-datetime"/>${friendSend.friendRequestDT}</div>
                     </div>
                     <div class="friend-request-item-body">
                         <div class="friend-request-user">

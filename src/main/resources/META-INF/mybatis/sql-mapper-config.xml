@@ -52,6 +52,7 @@
 		<!--> friend <-->
 		<typeAlias alias="FriendPanelDTO" type="com.dev.wannabe.domain.home.model.dto.FriendPanelDTO" />
 		<typeAlias alias="FriendRequestDTO" type="com.dev.wannabe.domain.home.model.dto.FriendRequestDTO" />
+		<typeAlias alias="RequestFriendCardDTO" type="com.dev.wannabe.domain.home.model.dto.RequestFriendCardDTO" />
 		<!--> hompi <-->
 		<typeAlias alias="HompiBasicInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO"/>
 		<typeAlias alias="FolderFindDTO" type="com.dev.wannabe.domain.minihompi.model.dto.FolderFindDTO"/>
