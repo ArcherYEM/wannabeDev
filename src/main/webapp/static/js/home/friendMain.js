@@ -52,7 +52,11 @@ $(document).ready(function () {
                 LoadFriendListPage(friendListStart, friendListSize);
                 friendListStart = friendListStart + friendListSize;
             }
-            if ($(this).is(".friend-request-container")) {
+            if ($(this).is(".friend-request-receive")) {
+                LoadFriendReceiveListPage(friendRequestStart, friendRequestSize);
+                friendRequestStart = friendRequestStart + friendRequestSize;
+            }
+            if ($(this).is(".friend-request-send")) {
                 LoadFriendSendListPage(friendRequestStart, friendRequestSize);
                 friendRequestStart = friendRequestStart + friendRequestSize;
             }
@@ -114,7 +118,6 @@ $(document).on("click", "#friend-request, #side-request-text", function () {
 $(document).on("click", "#side-friend-received", function () {
     friendListModalClear();
     friendRequestModalClear();
-    console.log(friendRequestStart, friendRequestSize, 't');
     $("#side-request-text").css("color", "#FF8000");
 
     makeFriendReceive();
@@ -167,15 +170,46 @@ $(document).on("click", ".friend-send-message", function () {
     console.log("쪽지 보내기", friendId);
 });
 
+// 일촌 요청 허용
+$(document).on("click", ".friend-receive-accept", function () {
+    let friendId = $(this).data("hidden-value");
+    $.ajax({
+        type:"POST",
+        url:`/api/friend/accept/${friendId}`,
+        success: function(response){
+            friendReceiveModalClear();
+            makeFriendReceive();
+        },
+        error: function(error) {
+            console.log(error)
+        }
+    });
+});
+// 일촌 요청 거절
+$(document).on("click", ".friend-receive-deny", function () {
+    let friendId = $(this).data("hidden-value");
+    $.ajax({
+        type:"POST",
+        url:`/api/friend/reject/${friendId}`,
+        success: function(response){
+            friendReceiveModalClear();
+            makeFriendReceive();
+        },
+        error: function(error) {
+            console.log(error)
+        }
+    });
+});
+
 // 일촌 신청 취소
-$(document).on("click", ".friend-request-btn", function () {
-    let friendId = $(this).find(".friend-send-reject").data("hidden-value");
+$(document).on("click", ".friend-send-reject", function () {
+    let friendId = $(this).data("hidden-value");
     $.ajax({
         type:"DELETE",
         url:`/api/friend/send/${friendId}`,
         contentType: "application/json",
         success: function(response){
-            friendRequestModalClear();
+            friendSendModalClear();
             makeFriendSend();
         },
         error: function(error) {
@@ -183,6 +217,10 @@ $(document).on("click", ".friend-request-btn", function () {
         }
     });
 });
+
+
+
+
 
 /*     함수     */
 // 일촌 목록 모달 생성
@@ -206,7 +244,7 @@ function makeFriendList() {
 
 // 받은 일촌 신청 모달 생성
 function makeFriendReceive() {
-    $("#friends-container").addClass("friend-request-container");
+    $("#friends-container").addClass("friend-request-container").addClass("friend-request-receive");
 
     $("#side-friend-received").css("color", "#FF8000");
 
@@ -216,7 +254,7 @@ function makeFriendReceive() {
 
 // 보낸 일촌 신청 모달 생성
 function makeFriendSend() {
-    $("#friends-container").addClass("friend-request-container");
+    $("#friends-container").addClass("friend-request-container").addClass("friend-request-send");
 
     $("#side-friend-send").css("color", "#FF8000");
 
@@ -254,14 +292,14 @@ function friendRequestModalClear() {
 function friendReceiveModalClear() {
     friendRequestStart = 0;
     friendRequestSize = 10;
-    $("#friends-container").empty();
+    $("#friends-container").removeClass("friend-request-receive").empty();
     $("#side-friend-received").css("color", "black");
 }
 // 보낸 일촌 목록 모달 닫기
 function friendSendModalClear() {
     friendRequestStart = 0;
     friendRequestSize = 10;
-    $("#friends-container").empty();
+    $("#friends-container").removeClass("friend-request-send").empty();
     $("#side-friend-send").css("color", "black");
 }
 

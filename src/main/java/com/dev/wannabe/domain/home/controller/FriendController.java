@@ -44,9 +44,9 @@ public class FriendController {
         }
     }
 
-    @PostMapping("/accept/{requestUserId}")
+    @PostMapping("/accept/{friendId}")
     @ResponseBody
-    public ResponseEntity<Void> acceptFriend(@PathVariable Long requestUserId, HttpServletRequest request) {
+    public ResponseEntity<Void> acceptFriend(@PathVariable Long friendId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.badRequest().build(); }
         Object userData = session.getAttribute("userData");
@@ -54,16 +54,16 @@ public class FriendController {
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
 
         try {
-            friendService.acceptFriend(sessionUser.getUserId(), requestUserId);
+            friendService.acceptFriend(sessionUser.getUserId(), friendId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
 
-    @PostMapping("/reject/{requestUserId}")
+    @PostMapping("/reject/{friendId}")
     @ResponseBody
-    public ResponseEntity<Void> rejectFriend(@PathVariable Long requestUserId, HttpServletRequest request) {
+    public ResponseEntity<Void> rejectFriend(@PathVariable Long friendId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.badRequest().build(); }
         Object userData = session.getAttribute("userData");
@@ -71,7 +71,7 @@ public class FriendController {
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
 
         try {
-            friendService.rejectFriend(requestUserId, sessionUser.getUserId());
+            friendService.rejectFriend(sessionUser.getUserId(), friendId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
@@ -199,7 +199,7 @@ public class FriendController {
         return ResponseEntity.ok(receive);
     }
 
-    @DeleteMapping("send/{friendId}")
+    @DeleteMapping("/send/{friendId}")
     @ResponseBody
     public ResponseEntity<Void> sendCancel(@PathVariable Long friendId, HttpServletRequest request) {
         HttpSession session = request.getSession();

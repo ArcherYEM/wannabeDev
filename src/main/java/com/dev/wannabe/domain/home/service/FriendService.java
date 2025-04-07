@@ -69,7 +69,7 @@ public class FriendService {
 
     @Transactional
     public void rejectFriend(Long userId, Long friendId) {
-        friendMapper.deleteFriendByUserIdAndFriendId(userId, friendId);
+        friendMapper.deleteFriendByUserIdAndFriendId(friendId, userId);
     }
 
     @Transactional
