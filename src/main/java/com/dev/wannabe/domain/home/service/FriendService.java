@@ -60,7 +60,9 @@ public class FriendService {
 
         FriendInfo newFriend = acceptedFriend.toBuilder()
                 .userId(acceptedFriend.getFriendUserId())
-                .friendUserId(acceptedFriend.getFriendUserId())
+                .friendUserId(acceptedFriend.getUserId())
+                .userNickname(acceptedFriend.getFriendUserNickname())
+                .friendUserNickname(acceptedFriend.getUserNickname())
                 .availStatus("02")
                 .friendRequestMessage("")
                 .build();
