@@ -1,17 +1,19 @@
-//contentType:다이어리: "01", 사진첩: "02", 게시판: "03"
+//contentType:다이어리: "01", 사진첩: "02", 게시판: "03" , 관리: "04"
 $(document).ready(function(){
     $(document).on('click', '#gnb li',function(){
         folderContentIndex = $(this).index() - 1;
         if(folderContentIndex === -1 || folderContentIndex === 0 || folderContentIndex === 2 ||
-         folderContentIndex === 5 || folderContentIndex === 6){
+         folderContentIndex === 5){
             return;
         }
         if(folderContentIndex === 1){
             folderContentIndex = 0;
         }else if(folderContentIndex === 3){
             folderContentIndex = 1;
-        }else{
+        }else if(folderContentIndex === 4){
             folderContentIndex = 2;
+        }else{
+            folderContentIndex = 3;
         }
 
         folderContentType = folderContentList[folderContentIndex];
@@ -40,25 +42,9 @@ $(document).ready(function(){
     })
 
     $(document).on('click', '.folderName button', function(){
-        const appendHere = $(this).closest('.folderName');
         const folderId = $(this).val();
-        if($(this).hasClass('folderOn')){
-            $(this).removeClass('folderOn');
-            $(this).next('.folderContentWrap').remove();
-            return;
-        }
-        $('.folderContentWrap').remove();
         $('.folderName button').removeClass('folderOn');
         $(this).addClass('folderOn');
-        getFolderContents(folderId, appendHere);
-        checkDiary();
-    });
-
-    $(document).on('click','.folderContentWrap p',function(){
-        const diaryId = $(this).data('id');
-        getDiaryContent(diaryId);
-        $(this).css('background-color','gainsboro');
-        $('.folderContentWrap p').not($(this)).css('background-color','white');
     });
 
     $(document).on('click', '.folderBottomWrap button',function(){
@@ -81,6 +67,13 @@ $(document).ready(function(){
     })
 
     $(document).on('click','#updateFolderNameBtn',function(){
+        if(folderContentType === "04"){
+            return Swal.fire({
+               title: "폴더 이름변경 실패",
+               text: "폴더 이름변경이 불가능한 폴더입니다!",
+               icon: 'warning'
+            });
+        }
         if($('.selectModalFolder option:selected').text().trim() === $('.folderNameInput').val().trim()){
             return Swal.fire({
                    title: "폴더 이름변경 실패",
@@ -113,8 +106,8 @@ $(document).ready(function(){
     })
 
 });
-let folderTitleList = ["다이어리","사진첩","게시판"];
-let folderContentList = ["01","02","03"];
+let folderTitleList = ["다이어리","사진첩","게시판","관리"];
+let folderContentList = ["01","02","03","04"];
 let folderContentIndex;
 let folderContentType;
 const path = window.location.pathname.split('/');
@@ -144,6 +137,13 @@ function moveFolder() {
 
 //폴더 추가 로직
 function addFolder(availStatus,folderInput){
+    if(folderContentType === "04"){
+    return Swal.fire({
+           title: "폴더 저장 실패",
+           text: "폴더를 성공적으로 저장하였습니다!",
+           icon: 'warning'
+       });
+    }
     $.ajax({
         type: 'POST',
         url: "/api/folder/save/" + folderContentType + '/' + folderInput +'/' + availStatus,
@@ -184,19 +184,21 @@ function getFolder(){
                 code += '<div class="smallFolderWrap"><div class="folderName"><button value="'+folderDTO.folderId
                          + '"><img src="/static/images/common/icon/folder.png">'
                          + " " +folderDTO.folderName + '</button>';
-                         if(folderDTO.folderId !== 1){
+                         if(folderDTO.folderId !== 1 || folderContentType !== "04"){
                             code += '</div><button data-id="' + folderDTO.folderId +'"class="folderDelBtn">삭제</button></div>';
                          }else{
                             code += '</div></div>';
                          }
             })
             code += "</div>";
-            if(hompiAuth === "0"){
+            if(hompiAuth === "0" && folderContentType !== "04"){
                 $('.folderAddBtn').show();
                 $('.toggleBottomWrap').show();
+            }else{
+                $('.folderAddBtn').hide();
+                $('.toggleBottomWrap').hide();
             }
             $('#folderWrap').append(code);
-        checkDiary();
         },
         error: function(error){
             console.error(error);
@@ -204,7 +206,10 @@ function getFolder(){
     });
 }
 
-function getFolderContents(folderId ,appendHere){
+/*function getFolderContents(folderId ,appendHere){
+    if(folderContentType === "04"){
+        return;
+    }
     $.ajax({
         type: 'GET',
         url: '/api/folder/read/'+ hompiId +'/' + folderContentType + '/' + folderId,
@@ -221,7 +226,7 @@ function getFolderContents(folderId ,appendHere){
                 console.error(error);
         }
     });
-}
+}*/
 
 function updateFolderName(){
     const folderId = $('.selectModalFolder').val();
@@ -245,7 +250,7 @@ function updateFolderName(){
 }
 
 function deleteFolder(folderId){
-    if(folderId === 1){
+    if(folderId === 1 || folderContentType === "04"){
         return Swal.fire({
             title: "폴더 삭제 실패",
             text: "기본 폴더는 삭제가 불가합니다!",
@@ -274,25 +279,4 @@ function deleteFolder(folderId){
             console.error(error);
         }
     });
-}
-
-// 해당 폴더에 다이어리 작성된 날짜에 볼드 처리
-function checkDiary(){
-    let folderId = $('.folderOn').val();
-    if(!folderId){
-        $('.folderName button').first().addClass('folderOn');
-        folderId = $('.folderName button').first().val();
-    }
-    $.ajax({
-        type: 'GET',
-        url: '/api/minihompi/get/diary-day/' + folderId + '/' + hompiOwnerId,
-        success: function(response){
-            $('#day td').removeClass('active');
-            response.forEach(function(day,index){
-                $('#day td').filter(function(){
-                    return $(this).text() === day;
-                }).addClass('active');
-            })
-        }
-    })
 }

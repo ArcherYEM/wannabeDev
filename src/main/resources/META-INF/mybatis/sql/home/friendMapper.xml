@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.FriendMapper">
+    <insert id="saveFriendMessage" parameterType="FriendMessage">
+        INSERT INTO FRIEND_MESSAGE (
+            MESSAGE_ID, USER_ID, FRIEND_USER_ID, MESSAGE, READ_YN,
+            INSERT_USER_ID
+        )
+        VALUES (
+           #{messageId},
+           #{userId},
+           #{friendId},
+           #{message},
+           #{readYN},
+           #{insertUserId}
+        )
+        ON DUPLICATE KEY UPDATE
+             MESSAGE = #{message},
+             READ_YN = #{readYN},
+             UPDATE_USER_ID = #{updateUserId}
+    </insert>
+
+    <insert id="saveFriendInfo" parameterType="FriendInfo">
+        INSERT INTO FRIEND_INFO (
+            USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS, REMARKS
+        )
+        VALUES (
+            #{userId},
+            #{friendUserId},
+            #{userNickname},
+            #{friendUserNickname},
+            #{availStatus},
+            #{friendRequestMessage}
+        )
+        ON DUPLICATE KEY UPDATE
+            USER_NICKNAME = #{userNickname},
+            FRIEND_USER_NICKNAME = #{friendUserNickname},
+            AVAIL_STATUS = #{availStatus},
+            REMARKS = #{friendRequestMessage}
+    </insert>
+
+    <select id="findFriendByUserIdAndFriendId" parameterType="Map" resultType="FriendInfo">
+        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS, REMARKS AS FRIEND_REQUEST_MESSAGE
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendId}
+    </select>
+
+    <select id="findAllFriendInfoByUserId" parameterType="Long" resultType="FriendInfo">
+        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS, REMARKS AS FRIEND_REQUEST_MESSAGE
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId} AND AVAIL_STATUS = '02'
+    </select>
+
+    <select id="getFriendsNumByUserId" parameterType="Long" resultType="Long">
+        SELECT COUNT(*)
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId} AND AVAIL_STATUS = '02'
+    </select>
+
+    <select id="getFriendRequestNumByUserId" parameterType="Long" resultType="Long">
+        SELECT COUNT(*)
+        FROM FRIEND_INFO
+        WHERE FRIEND_USER_ID = #{userId} AND AVAIL_STATUS = '01'
+    </select>
+
+    <select id="getAllFriendPaneInfo" parameterType="Long" resultType="FriendPanelDTO">
+        SELECT
+            FI.FRIEND_USER_ID,
+            H.HOMPI_ID,
+            FI.FRIEND_USER_NICKNAME,
+            HC.HOMPI_CONFIG_CONTENT,
+            AFM.FILE_PATH,
+            CASE
+                WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 'LOGIN'
+                ELSE 'LOGOUT'
+                END AS LOGIN_STATUS
+        FROM FRIEND_INFO AS FI
+                 JOIN HOMPI AS H ON FI.FRIEND_USER_ID = H.OWNER_USER_ID
+                 JOIN HOMPI_CONFIG AS HC ON H.HOMPI_ID = HC.HOMPI_ID AND HC.HOMPI_CONFIG_CODE = '04'
+                 JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+                 JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+                 JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+        WHERE
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '02'
+        ORDER BY
+            CASE
+                WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
+                ELSE 1,
+            END ASC
+    </select>
+
+    <select id="getFriendPanelInfoByPage" parameterType="RequestFriendCardDTO" resultType="FriendPanelDTO">
+        SELECT
+            FI.FRIEND_USER_ID AS FRIEND_ID,
+            H.HOMPI_ID AS FRIEND_HOMPI_ID,
+            FI.FRIEND_USER_NICKNAME AS FRIEND_NAME,
+            HC.HOMPI_CONFIG_CONTENT AS FRIEND_MOOD,
+            AFM.FILE_PATH AS FRIEND_MINIMI,
+            CASE
+                WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 'LOGIN'
+                ELSE 'LOGOUT'
+                END AS FRIEND_LOGIN_STATUS
+        FROM FRIEND_INFO AS FI
+            JOIN HOMPI AS H ON FI.FRIEND_USER_ID = H.OWNER_USER_ID
+            JOIN HOMPI_CONFIG AS HC ON H.HOMPI_ID = HC.HOMPI_ID AND HC.HOMPI_CONFIG_CODE = '04'
+            JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+            JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+            JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+        WHERE
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '02'
+        ORDER BY
+            CASE
+                WHEN FI.FRIEND_USER_ID IN (SELECT USER_ID FROM USER_LOGIN) THEN 0
+                ELSE 1
+                END ASC,
+            FI.FRIEND_USER_ID ASC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="getFriendReceiveInfoByPage" parameterType="RequestFriendCardDTO" resultType="FriendRequestDTO">
+        SELECT
+            UBU.NAME AS USER_NAME,
+            FI.FRIEND_USER_NICKNAME AS USER_NICKNAME,
+            UBF.NAME AS FRIEND_NAME,
+            FI.USER_NICKNAME AS FRIEND_NICKNAME,
+            FI.USER_ID AS FRIEND_ID,
+            H.HOMPI_ID AS FRIEND_HOMPI_ID,
+            DATE_FORMAT(FI.INSERT_DT, '%Y.%m.%d %H:%i') AS FRIEND_REQUEST_DT,
+            AFM.FILE_PATH AS FRIEND_MINIMI,
+            FI.REMARKS AS FRIEND_REQUEST_MESSAGE
+        FROM FRIEND_INFO AS FI
+            JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.FRIEND_USER_ID
+            JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.USER_ID
+            JOIN HOMPI AS H ON H.OWNER_USER_ID = FI.USER_ID
+            JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+            JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+            JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+        WHERE
+            FI.FRIEND_USER_ID = #{userId} AND FI.AVAIL_STATUS = '01'
+        ORDER BY
+            FI.INSERT_DT DESC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="getFriendSendInfoByPage" parameterType="RequestFriendCardDTO" resultType="FriendRequestDTO">
+        SELECT
+            UBU.NAME AS USER_NAME,
+            FI.USER_NICKNAME AS USER_NICKNAME,
+            UBF.NAME AS FRIEND_NAME,
+            FI.FRIEND_USER_NICKNAME AS FRIEND_NICKNAME,
+            FI.FRIEND_USER_ID AS FRIEND_ID,
+            H.HOMPI_ID AS FRIEND_HOMPI_ID,
+            DATE_FORMAT(FI.INSERT_DT, '%Y.%m.%d %H:%i') AS FRIEND_REQUEST_DT,
+            AFM.FILE_PATH AS FRIEND_MINIMI,
+            FI.REMARKS AS FRIEND_REQUEST_MESSAGE
+        FROM FRIEND_INFO AS FI
+                 JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.USER_ID
+                 JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.FRIEND_USER_ID
+                 JOIN HOMPI AS H ON H.OWNER_USER_ID = FI.FRIEND_USER_ID
+                 JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+                 JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+                 JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+        WHERE
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '01'
+        ORDER BY
+            FI.INSERT_DT DESC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <delete id="deleteFriendByUserIdAndFriendId" parameterType="Map">
+        DELETE
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendId}
+    </delete>
+
+    <select id="existsByUserIdAndFriendId" parameterType="Map" resultType="Boolean">
+        SELECT COUNT(*) > 0
+        FROM FRIEND_INFO
+        WHERE USER_ID = #{userId}
+          AND FRIEND_USER_ID = #{friendId}
+    </select>
+</mapper>

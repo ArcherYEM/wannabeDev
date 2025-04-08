@@ -50,11 +50,13 @@ $(document).ready(function() {
             loginNew(loginIdValue, passwordValue);
         }
     });
+
     // 로그아웃 버튼 이벤트 (두 영역 통합)
     logoutButtons.click(function() {
         logout();
     });
 });
+
 
 // =========== 함수 정의 레이어 ===========
 // 로그인
@@ -65,14 +67,10 @@ function loginNew(loginIdValue, passwordValue) {
     });
 
     postAjax(API.LOGIN, LoginDTO, function(response) {
-
         if(response.status === HTTP_STATUS.OK.code) {
-
             swalPopup('로그인 성공', '로그인 성공하였습니다.', 'success', '확인', '닫기')
                 .then((result) => {
-
                     if(result.isConfirmed) {
-
                         location.reload();  // 확인 버튼 누르면 html reload
                     }
                 });

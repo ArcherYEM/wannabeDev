@@ -1,4 +1,4 @@
-package com.dev.wannabe.domain.minihompi.model.vo;
+package com.dev.wannabe.domain.home.model.vo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -12,5 +12,6 @@ public class FriendInfo {
     private String userNickname;
     private String friendUserNickname;
     private String availStatus;
+    private String friendRequestMessage;
 
 }

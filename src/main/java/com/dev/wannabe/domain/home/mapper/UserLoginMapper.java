@@ -10,6 +10,8 @@ public interface UserLoginMapper {
     void saveUserLogin(Long userId);
     void deleteUserLogin(Long userId);
 
+    Long logInFriendCount(Long userId);
+
     Integer isExistUser(Long userId);
     List<Long> loggedInFriendsByUserId(Long userId);
 }

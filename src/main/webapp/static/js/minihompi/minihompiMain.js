@@ -174,20 +174,6 @@ $(document).ready(function () {
 
     }
 
-    // 메인에서 이름 누르면 나오는 드롭박스
-    dropbtn.on("click", function (e) {
-        e.preventDefault();
-        droupdown.toggleClass("active");
-        droupdown.find("#name-droupdown").slideToggle();
-    });
-
-    $(document).on("click", function (e) {
-        if (!droupdown.is(e.target) && droupdown.has(e.target).length === 0) {
-            droupdown.removeClass("active");
-            droupdown.find("#name-droupdown").slideUp();
-        }
-    });
-
     // 미니홈피 타이틀 변경
     $(".rightMenu").on("click", "#titleBtn", function () {
         const btn = $(this);
@@ -306,7 +292,7 @@ $(document).ready(function () {
     }
 
     /** 쪽지 팝업창 설정 **/
-    window.onpneMessage = function() {
+    window.openMessage = function() {
         const userId = sessionStorage.getItem('userId');
 
         console.log("userId : " + userId);
@@ -604,4 +590,139 @@ $(document).ready(function () {
         });
     }
 
+    $.ajax({
+        type: "GET",
+        url: `/api/user/myhompi/${hompiId}`,
+        success: function (response) {
+            if (response === false) {
+                $("#leftContainer #leftWrap #leftBottom #nameWrap").css("pointer-events", "auto");
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: `/api/friend/check/${hompiId}`,
+        success: function (response) {
+            if (response === true) {
+                $("#dropbox-friend-send").addClass("hidden");
+                $("#dropbox-friend-delete").removeClass("hidden");
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+});
+
+
+$(document).on("click", "#nameWrap", function() {
+    $(this).toggleClass("active");
+    $(this).find("#name-dropdown").slideToggle();
+});
+
+$(document).on("click", "#dropbox-message-send", function() {
+    openMessage();
+});
+
+$(document).on("click", "#dropbox-friend-send", function() {
+
+    Swal.fire({
+        title: "일촌 신청",
+        html:
+            `
+                <div class="swal-request-container">
+                    <div class="swal-friend-request-name">
+                        <input id="user-nickname" placeholder="내 닉네임" maxlength="10">
+                        <input id="friend-nickname" placeholder="일촌 닉네임" maxlength="10">
+                    </div>
+                    <div class="swal-friend-request-message">
+                        <textarea id="friend-request-message" placeholder="일촌 요청 메시지" maxlength="50"></textarea>
+                    </div>
+                </div>`,
+        showCancelButton: true,
+        confirmButtonText: '요청',
+        cancelButtonText: '취소',
+        preConfirm: () => {
+            let username = $("#user-nickname").val();
+            let friendname = $("#friend-nickname").val();
+            let requestMessage = $("#friend-request-message").val();
+            if (!username || !friendname || !requestMessage) {
+                Swal.showValidationMessage('모든 값을 입력해주세요.');
+                return false;
+            }
+            return {username, friendname, requestMessage};
+        }
+    }).then( (result) => {
+        let requestInput = result.value;
+        let friendRequestData = {
+            "hompiId": hompiId,
+            "userNickname": requestInput.username,
+            "friendNickname": requestInput.friendname,
+            "friendRequestMessage": requestInput.requestMessage
+        }
+        $.ajax({
+            type:"POST",
+            url:`/api/friend/request/hompi`,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(friendRequestData),
+            success: function(response){
+                Swal.fire({
+                    title: "일촌 신청이 완료되었습니다.",
+                    icon: "success"
+                });
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        });
+    } )
+});
+
+$(document).on("click", "#dropbox-friend-delete", function() {
+    Swal.fire({
+        title: "일촌 끊기",
+        text: "일촌 끊기를 진행하시겠습니까?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: '승인',
+        cancelButtonText: '취소'
+    }).then(result => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "GET",
+                url: `/mini-hompi/id/${hompiId}`,
+                success: function (friendId) {
+                    $.ajax({
+                        type:"DELETE",
+                        url:`/api/friend/my/${friendId}`,
+                        contentType: "application/json",
+                        success: function(response){
+                            Swal.fire({
+                                title: "해제되었습니다.",
+                                icon: "success"
+                            }).then (() => {
+                                location.reload();
+                            })
+                        },
+                        error: function(error) {
+                            Swal.fire({
+                                title: "해제에 실패하였습니다.",
+                                icon: "error"
+                            });
+                            location.reload();
+                        }
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    })
 });

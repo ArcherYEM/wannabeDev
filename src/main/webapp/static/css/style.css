@@ -192,6 +192,7 @@ body {
 
 #leftContainer #leftWrap #leftBottom #nameWrap {
     margin-bottom: 5px;
+    pointer-events: none;
 }
 
 #leftContainer #leftWrap #leftBottom #nameWrap .name {
@@ -204,7 +205,7 @@ body {
 
 }
 
-#leftContainer #leftWrap #leftBottom #nameWrap #name-droupdown {
+#leftContainer #leftWrap #leftBottom #nameWrap #name-dropdown {
     display: none;
     position: absolute;
     width: 10%;
@@ -214,15 +215,18 @@ body {
     z-index: 1;
 }
 
-#leftContainer #leftWrap #leftBottom #nameWrap #name-droupdown a {
+#leftContainer #leftWrap #leftBottom #nameWrap #name-dropdown div {
     text-decoration: none;
     border-bottom: 1px solid #595959;
     display: block;
     padding-left: 5px;
     font-size: 14px;
 }
+#leftContainer #leftWrap #leftBottom #nameWrap #name-dropdown .hidden {
+    display: none;
+}
 
-#leftContainer #leftWrap #leftBottom #nameWrap #name-droupdown a:hover {
+#leftContainer #leftWrap #leftBottom #nameWrap #name-dropdown div:hover {
     background-color: #595959;
     color: white;
 }
@@ -958,5 +962,31 @@ progress::-webkit-progress-value {
     display: block;
 }
 
-
-
+.swal-request-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.swal-request-container .swal-friend-request-name {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.swal-request-container .swal-friend-request-name input {
+    border: 1px solid grey;
+    border-radius: 8px;
+    width: 170px;
+    height: 30px;
+    text-align: center;
+}
+.swal-request-container .swal-friend-request-message textarea {
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    width: 350px;
+    height: 60px;
+    text-align: center;
+    resize: none;
+}

@@ -1,0 +1,45 @@
+<div th:fragment="friendModal">
+    <!-- 일촌 모달 영역 -->
+    <div id="friend-modal-layer" class="modal-layer hidden">
+        <div class="modal-content">
+            <div class="modal-close-wrapper">
+                <img id="friend-modal-close" class="close" src="/static/images/common/icon/close.png" alt="close">
+            </div>
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="/static/images/common/logo/logo_full.png" alt="Logo" style="max-width: 100%;">
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- 일촌 목록/신청 탭 영역 -->
+                <div class="modal-side-tabs">
+                    <div class="side-tab-content">
+                        <div class="side-tab-title">
+                            <span id="side-list-text" class="side-tab-text">일촌 목록</span>
+                            <div id="side-logged-friends" class="side-tab-data"></div>
+                        </div>
+                    </div>
+                    <div class="side-tab-content">
+                        <div class="side-tab-title">
+                            <span id="side-request-text" class="side-tab-text">일촌 신청</span>
+                            <div id="side-friend-request" class="side-tab-data"></div>
+                        </div>
+                        <div class="side-tab-sub">
+                            <span id="side-friend-received" class="side-tab-subtext">받은 일촌신청</span>
+                        </div>
+                        <div class="side-tab-sub">
+                            <span id="side-friend-send" class="side-tab-subtext">보낸 일촌신청</span>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- 일촌 목록 -->
+                <div class="modal-main-content">
+                    <div id="now-friend-status"></div>
+                    <div id="friends-container"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -31,7 +31,7 @@ $(document).ready(function(){
     });
 
     // logout
-    $(".logoutBtn").click(function () {
+    $("#logoutBtn, #logoutBtn2").click(function () {
         $.ajax({
             type: "POST",
             url: "/api/user/logout",

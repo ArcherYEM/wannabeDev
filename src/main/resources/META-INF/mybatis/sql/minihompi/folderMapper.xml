@@ -38,6 +38,31 @@
             #{hompiId}, #{folderId},
             #{folderName}, '03',
             #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, #{folderId},
+            '폴더1', '04',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, 2,
+            '폴더2', '04',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, 3,
+            '폴더3', '04',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, 4,
+            '폴더4', '04',
+            #{availStatus}, #{insertUserId}
+        ),
+        (
+            #{hompiId}, 5,
+            '폴더5', '04',
+            #{availStatus}, #{insertUserId}
         )
     </insert>
 

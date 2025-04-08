@@ -9,10 +9,11 @@ import com.dev.wannabe.domain.minihompi.model.dto.CreateHompiDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.MinimiInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.MiniroomInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.SendMessageDTO;
-import com.dev.wannabe.domain.minihompi.service.FriendService;
+import com.dev.wannabe.domain.home.service.FriendService;
 import com.dev.wannabe.domain.minihompi.service.HompiService;
 import com.dev.wannabe.domain.minihompi.service.MinimiService;
 import com.dev.wannabe.domain.minihompi.service.MiniroomService;
+import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashMap;
@@ -71,7 +74,7 @@ public class UserController {
 
         MinimiInfoDTO minimiInfo = MinimiInfoDTO.builder()
                 .userId(userId)
-                .productId(1L)
+                .productId(16L)
                 .upsertUserId(userId)
                 .build();
         minimiService.createMinimi(minimiInfo);
@@ -241,6 +244,19 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/myhompi/{hompiId}")
+    @ResponseBody
+    public ResponseEntity<Boolean> isMyHompi(@PathVariable Long hompiId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        Boolean isMy = userService.isMyHompi(sessionUser.getUserId(), hompiId);
+        return ResponseEntity.ok(isMy);
     }
 }
 
