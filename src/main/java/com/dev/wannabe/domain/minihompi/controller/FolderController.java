@@ -1,11 +1,10 @@
 package com.dev.wannabe.domain.minihompi.controller;
 
 import com.dev.wannabe.domain.home.mapper.UserMapper;
-import com.dev.wannabe.domain.minihompi.mapper.FriendMapper;
+import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.FolderContentsDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.FolderDTO;
-import com.dev.wannabe.domain.minihompi.model.vo.FriendInfo;
 import com.dev.wannabe.domain.minihompi.service.FolderService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Controller

@@ -1,0 +1,410 @@
+.modal-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-layer.hidden {
+    display: none;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 700px;
+    width: 900px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-close-wrapper {
+    display: flex;
+    justify-content: right;
+}
+
+#friend-modal-close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+.modal-header .modal-logo {
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.modal-body {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.modal-side-tabs {
+    height: 100%;
+    width: 200px;
+    border-right: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+    gap: 20px;
+}
+.side-tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.side-tab-content .side-tab-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}
+.side-tab-content .side-tab-sub {
+    text-align: right;
+    cursor: pointer;
+}
+
+.side-tab-text {
+    font-weight: bold;
+    font-size: 25px;
+}
+.side-tab-data {
+    width: 25px;
+    height: 25px;
+    margin-top: 1px;
+    border-radius: 50%;
+    color: white;
+    background-color: var(--color-basic);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#now-friend-status {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: large;
+    gap: 10px;
+}
+#now-friend-display {
+    width: 200px;
+    text-align: right;
+}
+#all-friend-display {
+    width: 200px;
+    text-align: left;
+}
+
+#friends-container {
+    width: 100%;
+    height: 500px;
+    margin-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow-y: scroll;
+}
+.friend-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+
+}
+.friend-request-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.friend-list-item {
+    width: 330px;
+    height: 150px;
+    border: solid 1px black;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+.friend-list-item .friend-content-container {
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    display: flex;
+    flex-direction: row;
+}
+.friend-list-item .friend-minimi-container {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #dddddd;
+}
+.friend-list-item .friend-minimi {
+    width: 115px;
+    height: 115px;
+}
+.friend-list-item .friend-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    width: 180px;
+}
+.friend-list-item .friend-list-item-head {
+    height: 20px;
+    padding: 0;
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.friend-list-item .friend-list-item-head .friend-setting-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.friend-list-item .friend-list-item-head .friend-home-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.friend-list-item .friend-edit-dropbox {
+    display: flex;
+    flex-direction: column;
+}
+.friend-list-item .friend-edit-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.friend-list-item .friend-dropbox-menu {
+    border: 1px solid gray;
+    z-index: 1000;
+}
+.friend-list-item .friend-dropbox-item {
+    height: 20px;
+    width: 80px;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f6f6;
+    cursor: pointer;
+}
+.friend-list-item .friend-dropbox-item:hover {
+    background-color: var(--color-basic);
+}
+
+.friend-list-item .friend-list-item-body {
+    display: flex;
+    flex-direction: column;
+}
+.friend-list-item .friend-title {
+    color: var(--color-basic);
+    font-size: small;
+}
+.friend-list-item .friend-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.friend-list-item .friend-name {
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    max-width: fit-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.friend-list-item .friend-mood {
+    font-weight: bold;
+    font-size: 15px;
+    vertical-align: center;
+}
+.friend-list-item .friend-list-item-foot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.friend-list-item .friend-send-message {
+    width: 80px;
+    height: 20px;
+    font-size: small;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    color: white;
+    background-color: var(--color-basic);
+}
+
+.friend-request-item {
+    width: 600px;
+    height: 150px;
+    border: solid 1px grey;
+    border-radius: 8px;
+    flex-shrink: 0;
+    position: relative;
+}
+.friend-request-item .friend-content-container {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.friend-request-item .friend-minimi-container {
+    width: 130px;
+    height: 130px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.friend-request-item .friend-minimi {
+    width: 120px;
+    height: 120px;
+}
+.friend-request-item .friend-content {
+    width: 445px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+}
+.friend-request-item .friend-request-item-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.friend-request-item .friend-request-title {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    font-size: 20px;
+    position: relative;
+    gap: 13px;
+}
+.friend-request-item .friend-request-hompi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1px;
+    padding-left: 1px;
+}
+.friend-request-item .friend-request-hompi .friend-home-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+.friend-request-item .friend-request-text {
+    display: flex;
+    flex-direction: row;
+}
+.friend-request-item .friend-request-name {
+    color: var(--color-basic);
+}
+.friend-request-item .friend-receive-name {
+    color: var(--color-basic);
+}
+.friend-request-item .friend-request-datetime {
+    font-size: 13px;
+    color: grey;
+}
+
+.friend-request-item .friend-request-item-body {
+
+}
+.friend-request-item .friend-request-user {
+    padding-top: 3px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+}
+
+.friend-request-item .friend-request-item-foot {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.friend-request-item .friend-request-msg {
+    width: 350px;
+    height: 70px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    padding: 5px;
+    overflow-y: scroll;
+}
+.friend-request-item .friend-request-btn {
+    width: 100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.friend-request-item .friend-receive-accept {
+    height: 32px;
+    border-radius: 8px;
+    color: white;
+    background-color: #FF8000FF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.friend-request-item .friend-receive-deny {
+    height: 32px;
+    border-radius: 8px;
+    color: white;
+    background-color: #595959;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.friend-request-item .friend-send-reject {
+    height: 100%;
+    border-radius: 8px;
+    color: white;
+    background-color: #595959;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+
+.hidden {
+    display: none;
+}

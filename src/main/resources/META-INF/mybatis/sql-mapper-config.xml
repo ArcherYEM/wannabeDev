@@ -27,8 +27,8 @@
 		<!--> login <-->
 		<typeAlias alias="LoginLog" type="com.dev.wannabe.domain.home.model.vo.LoginLog"/>
 		<!--> friend <-->
-		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.minihompi.model.vo.FriendMessage"/>
-		<typeAlias alias="FriendInfo" type="com.dev.wannabe.domain.minihompi.model.vo.FriendInfo"/>
+		<typeAlias alias="FriendMessage" type="com.dev.wannabe.domain.home.model.vo.FriendMessage"/>
+		<typeAlias alias="FriendInfo" type="com.dev.wannabe.domain.home.model.vo.FriendInfo"/>
 		<!--> hompi <-->
 		<typeAlias alias="Hompi" type="com.dev.wannabe.domain.minihompi.model.vo.Hompi"/>
 		<typeAlias alias="HompiConfig" type="com.dev.wannabe.domain.minihompi.model.vo.HompiConfig"/>
@@ -50,6 +50,9 @@
 		<typeAlias alias="SignupUserDTO" type="com.dev.wannabe.domain.home.model.dto.SignupUserDTO"/>
 		<!--> login <-->
 		<!--> friend <-->
+		<typeAlias alias="FriendPanelDTO" type="com.dev.wannabe.domain.home.model.dto.FriendPanelDTO" />
+		<typeAlias alias="FriendRequestDTO" type="com.dev.wannabe.domain.home.model.dto.FriendRequestDTO" />
+		<typeAlias alias="RequestFriendCardDTO" type="com.dev.wannabe.domain.home.model.dto.RequestFriendCardDTO" />
 		<!--> hompi <-->
 		<typeAlias alias="HompiBasicInfoDTO" type="com.dev.wannabe.domain.minihompi.model.dto.HompiBasicInfoDTO"/>
 		<typeAlias alias="FolderFindDTO" type="com.dev.wannabe.domain.minihompi.model.dto.FolderFindDTO"/>

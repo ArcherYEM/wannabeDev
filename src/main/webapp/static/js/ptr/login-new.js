@@ -67,7 +67,6 @@ function loginNew(loginIdValue, passwordValue) {
     });
 
     postAjax(API.LOGIN, LoginDTO, function(response) {
-
         if(response.status === HTTP_STATUS.OK.code) {
             swalPopup('로그인 성공', '로그인 성공하였습니다.', 'success', '확인', '닫기')
                 .then((result) => {
@@ -75,7 +74,7 @@ function loginNew(loginIdValue, passwordValue) {
                         location.reload();  // 확인 버튼 누르면 html reload
                     }
                 });
-        } else if (response.status === HTTP_STATUS.NOT_FOUND.code) {
+        } else if (response.status === HTTP_STATUS.BAD_REQUEST.code) {
             swalPopup('로그인 실패', '로그인 정보를 확인해주세요.', 'error', '확인', '닫기');
         } else if (response.status === HTTP_STATUS.SERVER_ERROR.code) {
             swalPopup('로그인 실패', '서버 오류가 발생하였습니다.', 'error', '확인', '닫기');

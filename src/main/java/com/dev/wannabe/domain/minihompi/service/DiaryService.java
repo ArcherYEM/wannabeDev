@@ -1,6 +1,6 @@
 package com.dev.wannabe.domain.minihompi.service;
 
-import com.dev.wannabe.domain.minihompi.mapper.FriendMapper;
+import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiDiaryMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.DiaryExistenceDTO;

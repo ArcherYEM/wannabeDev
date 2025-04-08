@@ -2,15 +2,13 @@ package com.dev.wannabe.domain.minihompi.service;
 
 import com.dev.wannabe.domain.minihompi.mapper.AlbumCommentMapper;
 import com.dev.wannabe.domain.minihompi.mapper.AlbumMapper;
-import com.dev.wannabe.domain.minihompi.mapper.FriendMapper;
+import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.AlbumCommentDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.AlbumComment;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
