@@ -23,7 +23,7 @@ $(document).ready(function(){
         diaryText = $('#diary textarea');
         if(diaryText.length === 0){
             $('.diaryContent').empty();
-            let content = `<div class="diarySelectWrap">다이어리 제목:<input type="text" class="diaryTitle"> 댓글 허용: <select id="diaryStatus" class="addContent">
+            let content = `<div class="diarySelectWrap">댓글 허용: <select id="diaryStatus" class="addContent">
                 <option value="33">전체 허용</option>
                 <option value="32">일촌 허용</option>
                 <option value="31">전체 비허용</option>
@@ -117,6 +117,12 @@ $(document).ready(function(){
         if(confirm('정말 삭제하시겠습니까'))
         deleteDiaryComment(commentId);
     })
+
+    $(document).on('click', '.folderName button', function(){
+        if(folderContentType !== '04'){
+            checkDiary($(this).val());
+        }
+    });
 });
 
 let commentStatus;
@@ -175,7 +181,6 @@ function getMonthDate(){
 }
 
 function addDiaryContent(folderId, diaryContent){
-    const diaryTitle = $('.diaryTitle').val();
     if(!folderId){
         alert('폴더를 선택해주세요');
         return;
@@ -184,7 +189,7 @@ function addDiaryContent(folderId, diaryContent){
     console.log(availStatus);
     $.ajax({
         type: 'POST',
-        url: '/api/minihompi/add/diary/' + folderId + '/' + diaryTitle + '/' +hompiOwnerId,
+        url: '/api/minihompi/add/diary/' + folderId + '/' +hompiOwnerId,
         data: {availStatus: availStatus,diaryContent: diaryContent},
         success: function(response){
             if(!response){
@@ -216,7 +221,6 @@ function getDiaryContent(diaryId){
             if(!response){ //다이어리가 없을 경우
                 return;
             }
-            $('#diary').children().remove();
             $('#diary').append(`
                 <div data-id="${response.diaryId}" data-avail="${response.availStatus}"
                 class="diaryContent">${response.diaryContent}</div>
@@ -424,5 +428,29 @@ function checkStatus(){
             error: function(error){
                 console.error(error);
             }
+    })
+}
+
+// 해당 폴더에 다이어리 작성된 날짜에 볼드 처리
+function checkDiary(folderId){
+    $.ajax({
+        type: 'GET',
+        url: '/api/minihompi/get/diary-day/' + folderId + '/' + hompiOwnerId,
+        success: function(response){
+        $('#day td').removeClass('active');
+        if(response.length === 0){
+            $('#diary').children().remove();
+            $('#diary').append(`
+                <div class="diaryContent">해당 폴더에는 다이어리가 존재하지 않습니다.</div>
+            `)
+            return;
+        }
+        getDiaryByDay(response[0]);
+            response.forEach(function(day,index){
+                $('#day td').filter(function(){
+                    return $(this).text() === day;
+                }).addClass('active');
+            })
+        }
     })
 }

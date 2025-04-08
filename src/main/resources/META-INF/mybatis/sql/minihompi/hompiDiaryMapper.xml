@@ -5,7 +5,7 @@
     <insert id="saveDiary" parameterType="HompiDiary">
         INSERT INTO HOMPI_DIARY (
             DIARY_ID, HOMPI_ID, FOLDER_ID, DIARY_CONTENT, AVAIL_STATUS,
-            INSERT_USER_ID,DIARY_NAME
+            INSERT_USER_ID
         )
         VALUES (
             #{diaryId},
@@ -13,8 +13,7 @@
             #{folderId},
             #{diaryContent},
             #{availStatus},
-            #{insertUserId},
-            #{diaryName}
+            #{insertUserId}
         )
             ON DUPLICATE KEY UPDATE
             DIARY_CONTENT = #{diaryContent},
