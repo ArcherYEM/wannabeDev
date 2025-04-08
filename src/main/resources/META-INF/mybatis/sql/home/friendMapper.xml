@@ -23,29 +23,31 @@
 
     <insert id="saveFriendInfo" parameterType="FriendInfo">
         INSERT INTO FRIEND_INFO (
-            USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS
+            USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS, REMARKS
         )
         VALUES (
             #{userId},
             #{friendUserId},
             #{userNickname},
             #{friendUserNickname},
-            #{availStatus}
+            #{availStatus},
+            #{friendRequestMessage}
         )
         ON DUPLICATE KEY UPDATE
             USER_NICKNAME = #{userNickname},
             FRIEND_USER_NICKNAME = #{friendUserNickname},
-            AVAIL_STATUS = #{availStatus}
+            AVAIL_STATUS = #{availStatus},
+            REMARKS = #{friendRequestMessage}
     </insert>
 
-    <select id="findFriendByUserIdAndFriendId" resultType="FriendInfo">
-        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS
+    <select id="findFriendByUserIdAndFriendId" parameterType="Map" resultType="FriendInfo">
+        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS, REMARKS AS FRIEND_REQUEST_MESSAGE
         FROM FRIEND_INFO
         WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendId}
     </select>
 
     <select id="findAllFriendInfoByUserId" parameterType="Long" resultType="FriendInfo">
-        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS
+        SELECT USER_ID, FRIEND_USER_ID, USER_NICKNAME, FRIEND_USER_NICKNAME, AVAIL_STATUS, REMARKS AS FRIEND_REQUEST_MESSAGE
         FROM FRIEND_INFO
         WHERE USER_ID = #{userId} AND AVAIL_STATUS = '02'
     </select>
@@ -125,7 +127,8 @@
             FI.USER_ID AS FRIEND_ID,
             H.HOMPI_ID AS FRIEND_HOMPI_ID,
             DATE_FORMAT(FI.INSERT_DT, '%Y.%m.%d %H:%i') AS FRIEND_REQUEST_DT,
-            AFM.FILE_PATH AS FRIEND_MINIMI
+            AFM.FILE_PATH AS FRIEND_MINIMI,
+            FI.REMARKS AS FRIEND_REQUEST_MESSAGE
         FROM FRIEND_INFO AS FI
             JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.FRIEND_USER_ID
             JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.USER_ID
@@ -149,7 +152,8 @@
             FI.FRIEND_USER_ID AS FRIEND_ID,
             H.HOMPI_ID AS FRIEND_HOMPI_ID,
             DATE_FORMAT(FI.INSERT_DT, '%Y.%m.%d %H:%i') AS FRIEND_REQUEST_DT,
-            AFM.FILE_PATH AS FRIEND_MINIMI
+            AFM.FILE_PATH AS FRIEND_MINIMI,
+            FI.REMARKS AS FRIEND_REQUEST_MESSAGE
         FROM FRIEND_INFO AS FI
                  JOIN USER_BASIC AS UBU ON UBU.USER_ID = FI.USER_ID
                  JOIN USER_BASIC AS UBF ON UBF.USER_ID = FI.FRIEND_USER_ID

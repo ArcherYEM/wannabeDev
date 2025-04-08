@@ -1,11 +1,13 @@
 package com.dev.wannabe.domain.home.controller;
 
+import com.dev.wannabe.domain.home.model.dto.FriendNewRequestDTO;
 import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
 import com.dev.wannabe.domain.home.model.dto.FriendRequestDTO;
 import com.dev.wannabe.domain.home.model.vo.FriendInfo;
 import com.dev.wannabe.domain.home.service.FriendService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.nio.file.Path;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/friend")
@@ -23,21 +26,19 @@ public class FriendController {
 
     private final FriendService friendService;
 
-    @PostMapping("/request/{friendId}")
+    @PostMapping("/request/hompi")
     @ResponseBody
-    public ResponseEntity<Void> friendRequest(@PathVariable Long friendId, HttpServletRequest request) {
+    public ResponseEntity<Void> friendRequest(@RequestBody FriendNewRequestDTO friendNew, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session == null) { return ResponseEntity.badRequest().build(); }
         Object userData = session.getAttribute("userData");
         if (userData == null) {return ResponseEntity.badRequest().build(); }
         SessionUserDTO sessionUser = (SessionUserDTO) userData;
 
-        FriendInfo friendRequestInfo = FriendInfo.builder()
-                .userId(sessionUser.getUserId())
-                .friendUserId(friendId)
-                .build();
+        FriendNewRequestDTO friendNewMake = friendNew.toBuilder().userId(sessionUser.getUserId()).build();
+
         try {
-            friendService.requestNewFriend(friendRequestInfo);
+            friendService.requestNewFriend(friendNewMake);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
@@ -212,4 +213,19 @@ public class FriendController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/check/{hompiId}")
+    @ResponseBody
+    public ResponseEntity<Boolean> friendCheck(@PathVariable Long hompiId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session == null) { return ResponseEntity.ok().build(); }
+        Object userData = session.getAttribute("userData");
+        if (userData == null) {return ResponseEntity.ok().build(); }
+        SessionUserDTO sessionUser = (SessionUserDTO) userData;
+
+        Boolean isFriend = friendService.isFriend(sessionUser.getUserId(), hompiId);
+        log.info("test {}", isFriend);
+        return ResponseEntity.ok(isFriend);
+    }
+
 }

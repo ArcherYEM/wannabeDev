@@ -6,6 +6,7 @@ import com.dev.wannabe.domain.home.model.vo.EmailAuth;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.model.vo.UserDetail;
 import com.dev.wannabe.domain.home.model.vo.UserRole;
+import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +23,7 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final HompiMapper hompiMapper;
 
     /*
      * 회원 가입 기능
@@ -125,4 +127,11 @@ public class UserService {
 
     @Transactional
     public void expireAuthStatus(String authId, String authCode, LocalDateTime expTime){ userMapper.expireAuthStatus(authId, authCode, expTime);}
+
+    @Transactional
+    public Boolean isMyHompi(Long userId, Long hompiId){
+        Long myHompiId = hompiMapper.findHompiIdByUserId(userId);
+
+        return hompiId.equals(myHompiId);
+    }
 }

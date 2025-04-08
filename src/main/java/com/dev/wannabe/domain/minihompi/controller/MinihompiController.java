@@ -4,6 +4,7 @@ import com.dev.wannabe.domain.home.mapper.PopupMessageMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.PopupMessageDTO;
 import com.dev.wannabe.domain.home.service.PopupMessageService;
+import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class MinihompiController {
 
     @Autowired
     private PopupMessageMapper PopupMessageMapper;
+    @Autowired
+    private HompiMapper hompiMapper;
+
     public MinihompiController(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
@@ -94,6 +98,13 @@ public class MinihompiController {
             System.out.println(userId+ " 님 이" + recipient + " 에게 메세지 전송 실패");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("쪽지 전송에 실패했습니다.");
         }
+    }
+
+    @GetMapping("/id/{hompiId}")
+    @ResponseBody
+    public ResponseEntity<Long> id(@PathVariable Long hompiId) {
+        Long hompiUserId = hompiMapper.findUserIdByHompiId(hompiId);
+        return ResponseEntity.ok(hompiUserId);
     }
 
 }

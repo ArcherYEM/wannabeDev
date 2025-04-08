@@ -5,14 +5,12 @@ let friendRequestStart = 0;
 let friendRequestSize = 10;
 
 $(document).ready(function () {
-    let friendOn = $("#friend-on");
     let friendOnNum = $("#friend-on-num");
     let friendRequest = $("#friend-request");
     let friendRequestNum = $("#friend-request-num");
     let modal = $("#friend-modal-layer");
 
     // 모달 사이드바
-    let sideFriendListText = $("#side-list-text")
     let sideRequestText = $("#side-request-text")
 
     let sideLoggedFriends = $("#side-logged-friends");
@@ -167,7 +165,10 @@ $(document).on("click", ".friend-home-icon", function () {
 // 일촌 미니홈피 열기
 $(document).on("click", ".friend-send-message", function () {
     let friendId = $(this).data("hidden-value");
-    console.log("쪽지 보내기", friendId);
+    /*
+        쪽지기능 완성되면 달기
+
+     */
 });
 
 // 일촌 요청 허용
@@ -380,8 +381,8 @@ function LoadFriendReceiveListPage(start, size) {
         contentType: "application/json",
         success: function(response){
             if (!response) { return; }
-
             response.forEach(friend => {
+                if (!friend.friendRequestMessage) { friend.friendRequestMessage = ""; }
                 let friendReceiveItem = createFriendReceive(friend);
                 $("#friends-container").append(friendReceiveItem);
             });
@@ -400,8 +401,8 @@ function LoadFriendSendListPage(start, size) {
         contentType: "application/json",
         success: function(response){
             if (!response) { return; }
-
             response.forEach(friend => {
+                if (!friend.friendRequestMessage) { friend.friendRequestMessage = ""; }
                 let friendSendItem = createFriendSend(friend);
                 $("#friends-container").append(friendSendItem);
             });
@@ -482,9 +483,7 @@ function createFriendReceive(friendRequest) {
                         </div>
                     </div>
                     <div class="friend-request-item-foot">
-                        <p class="friend-request-msg">
-                            일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자
-                        </p>
+                        <p class="friend-request-msg">${friendRequest.friendRequestMessage}</p>
                         <div class="friend-request-btn">
                             <div class="friend-receive-accept" data-hidden-value=${friendRequest.friendId}>일촌맺기</div>
                             <div class="friend-receive-deny" data-hidden-value=${friendRequest.friendId}>거절하기</div>
@@ -527,9 +526,7 @@ function createFriendSend(friendSend) {
                         </div>
                     </div>
                     <div class="friend-request-item-foot">
-                        <p class="friend-request-msg">
-                            일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자 일촌하자
-                        </p>
+                        <p class="friend-request-msg">${friendSend.friendRequestMessage}</p>
                         <div class="friend-request-btn">
                             <div class="friend-send-reject" data-hidden-value=${friendSend.friendId}>취소</div>
                         </div>

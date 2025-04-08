@@ -2,11 +2,13 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
+import com.dev.wannabe.domain.home.model.dto.FriendNewRequestDTO;
 import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
 import com.dev.wannabe.domain.home.model.dto.FriendRequestDTO;
 import com.dev.wannabe.domain.home.model.dto.RequestFriendCardDTO;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.mapper.FriendMapper;
+import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
 import com.dev.wannabe.domain.minihompi.model.dto.SendMessageDTO;
 import com.dev.wannabe.domain.home.model.vo.FriendInfo;
 import com.dev.wannabe.domain.home.model.vo.FriendMessage;
@@ -25,45 +27,45 @@ public class FriendService {
     private final FriendMapper friendMapper;
     private final UserMapper userMapper;
     private final UserLoginMapper userLoginMapper;
+    private final HompiMapper hompiMapper;
 
     @Transactional
-    public void requestNewFriend(FriendInfo newFriend) {
-        UserBasic userData = userMapper.findUserBasicByUserId(newFriend.getUserId());
-        UserBasic friendData = userMapper.findUserBasicByUserId(newFriend.getFriendUserId());
-        String userNickname = userData.getName();
-        String friendNickname = friendData.getName();
+    public void requestNewFriend(FriendNewRequestDTO friendNew) {
 
-        FriendInfo newFriendInfo = newFriend.toBuilder()
-                .userNickname(userNickname)
-                .friendUserNickname(friendNickname)
+        Long friendId = hompiMapper.findUserIdByHompiId(friendNew.getHompiId());
+
+        FriendInfo newFriendInfo = FriendInfo.builder()
+                .userId(friendNew.getUserId())
+                .friendUserId(friendId)
+                .userNickname(friendNew.getUserNickname())
+                .friendUserNickname(friendNew.getFriendNickname())
                 .availStatus("01")
+                .friendRequestMessage(friendNew.getFriendRequestMessage())
                 .build();
         friendMapper.saveFriendInfo(newFriendInfo);
     }
 
     @Transactional
     public void acceptFriend(Long userId, Long friendId) {
+
         FriendInfo friendRequest = friendMapper.findFriendByUserIdAndFriendId(friendId, userId);
         if (friendRequest == null) {
             throw new IllegalStateException("친구 요청이 존재하지 않습니다.");
         }
-        log.info("friendRequest request: {}", friendRequest);
+        log.info("friendRequest request: aaaaaa");
         FriendInfo acceptedFriend = friendRequest.toBuilder()
                 .availStatus("02")
+                .friendRequestMessage("")
                 .build();
 
-        log.info("Accepted friend request: {}", acceptedFriend);
-
         FriendInfo newFriend = acceptedFriend.toBuilder()
-                .userId(userId)
-                .friendUserId(friendId)
-                .userNickname(friendRequest.getFriendUserNickname())
-                .friendUserNickname(friendRequest.getUserNickname())
+                .userId(acceptedFriend.getFriendUserId())
+                .friendUserId(acceptedFriend.getFriendUserId())
                 .availStatus("02")
+                .friendRequestMessage("")
                 .build();
 
         friendMapper.saveFriendInfo(acceptedFriend);
-        log.info("Accepted friend request2: {}", acceptedFriend);
         friendMapper.saveFriendInfo(newFriend);
     }
 
@@ -142,5 +144,11 @@ public class FriendService {
     @Transactional(readOnly = true)
     public Long getFriendRequestNum(Long userId) {
         return friendMapper.getFriendRequestNumByUserId(userId);
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean isFriend(Long userId, Long hompiId) {
+        Long hompiUserId = hompiMapper.findUserIdByHompiId(hompiId);
+        return friendMapper.existsByUserIdAndFriendId(userId, hompiUserId);
     }
 }

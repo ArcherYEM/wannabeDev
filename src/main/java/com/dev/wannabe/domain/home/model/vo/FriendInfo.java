@@ -12,5 +12,6 @@ public class FriendInfo {
     private String userNickname;
     private String friendUserNickname;
     private String availStatus;
+    private String friendRequestMessage;
 
 }

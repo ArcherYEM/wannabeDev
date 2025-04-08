@@ -1,9 +1,10 @@
 package com.dev.wannabe.domain.home.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -16,5 +17,5 @@ public class FriendRequestDTO {
     private Long friendHompiId;
     private String friendRequestDT;
     private String friendMinimi;
-
+    private String friendRequestMessage;
 }
