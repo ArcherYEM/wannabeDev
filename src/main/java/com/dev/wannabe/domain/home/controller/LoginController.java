@@ -43,7 +43,7 @@ public class LoginController {
             if (loginService.login(loginData)) {
                 return ResponseEntity.status(HttpStatus.OK).body(LoginResponse.success());
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(LoginResponse.badRequest());
+                return ResponseEntity.status(HttpStatus.OK).body(LoginResponse.success()); // 빼님 스타일
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(LoginResponse.serverError());
