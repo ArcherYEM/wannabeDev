@@ -140,7 +140,7 @@ public class PopupMessageController {
         }
         model.addAttribute("msgList", popupMessageDTO);
 
-        int receiveMsgCount = popupMessageService.rceiveMsgCount(userId); //전체 쪽지 갯수
+        int receiveMsgCount = popupMessageService.receiveMsgCount(userId); //전체 쪽지 갯수
         model.addAttribute("receiveMsgCount", receiveMsgCount);
         int receiveUnreadMsgCount = popupMessageService.receiveUnreadMsgCount(userId); // 안읽은 쪽지 갯수
         model.addAttribute("receiveUnreadMsgCount", receiveUnreadMsgCount);

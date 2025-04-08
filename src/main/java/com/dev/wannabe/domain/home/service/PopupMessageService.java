@@ -26,7 +26,7 @@ public class PopupMessageService {
         return popupMessageMapper.getReceiveMsglist(userId, offset, pageSize);
     }
 
-    public int rceiveMsgCount(String userId) {
+    public int receiveMsgCount(String userId) {
         return popupMessageMapper.receiveMsgCount(userId);
     }
 
