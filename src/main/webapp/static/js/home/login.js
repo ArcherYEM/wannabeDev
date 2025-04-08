@@ -60,7 +60,6 @@ function login(loginId, password) {
         contentType: "application/json",
         data: JSON.stringify(loginData),
         success:function(response){
-            console.log(response)
             Swal.fire(
                 '로그인 성공!',
                 '환영합니다',
