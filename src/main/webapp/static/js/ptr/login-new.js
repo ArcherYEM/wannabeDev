@@ -56,10 +56,6 @@ $(document).ready(function() {
     });
 });
 
-$("img.home-icon").on("click", function(){
-    console.log("테스트");
-});
-
 // =========== 함수 정의 레이어 ===========
 // 로그인
 function loginNew(loginIdValue, passwordValue) {
@@ -81,7 +77,7 @@ function loginNew(loginIdValue, passwordValue) {
                     }
                 });
 
-                document.body.classList.remove('swal2-height-auto'); //푸터 움직이는거 제거
+                document.body.classList.remove('swal2-height-auto'); // footer 부분 css 위치조정
 
         } else if (response.status === HTTP_STATUS.NOT_FOUND.code) {
             swalPopup('로그인 실패', '로그인 정보를 확인해주세요.', 'error', '확인', '닫기');
@@ -105,7 +101,9 @@ function logout() {
                         location.reload();  // 확인 버튼 누르면 html reload
                     }
                 });
-            document.body.classList.remove('swal2-height-auto'); //푸터 움직이는거 제거
+            
+            document.body.classList.remove('swal2-height-auto'); //footer 부분 css 위치조정
+        
         } else if (response.status === HTTP_STATUS.NOT_FOUND.code) {
             swalPopup('로그아웃 실패', '로그아웃 정보를 확인해주세요.', 'error', '확인', '닫기');
         } else if (response.status === HTTP_STATUS.SERVER_ERROR.code) {
