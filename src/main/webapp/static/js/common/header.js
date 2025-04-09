@@ -28,6 +28,10 @@ $(document).ready(() => {
 
 });
 
+$("img.home-icon").on("click", function(){
+    openPop();
+});
+
 // 미니홈피 팝업 오픈 함수
 function openPop() {
     const specs = `width=${HOMPI_WIDTH},height=${HOMPI_HEIGHT},left=${HOMPI_LEFT},top=${HOMPI_TOP}`;

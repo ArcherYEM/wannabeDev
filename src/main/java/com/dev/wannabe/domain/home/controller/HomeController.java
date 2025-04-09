@@ -2,6 +2,7 @@ package com.dev.wannabe.domain.home.controller;
 
 import com.dev.wannabe.domain.home.service.HomeService;
 import com.dev.wannabe.domain.home.service.LoginService;
+import com.dev.wannabe.domain.home.service.PopupMessageService;
 import com.dev.wannabe.global.model.SessionUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
     private final HomeService homeService;
     private final LoginService loginService;
+    private final PopupMessageService popupMessageService;
 
     @GetMapping("/")
     public String home() {
@@ -36,6 +38,17 @@ public class HomeController {
     public String getIp(HttpServletRequest req) {
         SessionUserDTO sessionUser = loginService.getSessionUserData(req);
         return sessionUser.getAccessIp();
+    }
+
+    // 안읽은쪽지 가져오기
+    @GetMapping("/getUnreadMsg")
+    @ResponseBody
+    public String getUnreadMsg(HttpServletRequest request){
+        String userId = request.getParameter("userId");
+        System.out.println("userId : " + userId);
+        String getUnreadMsgCount = Integer.toString(popupMessageService.receiveUnreadMsgCount(userId));
+        System.out.println("getUnreadMsgCount : " + getUnreadMsgCount);
+        return getUnreadMsgCount;
     }
 
     @GetMapping("/signup")
