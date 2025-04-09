@@ -8,7 +8,7 @@
 <div id="visit">
   <div id="insert" class="input_wrapper">
     <div class="profile_img">
-      <img src="/static/images/common/minimi/은모.png">
+      <img src="/static/images/common/minimi/은모.png" alt="미니미">
     </div>
     <div class="insert_body">
       <div class="text"><textarea type="text" name="content" id="content"></textarea></div>
@@ -18,26 +18,33 @@
       </div>
     </div>
   </div>
-  <div id="read">방명록</div>
+  <hr class="visitor-divider" />
   <!--  방명록 글   -->
-    <div id="select" th:each="item : ${visitorList}" class="input_wrapper visitor_item"  th:data-id="${item.guestBookId}">
-      <div class="profile_img">
-        <img src="/static/images/common/minimi/은철.png">
-      </div>
-      <div class="insert_body">
-        <div class="insert_user">
+    <div id="select" th:each="item : ${visitorList}" class="visitor_wrapper visitor_item"  th:data-id="${item.guestBookId}">
+      <div class="visitor_title"
+           th:classappend="${item.secretCheck == 'Y'} ? ' secret' : ' public'">
+        <div class="name-wrapper">
           <p class="visitor_name" th:text="${item.loginId}">아이디</p>
-          <p th:text="${item.updateDt != null ? item.updateDt : item.insertDt}">날짜</p>
+          <img class="icon_lock" th:if="${item.secretCheck == 'Y'}" src="/static/images/common/minihompi/icon_lock.svg" alt="비밀글">
         </div>
-        <div class="visitor_content text" >
+        <p th:text="${item.updateDt != null ? item.updateDt : item.insertDt}">날짜</p>
+
+      </div>
+      <div class="visitor_body">
+        <div class="content_wrapper">
+          <div class="profile_img">
+            <img src="/static/images/common/minimi/은철.png" alt="미니미">
+          </div>
+          <div class="visitor_content text" >
           <textarea readonly class="textarea view-textarea"
                     th:utext="${item.secretCheck == 'Y' and (session.userData.userId != item.insertUserId and session.userData.userId != item.ownerUserId)
                        ? '비밀글입니다.'
                        : item.guestBookContent}">
           </textarea>
+          </div>
         </div>
         <div class="visitor_bottom view_bottom" th:if="${session.userData.userId == item.insertUserId}" >
-          <button class="visitor_button"> 수정 </button>
+          <button class="visitor_button update_btn"> 수정 </button>
           <button class="visitor_button delete_btn"> 삭제 </button>
         </div>
       </div>
