@@ -132,6 +132,11 @@
     display:flex;   /* Flexbox 활성화 */
     flex-direction: column;     /* 세로 정렬 */
     justify-content: flex-end;  /* 하단 정렬 */
+    align-items: flex-end;
+    .textCount {
+        font-size: 12px;
+        color: var(--color-gray);
+    }
 }
 
 .insert_body .text textarea {
