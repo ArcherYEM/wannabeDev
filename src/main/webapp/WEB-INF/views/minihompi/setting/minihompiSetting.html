@@ -1,10 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/minihompi/minihompiSetting.css">
 </head>
 <body>
-미니홈피 설정입니다
+    <div id="setting-container">
+        <!-- 개인정보변경 -->
+        <div id="setting-userinfo-container" class="minihompi-setting">
+            <div class="setting-title">
+                <span>개인정보변경</span>
+            </div>
+        </div>
+        <!-- 방문통계 -->
+        <div id="setting-statistics-container" class="minihompi-setting">
+            <div class="setting-title">
+                <span>방문통계</span>
+            </div>
+        </div>
+        <!-- 미니홈피 관리 -->
+        <div id="setting-minihompi-container" class="minihompi-setting">
+            <div class="setting-title">
+                <span>미니홈피 관리</span>
+            </div>
+            <!-- 미니홈피 관리 - 메뉴관리 -->
+            <div id="setting-menu-container">
+                <div class="setting-sub-title">
+                    <span>메뉴관리</span>
+                </div>
+            </div>
+            <!-- 미니홈피 관리 - bgm 설정 -->
+            <div id="setting-bgm-container">
+                <div class="setting-sub-title">
+                    <span>bgm</span>
+                </div>
+            </div>
+            <!-- 미니홈피 관리 - 테마 설정 -->
+            <div id="setting-theme-container">
+                <div class="setting-sub-title">
+                    <span>테마</span>
+                </div>
+            </div>
+            <!-- 미니홈피 관리 - 나의 미니룸 설정 -->
+            <div id="setting-miniroom-container">
+                <div class="setting-sub-title">
+                    <span>나의 미니룸</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 아이템/내역관리 - 도토리 사용내역 -->
+        <div id="setting-use-container" class="minihompi-setting">
+
+        </div>
+        <!-- 아이템/내역관리 - 도토리 충전내역 -->
+        <div id="setting-charge-container" class="minihompi-setting">
+
+        </div>
+
+        <!-- 일촌 현황 -->
+        <!--
+        번호 / 일촌이 된 날짜 / 상대 일촌명 / 나의 일촌명 / 일촌명 변경 요청 버튼 (일촌명 변경 modal 호출) / 일촌 끊기 버튼(confirm modal)
+        -->
+        <div id="setting-friend-container" class="minihompi-setting">
+            <div class="setting-title">
+                <span>일촌 현황</span>
+            </div>
+            <div class="modal-main-content">
+                <div id="now-friend-status"></div>
+                <div id="friends-container"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

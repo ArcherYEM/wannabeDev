@@ -4,6 +4,11 @@ let friendListSize = 10;
 let friendRequestStart = 0;
 let friendRequestSize = 10;
 
+$(document).ready(function () {
+    // 일촌 모달
+    readyFriendModal();
+});
+
 // 모달 닫기
 $(document).on("click", "#friend-modal-layer, #friend-modal-close", function(e) {
     if (e.target === this) {
@@ -206,14 +211,16 @@ function readyFriendModal() {
     friendRequestNumFunc(function (requestNum) {
         sideFriendRequest.text(requestNum);
     });
+    friendListInfinity();
+}
 
-    // 일촌 목록 무한 스크롤
+// 일촌 목록 무한 스크롤
+function friendListInfinity() {
     let friendsNum;
     friendAllNumFunc(function (allFriends) {
         friendsNum = allFriends;
     });
     $("#friends-container").on("scroll", function () {
-
         if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight && friendListStart < friendsNum) {
             if ($(this).is(".friend-list-container")) {
                 LoadFriendListPage(friendListStart, friendListSize);

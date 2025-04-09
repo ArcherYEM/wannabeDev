@@ -1,0 +1,186 @@
+#setting-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#setting-container .minihompi-setting {
+    border: 1px grey solid;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.setting-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.setting-sub-title {
+    font-size: 15px;
+    text-align: center;
+}
+
+#setting-container #setting-friend-container {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#setting-container #setting-friend-container #now-friend-status {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    gap: 10px;
+}
+#setting-container #setting-friend-container #now-friend-display {
+    width: 100px;
+    text-align: right;
+}
+#setting-container #setting-friend-container #all-friend-display {
+    width: 100px;
+    text-align: left;
+}
+
+#setting-container #setting-friend-container #friends-container {
+    width: 100%;
+    height: 500px;
+    margin-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow-y: scroll;
+}
+
+#setting-container #setting-friend-container .friend-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+
+}
+
+#setting-container #setting-friend-container .friend-list-item {
+    width: 290px;
+    height: 130px;
+    border: solid 1px black;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-content-container {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    display: flex;
+    flex-direction: row;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-minimi-container {
+    width: 110px;
+    height: 110px;
+    border: 1px solid #dddddd;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-minimi {
+    width: 110px;
+    height: 110px;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    width: 150px;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-list-item-head {
+    height: 20px;
+    padding: 0;
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-list-item-head .friend-setting-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-list-item-head .friend-home-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-edit-dropbox {
+    display: flex;
+    flex-direction: column;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-edit-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-dropbox-menu {
+    border: 1px solid gray;
+    z-index: 1000;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-dropbox-item {
+    height: 20px;
+    width: 80px;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f6f6;
+    cursor: pointer;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-dropbox-item:hover {
+    background-color: var(--color-basic);
+}
+
+#setting-container #setting-friend-container .friend-list-item .friend-list-item-body {
+    display: flex;
+    flex-direction: column;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-title {
+    color: var(--color-basic);
+    font-size: small;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-name {
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    max-width: fit-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-mood {
+    font-weight: bold;
+    font-size: 15px;
+    vertical-align: center;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-list-item-foot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#setting-container #setting-friend-container .friend-list-item .friend-send-message {
+    width: 80px;
+    height: 20px;
+    font-size: small;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    color: white;
+    background-color: var(--color-basic);
+}
+
+.hidden {
+    display: none;
+}
