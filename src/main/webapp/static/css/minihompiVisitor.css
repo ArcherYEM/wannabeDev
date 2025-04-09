@@ -136,6 +136,7 @@
     .textCount {
         font-size: 12px;
         color: var(--color-gray);
+        margin-right: 5px;
     }
 }
 
