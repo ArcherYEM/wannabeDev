@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 10px;
 }
-#setting-container .minihompi-setting {
+#setting-container .minihompi-setting-container {
     border: 1px grey solid;
     border-radius: 8px;
     width: 100%;
@@ -19,6 +19,99 @@
     text-align: center;
 }
 
+.minihompi-setting-container #setting-friend-container {
+    display: flex;
+    flex-direction: column;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container {
+    margin: 10px;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-num-container {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 10px;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item {
+    border: 1px solid grey;
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .minimi-container {
+    width: 100px;
+    height: 100px;
+    border: 1px solid grey;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .minimi-container .friend-minimi {
+    width: 100px;
+    height: 100px;
+}
+
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+}
+
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-start-date {
+    color: grey;
+    font-style: italic;
+}
+
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-body {
+    display: flex;
+    flex-direction: column;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-body .friend-nickname-title {
+    color: #FF8000FF;
+    font-weight: bold;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-body .friend-nickname {
+    font-size: small;
+    font-weight: bold;
+    cursor: pointer;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-body .friend-nickname:hover {
+    font-size: small;
+    font-weight: bold;
+    cursor: pointer;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-footer {
+    display: flex;
+    flex-direction: row;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-footer .friend-cancel-btn {
+    width: 70px;
+    color: white;
+    border-radius: 8px;
+    background-color: #FF8000FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-info-footer .friend-cancel-btn:hover {
+    background-color: #595959;
+}
+/*
+
+minihompi-setting-container #setting-friend-container #friend-info-container #friend-list-container .friend-list-item .friend-info-container .friend-cancel-btn {
+
+}
 #setting-container #setting-friend-container {
     padding-top: 10px;
     display: flex;
@@ -184,3 +277,4 @@
 .hidden {
     display: none;
 }
+ */
