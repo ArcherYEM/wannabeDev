@@ -1,15 +1,15 @@
 $(document).ready(function () {
-    visitingStatistics(days(2024, 2));
+    visitingStatistics(days(2024, 2)); // 2024년 2월이라 총 28칸 생성
     makeFriendList();
 });
 
+// 연도와 월로 일 수 체크 함수
 function days(year, month) {
     return new Date(year, month, 0).getDate();
 }
 
+// 방문자 통계 생성 함수
 function visitingStatistics(days) {
-
-
     let labels = [];
     for (let i = 1; i <= days; i++) {
         labels.push(`${i}일`);
@@ -17,7 +17,7 @@ function visitingStatistics(days) {
 
     let visitData = [];
     for (let i = 1; i <= days; i++) {
-        visitData.push(i);
+        visitData.push(i); // 여기에 방문자 데이터 추가
     }
 
     let statisticsCanvas = $("#statistics-chart")[0].getContext('2d');
