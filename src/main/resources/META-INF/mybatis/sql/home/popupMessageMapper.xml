@@ -29,7 +29,7 @@
     </select>
 
     <!-- 받은 쪽지 개수 -->
-    <select id="receiveMsgCount" resultType="int">
+    <select id="receiveMsgCount" resultType="int" parameterType="String">
         SELECT COUNT(*)
         AS receiveMsg_count
         FROM FRIEND_MESSAGE
@@ -119,6 +119,7 @@
         WHERE FRIEND_USER_ID=#{userId}
     </select>
 
+    <!-- 쪽지 삭제 -->
     <delete id="msgDelete" parameterType="String">
         DELETE
             FROM FRIEND_MESSAGE

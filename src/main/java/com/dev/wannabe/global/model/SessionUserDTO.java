@@ -21,4 +21,5 @@ public class SessionUserDTO {
     private Long hompiId;
     private String hompiURL;
     private String hompiTitle;
+
 }

@@ -8,7 +8,7 @@
                 <ul>
                     <li id="loginIp" class="ipDisplay" th:text="${session.userData.accessIp}">아이피</li>
                     <li id="loginName" class="nameDisplay" th:text="${session.userData.name}">이름</li>
-                    <li><img class="home-icon" src="/static/images/common/icon/icon_home.svg" alt="미니홈피"></li>
+                    <li><img class="home-icon" src="/static/images/common/icon/icon_home.svg" alt="미니홈피" th:attr="data-minihompi=${session.userData.hompiId}"></li>
                     <li><a href="/userUpdate"><img class="setting-icon" src="/static/images/common/icon/icon_setting.svg" alt="개인정보수정"></a></li>
                     <li><a href="#" id="logoutBtn" class="btn nobtn logoutBtn">로그아웃</a></li>
                 </ul>

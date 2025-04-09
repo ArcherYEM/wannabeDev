@@ -16,7 +16,6 @@ $(document).ready(function(){
             login(loginId, password);
         }
     });
-
     // content
     $("#loginBtnFragment").on("click", function(){
         let loginId = $("#loginIdFragment");
