@@ -387,8 +387,10 @@ a[class*="btn"] {
     background: #228CB3;
     border-radius: 0px 5px 5px 0px;
     font-family: "Dongle", sans-serif;
-    font-size: 20px
+    font-size: 20px;
+    cursor:pointer;
 }
+
 
 #rightContainer #gnb ul li.on {
     border: 1px solid #617680;
@@ -818,13 +820,13 @@ select#mood {
 /*메인비쥬얼 라이트 e*/
 
 /*메인 스프링 s*/
-#spring {
+.spring {
 }
 
-#spring ul {
+.spring ul {
 }
 
-#spring ul li {
+.spring ul li {
     position: relative;
     z-index: 99;
     width: 30px;
@@ -835,13 +837,13 @@ select#mood {
     margin-bottom: 20px;
 }
 
-.spring1 {
+#spring1 {
     position: absolute;
     top: 190px;
     left: 224px;
 }
 
-.spring2 {
+#spring2 {
     position: absolute;
     top: 400px;
     left: 224px;
