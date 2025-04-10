@@ -1,5 +1,6 @@
 <div class="mainLeftTop user-panel" th:fragment="userPanel">
     <div class="mainLeftTop">
+        <link rel="stylesheet" href="/static/css/home/friendModal.css">
         <!-- 로그인 된 상태 -->
         <div th:if="${session.userData != null}">
             <div class="profileWrap">
@@ -30,7 +31,7 @@
                                 <span class="title">쪽지</span>
                                 <div class="stat messageBox">
                                     <img src="/static/images/common/icon/new.png" alt="new">
-                                    <span class="text new" target="_blank" onclick="openPopupMessage()">30</span>
+                                    <span class="text new unReadMsgCount" target="_blank" onclick="openPopupMessage()"></span>
                                 </div>
                             </div>
                             <div class="alignBox">

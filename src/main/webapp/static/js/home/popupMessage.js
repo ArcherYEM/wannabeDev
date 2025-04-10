@@ -17,8 +17,8 @@ $(document).ready(function () {
         dataType: "json",
         success: function (response) {
             userId = response.userId;
-
             if (userId) {
+                fncReceiveCount(userId);
                 loadMessages(currentReceivePage, "receive");
             }
         },
@@ -26,6 +26,7 @@ $(document).ready(function () {
             alert("비정상적인 접근입니다.");
         }
     });
+
 
     $(".receiveMsgbox>span").css({"color": "#ff8000"});
 
@@ -50,15 +51,12 @@ $(document).ready(function () {
         }
 
         $(".receivemsgChkbox").click(function () {
-            console.log("받은메세지함전체선택")
             let receivemsgChkbox = $(".receivemsgChkbox").prop("checked");
 
             if (receivemsgChkbox) {
                 $(".receivemsgChkbox").prop("checked", true)
                 $(".msgChkbox").prop("checked", true);
                 totalChkBox = $(".msgChkbox:checked").length;
-                console.log("totalChkBox : " + totalChkBox);
-                console.log("===========");
             } else {
                 $(".msgChkbox").prop("checked", false);
             }
@@ -72,8 +70,7 @@ $(document).ready(function () {
             } else {
                 $(".receivemsgChkbox").prop("checked", false);
             }
-            console.log("msgChkbox : " + msgChkbox);
-            console.log("totalChkBox : " + totalChkBox);
+
         });
 
     });
@@ -96,9 +93,14 @@ $(document).ready(function () {
             if (type === "receive") {
                 totalMessage = parseInt($("#popMsgListContainer").attr("data-totalunreadmsg"));
                 if (totalMessage === 0) {
+                    $(".receiveMsgCount").text();
                     $(".receiveMsgCount").removeAttr("class", "circle");
                 } else {
                     $(".receiveMsgCount").text(totalMessage);
+                    if (window.opener && !window.opener.closed) {
+                        const unReadMsgCount = $(window.opener.document).find("span.unReadMsgCount");
+                        unReadMsgCount.text(totalMessage);
+                    }
                 }
             }
 
@@ -109,15 +111,14 @@ $(document).ready(function () {
 
     /** 페이지네이션 렌더링 **/
     function renderPagination(totalPages, currentPage, messageType) {
-
-        console.log("렌더링 messageType : " + messageType);
+        
         let paginationHtml = `<button class="chkDeleteBtn" onclick="fncDeleteMsgBtn('${messageType}')">선택삭제</button>`;
         // 페이지 번호 버튼 생성
         paginationHtml += `<div class="buttonWrap"><button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>&lt;&lt;</button>`;
 
         // 1부터 totalPages까지 페이지 번호 버튼 생성
         for (let i = 1; i <= totalPages; i++) {
-            paginationHtml += `<button class="pageNumber" ${i === currentPage ? 'disabled' : ''} data-page="${i}">${i}</button>`;
+            paginationHtml += `<button class="pageNumber" ${i === currentPage ? 'style=background-color:greenyellow;' : ''} data-page="${i}">${i}</button>`;
         }
 
         paginationHtml += `<button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''}>&gt;&gt;</button></div>`;
@@ -290,37 +291,52 @@ $(document).ready(function () {
 
 /**  쪽지 팝업창 설정 **/
 function openPopupMessage() {
-    var popupW = 700;
-    var popupH = 700;
-    var left = Math.ceil((window.screen.width - popupW) / 2);
-    var top = Math.ceil((window.screen.height - popupH) / 2);
+    let popupW = 700;
+    let popupH = 700;
+    let left = Math.ceil((window.screen.width - popupW) / 2);
+    let top = Math.ceil((window.screen.height - popupH) / 2);
 
     window.open('/popupMessage/main', '쪽지 보내기',
         'width=' + popupW + ',height=' + popupH + ',left=' + left + ',top=' + top);
 }
 
 function fncMsgView(messageId, element, type) {
-    console.log("이 메세지를 볼꺼에요 : " + messageId);
     $("#popupMessageMain").load(`/popupMessage/MessageView?messageId=${messageId}&type=${type}`);
 
     if (type === "receive") {
         const chk = $(element).parent().attr("class");
         if (chk === "unread") {
-            let msgCount = $("span.receiveMsgCount").text();
-            $("span.receiveMsgCount").text(msgCount - 1);
+            let receiveMsgCount = $("span.receiveMsgCount");
+            let msgCount = receiveMsgCount.text();
+            msgCount = msgCount-1;
+            receiveMsgCount.text(msgCount);
+
+            if (window.opener && !window.opener.closed) {
+                const unReadMsgCount = $(window.opener.document).find("span.unReadMsgCount");
+                const newIcon = $(window.opener.document).find(".messageBox > img")
+                    unReadMsgCount.text(msgCount);
+                if (msgCount <= "0") {
+                    newIcon.remove();
+                }
+
+            }
+            if (msgCount <= "0") {
+                receiveMsgCount.text("");
+                receiveMsgCount.attr("class","circle").remove();
+
+            }
+
+
         }
     }
 }
 
 function fncBackPage(element) {
     let pageName = $(element).attr("data-pageName");
-    console.log("pageName : " + pageName);
     if (pageName === "receive") {
         $("span.receiveMsgbox").click(); // 받은쪽함수
-        console.log("receive pageName : " + pageName);
     } else if (pageName === "send") {
         $("span.sendMsgBox").click(); // 보낸쪽함수
-        console.log("send pageName : " + pageName);
     } else {
         console.warn("정의되지 않은 pageName: " + pageName);
     }
@@ -329,10 +345,8 @@ function fncBackPage(element) {
 function fncMsgDelPage(element) {
     let type = $(element).attr("data-pageName");
     let messageId = $("pre#receiveMessagePre").attr("data-messageId");
-    console.log("messageId : " + messageId);
-    console.log("type : " + type);
+
     if (confirm("쪽지를 삭제 하시겠습니까?")) {
-        /*console.log("확인누름");*/
 
         $.ajax({
             type: "GET",
@@ -356,19 +370,18 @@ function fncMsgDelPage(element) {
         });
 
     } else {
-        console.log("삭제 취소");
+        alert("삭제를 취소 하였습니다.");
     }
 }
 
 function fncMsgListAllChkBox() {
-    console.log("받은메세지함 전체선택");
+
     let isChecked = $(".msgChkbox").prop("checked"); // 전체선택 체크박스 상태
 
     $(".msgChkboxList").prop("checked", isChecked); // 개별 체크박스 일괄 설정
 
     let totalChecked = $(".msgChkboxList:checked").length;
-    console.log("총 선택된 개수 : " + totalChecked);
-    console.log("===========");
+    
 }
 
 function fncMsgChkBox() {
@@ -383,23 +396,17 @@ function fncMsgChkBox() {
     } else {
         $(".msgChkbox").prop("checked", false);
     }
-
-    console.log("개별 선택 checkedCount : " + checkedCount);
-    console.log("전체 totalCount : " + totalCount);
+    
 }
 
 function fncDeleteMsgBtn(messageType) {
     messageType = messageType + "s"
     let chkMsgID = [];
-    console.log("선택삭제버튼 클릭");
-    console.log("messageType : " + messageType);
 
     $(".msgChkboxList:checked").each(function () {
         let msgId = $(this).attr("data-messageId");
         chkMsgID.push(msgId);
     });
-
-    console.log("선택한 메시지들:", chkMsgID);
 
     if (chkMsgID.length === 0) {
         alert("삭제할 메시지를 선택해주세요.");
@@ -431,4 +438,22 @@ function fncDeleteMsgBtn(messageType) {
             alert("삭제 중 오류가 발생했습니다.");
         }
     });
+}
+
+/* 메인 쪽지*/
+function fncReceiveCount(userId) {
+        $.ajax({
+            url: `/getUnreadMsg?userId=${userId}`,
+            type: "GET",
+            success: function (count) {
+                if (count <= 0) {
+                   $(".messageBox>img").remove();
+                }
+                $(".unReadMsgCount").text(count); // 받은 개수를 span 등에 넣어줌
+            },
+            error: function () {
+                console.error("쪽지 개수 가져오기 실패");
+            }
+        });
+
 }

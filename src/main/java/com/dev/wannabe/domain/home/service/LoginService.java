@@ -1,6 +1,7 @@
 package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.LoginMapper;
+import com.dev.wannabe.domain.home.mapper.PopupMessageMapper;
 import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
 import com.dev.wannabe.domain.home.model.dto.LoginDTO;
@@ -28,6 +29,7 @@ public class LoginService {
     private final HompiMapper hompiMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserLoginMapper userLoginMapper;
+    private final PopupMessageService popupMessageService;
 
     @Transactional
     public Boolean login(LoginDTO loginData) {
@@ -53,6 +55,7 @@ public class LoginService {
 
             HttpSession session = request.getSession(true);
             SessionUserDTO sessionUserDTO = createSessionUserData(loginLog);
+
             session.setAttribute("userData", sessionUserDTO);
             session.setMaxInactiveInterval(60 * 60); // 단위 : 초 -> null point exception
 

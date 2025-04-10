@@ -5,63 +5,10 @@ let friendRequestStart = 0;
 let friendRequestSize = 10;
 
 $(document).ready(function () {
-    let friendOnNum = $("#friend-on-num");
-    let friendRequest = $("#friend-request");
-    let friendRequestNum = $("#friend-request-num");
-    let modal = $("#friend-modal-layer");
-
-    // 모달 사이드바
-    let sideRequestText = $("#side-request-text")
-
-    let sideLoggedFriends = $("#side-logged-friends");
-    let sideFriendRequest = $("#side-friend-request");
-
-    // 유저 패널
-    friendOnNumFunc(function (nowLoginFriends) {
-        friendOnNum.text(nowLoginFriends);
-    });
-    friendRequestNumFunc(function (requestNum) {
-        friendRequestNum.text(requestNum);
-    });
-
-    // 모달 열기
-    friendRequest.on("click", function () {
-        modal.removeClass("hidden");
-        sideRequestText.css("color", "#FF8000");
-    });
-
-    // 모달 공용 데이터
-    friendOnNumFunc(function (nowLoginFriends) {
-        sideLoggedFriends.text(`${nowLoginFriends}`);
-    });
-    friendRequestNumFunc(function (requestNum) {
-        sideFriendRequest.text(requestNum);
-    });
-
-    // 일촌 목록 무한 스크롤
-    let friendsNum;
-    friendAllNumFunc(function (allFriends) {
-        friendsNum = allFriends;
-    });
-    $("#friends-container").on("scroll", function () {
-
-        if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight && friendListStart < friendsNum) {
-            if ($(this).is(".friend-list-container")) {
-                LoadFriendListPage(friendListStart, friendListSize);
-                friendListStart = friendListStart + friendListSize;
-            }
-            if ($(this).is(".friend-request-receive")) {
-                LoadFriendReceiveListPage(friendRequestStart, friendRequestSize);
-                friendRequestStart = friendRequestStart + friendRequestSize;
-            }
-            if ($(this).is(".friend-request-send")) {
-                LoadFriendSendListPage(friendRequestStart, friendRequestSize);
-                friendRequestStart = friendRequestStart + friendRequestSize;
-            }
-        }
-    });
-
+    // 일촌 모달
+    readyFriendModal();
 });
+
 // 모달 닫기
 $(document).on("click", "#friend-modal-layer, #friend-modal-close", function(e) {
     if (e.target === this) {
@@ -159,16 +106,23 @@ $(document).on("click", ".friend-dropbox-delete", function () {
 });
 // 일촌 미니홈피 열기
 $(document).on("click", ".friend-home-icon", function () {
-    let hompiId = $(this).data("hidden-value");
-    openMinihompiPop(hompiId);
+    let friendHompiId = $(this).data("hidden-value");
+    openMinihompiPop(friendHompiId);
 });
-// 일촌 미니홈피 열기
+// 일촌에게 쪽지 보내기
 $(document).on("click", ".friend-send-message", function () {
-    let friendId = $(this).data("hidden-value");
-    /*
-        쪽지기능 완성되면 달기
-
-     */
+    $.ajax({
+        type:"GET",
+        url:`/userInfo`,
+        success: function(response){
+            let userId = response.userId;
+            let friendId = $(".friend-send-message").data("hidden-value");
+            openMessage(userId, friendId);
+        },
+        error: function(error) {
+            console.log("t", error)
+        }
+    });
 });
 
 // 일촌 요청 허용
@@ -224,6 +178,67 @@ $(document).on("click", ".friend-send-reject", function () {
 
 
 /*     함수     */
+function readyFriendModal() {
+    let friendOnNum = $("#friend-on-num");
+    let friendRequest = $("#friend-request");
+    let friendRequestNum = $("#friend-request-num");
+    let modal = $("#friend-modal-layer");
+
+    // 모달 사이드바
+    let sideRequestText = $("#side-request-text")
+
+    let sideLoggedFriends = $("#side-logged-friends");
+    let sideFriendRequest = $("#side-friend-request");
+
+    // 유저 패널
+    friendOnNumFunc(function (nowLoginFriends) {
+        friendOnNum.text(nowLoginFriends);
+    });
+    friendRequestNumFunc(function (requestNum) {
+        friendRequestNum.text(requestNum);
+    });
+
+    // 모달 열기
+    friendRequest.on("click", function () {
+        modal.removeClass("hidden");
+        sideRequestText.css("color", "#FF8000");
+    });
+
+    // 모달 공용 데이터
+    friendOnNumFunc(function (nowLoginFriends) {
+        sideLoggedFriends.text(`${nowLoginFriends}`);
+    });
+    friendRequestNumFunc(function (requestNum) {
+        sideFriendRequest.text(requestNum);
+    });
+    friendListInfinity();
+}
+
+// 일촌 목록 무한 스크롤
+function friendListInfinity() {
+    let friendsNum;
+    friendAllNumFunc(function (allFriends) {
+        friendsNum = allFriends;
+    });
+    $("#friends-container").on("scroll", function () {
+        if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight && friendListStart < friendsNum) {
+            if ($(this).is(".friend-list-container")) {
+                LoadFriendListPage(friendListStart, friendListSize);
+                friendListStart = friendListStart + friendListSize;
+            }
+            if ($(this).is(".friend-request-receive")) {
+                LoadFriendReceiveListPage(friendRequestStart, friendRequestSize);
+                friendRequestStart = friendRequestStart + friendRequestSize;
+            }
+            if ($(this).is(".friend-request-send")) {
+                LoadFriendSendListPage(friendRequestStart, friendRequestSize);
+                friendRequestStart = friendRequestStart + friendRequestSize;
+            }
+        }
+    });
+}
+
+
 // 일촌 목록 모달 생성
 function makeFriendList() {
     friendOnNumFunc(function (nowLoginFriends) {
