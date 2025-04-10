@@ -17,5 +17,15 @@ public interface NoticeMapper {
     // 공지사항 등록
     void insertNotice(NoticeDTO noticeDTO);
 
-    NoticeDTO getNoticeById(Long noticeId);
+    NoticeDTO getNoticeById(Map<String, Object> param);
+
+    int updateNotice(NoticeDTO noticeDTO);
+
+    void deleteNoticesByNotices(List<Long> notices);
+    NoticeDTO findPreviousNotice(Map<String, Object> param);
+
+    NoticeDTO findNextNotice(Map<String, Object> param);
+//    NoticeDTO findPreviousNotice(Map<String, Object> param);
+//
+//    NoticeDTO findNextNotice(Map<String, Object> param);
 }

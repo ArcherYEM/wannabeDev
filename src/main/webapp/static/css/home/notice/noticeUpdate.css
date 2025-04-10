@@ -1,0 +1,108 @@
+.noticeContainer {
+    padding: 30px 10px;
+}
+
+/* 상단 영역 */
+.notice-top {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    line-height: 1;
+
+    h1 {
+        font-size: 32px;
+        font-weight: 600;
+    }
+
+    span {
+        color: var(--color-ngray);
+    }
+}
+
+.notice-insert {
+    margin-top: 20px;
+}
+
+.notice-insert-top {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+
+    .notice-info{
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .info-title {
+            width: 120px;
+        }
+
+        .info-wrapper {
+            flex: 1;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+
+            select {
+                padding: 10px 10px;
+                border-radius: 5px;
+                border: solid 1px var(--color-lgray);
+            }
+            input {
+                padding: 10px 10px;
+                border-radius: 5px;
+                border: solid 1px var(--color-lgray);
+            }
+            .input-full {
+                width: 100%;
+            }
+            input[type=checkbox] {
+                accent-color: var(--color-gray);
+            }
+        }
+    }
+}
+
+.editor-wrapper {
+    margin-bottom: 10px;
+}
+
+.button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+
+    button {
+        padding: 10px 20px;
+        color: var(--color-white);
+        border-radius: 5px;
+        font-size: 16px;
+
+        &.list-button {
+            background-color: var(--color-gray);
+
+            &:hover {
+                background-color: var(--color-lgray);
+            }
+        }
+        &.insert-button {
+            background-color: var(--color-basic);
+
+            &:hover {
+                background-color: var(--color-lbrown);
+            }
+        }
+        &.close-button {
+            background-color: var(--color-basic);
+
+            &:hover {
+                background-color: var(--color-lbrown);
+            }
+        }
+
+    }
+}
