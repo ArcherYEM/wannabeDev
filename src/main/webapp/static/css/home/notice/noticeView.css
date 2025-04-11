@@ -146,5 +146,9 @@
             width: 20px;
             height: 20px;
         }
+
+        .item-time{
+            width:150px;
+        }
     }
 }

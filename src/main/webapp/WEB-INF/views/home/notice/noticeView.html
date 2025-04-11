@@ -14,58 +14,72 @@
         <div class="containerWrap noticeContainer">
             <div class="menu-title">
                 <h1> 공지사항 </h1>
-                <button>목록</button>
+                <button id="list_page_btn">목록</button>
             </div>
             <div class="notice">
                 <div class="notice-top">
                     <div class="notice-title">
-                        <!-- 공지글 종류에 따라 라벨 클래스 변경 -->
-                        <label class="bg-announcement">공지사항</label>
+                        <!-- 공지글 종류에 따라 라벨 클래스 변경 class="bg-announcement" -->
+                        <label th:classappend="${notice.getNoticeTypeCssClass}" th:text="${notice.getNoticeTypeName}">공지사항</label>
                         <p th:text="${notice.noticeTitle}"></p>
                     </div>
                     <div class="time-info">
                         <div>
                             <!-- startDate와 endDate를 String 그대로 출력 -->
-                            <span th:text="${notice.startDate}"></span>
+                            <span th:text="${notice.startDateTime}"></span>
                             <span>~</span>
-                            <span th:text="${notice.endDate}"></span>
-                            <span class="state">(게시중)</span>
+                            <span th:text="${notice.endDateTime}"></span>
+                            <span class="state" th:text="${notice.noticeStatus}">(게시중)</span>
                         </div>
                         <div>
                             <img src="/static/images/common/icon/icon_clock.svg" alt="clock" />
                             <!-- startDate의 날짜만 출력 -->
-                            <span th:text="${notice.startDate}"></span>
+                            <span th:text="${notice.getFormattedDisplayDate}"></span>
                         </div>
                     </div>
                 </div>
                 <div class="notice-body">
                     <div class="notice-content" th:utext="${notice.noticeContents}">
                     </div>
-                    <div class="notice-modify">
-                        <button>수정</button>
+                    <div class="notice-modify" >
+                        <button id="update_page_btn" th:data-id="${notice.noticeId}" th:if="${userRole == '01' or userRole == '02'}">수정</button>
                     </div>
                 </div>
                 <div class="notice-bottom">
-                    <div class="content-list next">
+                    <div class="content-list" id="prev_notice" th:if="${nextNotice != null}" th:data-id="${nextNotice.noticeId}">
                         <div class="item-info">
-                            <a href="/"></a>
                             <img src="/static/images/common/icon/up.png">
-                            <p class="title">이전글</p>
-                            <p th:text="${previousNoticeTitle}">2/24 운영정책 위반 단속 결과 안내</p>
+                            <p class="title">다음글</p>
+                            <p class="no-content" th:text="${nextNotice.noticeTitle}">다음글이 없습니다.</p>
+                            <a th:href="@{/notice/view/{id}(id=${nextNotice.noticeId})}"></a>
                         </div>
                         <div class="item-time">
-                            <p th:text="${previousNoticeDate}">2025.02.24</p>
+                            <p th:text="${nextNotice.getFormattedDisplayDate}"></p>
                         </div>
                     </div>
-                    <div class="content-list prev">
+                    <div class="content-list" th:if="${nextNotice == null}">
                         <div class="item-info">
-                            <a href="/"></a>
-                            <img src="/static/images/common/icon/down.png">
+                            <img src="/static/images/common/icon/up.png">
                             <p class="title">다음글</p>
-                            <p class="no-content" th:text="${nextNoticeTitle}">다음글이 없습니다.</p>
+                            <p class="no-content">다음글이 없습니다.</p>
+                        </div>
+                    </div>
+                    <div class="content-list" id="next_notice" th:if="${previousNotice != null}" th:data-id="${previousNotice.noticeId}">
+                        <div class="item-info">
+                            <img src="/static/images/common/icon/down.png">
+                            <p class="title">이전글</p>
+                            <p th:text="${previousNotice.noticeTitle}">2/24 운영정책 위반 단속 결과 안내</p>
+                            <a th:href="@{/notice/view/{id}(id=${previousNotice.noticeId})}"></a>
                         </div>
                         <div class="item-time">
-                            <p th:text="${nextNoticeDate}"></p>
+                            <p th:text="${previousNotice.getFormattedDisplayDate}">2025.02.24</p>
+                        </div>
+                    </div>
+                    <div class="content-list" th:if="${previousNotice == null}">
+                        <div class="item-info">
+                            <img src="/static/images/common/icon/down.png">
+                            <p class="title">이전글</p>
+                            <p class="no-content">이전글이 없습니다.</p>
                         </div>
                     </div>
                 </div>
@@ -75,7 +89,7 @@
 </div>
 <!-- 공지사항 페이지 전용 JS -->
 <th:block layout:fragment="scripts">
-    <script th:src="@{static/js/home/notice/notice.js}"></script>
+    <script th:src="@{/static/js/home/notice/notice.js}"></script>
 </th:block>
 </body>
 </html>
