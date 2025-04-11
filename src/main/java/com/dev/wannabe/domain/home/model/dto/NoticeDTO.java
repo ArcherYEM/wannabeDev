@@ -2,6 +2,9 @@ package com.dev.wannabe.domain.home.model.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Data
 public class NoticeDTO {
     private Long noticeId;
@@ -19,8 +22,17 @@ public class NoticeDTO {
     private String startDateTime;
     private String endDateTime;
 
+    private String insertLoginId;  // 작성자 ID
+    private String updateLoginId;  // 수정자 ID
+
     // 추가된 LOGIN_ID 필드
     private String loginId;  // 로그인 ID를 추가
+
+    private String viewUpdateDT;
+    private String viewInsertDT;
+    public String getViewDisplay() {
+        return (viewUpdateDT != null && !viewUpdateDT.trim().isEmpty()) ? viewUpdateDT : viewInsertDT;
+    }
 
     // NOTICE_TYPE을 변환하여 반환하는 메서드 추가
     public String getNoticeTypeName() {
@@ -63,7 +75,57 @@ public class NoticeDTO {
         } else if (hasEnd) {
             return "~ " + endDateTime;
         } else {
-            return "기한 없음";
+            return "무기한";
+        }
+    }
+
+    // 업데이트 날짜 적용
+    public String getDisplayDate() {
+        return (updateDT != null && !updateDT.trim().isEmpty()) ? updateDT : insertDT;
+    }
+    public String getDisplayLoginId() {
+        return (updateLoginId != null && !updateLoginId.trim().isEmpty())
+                ? updateLoginId
+                : insertLoginId;
+    }
+    public String getNoticeStatus() {
+        try {
+            if (startDate != null && startTime != null && endDate != null && endTime != null) {
+                String start = startDate + startTime; // 예: 202504080900
+                String end = endDate + endTime;
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+                LocalDateTime startDt = LocalDateTime.parse(start, formatter);
+                LocalDateTime endDt = LocalDateTime.parse(end, formatter);
+
+                LocalDateTime now = LocalDateTime.now();
+
+                if (now.isBefore(startDt)) {
+                    return "게시예정";
+                } else if (!now.isBefore(startDt) && !now.isAfter(endDt)) {
+                    return "게시중";
+                } else {
+                    return "게시종료";
+                }
+            }
+        } catch (Exception e) {
+            return "오류 발생";
+        }
+        return "코드 확인";
+    }
+
+    public String getFormattedDisplayDate() {
+        if (this.getDisplayDate() == null || this.getDisplayDate().isEmpty()) {
+            return "";
+        }
+
+        try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(this.getDisplayDate(), inputFormatter);
+            return dateTime.format(outputFormatter);
+        } catch (Exception e) {
+            return this.getDisplayDate();
         }
     }
 }

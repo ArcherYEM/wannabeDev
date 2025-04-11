@@ -11,7 +11,10 @@
       <img src="/static/images/common/minimi/은모.png" alt="미니미">
     </div>
     <div class="insert_body">
-      <div class="text"><textarea type="text" name="content" id="content"></textarea></div>
+      <div class="text">
+        <div id="visitorTextCount" class="textCount">0 / 500</div>
+        <textarea type="text" name="content" id="visitor_content"></textarea>
+      </div>
       <div class="visitor_bottom insert_bottom">
         <div class="check"><input type="checkbox" name="secret" class="secret-check" id="secret_check"><label>비밀글</label></div>
         <button type="submit" id="insert_btn" class="visitor_button"> 등록 </button>

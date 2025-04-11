@@ -6,30 +6,30 @@
 
     <select id="getFilteredNotices" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
         SELECT n.NOTICE_ID,
-               n.NOTICE_TYPE,
-               n.NOTICE_TITLE,
-               n.NOTICE_CONTENTS,
-               n.START_DATE,
-               n.START_TIME,
-               n.END_DATE,
-               n.END_TIME,
-               n.INSERT_USER_ID,
-               DATE_FORMAT(n.INSERT_DT, '%Y-%m-%d %H:%i') AS INSERT_DT,
-               n.UPDATE_DT,
-               u.LOGIN_ID,
-        <!--    STR_TO_DATE= 날짜 형태로 형식 변환 코드  CONCAT = 문자열 합체(년월일 + 시간)    -->
-               DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
-               DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
+        n.NOTICE_TYPE,
+        n.NOTICE_TITLE,
+        n.NOTICE_CONTENTS,
+        n.START_DATE,
+        n.START_TIME,
+        n.END_DATE,
+        n.END_TIME,
+        n.INSERT_USER_ID,
+        n.UPDATE_USER_ID,
+        DATE_FORMAT(n.INSERT_DT, '%Y-%m-%d %H:%i') AS INSERT_DT,
+        DATE_FORMAT(n.UPDATE_DT, '%Y-%m-%d %H:%i') AS UPDATE_DT,
+        iu.LOGIN_ID AS INSERT_LOGIN_ID,
+        uu.LOGIN_ID AS UPDATE_LOGIN_ID,
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
         FROM NOTICE n
-        LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
+        LEFT JOIN USER_BASIC iu ON n.INSERT_USER_ID = iu.USER_ID
+        LEFT JOIN USER_BASIC uu ON n.UPDATE_USER_ID = uu.USER_ID
         WHERE 1 = 1
         <if test="noticeType != null and noticeType != ''">
             AND notice_type = #{noticeType}
         </if>
         <if test="field != null and field != '' and keyword != null and keyword != ''">
-            <choose> <!-- 여러 조건 중 하나만 사용 (switch 와 비슷) -->
-                <!-- test 조건이 true인 <when> 태그 하나만 실행됩니다.
-                여러 개의 <when> 중 가장 처음으로 조건이 true인 것 하나만 실행됨.-->
+            <choose>
                 <when test="field == 'title'">
                     AND notice_title LIKE CONCAT('%', #{keyword}, '%')
                 </when>
@@ -38,27 +38,27 @@
                 </when>
                 <otherwise>
                     AND (
-                        notice_title LIKE CONCAT('%', #{keyword}, '%')
-                        OR NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+                    notice_title LIKE CONCAT('%', #{keyword}, '%')
+                    OR NOTICE_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
                     )
                 </otherwise>
             </choose>
         </if>
 
-        <!-- 권한이 01일 경우 '04'와 '05'를 제외 -->
-        <if test="excludeNoticeTypes != null">
+        <if test="userRole != '01' and userRole != '02'">
             AND notice_type NOT IN
             <foreach item="item" collection="excludeNoticeTypes" open="(" close=")" separator=",">
                 #{item}
             </foreach>
         </if>
-        <!-- 권한이 '01'일 경우, 현재 날짜가 startDate와 endDate 사이인 항목만 조회 -->
-        <if test="userRole == '01'">
+        <if test="userRole == '03'">
             AND STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i') &lt;= NOW()
             AND STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i') &gt;= NOW()
         </if>
 
-        ORDER BY insert_dt DESC
+        ORDER BY
+        CASE WHEN n.UPDATE_DT IS NOT NULL THEN n.UPDATE_DT ELSE n.INSERT_DT END DESC,
+        n.NOTICE_ID DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
@@ -88,22 +88,17 @@
             </choose>
         </if>
 
-        <!-- 권한이 '01'일 경우 '04'와 '05'를 제외 -->
-        <if test="excludeNoticeTypes != null">
+        <!-- 권한이 '01'과 '02'가 아닌 경우 '04'와 '05'를 제외 -->
+        <if test="userRole != '01' and userRole != '02'">
             AND notice_type NOT IN
             <foreach item="item" collection="excludeNoticeTypes" open="(" close=")" separator=",">
                 #{item}
             </foreach>
         </if>
 
-        <!-- 권한이 '01'일 경우, 현재 날짜가 startDate와 endDate 사이인 항목만 조회 -->
-        <if test="userRole == '01'">
+        <!-- 권한이 '03'일 경우, 현재 날짜가 startDate와 endDate 사이인 항목만 조회 -->
+        <if test="userRole == '03'">
             AND NOW() BETWEEN n.START_DATE AND n.END_DATE
-        </if>
-        <!-- 권한이 '01'일 경우, 현재 날짜가 startDate와 endDate 사이인 항목만 조회 -->
-        <if test="userRole == '01'">
-            AND STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i') &lt;= NOW()
-            AND STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i') &gt;= NOW()
         </if>
     </select>
 
@@ -143,14 +138,140 @@
         n.END_DATE,
         n.END_TIME,
         n.INSERT_USER_ID,
-        DATE_FORMAT(n.INSERT_DT, '%Y-%m-%d %H:%i') AS INSERT_DT,
+        n.INSERT_DT,
         n.UPDATE_DT,
         u.LOGIN_ID,
-        DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
-        DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
         FROM NOTICE n
         LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
         WHERE n.NOTICE_ID = #{noticeId}
+
+        <!-- 권한이 '01'과 '02'가 아닌 경우 '04'와 '05' 제외 -->
+        <if test="userRole != '01' and userRole != '02' and excludeNoticeTypes != null">
+            AND notice_type NOT IN
+            <foreach item="item" collection="excludeNoticeTypes" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+        <!-- 권한이 '03'일 경우, 현재 날짜가 시작일/종료일 사이인 경우만 조회 -->
+        <if test="userRole == '03'">
+            AND NOW() BETWEEN
+            STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i') AND
+            STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i')
+        </if>
     </select>
+
+
+    <update id="updateNotice" parameterType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
+        UPDATE NOTICE
+        SET
+        NOTICE_TYPE     = #{noticeType},
+        NOTICE_TITLE    = #{noticeTitle},
+        NOTICE_CONTENTS = #{noticeContents},
+        START_DATE      = #{startDate},
+        START_TIME      = #{startTime},
+        END_DATE        = #{endDate},
+        END_TIME        = #{endTime},
+        UPDATE_USER_ID  = #{updateUserId},
+        UPDATE_DT       = NOW()
+        WHERE NOTICE_ID = #{noticeId}
+    </update>
+
+    <delete id="deleteNoticesByNotices" parameterType="list">
+        DELETE FROM NOTICE
+        WHERE NOTICE_ID IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+<!--다음 공지사항, 이전 공지사항 최소 & 최대 Notice_id-->
+    <select id="findPreviousNotice" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
+        SELECT
+        *
+        FROM NOTICE
+        WHERE
+        (
+        (
+        UPDATE_DT IS NOT NULL
+        AND (
+        (UPDATE_DT &lt; #{sortDate})
+        OR (UPDATE_DT = #{sortDate} AND NOTICE_ID &lt; #{noticeId})
+        )
+        )
+        OR
+        (
+        UPDATE_DT IS NULL
+        AND (
+        (INSERT_DT &lt; #{sortDate})
+        OR (INSERT_DT = #{sortDate} AND NOTICE_ID &lt; #{noticeId})
+        )
+        )
+        )
+
+        <!-- 권한이 '01', '02'가 아닌 경우 특정 유형 제외 -->
+        <if test="userRole != '01' and userRole != '02' and excludeNoticeTypes != null">
+            AND notice_type NOT IN
+            <foreach item="item" collection="excludeNoticeTypes" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+        <!-- 일반 사용자(03) → 기간 제한 -->
+        <if test="userRole == '03'">
+            AND NOW() BETWEEN
+            STR_TO_DATE(CONCAT(START_DATE, ' ',START_TIME), '%Y%m%d %H%i') AND
+            STR_TO_DATE(CONCAT(END_DATE, ' ', END_TIME), '%Y%m%d %H%i')
+        </if>
+
+        ORDER BY
+        CASE WHEN UPDATE_DT IS NOT NULL THEN UPDATE_DT ELSE INSERT_DT END DESC,
+        NOTICE_ID DESC
+        LIMIT 1
+    </select>
+
+<!--  최대 Notice_id  -->
+    <select id="findNextNotice" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
+        SELECT
+        *
+        FROM NOTICE
+        WHERE
+        (
+        (UPDATE_DT IS NOT NULL AND (
+        (UPDATE_DT = #{sortDate} AND NOTICE_ID &gt; #{noticeId})
+        OR (UPDATE_DT &gt; #{sortDate})
+        ))
+        OR
+        (UPDATE_DT IS NULL AND (
+        (INSERT_DT = #{sortDate} AND NOTICE_ID &gt; #{noticeId})
+        OR (INSERT_DT &gt; #{sortDate})
+        ))
+        )
+
+        <!-- 권한이 '01', '02'가 아닌 경우 특정 유형 제외 -->
+        <if test="userRole != '01' and userRole != '02' and excludeNoticeTypes != null">
+            AND notice_type NOT IN
+            <foreach item="item" collection="excludeNoticeTypes" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+        <!-- 일반 사용자(03) → 기간 제한 -->
+        <if test="userRole == '03'">
+            AND NOW() BETWEEN
+            STR_TO_DATE(CONCAT(START_DATE, ' ', START_TIME), '%Y%m%d %H%i') AND
+            STR_TO_DATE(CONCAT(END_DATE, ' ', END_TIME), '%Y%m%d %H%i')
+        </if>
+
+        ORDER BY
+        CASE WHEN UPDATE_DT IS NOT NULL THEN UPDATE_DT ELSE INSERT_DT END ASC,
+        NOTICE_ID DESC
+        LIMIT 1
+    </select>
+
+
+
 
 </mapper>

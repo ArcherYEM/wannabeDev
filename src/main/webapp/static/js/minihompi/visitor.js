@@ -17,15 +17,22 @@ function reloadVisitorSection() {
     });
 }
 
-
-
-
+// 방명록 글자수 제한
+$(document).on("input", "#visitor_content", function () {
+    const maxChars = 500;
+    let text = $(this).val();
+    if (text.length > maxChars) {
+        text = text.substring(0, maxChars);
+        $(this).val(text);
+    }
+    $("#visitorTextCount").text(`${text.length} / ${maxChars}`);
+})
 
 // 등록
 $(document).on("click", "#insert_btn", function (e) {
     e.preventDefault();
 
-    const content = $("#content").val();
+    const content = $("#visitor_content").val();
     const secret = $("#secret_check").is(":checked") ? "Y" : "N";
 
     if (!content.trim()) {
@@ -42,9 +49,9 @@ $(document).on("click", "#insert_btn", function (e) {
         },
         success: function () {
             alert("방명록 등록 성공");
-            $("#content").val("");
+            $("#visitor_content").val("");
             $("#secret_check").prop("checked", false);
-            reloadVisitorSection(); // 🔄 새로고침
+            reloadVisitorSection(); // 새로고침
         },
         error: function () {
             alert("등록에 실패했습니다. 다시 시도해주세요.");
