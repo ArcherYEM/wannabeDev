@@ -46,36 +46,36 @@
                     </div>
                 </div>
                 <div class="notice-bottom">
-                    <div class="content-list prev" id="prev_notice" th:if="${nextNotice != null}" th:data-id="${nextNotice.noticeId}">
+                    <div class="content-list" id="prev_notice" th:if="${nextNotice != null}" th:data-id="${nextNotice.noticeId}">
                         <div class="item-info">
-                            <a th:href="@{/notice/view/{id}(id=${nextNotice.noticeId})}"></a>
                             <img src="/static/images/common/icon/up.png">
                             <p class="title">다음글</p>
                             <p class="no-content" th:text="${nextNotice.noticeTitle}">다음글이 없습니다.</p>
+                            <a th:href="@{/notice/view/{id}(id=${nextNotice.noticeId})}"></a>
                         </div>
                         <div class="item-time">
                             <p th:text="${nextNotice.displayDate}"></p>
                         </div>
                     </div>
-                    <div class="content-list prev" th:if="${nextNotice == null}">
+                    <div class="content-list" th:if="${nextNotice == null}">
                         <div class="item-info">
                             <img src="/static/images/common/icon/up.png">
                             <p class="title">다음글</p>
                             <p class="no-content">다음글이 없습니다.</p>
                         </div>
                     </div>
-                    <div class="content-list next" id="next_notice" th:if="${previousNotice != null}" th:data-id="${previousNotice.noticeId}">
+                    <div class="content-list" id="next_notice" th:if="${previousNotice != null}" th:data-id="${previousNotice.noticeId}">
                         <div class="item-info">
-                            <a th:href="@{/notice/view/{id}(id=${previousNotice.noticeId})}"></a>
                             <img src="/static/images/common/icon/down.png">
                             <p class="title">이전글</p>
                             <p th:text="${previousNotice.noticeTitle}">2/24 운영정책 위반 단속 결과 안내</p>
+                            <a th:href="@{/notice/view/{id}(id=${previousNotice.noticeId})}"></a>
                         </div>
                         <div class="item-time">
                             <p th:text="${previousNotice.displayDate}">2025.02.24</p>
                         </div>
                     </div>
-                    <div class="content-list next" th:if="${previousNotice == null}">
+                    <div class="content-list" th:if="${previousNotice == null}">
                         <div class="item-info">
                             <img src="/static/images/common/icon/down.png">
                             <p class="title">이전글</p>
