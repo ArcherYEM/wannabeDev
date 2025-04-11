@@ -258,8 +258,6 @@
     border: 1px solid #999;
     padding: 20px;
     border-radius: 5px;
-    overflow-y: auto;
-    max-height: 400px;
 }
 .cart h2{
     font-size: 20px;
@@ -270,12 +268,15 @@
     height: 80px !important;
 }
 .cart .gift-swiper{
-    height: 260px;
+    height: 350px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 .cart .swiper-slide{
     border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 .itemSum {
     display: grid;
@@ -812,6 +813,12 @@
     width: 15px;
 }
 
-
+.cart-slide-style{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    height: 132px;
+}
 
 

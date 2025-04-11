@@ -320,3 +320,17 @@
         }
     }
 }
+
+#orderCountBtnWrap{
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 5px;
+    width: 80px;
+    justify-content: space-between;
+}
+
+#orderCountBtnWrap button{
+    font-size: 20px;
+    background: none;
+}
