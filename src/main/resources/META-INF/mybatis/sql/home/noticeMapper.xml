@@ -138,11 +138,11 @@
         n.END_DATE,
         n.END_TIME,
         n.INSERT_USER_ID,
-        DATE_FORMAT(n.INSERT_DT, '%Y-%m-%d %H:%i:%s') AS INSERT_DT,
-        DATE_FORMAT(n.UPDATE_DT, '%Y-%m-%d %H:%i:%s') AS UPDATE_DT,
+        n.INSERT_DT,
+        n.UPDATE_DT,
         u.LOGIN_ID,
-        DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE, ' ', n.START_TIME), '%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS startDatetime,
-        DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE, ' ', n.END_TIME), '%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS endDatetime
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.START_DATE,'',n.START_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS START_DATETIME,
+        DATE_FORMAT(STR_TO_DATE(CONCAT(n.END_DATE,'',n.END_TIME),'%Y%m%d %H%i'), '%Y-%m-%d %H:%i') AS END_DATETIME
         FROM NOTICE n
         LEFT JOIN USER_BASIC u ON n.INSERT_USER_ID = u.USER_ID
         WHERE n.NOTICE_ID = #{noticeId}
@@ -189,21 +189,26 @@
 
 <!--다음 공지사항, 이전 공지사항 최소 & 최대 Notice_id-->
     <select id="findPreviousNotice" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
-        SELECT *
+        SELECT
+        *
         FROM NOTICE
         WHERE
         (
-        (UPDATE_DT IS NOT NULL AND (
+        (
+        UPDATE_DT IS NOT NULL
+        AND (
         (UPDATE_DT &lt; #{sortDate})
+        OR (UPDATE_DT = #{sortDate} AND NOTICE_ID &lt; #{noticeId})
+        )
+        )
         OR
-        (UPDATE_DT = #{sortDate} AND NOTICE_ID &lt; #{noticeId})
-        ))
-        OR
-        (UPDATE_DT IS NULL AND (
+        (
+        UPDATE_DT IS NULL
+        AND (
         (INSERT_DT &lt; #{sortDate})
-        OR
-        (INSERT_DT = #{sortDate} AND NOTICE_ID &lt; #{noticeId})
-        ))
+        OR (INSERT_DT = #{sortDate} AND NOTICE_ID &lt; #{noticeId})
+        )
+        )
         )
 
         <!-- 권한이 '01', '02'가 아닌 경우 특정 유형 제외 -->
@@ -224,26 +229,24 @@
         ORDER BY
         CASE WHEN UPDATE_DT IS NOT NULL THEN UPDATE_DT ELSE INSERT_DT END DESC,
         NOTICE_ID DESC
-
         LIMIT 1
     </select>
 
 <!--  최대 Notice_id  -->
     <select id="findNextNotice" resultType="com.dev.wannabe.domain.home.model.dto.NoticeDTO">
-        SELECT *
+        SELECT
+        *
         FROM NOTICE
         WHERE
         (
         (UPDATE_DT IS NOT NULL AND (
-        (UPDATE_DT &gt;= #{sortDate} AND NOTICE_ID &gt; #{noticeId})
-        OR
-        (UPDATE_DT &gt; #{sortDate})
+        (UPDATE_DT = #{sortDate} AND NOTICE_ID &gt; #{noticeId})
+        OR (UPDATE_DT &gt; #{sortDate})
         ))
         OR
         (UPDATE_DT IS NULL AND (
-        (INSERT_DT &gt;= #{sortDate} AND NOTICE_ID &gt; #{noticeId})
-        OR
-        (INSERT_DT &gt; #{sortDate})
+        (INSERT_DT = #{sortDate} AND NOTICE_ID &gt; #{noticeId})
+        OR (INSERT_DT &gt; #{sortDate})
         ))
         )
 
@@ -264,7 +267,7 @@
 
         ORDER BY
         CASE WHEN UPDATE_DT IS NOT NULL THEN UPDATE_DT ELSE INSERT_DT END ASC,
-        NOTICE_ID ASC
+        NOTICE_ID DESC
         LIMIT 1
     </select>
 

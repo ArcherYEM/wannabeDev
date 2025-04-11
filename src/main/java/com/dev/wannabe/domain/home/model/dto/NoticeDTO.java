@@ -28,6 +28,12 @@ public class NoticeDTO {
     // 추가된 LOGIN_ID 필드
     private String loginId;  // 로그인 ID를 추가
 
+    private String viewUpdateDT;
+    private String viewInsertDT;
+    public String getViewDisplay() {
+        return (viewUpdateDT != null && !viewUpdateDT.trim().isEmpty()) ? viewUpdateDT : viewInsertDT;
+    }
+
     // NOTICE_TYPE을 변환하여 반환하는 메서드 추가
     public String getNoticeTypeName() {
         switch (this.noticeType) {
@@ -108,4 +114,18 @@ public class NoticeDTO {
         return "코드 확인";
     }
 
+    public String getFormattedDisplayDate() {
+        if (this.getDisplayDate() == null || this.getDisplayDate().isEmpty()) {
+            return "";
+        }
+
+        try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(this.getDisplayDate(), inputFormatter);
+            return dateTime.format(outputFormatter);
+        } catch (Exception e) {
+            return this.getDisplayDate();
+        }
+    }
 }

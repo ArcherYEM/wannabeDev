@@ -26,15 +26,15 @@
                     <div class="time-info">
                         <div>
                             <!-- startDate와 endDate를 String 그대로 출력 -->
-                            <span th:text="${notice.startDate}"></span>
+                            <span th:text="${notice.startDateTime}"></span>
                             <span>~</span>
-                            <span th:text="${notice.endDate}"></span>
+                            <span th:text="${notice.endDateTime}"></span>
                             <span class="state" th:text="${notice.noticeStatus}">(게시중)</span>
                         </div>
                         <div>
                             <img src="/static/images/common/icon/icon_clock.svg" alt="clock" />
                             <!-- startDate의 날짜만 출력 -->
-                            <span th:text="${notice.startDate}"></span>
+                            <span th:text="${notice.getFormattedDisplayDate}"></span>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <a th:href="@{/notice/view/{id}(id=${nextNotice.noticeId})}"></a>
                         </div>
                         <div class="item-time">
-                            <p th:text="${nextNotice.displayDate}"></p>
+                            <p th:text="${nextNotice.getFormattedDisplayDate}"></p>
                         </div>
                     </div>
                     <div class="content-list" th:if="${nextNotice == null}">
@@ -72,7 +72,7 @@
                             <a th:href="@{/notice/view/{id}(id=${previousNotice.noticeId})}"></a>
                         </div>
                         <div class="item-time">
-                            <p th:text="${previousNotice.displayDate}">2025.02.24</p>
+                            <p th:text="${previousNotice.getFormattedDisplayDate}">2025.02.24</p>
                         </div>
                     </div>
                     <div class="content-list" th:if="${previousNotice == null}">

@@ -101,7 +101,10 @@ public class NoticeService {
             String cleanTitle = Jsoup.clean(noticeDTO.getNoticeTitle(), Safelist.basic());
 
             Safelist safelist = Safelist.relaxed()
-                .addTags("h1", "h2", "h3", "h4", "h5", "h6");
+                .addTags("h1", "h2", "h3", "h4", "h5", "h6","ol", "ul", "li", "p", "span", "hr", "s", "del", "strike")
+                    .addAttributes("li", "class")
+                    .addAttributes("hr", "class");
+
 
             String cleanContents = Jsoup.clean(noticeDTO.getNoticeContents(), safelist);
 
@@ -190,10 +193,6 @@ public class NoticeService {
         param.put("sortDate", sortDate);
         param.put("userRole", userRole);
 
-        System.out.println("before currentNoticeId : " + param.get("noticeId"));
-        System.out.println("before excludeNoticeTypes : " + param.get("excludeNoticeTypes"));
-        System.out.println("userRole : " + param.get("userRole"));
-
         if ("03".equals(userRole)) {
             param.put("excludeNoticeTypes", new String[] {"04", "05"});
         }
@@ -212,7 +211,10 @@ public class NoticeService {
         try {
             // XSS 방지 처리
             String cleanTitle = Jsoup.clean(noticeDTO.getNoticeTitle(), Safelist.basic());
-            Safelist safelist = Safelist.relaxed().addTags("h1", "h2", "h3", "h4", "h5", "h6");
+            Safelist safelist = Safelist.relaxed()
+                    .addTags("h1", "h2", "h3", "h4", "h5", "h6","ol", "ul", "li", "p", "span", "hr", "s", "del", "strike")
+                    .addAttributes("li", "class")
+                    .addAttributes("hr", "class");
             String cleanContents = Jsoup.clean(noticeDTO.getNoticeContents(), safelist);
 
             noticeDTO.setNoticeTitle(cleanTitle);

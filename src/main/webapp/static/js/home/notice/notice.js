@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    console.log("✅ notice.js loaded");
     initCheckbox();
     initLimitSelect();
     initSearch();
@@ -29,11 +28,9 @@ function initCheckbox() {
 $(document).on('click', '#delete_btn', function () {
     const selectedIds = [];
 
-    $('#rowCheckbox').each(function () {
+    $('.rowCheckbox:checked').each(function () {
         const id = $(this).data("id");
-        console.log(id)
         if (id) selectedIds.push(id);
-        console.log(selectedIds);
     });
 
     if (selectedIds.length === 0) {
