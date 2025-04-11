@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.HompiBoardMapper">
+    <select id="getBoardAllList" resultType="com.dev.wannabe.domain.minihompi.model.dto.HompiBoardDTO">
+        SELECT *
+        FROM HOMPI_BOARD
+        WHERE HOMPI_ID = #{param1}
+        AND FOLDER_ID = #{param2}
+        LIMIT
+        ${param3}, ${param4}
+    </select>
+
+</mapper>
