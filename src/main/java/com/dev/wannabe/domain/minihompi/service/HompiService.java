@@ -56,7 +56,7 @@ public class HompiService {
             HompiConfig updateConfig = HompiConfig.builder()
                     .hompiId(hompiId)
                     .hompiConfigCode("01")
-                    .hompiConfigContent("/static/images/common/no-image-mini-room.png")
+                    .hompiConfigContent("/static/images/common/default/no-image-mini-room.png")
                     .updateUserId(userId)
                     .build();
             hompiMapper.saveHompiConfig(updateConfig);

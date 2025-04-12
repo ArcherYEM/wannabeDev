@@ -10,7 +10,6 @@ const recentSwiper = new Swiper("#recent-item-swiper", {
 const itemBuySwiper = new Swiper("#item-swiper", {
     direction: "vertical",
     slidesPerView: 2.5,
-    spaceBetween: 25,
     mousewheel: true,
     resistanceRatio: 0.5,
 });
@@ -21,13 +20,16 @@ let currentPage = 0;
 let offset = 0;
 let productType ='';
 const giftShopList = [" ","01","02","10","11","12","BGM"];
-let recentItems = [];
+let itemCarts = [];
+let totalPrice = 0;
+//장바구니에 같은 bgm있는지 체크
 
 $(function () {
 
     itemMainPageItem();
     getPopularBgm();
     getPopularProduct();
+    getItemCart();
 
     // 선물함 메뉴 효과
     $(".top-header-menu .tab").on("click", function () {
@@ -47,7 +49,7 @@ $(function () {
     $('#item-up-arrow').on("click", function () {
         itemBuySwiper.slidePrev();
     })
-    $('#item-down-arrow').on("click", function () {
+    $(document).on("click", '#item-down-arrow',function () {
         itemBuySwiper.slideNext()
     })
 
@@ -73,38 +75,26 @@ $(function () {
     //선택한 리스트에 장바구니 클릭시 체크되있는 아이템 장바구니로 넣기
     $(document).on('click','.itemBuyFinal .itemCart',function(){
         $('.selectItemUl li input[type="checkbox"]:checked').each(function(index, item){
-            if($('.selectItemCartUl li[data-id="' + $(this).closest('li').attr('data-id') + '"][data-type="'
-            + $(this).closest('li').attr('data-type') + '"]').length > 0){
+            if($('.cart .swiper-slide[data-id="' + $(this).closest('li').attr('data-id') + '"][data-type="M"').length > 0){
                 return;
             }
-        const checkItemId = $(this).closest('li').attr('data-id');
-        const checkItemType = $(this).closest('li').attr('data-type');
-        const selectItem = $(this).closest('li');
-        let code = `<li data-id="${checkItemId}" data-type="${checkItemType}">
-                <div><span>${selectItem.find('.selectItemName').text()}</span><div>
-                <img class="dotoriImg" src="/static/images/common/icon/dotori.png">
-                <span class="dotoriCartPrice"></span></div></div>
-                <div class="selectCartItem"><img id="cartCloseImg" src="/static/images/common/icon/close.png">
-                <img src="${$(this).closest('li').find('.selectItem img').attr('src')}">`
-        $('.selectItemCartUl').append(code);
-
-        if(selectItem.attr('data-type') !== "M"){
-            const sel = selectItem.find('.selectItem select');
-            $('.selectCartItem').last().append(sel.clone());
-            $('.selectCartItem select').last().val(sel.val());
-            $('.dotoriCartPrice').html(sel.val());
-        }else{
-            $('.dotoriCartPrice').html(selectItem.find('.dotoriPrice').text())
+            const checkItemId = $(this).closest('li').attr('data-id');
+            const checkItemType = $(this).closest('li').attr('data-type');
+            const availDay = $(this).closest('li').find('.selectItem select option:selected').text().replace('일','');
+            console.log(availDay);
+            itemCarts.push({
+                itemId : checkItemId,
+                itemType : checkItemType,
+                availDay : Number(availDay)
+                });
+            })
+        if(itemCarts.length === 0){
+            return;
         }
-        const itemCnt = $('.selectItemCartUl li').length;
-        let totalPrice = 0;
-        $('.dotoriCartPrice').each(function(index,price){
-            totalPrice += Number($(price).text());
-        });
-            $('#cartCnt').text('합계' + '(' + itemCnt + ')');
-            $('#cartSum').text(totalPrice);
-        })
-    })
+        addItemCart(itemCarts);
+        }
+    )
+
 
     //전체 선택 클릭시 itemCart 체크박스 전부 checked로 변환 및 선택한 아이템에 등록
     $(document).on('change','.itemAll input[type="checkbox"]',function(){
@@ -188,43 +178,31 @@ $(function () {
         }
     })
 
-    //장바구니 아이콘 클릭시 장바구니에 해당 아이템 추가
-    $(document).on('click','.itemCart',function(){
-        if($(this).closest('.selectedItemMenu').length > 0){
-            return;
-        }
-        const checkItemId = $(this).closest('.itemCard').attr('data-id');
-        const checkItemType = $(this).closest('.itemCard').attr('data-type');
+    //중앙 아이템에 장바구니 아이콘 클릭시 장바구니에 해당 아이템 추가
+    $(document).on('click','.itemBuy .itemCart',function(){
         const itemCard = $(this).closest('.itemCard');
-        if($('.selectItemCartUl li[data-id="' + checkItemId + '"][data-type="' + checkItemType + '"]').length > 0){
+        const checkItemId = itemCard.attr('data-id');
+        const checkItemType = itemCard.attr('data-type');
+
+        if($('.cart .swiper-slide[data-id="' + checkItemId + '"][data-type="' + checkItemType + '"]').length > 0){
            alert('이미 장바구니에 존재하는 아이템입니다');
            return;
         };
-        let code = `<li data-id="${checkItemId}" data-type="${itemCard.attr('data-type')}">
-                <div><span>${itemCard.find('h3').text()}</span><div><img class="dotoriImg" src="/static/images/common/icon/dotori.png">
-                <span class="dotoriCartPrice"></span></div></div>
-                <div class="selectCartItem"><img id="cartCloseImg" src="/static/images/common/icon/close.png">
-                <img src="${$(this).closest('.itemCard').find('img').attr('src')}">`
-        $('.selectItemCartUl').append(code);
-
-        if(itemCard.attr('data-type') !== "M"){
-            const sel = itemCard.find('.selectBox select');
-            $('.selectCartItem').last().append(sel.clone());
-            $('.selectCartItem select').last().val(sel.val());
-            $('.dotoriCartPrice').last().html(sel.val() + '개');
-        }else{
-            $('.dotoriCartPrice').last().html(itemCard.find('.price').text())
-        }
-        const itemCnt = $('.selectItemCartUl li').length;
-        let totalPrice = 0;
-        $('.dotoriCartPrice').each(function(index,price){
-            const newPrice = $(price).text().replace('개','');
-            totalPrice += Number(newPrice);
+        const availDay = itemCard.find('select option:selected').text().replace('일','');
+        itemCarts.push({
+            itemId : checkItemId,
+            itemType : checkItemType,
+            availDay : Number(availDay)
         });
-        $('#cartCnt').text('합계' + '(' + itemCnt + ')');
-        $('#cartSum').text(totalPrice + '개');
+    if(itemCarts.length === 0){
+        return;
+    }
+        addItemCart(itemCarts);
     })
 
+
+
+    //검색창에 아이템명 검색 시 해당 리스트 가져와서 보여주기
     $(document).on('click','.itemSelectInput button',function(){
         searchText = $('.itemSelectInput input[type="text"]').val().trim();
         if(!searchText){
@@ -235,13 +213,10 @@ $(function () {
         getProductCount(searchText);
     })
 
+    //아이템에서 일수 변경시 해당 일 수에 맞는 도토리 개수로 변경
     $(document).on('change','.selectBox select',function(){
         const price = $(this).closest('.itemCard').find('.price');
         price.html($(this).val() + '개');
-    })
-
-    $(document).on('click','#cartCloseImg',function(){
-        $(this).closest('li').remove();
     })
 
     $(document).on('change','.selectItem select',function(){
@@ -249,6 +224,7 @@ $(function () {
         dotori.html($(this).val() + '개');
     })
 
+    //업데이트 바꿔야됨
     $(document).on('change','.selectCartItem select',function(){
         const dotori = $(this).closest('li').find('.dotoriCartPrice');
         dotori.html($(this).val() + '개');
@@ -282,8 +258,6 @@ $(function () {
             $('.modalDesc select').remove();
         }
         const itemClone = itemCard.clone();
-        recentItems.push(itemClone);
-        itemClone.remove('.itemPricing');
         if($('.recentItemWrap .itemCard[data-id="' + itemCard.attr('data-id') + '"][data-type="'
         + itemCard.attr('data-type') + '"]').length > 0){
             return;
@@ -311,6 +285,7 @@ $(function () {
     $('.giftModalTop img').on('click',function(){
         $('.giftShopModal').hide();
     })
+
 });
 
 
@@ -543,3 +518,126 @@ function calculatePage(){
         `);
     }
 }
+
+function addItemCart(itemCarts){
+    console.log(itemCarts);
+    $.ajax({
+        type: 'POST',
+        url: '/api/user-cart/add',
+        data: JSON.stringify(itemCarts),
+        contentType: 'application/json',
+        success: function(response){
+            alert('장바구니 이동 성공');
+            itemCarts = [];
+            getItemCart();
+        },
+        error: function(error){
+        console.log('dd');
+            alert('로그인을 해주세요');
+            console.error(error);
+        }
+    })
+}
+
+function getItemCart(){
+    $.ajax({
+        type: 'GET',
+        url: '/api/user-cart/read/product',
+        dataType: 'json',
+        success: function(response){
+            totalPrice = 0;
+             $('.cart .swiper-wrapper').empty();
+            response.forEach(function(item, index){
+            console.log(item);
+           let code = `
+                <div class="swiper-slide" data-id="${item.itemId}" data-type="${item.itemType}">
+                <div class="cart-slide-style">
+                    <div><span>${item.itemName}</span>
+                        <div>
+                            <img class="dotoriImg" src="/static/images/common/icon/dotori.png">
+                            <span class="dotoriCartPrice"></span>
+                        </div>
+                    </div>
+                    <div class="selectCartItem">
+                        <img id="cartCloseImg" src="/static/images/common/icon/close.png">
+                        <img src="${item.itemPath}">
+                    </div>
+                    <div><span>X${item.itemCount}</span></div>
+                    </div>
+                </div>`
+        $('.cart .swiper-wrapper').append(code);
+
+        if(item.itemType !== "M"){
+            $('.selectCartItem').last().append(`
+                <select>
+                    <option>1일</option>
+                    <option>3일</option>
+                    <option>7일</option>
+                    <option>30일</option>
+                    <option>90일</option>
+                    <option>365일</option>
+                </select>
+            `);
+        $('.selectCartItem').eq(index).find('option').filter(function(){
+            return $(this).text().replace('일','') == item.availDay;
+        }).prop('selected',true);
+            getItemPrice(item.itemId, item.availDay, item.itemType, $('.cart .dotoriCartPrice').eq(index),item.itemCount);
+        }
+    })
+    getItemBgmCart();
+        }
+    })
+}
+
+function getItemBgmCart(){
+    $.ajax({
+        type: 'GET',
+        url: '/api/user-cart/read/bgm',
+        dataType: 'json',
+        success: function(response){
+            response.forEach(function(item, index){
+            console.log(item);
+           let code = `
+                <div class="swiper-slide" data-id="${item.itemId}" data-type="${item.itemType}">
+                <div class="cart-slide-style">
+                    <div><span>${item.itemName}</span>
+                        <div>
+                            <img class="dotoriImg" src="/static/images/common/icon/dotori.png">
+                            <span class="dotoriCartPrice"></span>
+                        </div>
+                    </div>
+                    <div class="selectCartItem">
+                        <img id="cartCloseImg" src="/static/images/common/icon/close.png">
+                        <img src="${item.itemPath}">
+                    </div>
+                    </div>
+                </div>`
+        $('.cart .swiper-wrapper').append(code);
+            getItemPrice(item.itemId, item.availDay, item.itemType, $('.cart .dotoriCartPrice').last());
+    })
+    itemBuySwiper.update();
+        }
+    })
+}
+
+function getItemPrice(itemId, availDay, itemType, inputPlace ,itemCount){
+    $.ajax({
+        type: 'GET',
+        url: '/api/user-cart/read/price',
+        data: {itemId, availDay, itemType},
+        success: function(response){
+            if(itemType == 'M'){
+                itemCount = 1;
+            }
+            totalPrice += response * itemCount;
+            console.log(totalPrice);
+            $('#cartCnt').text('합계(' + $('.cart .swiper-slide').length + ')')
+            $('#cartSum').text(totalPrice + '개');
+            inputPlace.text(response + '개');
+        },
+        error: function(error){
+            console.error(error);
+        }
+    })
+}
+

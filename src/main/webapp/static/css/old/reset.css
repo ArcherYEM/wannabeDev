@@ -51,7 +51,7 @@ button::-moz-focus-inner,
     border-style: none;
     padding: 0
 }
-input, textarea, select, button{font-size:1rem; font-family: "Nanum Gothic", sans-serif; Tahoma; color:#333;}
+input, textarea, select, button{font-size:1rem; font-family: "Nanum Gothic", Tahoma, sans-serif;  color:#333;}
 input:disabled, select:disabled { background-color:#ddd; }
 input, select{vertical-align: middle; color:#666;}
 
