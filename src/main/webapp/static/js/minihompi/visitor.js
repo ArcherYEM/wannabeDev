@@ -51,7 +51,7 @@ $(document).on("click", "#insert_btn", function (e) {
             alert("방명록 등록 성공");
             $("#visitor_content").val("");
             $("#secret_check").prop("checked", false);
-            reloadVisitorSection(); // 🔄 새로고침
+            reloadVisitorSection(); // 새로고침
         },
         error: function () {
             alert("등록에 실패했습니다. 다시 시도해주세요.");

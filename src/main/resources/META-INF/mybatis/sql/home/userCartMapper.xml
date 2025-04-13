@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.UserCartMapper">
+    <insert id="saveUserCart" parameterType="UserCart">
+        INSERT INTO USER_CART(
+            USER_ID, ITEM_ID, ITEM_TYPE, AVAIL_DAY,
+            INSERT_USER_ID, INSERT_DT
+        )
+        VALUES(
+            #{userId},
+            #{itemId},
+            #{itemType},
+            #{availDay},
+            #{insertUserId},
+            #{insertDt}
+        )
+        ON DUPLICATE KEY UPDATE
+        AVAIL_DAY = #{availDay},
+        UPDATE_DT = NOW(),
+        UPDATE_USER_ID = #{insertUserId}
+    </insert>
+
+    <select id="getUserCartList" parameterType="map" resultType="UserCartProductDTO">
+        SELECT  A.CART_ITEM_ID AS cartId,
+                A.USER_ID,
+                A.ITEM_ID,
+                A.ITEM_TYPE,
+                A.AVAIL_DAY,
+                B.PRODUCT_NAME AS itemName,
+                D.FILE_PATH AS itemPath,
+                COUNT(A.ITEM_ID) AS itemCount,
+                B.PRODUCT_TYPE AS category
+        FROM USER_CART A
+            INNER JOIN PRODUCT B
+                ON A.ITEM_ID = B.PRODUCT_ID
+            INNER JOIN ATTACH_FILE_MANAGE D
+            ON B.ATTACH_FILE_ID = D.ATTACH_FILE_ID
+        WHERE
+            A.USER_ID = #{userId}
+            AND A.ITEM_TYPE = #{itemType}
+        GROUP BY A.ITEM_ID, A.ITEM_TYPE, A.AVAIL_DAY,B.PRODUCT_NAME, D.FILE_PATH
+        ORDER BY A.INSERT_DT
+    </select>
+
+    <select id="getUserCartBgmList" parameterType="map" resultType="UserCartProductDTO">
+        SELECT  A.CART_ITEM_ID AS cartId,
+                A.USER_ID,
+                A.ITEM_ID,
+                A.ITEM_TYPE,
+                B.BGM_NAME AS itemName,
+                D.FILE_PATH AS itemPath
+        FROM USER_CART A
+            INNER JOIN BGM B
+                ON A.ITEM_ID = B.BGM_ID
+            INNER JOIN ATTACH_FILE_MANAGE D
+                ON B.IMAGE_FILE_ATTACH_ID = D.ATTACH_FILE_ID
+        WHERE
+            A.USER_ID = #{userId}
+            AND A.ITEM_TYPE = #{itemType}
+        ORDER BY A.INSERT_DT
+    </select>
+
+    <select id="getItemPrice" resultType="int" parameterType="map">
+        SELECT B.PRICE
+            FROM PRODUCT A
+                LEFT JOIN PRODUCT_PRICE B
+                    ON A.PRODUCT_ID = B.PRODUCT_ID
+        WHERE
+            B.AVAIL_DAY = #{availDay}
+            AND B.PRODUCT_ID = #{itemId}
+    </select>
+    <select id="getItemBgmPrice" resultType="int" parameterType="Long">
+        SELECT B.PRICE
+        FROM BGM A
+            LEFT JOIN BGM_PRICE B
+            ON A.BGM_ID = B.BGM_ID
+        WHERE
+            B.BGM_ID = #{itemId}
+    </select>
+
+</mapper>

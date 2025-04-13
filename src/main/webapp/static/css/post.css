@@ -217,8 +217,6 @@ button{
 
 .diarySelectWrap{
     text-align: center;
-    display: flex;
-    gap: 5px;
 }
 
 input[type="text"].diaryTitle{

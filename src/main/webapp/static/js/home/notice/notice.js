@@ -7,8 +7,10 @@ $(document).ready(function () {
     initInsertPage();
     initSetTodayCheckbox();
     initEndDateSelect();
+    initNextPrevPage();
 });
 
+//(공지사항 select 및 delete 부분)
 // 전체 선택/해제 및 개별 선택 처리
 function initCheckbox() {
     $('#selectAll').on('change', function () {
@@ -21,6 +23,47 @@ function initCheckbox() {
         $(this).closest('tr').toggleClass('selected-row', $(this).is(':checked'));
     });
 }
+
+// 공지사항 삭제
+$(document).on('click', '#delete_btn', function () {
+    const selectedIds = [];
+
+    $('.rowCheckbox:checked').each(function () {
+        const id = $(this).data("id");
+        if (id) selectedIds.push(id);
+    });
+
+    if (selectedIds.length === 0) {
+        Swal.fire("알림", "삭제할 공지를 선택해주세요.", "warning");
+        return;
+    }
+
+    Swal.fire({
+        title: '삭제 확인',
+        text: '선택한 공지를 삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/notice/delete',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(selectedIds),
+                success: function (res) {
+                    Swal.fire('삭제 완료', res, 'success').then(() => {
+                        location.reload();
+                    });
+                },
+                error: function (err) {
+                    Swal.fire('오류 발생', '삭제 실패: ' + err.statusText, 'error');
+                }
+            });
+        }
+    });
+});
 
 // 데이터 수 제한 변경 시 페이지 리로드
 function initLimitSelect() {
@@ -83,27 +126,50 @@ function initFieldFromUrl() {
     $('#filter-field').val(fieldFromUrl || 'all');
 }
 
-// 공지등록화면으로 이동
+
+//공지사항 등록(insert 및 update)부분
+// 공지사항 화면(insert update)으로 이동
 function initInsertPage() {
     $('#insert_page_btn').on('click', function () {
         window.location.href = '/notice/insert_page';
     });
+
+    $('#update_page_btn').on('click', function () {
+        const id = $(this).data("id");
+        console.log(id);
+        window.location.href = `/notice/update/${id}`;
+    });
+
+    $('#view_page_btn').on('click', function () {
+        const noticeId = $(this).data("id")
+        window.location.href = `/notice/view/${noticeId}`;
+    });
+
+
+    $('#list_page_btn').on('click', function () {
+        window.location.href = `/notice`;
+    });
+
+
 }
 
 // Toast UI Editor 초기화
 function initEditor() {
     const editorElement = document.querySelector('#editor');
     if (editorElement) {
+        const content = editorElement.dataset.contents || '';
         const editor = new toastui.Editor({
             el: editorElement,
             height: '400px',
             initialEditType: 'wysiwyg',
-            previewStyle: 'vertical'
+            previewStyle: 'vertical',
+            initialValue: content
         });
 
         window.noticeEditor = editor;
     }
 }
+
 
 // 공지사항 등록
 function insert_notice() {
@@ -113,7 +179,13 @@ function insert_notice() {
                         ? window.noticeEditor.getHTML()
                         : '';
     const startDateTemp = $('#i_start_date').val().trim();
-    const endDateTemp   = $('#i_end_date').val().trim();
+    let endDateTemp   = $('#i_end_date').val().trim();
+
+    const endDateValue = $('#end_date_selector').val().trim();
+    // 무기한이면 날짜 지정
+    if (endDateValue === '무기한') {
+        endDateTemp = '9999-12-31T23:59';
+    }
 
     // 유효성 검사
     if (!type) {
@@ -135,6 +207,7 @@ function insert_notice() {
         Swal.fire('등록실패', '시작일을 입력해주세요.', 'warning');
         return;
     }
+
 
     if (!endDateTemp) {
         Swal.fire('등록실패', '종료일을 입력해주세요.', 'warning');
@@ -169,6 +242,80 @@ function insert_notice() {
     });
 }
 
+// 공지사항 업데이트
+function update_notice() {
+    const noticeId = $('#update_btn').data("id");
+    const type          = $('#i_type').val();
+    const title         = $('#i_title').val().trim();
+    let contents        = window.noticeEditor
+    ? window.noticeEditor.getHTML()
+    : '';
+    const startDateTemp = $('#i_start_date').val().trim();
+    let endDateTemp   = $('#i_end_date').val().trim();
+
+    const endDateValue = $('#end_date_selector').val().trim();
+    // 무기한이면 날짜 지정
+    if (endDateValue === '무기한') {
+        endDateTemp = '9999-12-31T23:59';
+    }
+
+    // 유효성 검사
+    if (!type) {
+        Swal.fire('등록실패', '분류를 선택해주세요.', 'warning');
+        return;
+    }
+
+    if (!title) {
+        Swal.fire('등록실패', '제목을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!contents || contents === '<p><br></p>') { // Toast UI Editor 비어있을 때
+        Swal.fire('등록실패', '내용을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!startDateTemp) {
+        Swal.fire('등록실패', '시작일을 입력해주세요.', 'warning');
+        return;
+    }
+
+    if (!endDateTemp) {
+        Swal.fire('등록실패', '종료일을 입력해주세요.', 'warning');
+        return;
+    }
+
+
+    const noticeData = {
+        noticeId        : noticeId,
+        noticeType      : type,
+        noticeTitle     : title,
+        noticeContents  : contents,
+        startDateTime   : startDateTemp,
+        endDateTime     : endDateTemp
+    }
+
+    $.ajax({
+        url         : `/api/notice/update/${noticeId}`,
+        method      : 'post',
+        contentType : 'application/json',
+        data        : JSON.stringify(noticeData),
+        success     : function(result){
+            if(result){
+                Swal.fire('공지사항 등록 성공', `[${title}] 공지가 변경되었습니다`, 'success')
+                    .then(() => { location.href = `/notice/view/${noticeId}`; });
+            } else {
+                Swal.fire('등록실패', '공지 등록 권한이 없습니다.', 'error')
+                    .then(() => { location.href = '/notice'; });
+            }
+        },
+        error       : function(error){
+            Swal.fire('등록실패', `서버 오류 발생: ${error.status} - ${error.statusText}`, 'error');
+        }
+    });
+}
+
+
 // 공지사항 시작 체크박스 체크시 오늘로 설정
 function initSetTodayCheckbox() {
     const checkbox = document.getElementById('set_today_start');
@@ -197,6 +344,8 @@ function initEndDateSelect() {
     const select = document.getElementById('end_date_selector');
     const input = document.getElementById('i_end_date');
 
+    if (!select || !input) return;
+
     select.addEventListener('change', function () {
         const value = this.value;
         const now = new Date();
@@ -223,3 +372,20 @@ function initEndDateSelect() {
     });
 }
 
+//공지사항 view 페이지
+function initNextPrevPage() {
+    $('#next_notice').on('click', function () {
+        const id = $(this).data("id");
+        if (id) {
+            window.location.href = `/notice/view/${id}`;
+        }
+    });
+
+    $('#prev_notice').on('click', function () {
+        const id = $(this).data("id");
+        if (id) {
+            window.location.href = `/notice/view/${id}`;
+        }
+    });
+
+}
