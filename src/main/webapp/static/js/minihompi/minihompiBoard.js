@@ -95,7 +95,7 @@ function boardAllList(page, pageSize) {
                     <span class="miniHP-PostTitleName">제목</span>
                     <span class="miniHP-PostedBy">작성자</span>
                     <span class="miniHP-PostDate">작성일</span>
-                    <span class="miniHP-PostViewCount">조회수</span>
+                    <!--<span class="miniHP-PostViewCount">조회수</span>-->
                 </div>
             `;
 
@@ -112,7 +112,7 @@ function boardAllList(page, pageSize) {
                         <span class="miniHP-PostTitleName" onclick="fncBoardView(${hompiBoardId})">${title}</span>
                         <span class="miniHP-PostedBy">${writer}</span>
                         <span class="miniHP-PostDate">${insertDT}</span>
-                        <span class="miniHP-PostViewCount">100</span>
+                        <!--<span class="miniHP-PostViewCount">100</span>-->
                     </div>
                 `;
             }
@@ -136,7 +136,7 @@ function renderPagination(totalPages) {
     paginationHtml += `<div class="buttonWrap"><button id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>&lt;&lt;</button>`;
     console.log("totalPages:", totalPages, "currentPage:", currentPage);
     for (let i = 1; i <= totalPages; i++) {
-        paginationHtml += `<button class="pageNumber" ${i === currentPage ? 'style=background-color:greenyellow;' : ''} data-page="${i}">${i}</button>`;
+        paginationHtml += `<button class="pageNumber" ${i === currentPage ? 'style=background-color:#dddddd; font-weight: bold; outline-color: black;' : ''} data-page="${i}">${i}</button>`;
     }
 
     paginationHtml += `<button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''}>&gt;&gt;</button></div>`;

@@ -40,11 +40,11 @@ public class BoardController {
         result.put("boardList", boardList);     // 게시글 리스트
         result.put("boardCount", boardCount);   // 전체 게시글 수
         
-        System.out.println(" /All-BoardList 진입 :::: hompiId : " + hompiId);
+        /*System.out.println(" /All-BoardList 진입 :::: hompiId : " + hompiId);
         System.out.println(" /All-BoardList 진입 :::: offset : " + offset);
         System.out.println(" /All-BoardList 진입 :::: pageSize : " + pageSize);
         System.out.println(" /All-BoardList 진입 :::: boardCount : " + boardCount);
-        System.out.println(" /All-BoardList 진입 :::: boardList : " + boardList);
+        System.out.println(" /All-BoardList 진입 :::: boardList : " + boardList);*/
 
         return result;
     }

@@ -118,7 +118,7 @@ $(document).ready(function () {
 
         // 1부터 totalPages까지 페이지 번호 버튼 생성
         for (let i = 1; i <= totalPages; i++) {
-            paginationHtml += `<button class="pageNumber" ${i === currentPage ? 'style=background-color:greenyellow;' : ''} data-page="${i}">${i}</button>`;
+            paginationHtml += `<button class="pageNumber" ${i === currentPage ? 'style=background-color:#dddddd; font-weight: bold; outline-color: black;' : ''} data-page="${i}">${i}</button>`;
         }
 
         paginationHtml += `<button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''}>&gt;&gt;</button></div>`;
