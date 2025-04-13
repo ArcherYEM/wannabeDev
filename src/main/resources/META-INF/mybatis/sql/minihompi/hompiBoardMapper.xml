@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.minihompi.mapper.HompiBoardMapper">
+    <!-- 홈피 게시판의 모든 게시물 들 -->
+    <select id="getBoardAllList" resultType="com.dev.wannabe.domain.minihompi.model.dto.HompiBoardDTO">
+        SELECT
+            hb.*,
+            ub.name
+        FROM
+            HOMPI_BOARD hb
+            LEFT JOIN
+            USER_BASIC ub
+        ON
+            hb.hompi_id = ub.user_id
+        WHERE
+            hb.hompi_id = ${param1}
+        ORDER BY
+            hb.insert_dt DESC
+            LIMIT ${param2}, ${param3}
+    </select>
+    
+    <!-- 게시판 폴더별 게시물 수 -->
+    <select id="getBoardListCount" resultType="Long">
+        SELECT COUNT(*) 
+        FROM HOMPI_BOARD 
+        WHERE hompi_id = #{param1}
+        AND folder_id = #{param2}
+    </select>
+    
+    <!-- 게시판 게시물 상세확인 -->
+    <select id="getBoardView" resultType="com.dev.wannabe.domain.minihompi.model.dto.HompiBoardDTO">
+        SELECT
+            hb.*,
+            ub.name
+        FROM
+            HOMPI_BOARD hb
+        LEFT JOIN
+            USER_BASIC ub
+        ON
+            hb.hompi_id = ub.user_id
+        WHERE HOMPI_BOARD_ID = #{hompiBoardId}
+    </select>
+</mapper>
