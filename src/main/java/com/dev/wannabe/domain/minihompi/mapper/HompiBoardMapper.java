@@ -9,4 +9,6 @@ import java.util.Map;
 @Mapper
 public interface HompiBoardMapper {
     List<HompiBoardDTO> getBoardAllList(Map<String, Object> map);
+    Long getBoardListCount(Long hompiId, Long folderId);
+    List<HompiBoardDTO> getBoardView(Long hompiBoardId);
 }

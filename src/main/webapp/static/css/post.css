@@ -279,24 +279,35 @@ input[type="text"].diaryTitle{
 /*게시판 리스트 부분*/
 .dFlex { display: flex; }
 
-.miniHP-ListContainer { height: 350px; margin: 30px 0; border-top: 1px solid red; border-bottom: 1px solid red; padding-bottom: 30px;}
+.miniHP-ListContainer { 
+    height: auto; 
+    margin: 30px 0 10px 0; 
+    border-top: 1px solid red; 
+    border-bottom: 1px solid red; 
+    padding: 5px 0;
+}
 
 .miniHP-PostTitle { border-bottom: 1px solid black; padding: 2px 0;  align-items: center; text-align: center}
-.miniHP-Wrap .miniHP-ListChkbox { width: 60px; }
+.miniHP-Wrap .miniHP-ListChkbox,
+.miniHP-Wrap .miniHP-ListTitleChkbox
+{ width: 60px; }
 .miniHP-Wrap .miniHP-PostTitleName { width: 300px; }
 .miniHP-Wrap .miniHP-PostedBy { width: 60px; }
 .miniHP-Wrap .miniHP-PostDate { width: 75px; }
-.miniHP-Wrap .miniHP-PostViewCount { width: 80px; }
+.miniHP-Wrap .miniHP-PostViewCount { width: 80px; text-align: center;}
 
 .miniHP-PostArea { padding: 2px 0; align-items: center; }
 
-.miniHP-PostArea:last-child {  }
+.miniHP-PostArea:hover {
+    cursor: pointer;
+    color: orange;
+}
 
 /*페이지네이션 관련 css*/
 #pagination {
     position: relative;
     text-align: center;
-    margin-top: 50px;
+    /*margin-top: 5px;*/
 }
 
 #pagination button {
@@ -306,10 +317,15 @@ input[type="text"].diaryTitle{
     cursor: pointer;
 }
 
-#pagination button.chkDeleteBtn {
+.btnTopArea {
+    padding: 5px 20px;
+    justify-content: space-between;
+}
+
+/*#pagination button.chkDeleteBtn {
     position: absolute;
     left: 0;
-}
+}*/
 
 #pagination button.chkDeleteBtn,
 .btn.deleteMsg {
@@ -323,6 +339,23 @@ input[type="text"].diaryTitle{
     }
 }
 
+/*#pagination button.WriterBoard {
+    position: absolute;
+    right: 0;
+}*/
+
+#pagination button.WriterBoard {
+    border-color: var(--color-wine);
+    background-color: var(--color-wine);
+    color: var(--color-white);
+
+    &:hover {
+        border-color: var(--color-red);
+        background-color: var(--color-red);
+    }
+}
+
+
 .buttonWrap {
     display: flex;
     gap: 5px;
@@ -334,4 +367,53 @@ input[type="text"].diaryTitle{
 #pagination button:disabled {
     background: var(--color-lgray);
     cursor: not-allowed;
+}
+
+/* 게시물 상세보기 view 관련 */
+.miniHP-boardView .boardView-Title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.miniHP-boardView button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boardView-header {
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    margin: 10px 0;
+}
+
+.boardView-byName {
+    color: blue;
+}
+
+.boardView-ContentArea {
+    width: 300px;
+    padding: 20px;
+}
+.boardView-btnArea {
+    padding: 5px 10px;
+    margin: 10px 0; 
+    border-top: 1px solid #000000;
+    
+}
+
+.boardView-btnArea button.viewDeleteBtn,
+.boardView-btnArea button.viewToListBtn,
+.boardView-btnArea button.viewUpdateBtn {
+    border-color: var(--color-wine);
+    background-color: var(--color-wine);
+    color: var(--color-white);
+
+    &:hover {
+        border-color: var(--color-red);
+        background-color: var(--color-red);
+    }
 }

@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class HompiBoardDTO {
+    private Long hompiBoardId ;
     private Long hompiId ;
     private Long folderId ;
     private String hompiBoardTitle ;
@@ -15,4 +16,6 @@ public class HompiBoardDTO {
     private Date insertDT ;
     private Long updateUserId ;
     private Date updateDT ;
+    
+    private String name;
 }
