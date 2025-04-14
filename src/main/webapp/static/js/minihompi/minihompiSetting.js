@@ -1,6 +1,11 @@
+let friendStart;
+let friendSize;
+
 $(document).ready(function () {
+    friendStart = 0;
+    friendSize = 10;
     visitingStatistics(days(2024, 2)); // 2024년 2월이라 총 28칸 생성
-    makeFriendList();
+    makeFriendList(friendStart, friendSize);
 });
 
 // 연도와 월로 일 수 체크 함수
@@ -59,23 +64,37 @@ function visitingStatistics(days) {
     });
 }
 
-function makeFriendList() {
-    $("#friend-num-container").append(`
-        <div id="friend-num-display">전체 10 명</div>
-    `)
-    for (let i=0; i < 10; i++) {
-        // 일촌 데이터 예시
-        let data = {
-            'num': i+1,
-            'startDate': `2024.12.4`,
-            'friendMinimi': `/static/images/common/minimi/예희.png`,
-            'friendNickname': `김김이`,
-            'userNickname': `박박이`,
-            'friendUserId': `1`
+function makeFriendList(friendStart, friendSize) {
+    $.ajax({
+        type:"GET",
+        url:"/api/friend/friends/num",
+        contentType: "application/json",
+        success: function(friendNum){
+            $("#friend-num-container").append(`
+                <div id="friend-num-display">전체 ${friendNum} 명</div>
+            `)
+            $.ajax({
+                type:"GET",
+                url:`/api/minihompi/setting/friend/${friendStart}/${friendSize}`,
+                contentType: "application/json",
+                success: function(friendList){
+                    if (!friendList) { return; }
+                    friendList.forEach((friend, index) => {
+                        friend.num = index + 1;
+                        let friendItem = $(createFriendItem(friend));
+                        $("#friend-list-container").append(friendItem)
+                    });
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            });
+        },
+        error: function(error) {
+            console.log(error)
         }
-        let friendItem = $(createFriendItem(data))
-        $("#friend-list-container").append(friendItem)
-    }
+    });
+
 }
 
 function createFriendItem(data) {

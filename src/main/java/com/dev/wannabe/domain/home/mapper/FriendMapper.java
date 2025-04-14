@@ -2,6 +2,7 @@ package com.dev.wannabe.domain.home.mapper;
 
 import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
 import com.dev.wannabe.domain.home.model.dto.FriendRequestDTO;
+import com.dev.wannabe.domain.home.model.dto.FriendSettingDTO;
 import com.dev.wannabe.domain.home.model.dto.RequestFriendCardDTO;
 import com.dev.wannabe.domain.home.model.vo.FriendInfo;
 import com.dev.wannabe.domain.home.model.vo.FriendMessage;
@@ -26,6 +27,7 @@ public interface FriendMapper {
     List<FriendRequestDTO> getFriendReceiveInfoByPage(RequestFriendCardDTO requestFriendCard);
     List<FriendRequestDTO> getFriendSendInfoByPage(RequestFriendCardDTO requestFriendCard);
 
+    List<FriendSettingDTO> getFriendSettingByPage(RequestFriendCardDTO requestFriendCard);
 
     Long getFriendsNumByUserId(Long userId);
     Long getFriendRequestNumByUserId(Long userId);
