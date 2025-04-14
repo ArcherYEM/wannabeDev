@@ -304,6 +304,12 @@ input[type="text"].diaryTitle{
     color: orange;
 }
 
+.boardFolderName {
+    font-size: 18px;
+    font-weight: bold;
+    color: #bbbbbb;
+}
+
 /*페이지네이션 관련 css*/
 #pagination {
     position: relative;
