@@ -168,6 +168,24 @@
         LIMIT #{start}, #{size}
     </select>
 
+    <select id="getFriendSettingByPage" parameterType="RequestFriendCardDTO" resultType="FriendSettingDTO">
+        SELECT
+            FI.FRIEND_USER_ID AS FRIEND_ID,
+            FI.FRIEND_USER_NICKNAME AS FRIEND_NICKNAME,
+            FI.USER_NICKNAME AS USER_NICKNAME,
+            AFM.FILE_PATH AS FRIEND_MINIMI,
+            DATE_FORMAT(FI.INSERT_DT, '%Y.%m.%d') AS START_DATE
+        FROM FRIEND_INFO AS FI
+            JOIN MINIMI_BASIC AS MB ON MB.USER_ID = FI.FRIEND_USER_ID
+            JOIN PRODUCT AS P ON P.PRODUCT_ID = MB.PRODUCT_ID
+            JOIN ATTACH_FILE_MANAGE AS AFM ON AFM.ATTACH_FILE_ID = P.ATTACH_FILE_ID
+        WHERE
+            FI.USER_ID = #{userId} AND FI.AVAIL_STATUS = '01'
+        ORDER BY
+            FI.INSERT_DT DESC
+            LIMIT #{start}, #{size}
+    </select>
+
     <delete id="deleteFriendByUserIdAndFriendId" parameterType="Map">
         DELETE
         FROM FRIEND_INFO
