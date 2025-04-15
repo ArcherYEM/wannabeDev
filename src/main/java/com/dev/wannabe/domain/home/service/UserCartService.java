@@ -2,6 +2,7 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserCartMapper;
 import com.dev.wannabe.domain.home.model.dto.UserCartBgmDTO;
+import com.dev.wannabe.domain.home.model.dto.UserCartFindDTO;
 import com.dev.wannabe.domain.home.model.dto.UserCartProductDTO;
 import com.dev.wannabe.domain.home.model.vo.UserCart;
 import com.dev.wannabe.global.model.SessionUserDTO;
@@ -77,6 +78,18 @@ public class UserCartService {
         }
         Integer itemBgmPrice = userCartMapper.getItemBgmPrice(itemId);
         return itemBgmPrice;
+    }
+
+    public Boolean deleteItemCart(List<UserCartFindDTO> userCartFindDTOS, HttpServletRequest request) {
+        SessionUserDTO sessionUserDTO = getSessionUserDTO(request);
+        if(sessionUserDTO == null){
+            return false;
+        }
+        Integer deleteNum = userCartMapper.deleteItemCart(userCartFindDTOS,sessionUserDTO.getUserId());
+        if(deleteNum == 0){
+            return null;
+        }
+        return true;
     }
     private static SessionUserDTO getSessionUserDTO(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

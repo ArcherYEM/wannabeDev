@@ -1,6 +1,7 @@
 package com.dev.wannabe.domain.home.controller.api;
 
 import com.dev.wannabe.domain.home.model.dto.UserCartBgmDTO;
+import com.dev.wannabe.domain.home.model.dto.UserCartFindDTO;
 import com.dev.wannabe.domain.home.model.dto.UserCartProductDTO;
 import com.dev.wannabe.domain.home.service.UserCartService;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,13 @@ public class RestUserCartController {
         }
         return ResponseEntity.ok().body(itemPrice);
     }
+
+/*    @PostMapping("/delete/cart")
+    public ResponseEntity<Boolean> deleteItemCart(List<UserCartFindDTO> userCartFindDTOS, HttpServletRequest request){
+        Boolean deleteCheck = userCartService.deleteItemCart(userCartFindDTOS, request);
+        if (deleteCheck == null){
+
+        }
+    }*/
 
 }

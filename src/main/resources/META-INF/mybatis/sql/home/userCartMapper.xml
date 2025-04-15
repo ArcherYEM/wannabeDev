@@ -79,4 +79,14 @@
             B.BGM_ID = #{itemId}
     </select>
 
+    <delete id="deleteItemCart">
+        DELETE
+        FROM USER_CART
+        WHERE USER_ID = #{userId}
+            AND(
+        <foreach collection="deleteItemCart" separator="OR" item="item">
+            (ITEM_ID = #{item.itemId} AND ITEM_TYPE = #{item.itemType} AND AVAIL_DAY = #{item.availDay})
+        </foreach>
+        )
+    </delete>
 </mapper>
