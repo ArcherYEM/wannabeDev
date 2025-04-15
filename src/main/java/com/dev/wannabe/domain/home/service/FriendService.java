@@ -2,10 +2,7 @@ package com.dev.wannabe.domain.home.service;
 
 import com.dev.wannabe.domain.home.mapper.UserLoginMapper;
 import com.dev.wannabe.domain.home.mapper.UserMapper;
-import com.dev.wannabe.domain.home.model.dto.FriendNewRequestDTO;
-import com.dev.wannabe.domain.home.model.dto.FriendPanelDTO;
-import com.dev.wannabe.domain.home.model.dto.FriendRequestDTO;
-import com.dev.wannabe.domain.home.model.dto.RequestFriendCardDTO;
+import com.dev.wannabe.domain.home.model.dto.*;
 import com.dev.wannabe.domain.home.model.vo.UserBasic;
 import com.dev.wannabe.domain.home.mapper.FriendMapper;
 import com.dev.wannabe.domain.minihompi.mapper.HompiMapper;
@@ -152,5 +149,10 @@ public class FriendService {
     public Boolean isFriend(Long userId, Long hompiId) {
         Long hompiUserId = hompiMapper.findUserIdByHompiId(hompiId);
         return friendMapper.existsByUserIdAndFriendId(userId, hompiUserId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FriendSettingDTO> getFriendSettingByPage(RequestFriendCardDTO requestFriendCard) {
+        return friendMapper.getFriendSettingByPage(requestFriendCard);
     }
 }

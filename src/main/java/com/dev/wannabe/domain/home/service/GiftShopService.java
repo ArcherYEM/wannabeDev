@@ -49,11 +49,29 @@ public class GiftShopService {
     }
 
     public ResponseEntity<List<BgmProductDTO>> getPopularBgm(){
-        List<BgmProductDTO> items = productMapper.getPopularBgm();
+        List<BgmProductDTO> items = productMapper.getPopularBgmList();
         return ResponseEntity.ok(items);
     }
 
     public ResponseEntity<List<ProductDTO>> getProductPopularList(){
         return ResponseEntity.ok(productMapper.getPopularProduct());
+    }
+
+    public String getBgmAudioPath(Long bgmId) {
+        String audioPath = productMapper.getBgmAudioPath(bgmId);
+        if(audioPath == null){
+            return null;
+        }
+        return audioPath;
+    }
+
+    public BgmProductDTO getBgmProductDTO(Long bgmId){
+        BgmProductDTO bgmProductDTO = productMapper.getBgmProductDTO(bgmId);
+        return bgmProductDTO;
+    }
+
+    public ProductDTO getProductDTO(Long productId) {
+        ProductDTO productDTO = productMapper.getProductDTO(productId);
+        return productDTO;
     }
 }

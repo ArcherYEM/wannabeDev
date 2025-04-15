@@ -27,10 +27,10 @@
       <div class="visitor_title"
            th:classappend="${item.secretCheck == 'Y'} ? ' secret' : ' public'">
         <div class="name-wrapper">
-          <p class="visitor_name" th:text="${item.loginId}">아이디</p>
+          <p class="visitor_name" th:text="${item.Name}">아이디</p>
           <img class="icon_lock" th:if="${item.secretCheck == 'Y'}" src="/static/images/common/minihompi/icon_lock.svg" alt="비밀글">
         </div>
-        <p th:text="${item.updateDt != null ? item.updateDt : item.insertDt}">날짜</p>
+        <p th:text="${item.getUpdateDt != null ? item.InsertDt : item.getUpdateDt}">날짜</p>
 
       </div>
       <div class="visitor_body">

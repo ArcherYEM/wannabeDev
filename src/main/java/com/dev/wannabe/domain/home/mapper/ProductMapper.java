@@ -12,14 +12,13 @@ public interface ProductMapper {
     // 기존의 쿼리 수정
     List<ProductDTO> selectTop6ByProductTypeSortedByInsertDt(@Param("productType") String category);
     List<ProductDTO> getGiftShopList(@Param("productType") String productType, @Param("offset") Integer offset, @Param("searchText")String searchText);
-
     Integer getProductCount(@Param("productType") String productType,@Param("searchText") String searchText);
-
     List<BgmProductDTO> getBgmList(@Param("offset") Integer offset, @Param("searchText")String searchText);
     Integer getBgmCount(String searchText);
     List<ProductDTO> getNewItem();
-
     List<ProductDTO> getPopularProduct();
-
-    List<BgmProductDTO> getPopularBgm();
+    List<BgmProductDTO> getPopularBgmList();
+    String getBgmAudioPath(Long bgmId);
+    BgmProductDTO getBgmProductDTO(Long bgmId);
+    ProductDTO getProductDTO(Long productId);
 }

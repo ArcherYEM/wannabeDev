@@ -1,6 +1,7 @@
 package com.dev.wannabe.domain.home.mapper;
 
 import com.dev.wannabe.domain.home.model.dto.UserCartBgmDTO;
+import com.dev.wannabe.domain.home.model.dto.UserCartFindDTO;
 import com.dev.wannabe.domain.home.model.dto.UserCartProductDTO;
 import com.dev.wannabe.domain.home.model.vo.UserCart;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,5 +17,5 @@ public interface UserCartMapper {
     List<UserCartBgmDTO> getUserCartBgmList(@Param("userId") Long userId,@Param("itemType") String itemType);
     Integer getItemPrice(@Param("itemId")Long itemId,@Param("availDay")Integer availDay);
     Integer getItemBgmPrice(Long itemId);
-
+    Integer deleteItemCart(@Param("userCartFindDTOS") List<UserCartFindDTO> userCartFindDTOS, @Param("userId")Long userId);
 }

@@ -6,6 +6,7 @@ let bgmTotalPrice = 0;
 let allTotalPrice = 0;
 let productCount = 0;
 let bgmCount = 0;
+let selectCartItems = [];
 
 $(document).ready(function(){
     //장바구니에 담긴 아이템 가져오기
@@ -72,6 +73,20 @@ $(document).ready(function(){
             bgmTotalPrice = 0;
     })
 
+    $('.selectDel').on('click',function(){
+        $('.cartBox input[type="checkbox"]:checked').each(function(index, item){
+            const itemId = item.closest('.cartItemGroup').attr('data-item-id');
+            const itemType = item.closest('.cartItemGroup').attr('data-item-type');
+            const availDay = item.closest('.cartItemGroup').find('.cartDate').val();
+            selectCartItems.push({
+                itemId :itemId ,
+                itemType : itemType,
+                availDay : availDay
+            });
+        })
+        deleteItemCart(selectCartItems);
+    })
+
 })
 
 function getProductCart(){
@@ -84,7 +99,7 @@ function getProductCart(){
             response.forEach(function(item, index){
             console.log(item);
             let code = `
-            <div class="cartItemGroup" data-item-id="${item.itemId}">
+            <div class="cartItemGroup" data-item-id="${item.itemId}" data-item-type="${item.itemType}">
             <div class="cartItemLeft">
                 <div class="cartImgWrap">
                     <input class="checkbox" type="checkbox">
@@ -98,7 +113,7 @@ function getProductCart(){
                         <p class="cartItemName">${item.itemName}</p>
                     </div>
                     <div class="orderCountWrap">
-                        <div id="orderCountBtnWrap">
+                        <div class="orderCountBtnWrap">
                             <button>-</button>
                             <span>${item.itemCount}</span>
                             <button>+</button>
@@ -145,7 +160,7 @@ function getBgmCart(){
             response.forEach(function(item, index){
             console.log(item);
             let code = `
-            <div class="cartItemGroup" data-item-id="${item.itemId}">
+            <div class="cartItemGroup" data-item-id="${item.itemId}" data-item-type="${item.itemType}">
             <div class="cartItemLeft">
                 <div class="cartImgWrap">
                     <input class="checkbox" type="checkbox">
@@ -182,7 +197,7 @@ function getBgmCart(){
         }
     })
 }
-function getItemPrice(itemId, availDay, itemType, inputPlace,count){
+function getItemPrice(itemId, availDay, itemType, inputPlace, count){
     $.ajax({
         type: 'GET',
         url: '/api/user-cart/read/price/',

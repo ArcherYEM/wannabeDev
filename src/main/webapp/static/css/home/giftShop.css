@@ -277,6 +277,8 @@
     display: flex;
     justify-content: center;
     text-align: center;
+    font-size: 12px;
+    font-weight: bold;
 }
 .itemSum {
     display: grid;
@@ -644,15 +646,16 @@
     background-color: red;
 }
 
-.selectItem img, .selectCartItem img{
+.selectItemImg, .cartImg{
     width: 100px;
 }
 
-.selectItemUl li, .selectItemCartUl li{
+.selectItemUl li{
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 5px;
+    align-items: center;
+    text-align: center;
 }
 
 .selectItem , .selectCartItem{
@@ -751,6 +754,7 @@
 .giftModalTop{
     display: flex;
     justify-content: flex-end;
+    gap: 25px;
 }
 
 .modalDesc h2{
@@ -768,6 +772,10 @@
     margin-bottom: 20px;
 }
 
+#productDesc{
+    display: none;
+}
+
 .modalBtn{
     display: flex;
     height: 25px;
@@ -781,6 +789,15 @@
     border-radius: 5px;
     background: var(--color-basic);
     color: white;
+}
+
+#noteImg{
+    height: 20px;
+    display: none;
+}
+
+.giftModalTop span{
+    display: none;
 }
 
 .bgmLyricsWrap{
@@ -802,15 +819,12 @@
     display: none;
 }
 
-#productDesc{
-    display: none;
-}
-
-#cartCloseImg{
+.selectCloseImg{
     position: absolute;
+    left: 0;
     top: 0;
-    right: 0;
     width: 15px;
+    background: black;
 }
 
 .cart-slide-style{
@@ -819,6 +833,28 @@
     align-items: center;
     margin-bottom: 5px;
     height: 132px;
+}
+
+.cartCloseImg{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    background: black;
+}
+
+.recentItemWrap img{
+    width: 100px;
+}
+
+.recentItemWrap{
+    text-align: center;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.recentItem{
+    cursor: pointer;
 }
 
 

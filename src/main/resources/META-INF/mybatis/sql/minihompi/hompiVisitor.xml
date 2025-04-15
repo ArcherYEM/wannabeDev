@@ -34,11 +34,12 @@
         v.GUEST_BOOK_CONTENT,
         v.REMARKS,
         v.INSERT_USER_ID,
-        v.INSERT_DT,
+        DATE_FORMAT(v.INSERT_DT, '%Y-%m-%d %H:%i') AS INSERT_DT,
         v.UPDATE_USER_ID,
-        v.UPDATE_DT,
+        DATE_FORMAT(v.UPDATE_DT, '%Y-%m-%d %H:%i') AS UPDATE_DT,
         v.SECRET_CHECK,
         u.LOGIN_ID,
+        u.NAME,
         h.OWNER_USER_ID
         FROM HOMPI_GUEST_BOOK v
         JOIN USER_BASIC u ON v.INSERT_USER_ID = u.USER_ID
