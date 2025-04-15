@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 
@@ -21,8 +22,23 @@ public class HompiVisitorDTO {
     private String secretCheck;
 
     private String loginId;
+    private String Name;
 
     private Long ownerUserId;
+
+    public String getInsertDt() {
+        if (insertDt != null) {
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(insertDt);
+        }
+        return "";
+    }
+
+    public String getUpdateDt() {
+        if (updateDt != null) {
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(updateDt);
+        }
+        return "";
+    }
 
 
 }

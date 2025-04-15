@@ -89,7 +89,7 @@ public class VisitorController {
                 .secretCheck(secretCheck)
                 .build();
 
-        log.info("📩 insert visitor info: {}", vo);
+        log.info("insert visitor info:",vo);
 
         minihompiMapper.insertVisitor(vo);
 
