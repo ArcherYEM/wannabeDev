@@ -108,7 +108,7 @@
     LIMIT 4
     </select>
 
-    <select id="getPopularBgm" resultType="bgmProductDTO">
+    <select id="getPopularBgmList" resultType="bgmProductDTO">
         SELECT
             B.BGM_ID,
             B.BGM_NAME,
@@ -146,5 +146,50 @@
         <if test="searchText != null and searchText != ''">
             WHERE BGM_NAME LIKE CONCAT('%', #{searchText}, '%')
         </if>
+    </select>
+
+    <select id="getBgmAudioPath" resultType="String" parameterType="Long">
+        SELECT
+            B.FILE_PATH
+        FROM BGM A
+            INNER JOIN ATTACH_FILE_MANAGE B
+            ON A.BGM_FILE_ATTACH_ID = B.ATTACH_FILE_ID
+        WHERE
+            A.BGM_ID = #{bgmId}
+    </select>
+
+    <select id="getBgmProductDTO" resultType="BgmProductDTO" parameterType="Long">
+        SELECT
+            A.BGM_ID,
+            A.BGM_NAME,
+            A.ARTIST,
+            A.LYRICS,
+            B.FILE_PATH,
+            C.PRICE
+        FROM BGM A
+            INNER JOIN ATTACH_FILE_MANAGE  B
+            ON A.IMAGE_FILE_ATTACH_ID = B.ATTACH_FILE_ID
+            INNER JOIN BGM_PRICE C
+            ON A.BGM_ID = C.BGM_ID
+        WHERE
+            A.BGM_ID = #{bgmId}
+    </select>
+
+    <select id="getProductDTO" resultType="ProductDTO" parameterType="Long">
+        SELECT
+            A.PRODUCT_ID,
+            A.PRODUCT_NAME,
+            A.PRODUCT_TYPE,
+            A.PRODUCT_DESC,
+            B.FILE_PATH,
+            B.FILE_NAME,
+        GROUP_CONCAT(C.PRICE ORDER BY C.PRICE SEPARATOR ',') AS prices
+        FROM PRODUCT A
+            INNER JOIN ATTACH_FILE_MANAGE B
+                ON A.ATTACH_FILE_ID = B.ATTACH_FILE_ID
+            INNER JOIN PRODUCT_PRICE C
+                ON A.PRODUCT_ID = C.PRODUCT_ID
+        WHERE A.PRODUCT_ID = #{productId}
+        GROUP BY A.PRODUCT_ID,A.PRODUCT_NAME,A.PRODUCT_TYPE,B.FILE_PATH,B.FILE_NAME
     </select>
 </mapper>

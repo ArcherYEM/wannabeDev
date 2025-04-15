@@ -321,7 +321,7 @@
     }
 }
 
-#orderCountBtnWrap{
+.orderCountBtnWrap{
     display: flex;
     align-items: center;
     border: 1px solid;
@@ -330,7 +330,7 @@
     justify-content: space-between;
 }
 
-#orderCountBtnWrap button{
+.orderCountBtnWrap button{
     font-size: 20px;
     background: none;
 }

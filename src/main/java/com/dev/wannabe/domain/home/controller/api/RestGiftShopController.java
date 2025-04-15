@@ -47,4 +47,22 @@ public class RestGiftShopController {
     public ResponseEntity<List<ProductDTO>> getPopularProduct(){
         return giftShopService.getProductPopularList();
     }
+
+    @GetMapping("/read/gift/bgm/audio-path/{bgmId}")
+    public ResponseEntity<String> getBgmAudioPath(@PathVariable Long bgmId){
+        String bgmAudioPath = giftShopService.getBgmAudioPath(bgmId);
+        return ResponseEntity.ok(bgmAudioPath);
+    }
+
+    @GetMapping("/read/gift/bgm/{bgmId}")
+    public ResponseEntity<BgmProductDTO> getBgmProductDTO(@PathVariable Long bgmId){
+        BgmProductDTO bgmProductDTO = giftShopService.getBgmProductDTO(bgmId);
+        return ResponseEntity.ok(bgmProductDTO);
+    }
+
+    @GetMapping("/read/gift/product/{productId}")
+    public ResponseEntity<ProductDTO> getProductDTO(@PathVariable Long productId){
+        ProductDTO ProductDTO = giftShopService.getProductDTO(productId);
+        return ResponseEntity.ok(ProductDTO);
+    }
 }
