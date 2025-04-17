@@ -41,6 +41,13 @@ public class MinihompiService {
         map.put("today", today);
         map.put("hompiId", hompiId);
 
+        // 방명록 총 개수 및 최신 개수
+        int visitorTotal = minihompiMapper.visitorAllCount(hompiId);
+        int visitorNew = minihompiMapper.visitorNewCount(hompiId);
+        result.put("visitorTotal", visitorTotal);
+        result.put("visitorNew", visitorNew);
+
+
         MinihompiTotal minihompi = minihompiMapper.findMyhompi(map);
 
         // 세션에서 오늘 방문한 hompiId 확인
@@ -229,4 +236,7 @@ public class MinihompiService {
     public Map<String, Object> getMiniroom(Long hompiId) {
         return minihompiMapper.getMiniroom(hompiId);
     }
+
+
+
 }

@@ -56,6 +56,10 @@ public interface MinihompiMapper {
     // 방명록 삭제
     int deleteVisitor(Map<String, Object> param);
 
+    // 방명록 전체 숫자
+    int visitorAllCount(Long hompiId);
 
+    // 최신 방명록 숫자
+    int visitorNewCount(Long hompiId);
 }
 

@@ -26,7 +26,7 @@
     </insert>
 
 
-    <!-- ✅ 방명록 리스트 조회 쿼리 -->
+    <!-- 방명록 리스트 조회 쿼리 -->
     <select id="selectVisitorList" parameterType="com.dev.wannabe.domain.minihompi.model.dto.HompiVisitorDTO">
         SELECT
         v.GUEST_BOOK_ID,
@@ -64,5 +64,20 @@
         AND INSERT_USER_ID = #{userId}
     </delete>
 
+    <select id="visitorAllCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM HOMPI_GUEST_BOOK
+        WHERE HOMPI_ID = #{hompiId}
+    </select>
 
+    <select id="visitorNewCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM HOMPI_GUEST_BOOK
+        WHERE HOMPI_ID = #{hompiId}
+        AND (
+        (UPDATE_DT IS NOT NULL AND UPDATE_DT >= DATE_SUB(NOW(), INTERVAL 1 DAY))
+        OR
+        (UPDATE_DT IS NULL AND INSERT_DT >= DATE_SUB(NOW(), INTERVAL 1 DAY))
+        )
+    </select>
 </mapper>

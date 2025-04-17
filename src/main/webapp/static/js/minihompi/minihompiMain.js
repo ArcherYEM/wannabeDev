@@ -225,7 +225,22 @@ $(document).ready(function () {
         }
     });
 
-    // json 데이터를 가져오는 함수
+//    // json 데이터를 가져오는 함수
+//    function getMinihompiDataList() {
+//        const hompiDataUrl = `/api/minihompi/${hompiId}`
+//        $.ajax({
+//            type: "GET",
+//            url: hompiDataUrl,
+//            dataType: "json",
+//            success: function (data) {
+//                renderminihompi(data); // 화면 렌더링
+//            },
+//            error: function () {
+//                alert("미니홈피 데이터를 가져오는 데 실패했습니다.");
+//            }
+//        });
+//    }
+
     function getMinihompiDataList() {
         const hompiDataUrl = `/api/minihompi/${hompiId}`
         $.ajax({
@@ -233,13 +248,25 @@ $(document).ready(function () {
             url: hompiDataUrl,
             dataType: "json",
             success: function (data) {
-                renderminihompi(data); // 화면 렌더링
+                renderminihompi(data);
+
+                //방명록 카운트 렌더링 추가 시작
+                document.getElementById("visitorNewCount").innerText = data.visitorNew;
+                document.getElementById("visitorTotalCount").innerText = data.visitorTotal;
+
+                if (data.visitorNew > 0) {
+                    document.getElementById("newImgHidden").style.visibility = "visible";
+                } else {
+                    document.getElementById("newImgHidden").style.visibility = "none";
+                }
+                //방명록 카운트 렌더링 추가 끝
             },
             error: function () {
                 alert("미니홈피 데이터를 가져오는 데 실패했습니다.");
             }
         });
     }
+
 
     // JSON 데이터를 화면에 렌더링하는 함수
     function renderminihompi(data) {
