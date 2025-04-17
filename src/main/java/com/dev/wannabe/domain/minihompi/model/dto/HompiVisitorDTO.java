@@ -16,29 +16,14 @@ public class HompiVisitorDTO {
     private String guestBookContent;
     private String remarks;
     private Long insertUserId;
-    private Timestamp insertDt;
+    private String insertDt;
     private Long updateUserId;
-    private Timestamp updateDt;
+    private String updateDt;
     private String secretCheck;
 
     private String loginId;
     private String name;
 
     private Long ownerUserId;
-
-    public String getInsertDt() {
-        if (insertDt != null) {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(insertDt);
-        }
-        return "";
-    }
-
-    public String getUpdateDt() {
-        if (updateDt != null) {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(updateDt);
-        }
-        return "";
-    }
-
 
 }
