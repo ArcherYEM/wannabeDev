@@ -8,7 +8,6 @@ import java.util.Date;
 public class ImageSlideDTO {
     private Long attachFileID; //첨부파일 ID
     private String fileOriginName; //원본파일 이름
-    private String fileName; // 파일이름
     private Long fileSize; // 파일크기
     private String filePath; //파일 경로
     private String fileExtension; //파일확장자
