@@ -22,4 +22,9 @@ public class GiftShopController {
         return "home/giftShop/giftShopTheme";
     }
 
+    @GetMapping("/add-item")
+    public String giftShopAddItem(){
+        return "/home/giftShop/giftShopItemAdd";
+    }
+
 }

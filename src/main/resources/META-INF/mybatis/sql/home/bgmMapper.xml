@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dev.wannabe.domain.home.mapper.BgmMapper">
+    <select id="getBgmList" resultType="bgmProductDTO">
+        SELECT
+            A.BGM_ID,
+            A.BGM_NAME,
+            A.ARTIST,
+            A.LYRICS,
+            B.FILE_PATH,
+            C.PRICE
+        FROM BGM A
+            INNER JOIN ATTACH_FILE_MANAGE  B
+                ON A.IMAGE_FILE_ATTACH_ID = B.ATTACH_FILE_ID
+            INNER JOIN BGM_PRICE C
+                ON A.BGM_ID = C.BGM_ID
+        <if test="searchText != null and searchText != ''">
+            WHERE A.BGM_NAME LIKE CONCAT('%', #{searchText}, '%')
+        </if>
+        ORDER BY A.BGM_ID DESC
+        <if test="offset != null">
+            LIMIT #{offset} , 12
+        </if>
+    </select>
+
+    <select id="getPopularBgmList" resultType="bgmProductDTO">
+        SELECT
+            B.BGM_ID,
+            B.BGM_NAME,
+            B.ARTIST,
+            B.LYRICS,
+            C.FILE_PATH,
+            D.PRICE
+        FROM USER_ITEM_INVENTORY A
+            INNER JOIN BGM B
+                ON A.ITEM_ID = B.BGM_ID
+            INNER JOIN ATTACH_FILE_MANAGE C
+                ON B.IMAGE_FILE_ATTACH_ID = C.ATTACH_FILE_ID
+            INNER JOIN BGM_PRICE D
+                ON B.BGM_ID = D.BGM_ID
+        WHERE A.ITEM_TYPE = 'M'
+        GROUP BY B.BGM_ID,B.BGM_NAME,B.ARTIST,C.FILE_PATH
+        ORDER BY COUNT(A.ITEM_ID) DESC
+        LIMIT 4
+    </select>
+
+    <select id="getBgmCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM BGM
+        <if test="searchText != null and searchText != ''">
+            WHERE BGM_NAME LIKE CONCAT('%', #{searchText}, '%')
+        </if>
+    </select>
+
+    <select id="getBgmAudioPath" resultType="String" parameterType="Long">
+        SELECT
+            B.FILE_PATH
+        FROM BGM A
+            INNER JOIN ATTACH_FILE_MANAGE B
+                ON A.BGM_FILE_ATTACH_ID = B.ATTACH_FILE_ID
+        WHERE
+            A.BGM_ID = #{bgmId}
+    </select>
+
+    <select id="getBgmProductDTO" resultType="BgmProductDTO" parameterType="Long">
+        SELECT
+            A.BGM_ID,
+            A.BGM_NAME,
+            A.ARTIST,
+            A.LYRICS,
+            B.FILE_PATH,
+            C.PRICE
+        FROM BGM A
+            INNER JOIN ATTACH_FILE_MANAGE  B
+                ON A.IMAGE_FILE_ATTACH_ID = B.ATTACH_FILE_ID
+            INNER JOIN BGM_PRICE C
+                ON A.BGM_ID = C.BGM_ID
+        WHERE
+            A.BGM_ID = #{bgmId}
+    </select>
+
+</mapper>

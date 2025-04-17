@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dev.wannabe.domain.home.mapper.AttachFileManageMapper">
+    <insert id="addAttachFileManage" parameterType="AttachFileManage" useGeneratedKeys="true" keyProperty="attachFileId" keyColumn="attach_file_id">
+        INSERT INTO ATTACH_FILE_MANAGE
+        (
+            FILE_ORIGIN_NAME,
+            FILE_SIZE,
+            FILE_PATH,
+            FILE_EXTENSION,
+            INSERT_DT
+        )VALUES
+        (
+            #{fileOriginName},
+            #{fileSize},
+            #{filePath},
+            #{fileExtension},
+            NOW()
+        )
+    </insert>
+</mapper>

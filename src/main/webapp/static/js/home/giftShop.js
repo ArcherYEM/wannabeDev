@@ -127,7 +127,6 @@ $(function () {
         }
 
          $('.itemCheckBox').prop('checked',true);
-         console.log($('.itemCard:visible').length + selectedItems.length);
         $('.itemCard').each(function(index,item){
             if($('.selectItemUl li[data-id="' + $(item).attr('data-id') + '"][data-type="' + $(item).attr('data-type') + '"]').length > 0){
                 return;
@@ -506,8 +505,6 @@ function giftShop(searchText){
                 $('.itemWrap').html('<div class="emptySearch"><span>해당 검색어의 아이템이 존재하지 않습니다.</span></div>');
                 return;
             }
-            const select = $('.selectBox option');
-            $('.selectBox select').val(select.eq(0).val());
             if(response.length === 12){
                 $('.itemCard').fadeIn(0);
             }
@@ -518,10 +515,10 @@ function giftShop(searchText){
                 $('.itemDesc span').text($('.menu-ul li.active').text());
                 $('.itemDesc h3').eq(index).text(item.productName);
                 const prices = item.prices.split(',');
-                $('.itemCard').find('.selectBox option').each(function(index){
+                $('.itemCard').eq(index).find('.selectBox option').each(function(index){
                     $(this).val(prices[index]);
                 })
-                $('.price').eq(index).html($('.selectBox select').val() + '개');
+                $('.price').eq(index).html($('.selectBox select').eq(index).val() + '개');
             })
             if(response.length < 12){
                 for(let i = 11; i >= response.length; i--){
@@ -803,7 +800,6 @@ function getBgmAudioPath(bgmId){
 function appendRecentItem(){
         let recentItems = JSON.parse(localStorage.getItem('recentItem'));
         recentItems = recentItems ? recentItems : [];
-        console.log(recentItems);
 
         $('.recentItemWrap').empty();
         let code = '';
@@ -822,7 +818,6 @@ function getModalBgmData(bgmId){
         type: 'GET',
         url: '/api/giftShop/read/gift/bgm/' + bgmId,
         success: function(response){
-            console.log(response);
             $('.giftShopModal').show();
             $('.modalItemImg').attr('src',response.filePath);
             $('#productDesc').hide();

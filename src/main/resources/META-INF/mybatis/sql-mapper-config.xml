@@ -44,6 +44,10 @@
 		<typeAlias alias="MiniroomBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MiniroomBasic"/>
 		<!--> minimi <-->
 		<typeAlias alias="MinimiBasic" type="com.dev.wannabe.domain.minihompi.model.vo.MinimiBasic"/>
+		<!--> gisht-shop  <-->
+		<typeAlias alias="Product" type="com.dev.wannabe.domain.home.model.vo.Product"/>
+		<typeAlias alias="AttachFileManage" type="com.dev.wannabe.domain.home.model.vo.AttachFileManage"/>
+		<typeAlias alias="ProductPrice" type="com.dev.wannabe.domain.home.model.vo.ProductPrice"/>
 		<!--> userCart <-->
 		<typeAlias alias="UserCart" type="com.dev.wannabe.domain.home.model.vo.UserCart"/>
 

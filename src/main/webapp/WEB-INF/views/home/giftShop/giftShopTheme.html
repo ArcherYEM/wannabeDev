@@ -9,52 +9,53 @@
     <div class="itemTitle">
         <h2></h2>
     </div>
-<div class="itemWrap">
-    <div class="itemAll">
-        <input type="checkbox"><span>전체 선택</span>
-    </div>
-    <div class="itemContainer">
-        <div class="itemCard" th:each="i : ${#numbers.sequence(1, 12)}">
-            <div class="itemImg">
-                <img>
-                <input class="itemCheckBox" type="checkbox">
-            </div>
-            <div class="itemDesc">
-                <span></span>
-                <h3></h3>
-                <input type="hidden">
-            </div>
-            <div class="itemPricing">
-                <div class="selectBox">
-                    <select>
-                        <option value="option1">1일</option>
-                        <option value="option2">3일</option>
-                        <option value="option3">7일</option>
-                        <option value="option4">30일</option>
-                        <option value="option5">90일</option>
-                        <option value="option6">365일</option>
-                    </select>
+    <div class="itemWrap">
+        <div class="itemAll">
+            <input type="checkbox"><span>전체 선택</span>
+        </div>
+        <div class="itemContainer">
+            <div class="itemCard" th:each="i : ${#numbers.sequence(1, 12)}">
+                <div class="itemImg">
+                    <img>
+                    <input class="itemCheckBox" type="checkbox">
                 </div>
-                <div class="dotori">
-                    <img class="dotori-icon" src="/static/images/common/icon/dotori.png">
+                <div class="itemDesc">
+                    <span></span>
+                    <h3></h3>
+                    <input type="hidden">
                 </div>
-                <div class="price">
+                <div class="itemPricing">
+                    <div class="selectBox">
+                        <select>
+                            <option value="option1">1일</option>
+                            <option value="option2">3일</option>
+                            <option value="option3">7일</option>
+                            <option value="option4">30일</option>
+                            <option value="option5">90일</option>
+                            <option value="option6">365일</option>
+                        </select>
+                    </div>
+                    <div class="dotori">
+                        <img class="dotori-icon" src="/static/images/common/icon/dotori.png">
+                    </div>
+                    <div class="price">
+                    </div>
                 </div>
-            </div>
-            <div class="itemBuy">
-                <div class="itemGift">
-                    <i class="xi-gift-o"></i>
-                </div>
-                <div class="itemCart">
-                    <i class="xi-cart-o"></i>
-                </div>
-                <div class="itemPurchase">
-                    <span>구매하기</span>
+                <div class="itemBuy">
+                    <div class="itemGift">
+                        <i class="xi-gift-o"></i>
+                    </div>
+                    <div class="itemCart">
+                        <i class="xi-cart-o"></i>
+                    </div>
+                    <div class="itemPurchase">
+                        <span>구매하기</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <button id="item-add-btn">아이템 추가</button>
+        <div class="productPage">
+        </div>
     </div>
-    <div class="productPage">
-    </div>
-</div>
 </div>
