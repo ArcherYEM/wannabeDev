@@ -216,6 +216,11 @@ public class NoticeService {
                     .addAttributes("li", "class")
                     .addAttributes("hr", "class");
             String cleanContents = Jsoup.clean(noticeDTO.getNoticeContents(), safelist);
+            String original = noticeDTO.getNoticeContents();
+            original = original.replace("<hr />", "<hr>").replace("<hr/>", "<hr>");
+            cleanContents = Jsoup.clean(original, safelist);
+
+
 
             noticeDTO.setNoticeTitle(cleanTitle);
             noticeDTO.setNoticeContents(cleanContents);

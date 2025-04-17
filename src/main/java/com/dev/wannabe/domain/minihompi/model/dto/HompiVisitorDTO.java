@@ -22,7 +22,7 @@ public class HompiVisitorDTO {
     private String secretCheck;
 
     private String loginId;
-    private String Name;
+    private String name;
 
     private Long ownerUserId;
 

@@ -65,6 +65,9 @@ public class NoticeDTO {
 
     // 날짜 범위를 반환하는 메서드 추가
     public String getDateRange() {
+        if((endDateTime).equals("9999-12-31 23:59")) {
+            return "무기한";
+        }
         boolean hasStart = startDateTime != null && !startDateTime.trim().isEmpty();
         boolean hasEnd = endDateTime != null && !endDateTime.trim().isEmpty();
 

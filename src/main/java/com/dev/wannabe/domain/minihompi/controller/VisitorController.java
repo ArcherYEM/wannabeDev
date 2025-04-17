@@ -45,9 +45,10 @@ public class VisitorController {
 
         SessionUserDTO user = (SessionUserDTO) session.getAttribute("userData");
 
-        if (user == null) {
-            log.warn("로그인 후 이용 가능합니다.");
-            return "redirect:/";
+        String userRole = "0"; // 기본값: 비로그인
+
+        if (user != null && user.getRole() != null) {
+            userRole = user.getRole();
         }
 
         // 세션에 hompiId 저장
@@ -55,10 +56,9 @@ public class VisitorController {
 
         List<HompiVisitorDTO> visitorList = minihompiMapper.selectVisitorList(hompiId);
         model.addAttribute("visitorList", visitorList); // view에 넘김
+        model.addAttribute("userRole",userRole);
 
 
-
-//        model.addAttribute("hompiId", hompiId); // 뷰에서도 사용 가능
         return "minihompi/visitor/minihompiVisitor";
     }
 
