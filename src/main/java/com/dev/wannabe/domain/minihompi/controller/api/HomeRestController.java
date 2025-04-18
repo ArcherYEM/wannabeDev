@@ -29,6 +29,7 @@ public class HomeRestController {
         SessionUserDTO userData = (SessionUserDTO) request.getSession().getAttribute("userData");
         Map<String, Object> response = minihompiService.getMinihompiPopup(hompiId, userData, session);
 
+
         return ResponseEntity.ok(response);
     }
 

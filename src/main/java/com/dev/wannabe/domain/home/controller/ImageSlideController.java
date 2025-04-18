@@ -19,7 +19,7 @@ public class ImageSlideController {
 
     @GetMapping(value="/imageSlide")
     public String imageSlideList(Model model){
-        String imgFileName = "%ggum_0%"; // 공지에띄울 FILE_ORIGIN_NAME 명
+        String imgFileName = "%theme_skin_%"; // 공지에띄울 FILE_ORIGIN_NAME 명
         List<ImageSlideDTO> imageSlideList = imageSlideService.getImageSlide(imgFileName);
        /* System.out.println("imageSlideList :" + imageSlideList.toArray().length);*/
         model.addAttribute("imageSlideList", imageSlideList);
@@ -28,7 +28,7 @@ public class ImageSlideController {
     
     @GetMapping("/imageSlide2")
     public ResponseEntity<List<ImageSlideDTO>> imageSlideList2(){
-        String imgFileName = "%ggum_0%";
+        String imgFileName = "%theme_skin_%";
         List<ImageSlideDTO> imageSlideList = imageSlideService.getImageSlide(imgFileName);
         return ResponseEntity.ok(imageSlideList);
     }

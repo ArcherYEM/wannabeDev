@@ -6,6 +6,7 @@ import com.dev.wannabe.domain.minihompi.model.dto.HompiVisitorDTO;
 import com.dev.wannabe.domain.minihompi.model.dto.MinimiInfoDTO;
 import com.dev.wannabe.domain.minihompi.model.vo.HompiVisitor;
 import com.dev.wannabe.global.model.SessionUserDTO;
+import com.dev.wannabe.domain.minihompi.service.VisitorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,31 +36,55 @@ public class VisitorController {
     @Autowired
     private final MinihompiMapper minihompiMapper;
 
+    @Autowired
+    private final VisitorService visitorService;
+
     /**
      * 방명록 진입 - hompiId를 세션에 저장
      **/
     @GetMapping("/visitor/{hompiId}")
     public String visitor(@PathVariable("hompiId") Long hompiId,
+                          @RequestParam(name = "offset", defaultValue = "0") int offset,
                           HttpSession session,
                           Model model) {
 
         SessionUserDTO user = (SessionUserDTO) session.getAttribute("userData");
 
-        if (user == null) {
-            log.warn("로그인 후 이용 가능합니다.");
-            return "redirect:/";
-        }
+        String userRole = "0"; // 기본값: 비로그인
 
-        // 세션에 hompiId 저장
+        if (user != null && user.getRole() != null) {
+            userRole = user.getRole();
+        }
         session.setAttribute("currentHompiId", hompiId);
 
-        List<HompiVisitorDTO> visitorList = minihompiMapper.selectVisitorList(hompiId);
-        model.addAttribute("visitorList", visitorList); // view에 넘김
+        Map<String, Object> result = visitorService.getVisitorPage(hompiId, offset);
+        model.addAttribute("result", result);
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("hompiId", hompiId);
 
-
-
-//        model.addAttribute("hompiId", hompiId); // 뷰에서도 사용 가능
         return "minihompi/visitor/minihompiVisitor";
+    }
+
+    @PostMapping("/visitor/page/{hompiId}")
+    public String reloadVisitorPage(@PathVariable("hompiId") Long hompiId,
+                                    @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                    HttpSession session,
+                                    Model model) {
+
+        SessionUserDTO user = (SessionUserDTO) session.getAttribute("userData");
+
+        String userRole = "0"; // 기본값: 비로그인
+
+        if (user != null && user.getRole() != null) {
+            userRole = user.getRole();
+        }
+
+        Map<String, Object> result = visitorService.getVisitorPage(hompiId, offset);
+        model.addAttribute("result", result);
+        model.addAttribute("userRole", userRole);
+        model.addAttribute("hompiId", hompiId);
+
+        return "minihompi/visitor/minihompiVisitor :: #visit"; // :: #visit(id="visit"인 태그만 ajax 응답으로 보냄)
     }
 
     /**

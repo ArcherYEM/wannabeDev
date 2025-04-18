@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Param; //
 
 @Mapper
 public interface MinihompiMapper {
@@ -48,7 +49,10 @@ public interface MinihompiMapper {
     void insertVisitor(HompiVisitor hompiVisitor);
 
     // 방명록 불러오기
-    List<HompiVisitorDTO> selectVisitorList(Long hompiId);
+    List<HompiVisitorDTO> selectVisitorList(@Param("hompiId") Long hompiId, @Param("offset") int offset);
+
+    // 방명록 숫자
+    int visitorCount(@Param("hompiId") Long hompiId);
 
     // 방명록 수정
     int updateVisitor(Map<String, Object> param);
@@ -56,6 +60,10 @@ public interface MinihompiMapper {
     // 방명록 삭제
     int deleteVisitor(Map<String, Object> param);
 
+    // 방명록 전체 숫자
+    int visitorAllCount(Long hompiId);
 
+    // 최신 방명록 숫자
+    int visitorNewCount(Long hompiId);
 }
 

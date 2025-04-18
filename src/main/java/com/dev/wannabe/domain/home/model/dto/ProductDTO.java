@@ -15,12 +15,8 @@ public class ProductDTO {
     private String productName;
     private String productType;
     private String filePath;
-    private String fileName;
 
     private String productDesc;
     private String prices;
 
-    public String getImageUrl() {
-        return filePath + "/" + fileName;
-    }
 }

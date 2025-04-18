@@ -34,6 +34,7 @@ $(function () {
     getItemCart();
     getCheckITemListByLocal();
     appendRecentItem();
+    checkUserRole();
 
     // 선물함 메뉴 효과
     $(".top-header-menu .tab").on("click", function () {
@@ -127,7 +128,6 @@ $(function () {
         }
 
          $('.itemCheckBox').prop('checked',true);
-         console.log($('.itemCard:visible').length + selectedItems.length);
         $('.itemCard').each(function(index,item){
             if($('.selectItemUl li[data-id="' + $(item).attr('data-id') + '"][data-type="' + $(item).attr('data-type') + '"]').length > 0){
                 return;
@@ -506,8 +506,6 @@ function giftShop(searchText){
                 $('.itemWrap').html('<div class="emptySearch"><span>해당 검색어의 아이템이 존재하지 않습니다.</span></div>');
                 return;
             }
-            const select = $('.selectBox option');
-            $('.selectBox select').val(select.eq(0).val());
             if(response.length === 12){
                 $('.itemCard').fadeIn(0);
             }
@@ -518,10 +516,10 @@ function giftShop(searchText){
                 $('.itemDesc span').text($('.menu-ul li.active').text());
                 $('.itemDesc h3').eq(index).text(item.productName);
                 const prices = item.prices.split(',');
-                $('.itemCard').find('.selectBox option').each(function(index){
+                $('.itemCard').eq(index).find('.selectBox option').each(function(index){
                     $(this).val(prices[index]);
                 })
-                $('.price').eq(index).html($('.selectBox select').val() + '개');
+                $('.price').eq(index).html($('.selectBox select').eq(index).val() + '개');
             })
             if(response.length < 12){
                 for(let i = 11; i >= response.length; i--){
@@ -536,6 +534,7 @@ function giftShop(searchText){
             if($('.itemCheckBox:checked').length === response.length){
                 $('.itemAll input[type="checkbox"]').prop('checked',true);
             }
+            checkUserRole();
         },
         error: function(error){
             console.error(error);
@@ -580,6 +579,7 @@ function bgmGiftShop(searchText){
                 $('.itemCard[data-id="' + $(item).attr('data-id') + '"][data-type="'
                 + $(item).attr('data-type') + '"]').find('.itemCheckBox').prop('checked',true);
             })
+            checkUserRole();
         },
         error: function(error){
             console.error(error);
@@ -803,7 +803,6 @@ function getBgmAudioPath(bgmId){
 function appendRecentItem(){
         let recentItems = JSON.parse(localStorage.getItem('recentItem'));
         recentItems = recentItems ? recentItems : [];
-        console.log(recentItems);
 
         $('.recentItemWrap').empty();
         let code = '';
@@ -822,7 +821,6 @@ function getModalBgmData(bgmId){
         type: 'GET',
         url: '/api/giftShop/read/gift/bgm/' + bgmId,
         success: function(response){
-            console.log(response);
             $('.giftShopModal').show();
             $('.modalItemImg').attr('src',response.filePath);
             $('#productDesc').hide();
@@ -862,7 +860,7 @@ function getModalProductData(productId){
             $('.modalItemType').text('미니홈피 ' + response.productType);
             $('.modalDesc h2').text('아이템 이름: ' + response.productName);
             $('#modalItemDesc').text(response.productDesc);
-            $('.modalDesc').append(`<select>
+            $('.modalItemDescWrap').append(`<select>
                 <option>1일</option>
                 <option>3일</option>
                 <option>7일</option>
@@ -875,6 +873,21 @@ function getModalProductData(productId){
                 $(option).val(prices[index]);
             })
                 $('#modalDotori').text($('.modalDesc select').val() + '개');
+        },
+        error: function(error){
+            console.error(error);
+        }
+    })
+}
+
+function checkUserRole(){
+    $.ajax({
+        type: 'GET',
+        url: '/giftShop/check/role',
+        success: function(response){
+            if(response === true){
+                $('#item-add-btn').show();
+            }
         },
         error: function(error){
             console.error(error);

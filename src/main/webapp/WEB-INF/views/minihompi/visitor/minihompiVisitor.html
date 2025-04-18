@@ -1,58 +1,110 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<div id="visit">
-  <div id="insert" class="input_wrapper">
-    <div class="profile_img">
-      <img src="/static/images/common/minimi/은모.png" alt="미니미">
-    </div>
-    <div class="insert_body">
-      <div class="text">
-        <div id="visitorTextCount" class="textCount">0 / 500</div>
-        <textarea type="text" name="content" id="visitor_content"></textarea>
-      </div>
-      <div class="visitor_bottom insert_bottom">
-        <div class="check"><input type="checkbox" name="secret" class="secret-check" id="secret_check"><label>비밀글</label></div>
-        <button type="submit" id="insert_btn" class="visitor_button"> 등록 </button>
-      </div>
-    </div>
-  </div>
-  <hr class="visitor-divider" />
-  <!--  방명록 글   -->
-    <div id="select" th:each="item : ${visitorList}" class="visitor_wrapper visitor_item"  th:data-id="${item.guestBookId}">
-      <div class="visitor_title"
-           th:classappend="${item.secretCheck == 'Y'} ? ' secret' : ' public'">
-        <div class="name-wrapper">
-          <p class="visitor_name" th:text="${item.Name}">아이디</p>
-          <img class="icon_lock" th:if="${item.secretCheck == 'Y'}" src="/static/images/common/minihompi/icon_lock.svg" alt="비밀글">
+<div id="visit" th:data-hompi-id="${hompiId}">
+    <div id="insert" class="input_wrapper">
+        <div class="profile_img">
+            <img src="/static/images/common/minimi/은모.png" alt="미니미">
         </div>
-        <p th:text="${item.getUpdateDt != null ? item.InsertDt : item.getUpdateDt}">날짜</p>
+        <div class="insert_body">
+            <div class="text">
+                <div id="visitorTextCount" class="textCount">0 / 500</div>
+                <textarea
+                        id="visitor_content" name="content" th:disabled="${userRole == '0'}"
+                        th:utext="${userRole == '0'} ? '로그인 후 이용 가능합니다. 방명록을 남기고 싶으면 로그인을 해주세요.' : ''"
+                        th:style="${userRole == '0'} ? 'color:red;' : ''"
+                >
+        </textarea>
 
-      </div>
-      <div class="visitor_body">
-        <div class="content_wrapper">
-          <div class="profile_img">
-            <img src="/static/images/common/minimi/은철.png" alt="미니미">
-          </div>
-          <div class="visitor_content text" >
-          <textarea readonly class="textarea view-textarea"
-                    th:utext="${item.secretCheck == 'Y' and (session.userData.userId != item.insertUserId and session.userData.userId != item.ownerUserId)
-                       ? '비밀글입니다.'
-                       : item.guestBookContent}">
-          </textarea>
-          </div>
+            </div>
+            <div class="visitor_bottom insert_bottom">
+                <div class="check"><input type="checkbox" name="secret" class="secret-check" id="secret_check"><label>비밀글</label>
+                </div>
+                <button type="submit" id="insert_btn" class="visitor_button"> 등록</button>
+            </div>
         </div>
-        <div class="visitor_bottom view_bottom" th:if="${session.userData.userId == item.insertUserId}" >
-          <button class="visitor_button update_btn"> 수정 </button>
-          <button class="visitor_button delete_btn"> 삭제 </button>
-        </div>
-      </div>
     </div>
-  </div>
+    <hr class="visitor-divider"/>
+    <!--  방명록 글   -->
+    <div id="select" th:each="item : ${result.visitorList}" class="visitor_wrapper visitor_item"
+         th:data-id="${item.guestBookId}">
+        <div class="visitor_title"
+             th:classappend="${item.secretCheck == 'Y'} ? ' secret' : ' public'">
+            <div class="name-wrapper">
+                <p style="display:hiden;" class="visitor_name" th:text="${item.name}">아이디</p>
+                <img class="icon_lock" th:if="${item.secretCheck == 'Y'}"
+                     src="/static/images/common/minihompi/icon_lock.svg" alt="비밀글">
+            </div>
+            <p th:text="${item.updateDt != null ? item.updateDt : item.insertDt }">날짜</p>
+
+        </div>
+        <div class="visitor_body">
+            <div class="content_wrapper">
+                <div class="profile_img">
+                    <img src="/static/images/common/minimi/은철.png" alt="미니미">
+                </div>
+                <div class="visitor_content text">
+                    <div id="updateTextCount" class="textCount" th:text="${#strings.length(item.guestBookContent)} + ' / 500'">1 / 500</div>
+          <textarea readonly class="textarea view-textarea"
+                    th:utext="${
+                    (item.secretCheck == 'Y'
+                    and (session.userData == null
+                    or (session.userData.userId != item.insertUserId
+                    and session.userData.userId != item.ownerUserId)))
+                    ? '비밀글입니다.'
+                    : item.guestBookContent
+                    }">
+          </textarea>
+                </div>
+            </div>
+            <div class="visitor_bottom view_bottom"
+                 th:if="${session.userData != null and session.userData.userId == item.insertUserId}">
+                <button class="visitor_button update_btn"> 수정</button>
+                <button class="visitor_button delete_btn"> 삭제</button>
+            </div>
+        </div>
+    </div>
+    <!-- 페이징 버튼 -->
+    <div class="pagination">
+        <div class="page-nav">
+            <!-- 첫 번째 페이지 버튼 -->
+            <a th:if="${result.currentPage > 1}"
+               href="javascript:void(0);"
+               th:onclick="'reloadVisitorSection_POST(' + ${hompiId} + ', 0)'"
+               class="first">«</a>
+
+            <!-- 이전 페이지 버튼 -->
+            <a th:if="${result.startPage > 1}"
+               href="javascript:void(0);"
+               th:onclick="'reloadVisitorSection_POST(' + ${hompiId} + ', ' + ${(result.startPage - 2) * 5} + ')' "
+               class="prev">‹</a>
+
+            <!-- 페이지 번호 버튼 -->
+            <span th:each="page : ${#numbers.sequence(result.startPage, result.endPage)}">
+        <a href="javascript:void(0);"
+           th:onclick="'reloadVisitorSection_POST(' + ${hompiId} + ', ' + ${(page - 1) * 5} + ')'"
+           th:text="${page}"
+           th:classappend="${page == result.currentPage} ? 'active' : ''">1</a>
+      </span>
+
+            <!-- 다음 페이지 버튼 -->
+            <a th:if="${result.endPage < result.totalPages}"
+               href="javascript:void(0);"
+               th:onclick="'reloadVisitorSection_POST(' + ${hompiId} + ', ' + ${result.endPage * 5} + ')' "
+               class="next">›</a>
+
+            <!-- 마지막 페이지 버튼 -->
+            <a th:unless="${result.endPage == 1 || result.currentPage == result.totalPages}"
+               href="javascript:void(0);"
+               th:onclick="'reloadVisitorSection_POST(' + ${hompiId} + ', ' + ${(result.totalPages - 1) * 5} + ')' "
+               class="last">»</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
