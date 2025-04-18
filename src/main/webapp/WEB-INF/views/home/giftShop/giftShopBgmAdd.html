@@ -1,0 +1,69 @@
+<div class="contentContainer">
+    <div class="addItemTitle">
+        <span>미니홈피</span><span>|아이템 등록</span>
+    </div>
+    <div class="itemAddWrap">
+        <div class="addItemContainer">
+            <img id="addItemImg" src="/static/images/common/tempImages/addItemDefault.png">
+                <div class="addBgmImgWrap">
+                    <p>BGM 앨범자켓</p>
+                    <label for="itemFile" class="bgmImgUpload">
+                        파일선택
+                    </label>
+                    <input type="file" id="itemFile" accept="image/*">
+                </div>
+                <audio id="addBgmPlayer" controls autoplay loop muted></audio>
+                <div class="addBgmPathWrap">
+                    <p>BGM 음원</p>
+                    <label for="bgmFile" class="bgmUpload">
+                        파일선택
+                    </label>
+                    <input type="file" id="bgmFile" accept="audio/*">
+                </div>
+            </div>
+        <div class="addItemInfo">
+            <div class="bgmSingerGenreWrap">
+                <div class="addBgmSingerName">
+                    <span>가수명</span>
+                    <input type="text" placeholder="가수이름을 입력해주세요">
+                </div>
+                <div class="addBgmGenre">
+                    <span>장르명</span>
+                    <select>
+                        <option value="001">클래식</option>
+                        <option value="002">재즈</option>
+                        <option value="003">CCM</option>
+                        <option value="004">팝</option>
+                        <option value="005">발라드</option>
+                        <option value="006">블루스</option>
+                        <option value="007">힙합</option>
+                        <option value="008">컨트리</option>
+                        <option value="009">포크</option>
+                        <option value="010">레게</option>
+                        <option value="011">록</option>
+                        <option value="012">디스코</option>
+                        <option value="013">EDM</option>
+                        <option value="013">트로트</option>
+                    </select>
+                </div>
+            </div>
+            <div class="addItemName">
+                <span>아이템명</span>
+                <input type="text" placeholder="아이템 이름을 입력해주세요">
+            </div>
+            <div class="addBgmDotori">
+                <span>아이템 가격 (도토리 개,숫자만 입력)</span>
+                <input type="text" placeholder="value"/>
+            </div>
+            <div class="addBgmLyricsWrap">
+                <span>가사</span>
+                <textarea></textarea>
+            </div>
+            <div class="addBgmSubmit">
+                <button>
+                    <span>등록</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

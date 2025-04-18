@@ -1,0 +1,79 @@
+<div class="contentContainer">
+    <div class="addItemTitle">
+        <span>미니홈피</span><span>|아이템 등록</span>
+    </div>
+    <div class="itemAddWrap">
+        <div class="addItemImgWrap">
+            <img id="addItemImg" src="/static/images/common/tempImages/addItemDefault.png">
+        </div>
+        <div class="addItemContainer">
+            <div class="addItemFile">
+                <p>아이템 대표사진</p>
+                <label for="itemFile" class="itemUpload">
+                    파일선택
+                </label>
+                <input type="file" id="itemFile" accept="image/*">
+            </div>
+        </div>
+        <div class="addItemInfo">
+            <div class="categoryAuthorWrap">
+                <div class="addItemCategory">
+                    <span>아이템 카테고리</span>
+                    <select>
+                        <option value="01">미니미</option>
+                        <option value="02">미니룸</option>
+                        <option value="10">미니홈피스킨</option>
+                        <option value="11">메뉴스킨</option>
+                        <option value="12">글자스킨</option>
+                    </select>
+                </div>
+                <div class="addItemAuthor">
+                    <span>아이템 저자</span>
+                    <input type="text" placeholder="작성자 이름"/>
+                </div>
+            </div>
+            <div class="addItemName">
+                <span>아이템명</span>
+                <input type="text" placeholder="아이템 이름을 입력해주세요">
+            </div>
+            <div class="addItemDesc">
+                <span>아이템설명</span>
+                <textarea placeholder="아이템 설명을 입력해주세요"></textarea>
+            </div>
+            <div class="addItemDotori">
+                <span>아이템 가격 (도토리 개,숫자만 입력)</span>
+                <div class="dotoriPriceWrap">
+                    <div class="addItemDotoriPrice">
+                        <span>1일</span>
+                        <input type="text" placeholder="value"/>
+                    </div>
+                    <div class="addItemDotoriPrice">
+                        <span>3일</span>
+                        <input type="text" placeholder="value"/>
+                    </div>
+                    <div class="addItemDotoriPrice">
+                        <span>7일</span>
+                        <input type="text" placeholder="value"/>
+                    </div>
+                    <div class="addItemDotoriPrice">
+                        <span>30일</span>
+                        <input type="text" placeholder="value"/>
+                    </div>
+                    <div class="addItemDotoriPrice">
+                        <span>90일</span>
+                        <input type="text" placeholder="value"/>
+                    </div>
+                    <div class="addItemDotoriPrice">
+                        <span>365일</span>
+                        <input type="text" placeholder="value"/>
+                    </div>
+                </div>
+            </div>
+            <div class="addItemSubmit">
+                <button>
+                    <span>등록</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

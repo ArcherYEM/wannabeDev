@@ -65,4 +65,5 @@ public class RestGiftShopController {
         ProductDTO ProductDTO = giftShopService.getProductDTO(productId);
         return ResponseEntity.ok(ProductDTO);
     }
+
 }

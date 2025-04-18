@@ -1,5 +1,6 @@
 package com.dev.wannabe.domain.home.service;
 
+import com.dev.wannabe.domain.home.mapper.BgmMapper;
 import com.dev.wannabe.domain.home.mapper.ProductMapper;
 import com.dev.wannabe.domain.home.model.dto.BgmProductDTO;
 import com.dev.wannabe.domain.home.model.dto.ProductDTO;
@@ -14,6 +15,7 @@ import java.util.List;
 public class GiftShopService {
 
     private final ProductMapper productMapper;
+    private final BgmMapper bgmMapper;
 
     public ResponseEntity<List<ProductDTO>> getGiftShopList(String productType, Integer offset, String searchText) {
         return ResponseEntity.ok(productMapper.getGiftShopList(productType,offset,searchText));
@@ -21,7 +23,7 @@ public class GiftShopService {
 
     public ResponseEntity<Integer> getProductCount(String productType,String searchText) {
         if(productType.equals("BGM")){
-            return ResponseEntity.ok(productMapper.getBgmCount(searchText));
+            return ResponseEntity.ok(bgmMapper.getBgmCount(searchText));
         }
         return ResponseEntity.ok(productMapper.getProductCount(productType,searchText));
     }
@@ -45,11 +47,11 @@ public class GiftShopService {
     }
 
     public ResponseEntity<List<BgmProductDTO>> getBgmList(Integer offset,String searchText){
-        return ResponseEntity.ok(productMapper.getBgmList(offset,searchText));
+        return ResponseEntity.ok(bgmMapper.getBgmList(offset,searchText));
     }
 
     public ResponseEntity<List<BgmProductDTO>> getPopularBgm(){
-        List<BgmProductDTO> items = productMapper.getPopularBgmList();
+        List<BgmProductDTO> items = bgmMapper.getPopularBgmList();
         return ResponseEntity.ok(items);
     }
 
@@ -58,7 +60,7 @@ public class GiftShopService {
     }
 
     public String getBgmAudioPath(Long bgmId) {
-        String audioPath = productMapper.getBgmAudioPath(bgmId);
+        String audioPath = bgmMapper.getBgmAudioPath(bgmId);
         if(audioPath == null){
             return null;
         }
@@ -66,7 +68,7 @@ public class GiftShopService {
     }
 
     public BgmProductDTO getBgmProductDTO(Long bgmId){
-        BgmProductDTO bgmProductDTO = productMapper.getBgmProductDTO(bgmId);
+        BgmProductDTO bgmProductDTO = bgmMapper.getBgmProductDTO(bgmId);
         return bgmProductDTO;
     }
 

@@ -151,7 +151,6 @@ CREATE INDEX USER_USED_LOG_IDX_01 ON USER_USED_LOG(USER_ID);
 CREATE TABLE ATTACH_FILE_MANAGE (
                                     ATTACH_FILE_ID BIGINT AUTO_INCREMENT COMMENT '첨부 파일 ID',
                                     FILE_ORIGIN_NAME VARCHAR(100) NOT NULL COMMENT '원본 파일 이름',
-                                    FILE_NAME VARCHAR(100) NOT NULL COMMENT '파일 이름',
                                     FILE_SIZE BIGINT NOT NULL COMMENT '파일 크기', -- NUMBER(13, 0) → BIGINT로 변경
                                     FILE_PATH VARCHAR(100) NOT NULL COMMENT '파일 경로',
                                     FILE_EXTENSION VARCHAR(10) NOT NULL COMMENT '파일 확장자',
@@ -845,6 +844,7 @@ CREATE TABLE PRODUCT (
                          PRODUCT_ID BIGINT AUTO_INCREMENT COMMENT '상품 ID',
                          PRODUCT_TYPE VARCHAR(2) NOT NULL COMMENT '상품 분류',
                          PRODUCT_NAME VARCHAR(100) COMMENT '상품 이름',
+                         PRODUCT_AUTHOR VARCHAR(50) COMMENT '상품 저자',
                          PRODUCT_DESC TEXT COMMENT '상품 설명',
                          USE_YN VARCHAR(1) COMMENT '사용 여부',
                          ATTACH_FILE_ID BIGINT NOT NULL COMMENT '첨부파일 ID',
