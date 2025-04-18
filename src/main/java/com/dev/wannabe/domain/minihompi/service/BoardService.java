@@ -24,5 +24,9 @@ public class BoardService {
     List<HompiBoardDTO> getBoardView(Long hompiBoardId) {
         return hompiBoadrdMapper.getBoardView(hompiBoardId);
     }
-    
+
+    boolean deleteBoardPost(Long deleteList){
+        return hompiBoadrdMapper.deleteBoardPost(deleteList);
+    }
+
 }

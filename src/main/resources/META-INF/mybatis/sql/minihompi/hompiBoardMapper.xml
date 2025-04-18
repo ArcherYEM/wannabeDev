@@ -15,9 +15,11 @@
             hb.hompi_id = ub.user_id
         WHERE
             hb.hompi_id = ${param1}
+        AND
+            hb.folder_id = ${param2}
         ORDER BY
             hb.insert_dt DESC
-            LIMIT ${param2}, ${param3}
+            LIMIT ${param3}, ${param4}
     </select>
     
     <!-- 게시판 폴더별 게시물 수 -->
@@ -41,4 +43,10 @@
             hb.hompi_id = ub.user_id
         WHERE HOMPI_BOARD_ID = #{hompiBoardId}
     </select>
+
+    <!-- 게시물 삭제 -->
+    <delete id="deleteBoardPost">
+        DELETE FROM HOMPI_BOARD
+           WHERE HOMPI_BOARD_ID = #{param1};
+    </delete>
 </mapper>

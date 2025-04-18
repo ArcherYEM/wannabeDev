@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .post-container {
     width: 600px;
     margin: 10px auto;
@@ -304,6 +306,12 @@ input[type="text"].diaryTitle{
     color: orange;
 }
 
+.boardFolderName {
+    font-size: 18px;
+    font-weight: bold;
+    color: #bbbbbb;
+}
+
 /*페이지네이션 관련 css*/
 #pagination {
     position: relative;
@@ -421,4 +429,30 @@ input[type="text"].diaryTitle{
         background-color: var(--color-red);
     }
     color: #bbbbbb;
+}
+
+/*CKEditor 관련 */
+
+@media print {
+    body {
+        margin: 0 !important;
+    }
+}
+
+.main-container {
+    font-family: 'Lato';
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ck-content {
+    font-family: 'Lato';
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+    min-width: 600px;
+    max-width: 600px;
 }
