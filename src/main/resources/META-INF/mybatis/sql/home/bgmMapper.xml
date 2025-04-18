@@ -81,4 +81,52 @@
             A.BGM_ID = #{bgmId}
     </select>
 
+    <insert id="saveBgm" parameterType="Bgm" useGeneratedKeys="true" keyColumn="bgm_id" keyProperty="bgmId">
+        INSERT INTO BGM
+        (
+            BGM_LENGTH,
+            BGM_NAME,
+            ARTIST,
+            LYRICS,
+            USE_YN,
+            BGM_FILE_ATTACH_ID,
+            INSERT_USER_ID,
+            INSERT_DT,
+            IMAGE_FILE_ATTACH_ID
+        )
+        VALUES
+        (
+            #{bgmLength},
+            #{bgmName},
+            #{artist},
+            #{lyrics},
+            'Y',
+            #{bgmFileAttachId},
+            #{insertUserId},
+            NOW(),
+            #{imageFileAttachId}
+        )
+    </insert>
+
+    <insert id="saveBgmPrice" parameterType="BgmPrice">
+        INSERT INTO BGM_PRICE
+        (
+            BGM_ID,
+            AVAIL_DAY,
+            PRICE,
+            USE_YN,
+            INSERT_USER_ID,
+            INSERT_DT
+        )
+        VALUES
+        (
+            #{bgmId},
+            #{availDay},
+            #{price},
+            'Y',
+            #{insertUserId},
+            NOW()
+        )
+    </insert>
+
 </mapper>

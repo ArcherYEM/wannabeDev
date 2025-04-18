@@ -34,6 +34,7 @@ $(function () {
     getItemCart();
     getCheckITemListByLocal();
     appendRecentItem();
+    checkUserRole();
 
     // 선물함 메뉴 효과
     $(".top-header-menu .tab").on("click", function () {
@@ -533,6 +534,7 @@ function giftShop(searchText){
             if($('.itemCheckBox:checked').length === response.length){
                 $('.itemAll input[type="checkbox"]').prop('checked',true);
             }
+            checkUserRole();
         },
         error: function(error){
             console.error(error);
@@ -577,6 +579,7 @@ function bgmGiftShop(searchText){
                 $('.itemCard[data-id="' + $(item).attr('data-id') + '"][data-type="'
                 + $(item).attr('data-type') + '"]').find('.itemCheckBox').prop('checked',true);
             })
+            checkUserRole();
         },
         error: function(error){
             console.error(error);
@@ -857,7 +860,7 @@ function getModalProductData(productId){
             $('.modalItemType').text('미니홈피 ' + response.productType);
             $('.modalDesc h2').text('아이템 이름: ' + response.productName);
             $('#modalItemDesc').text(response.productDesc);
-            $('.modalDesc').append(`<select>
+            $('.modalItemDescWrap').append(`<select>
                 <option>1일</option>
                 <option>3일</option>
                 <option>7일</option>
@@ -870,6 +873,21 @@ function getModalProductData(productId){
                 $(option).val(prices[index]);
             })
                 $('#modalDotori').text($('.modalDesc select').val() + '개');
+        },
+        error: function(error){
+            console.error(error);
+        }
+    })
+}
+
+function checkUserRole(){
+    $.ajax({
+        type: 'GET',
+        url: '/giftShop/check/role',
+        success: function(response){
+            if(response === true){
+                $('#item-add-btn').show();
+            }
         },
         error: function(error){
             console.error(error);

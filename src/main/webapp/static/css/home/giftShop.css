@@ -772,6 +772,10 @@
     margin-bottom: 20px;
 }
 
+.modalItemDescWrap{
+    margin-top: 30px;
+}
+
 #productDesc{
     display: none;
 }
@@ -863,6 +867,7 @@
     color: white;
     border-radius: 5px;
     height: 30px;
+    display: none;
 }
 
 /*giftShopItemAdd 영역*/
@@ -871,6 +876,11 @@
     display: grid;
     justify-content: center;
     gap: 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.addItemImgWrap{
     text-align: center;
 }
 
@@ -889,11 +899,11 @@
 .itemAddWrap{
     border: 1px solid #888;
     border-radius: 10px;
-    height: 825px;
+    padding: 20px;
 }
 
 #addItemImg{
-    width: 250px;
+    width: 300px;
     margin-top: 20px;
 }
 
@@ -910,13 +920,30 @@
     color: white;
 }
 
-.addItemFile{
-    display: grid;
+.bgmImgUpload ,.bgmUpload{
+    border: 1px solid;
+    border-radius: 5px;
+    height: 30px;
+    align-items: center;
+    display: flex;
     justify-content: center;
+    background-color: #8D939D;
+    cursor: pointer;
+    color: white;
+    width: 80px;
+}
+
+.addBgmImgWrap, .addBgmPathWrap{
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-#itemFile{
+#addBgmPlayer{
+    margin-top: 30px;
+}
+
+#itemFile, #bgmFile{
     display: none;
 }
 
@@ -926,13 +953,13 @@
     margin: 20px;
 }
 
-.categoryAuthorWrap{
+.categoryAuthorWrap ,.bgmSingerGenreWrap{
     display: flex;
     justify-content: space-between;
     height: 50px;
 }
 
-.addItemCategory ,.addItemAuthor{
+.addItemCategory ,.addItemAuthor, .addBgmGenre, .addBgmSingerName{
     display: grid;
     width: 350px;
 }
@@ -963,27 +990,39 @@
     width: 120px;
 }
 
-.addItemDotoriPrice{
+.addBgmDotori{
     display: grid;
     gap: 10px;
 }
 
-.ck-editor__editable{
-    min-height: 300px;
+.addItemDotoriPrice, addBgmDotoriPrice{
+    display: grid;
+    gap: 10px;
 }
 
-.addItemSubmit{
+.addItemSubmit, .addBgmSubmit{
     text-align: center;
     display: grid;
     height: 35px;
 }
 
-.addItemSubmit button{
+.addItemSubmit button, .addBgmSubmit button{
     background: #333333;
     color: white;
     font-size: 25px;
     border-radius: 10px;
     margin-top: 10px;
+}
+
+.addBgmLyricsWrap{
+    display: grid;
+    gap: 5px;
+}
+
+.addBgmLyricsWrap textarea{
+    text-align: center;
+    resize: none;
+    min-height: 350px;
 }
 
 

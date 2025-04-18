@@ -48,11 +48,13 @@ public class ProductService {
     public Boolean addProductItem(InsertProductDTO insertProductDTO, HttpServletRequest request){
         SessionUserDTO sessionUserDTO = getSessionUserDTO(request);
         if(sessionUserDTO == null){
-            return null;
+            return false;
         }
-/*        if(!sessionUserDTO.getRole().equals("01")){
-            return null;
-        }*/
+
+        if(sessionUserDTO.getRole().equals("03")){
+            return false;
+        }
+
         insertProductDTO.setUserId(sessionUserDTO.getUserId());
 
         MultipartFile uploadFile = insertProductDTO.getUploadFile();
@@ -60,7 +62,7 @@ public class ProductService {
         String storeFileName = getStoreName(originalFilename);
 
         try {
-            String uploadDir = System.getProperty("user.dir") + "/uploads/images/personal";
+            String uploadDir = System.getProperty("user.dir") + "/uploads/images/product/";
             File folder = new File(uploadDir);
 
             if (!folder.exists()) {
@@ -69,8 +71,7 @@ public class ProductService {
             File dest = new File(folder, storeFileName);
             uploadFile.transferTo(dest);
 
-
-            String filePath = "/images/personal/" + storeFileName;
+            String filePath = "/images/product/" + storeFileName;
 
             AttachFileManage attachFileManage = AttachFileManage.builder()
                     .fileOriginName(originalFilename)
