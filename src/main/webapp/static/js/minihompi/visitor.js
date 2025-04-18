@@ -1,6 +1,8 @@
-function reloadVisitorSection() {
+// 방명록 접속
+function reloadVisitorSection(hompiId, offset = 0) {
     $.ajax({
-        url: `/mini-hompi/visitor/${hompiId}`,
+        url: `/mini-hompi/visitor/${hompiId}?offset=${offset}`, // 쿼리 파라미터로 offset 전달
+        // Controller에서 defaultValue = "0"이 꼭 있어야 하고 만약 빠지면 400 Bad Request 발생함
         type: "GET",
         dataType: "html",
         success: function (html) {
@@ -10,12 +12,31 @@ function reloadVisitorSection() {
             $("#visit").html(newContent);
 
         },
-
+        
         error: function () {
             alert("방명록을 불러오는 데 실패했습니다.");
         }
     });
 }
+
+// 페이지 이동
+function reloadVisitorSection_POST(hompiId, offset = 0) {
+    $.ajax({
+        url: `/mini-hompi/visitor/page/${hompiId}`,
+        type: "POST",
+        data: { offset: offset }, // POST 본문에 offset 전송
+        dataType: "html",
+        success: function (html) {
+            const $parsedHtml = $("<div>").append($.parseHTML(html));
+            const newContent = $parsedHtml.find("#visit").html();
+            $("#visit").html(newContent);
+        },
+        error: function () {
+            alert("페이지 이동에 실패 했습니다.");
+        }
+    });
+}
+
 
 // 방명록 글자수 제한
 $(document).on("input", "#visitor_content", function () {
@@ -24,6 +45,7 @@ $(document).on("input", "#visitor_content", function () {
     if (text.length > maxChars) {
         text = text.substring(0, maxChars);
         $(this).val(text);
+        alert("글자수를 초과했습니다.")
     }
     $("#visitorTextCount").text(`${text.length} / ${maxChars}`);
 })
@@ -112,13 +134,32 @@ function loadVisitorList() {
 $(document).on("click", ".update_btn", function () {
     const $btn = $(this);
     const $visitorItem = $btn.closest(".visitor_item");
-    const $textarea = $visitorItem.find("textarea");
-
+    const $textarea = $visitorItem.find(".view-textarea");
+    const $delete = $visitorItem.find(".delete_btn")
+    const $textCount = $visitorItem.find(".textCount")
     console.log("현재 버튼 텍스트: " + $btn.text());
 
     if ($btn.text().trim() === "수정") {
+
+        $textarea.data("backup", $textarea.val());
         $textarea.removeAttr("readonly").focus();
+
         $btn.text("저장");
+        $delete.text("취소").addClass("cancel_btn").removeClass("delete_btn");
+        $textCount.css("visibility", "visible");
+
+        $textarea.on("input",function () {
+            const maxChars = 500;
+            let text = $(this).val();
+            if (text.length > maxChars) {
+                text = text.substring(0, maxChars);
+                $(this).val(text);
+                alert("글자수를 초과했습니다.")
+            }
+            $textCount.text(`${text.length} / ${maxChars}`);
+        })
+
+
     } else if ($btn.text().trim() === "저장") {
         const updatedContent = $textarea.val();
         const guestBookId = $visitorItem.data("id");
@@ -141,7 +182,9 @@ $(document).on("click", ".update_btn", function () {
             success: function () {
                 alert("방명록이 수정되었습니다.");
 
-                reloadVisitorSection();
+                const hompiId = $("#visit").data("hompi-id");
+                const offset = 0;
+                reloadVisitorSection(hompiId, offset);
             },
             error: function () {
                 alert("수정 실패");
@@ -149,6 +192,25 @@ $(document).on("click", ".update_btn", function () {
         });
     }
 });
+
+// 수정 취소
+$(document).on("click", ".cancel_btn", function () {
+    const $cancel = $(this);
+    const $visitorItem = $cancel.closest(".visitor_item");
+    const $textarea = $visitorItem.find(".view-textarea");
+    const $updateBtn = $visitorItem.find(".update_btn");
+    const $textCount = $visitorItem.find(".textCount");
+
+    const originalText = $textarea.data("backup") || ""; // originalText로 data를 저장
+    $textarea.val(originalText).prop("readonly", true); // readonly 읽기 전용으로 변경
+
+    $updateBtn.text("수정");
+    $cancel.text("삭제").removeClass("cancel_btn").addClass("delete_btn");
+
+    $textCount.css("visibility", "hidden");
+});
+
+
 
 
 // 삭제

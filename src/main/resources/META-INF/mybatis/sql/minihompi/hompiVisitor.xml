@@ -12,7 +12,7 @@
         INSERT_DT,
         UPDATE_USER_ID,
         UPDATE_DT,
-        SECRET_CHECK
+        SECRET_CHECKd
         ) VALUES (
         #{hompiId},
         #{guestBookContent},
@@ -46,6 +46,17 @@
         JOIN HOMPI h ON v.HOMPI_ID = h.HOMPI_ID  <!-- hompi 주인 id 찾기  -->
         WHERE v.HOMPI_ID = #{hompiId}
         ORDER BY v.INSERT_DT DESC
+        LIMIT 5 OFFSET #{offset}
+    </select>
+
+    <!-- 방명록 숫자-->
+    <select id="visitorCount" parameterType="Long">
+        SELECT
+        COUNT(*)
+        FROM HOMPI_GUEST_BOOK v
+        JOIN USER_BASIC u ON v.INSERT_USER_ID = u.USER_ID
+        JOIN HOMPI h ON v.HOMPI_ID = h.HOMPI_ID  <!-- hompi 주인 id 찾기  -->
+        WHERE v.HOMPI_ID = #{hompiId}
     </select>
 
 

@@ -225,22 +225,6 @@ $(document).ready(function () {
         }
     });
 
-//    // json 데이터를 가져오는 함수
-//    function getMinihompiDataList() {
-//        const hompiDataUrl = `/api/minihompi/${hompiId}`
-//        $.ajax({
-//            type: "GET",
-//            url: hompiDataUrl,
-//            dataType: "json",
-//            success: function (data) {
-//                renderminihompi(data); // 화면 렌더링
-//            },
-//            error: function () {
-//                alert("미니홈피 데이터를 가져오는 데 실패했습니다.");
-//            }
-//        });
-//    }
-
     function getMinihompiDataList() {
         const hompiDataUrl = `/api/minihompi/${hompiId}`
         $.ajax({
