@@ -76,6 +76,18 @@ $(document).ready(function(){
                 Number($(price).val())
             )
         })
+
+        if(itemCategory === '12'){
+            const ext = file.name.split('.').pop().toLowerCase();
+            if($.inArray(ext,['ttf', 'otf','woff','woff2','eot','svg']) == -1) {
+                return Swal.fire({
+                       title: "상품 저장 실패",
+                       text: "폰트 확장자를 선택해주세요!",
+                       icon: 'warning'
+                });
+            }
+        }
+
         const form = new FormData();
         form.append('uploadFile', file);
         form.append('productType', itemCategory);
@@ -138,6 +150,7 @@ function addProductItem(addItem){
                    text: "상품이 성공적으로 저장했습니다!",
                    icon: 'success'
             });
+            getProductMainHtml();
         },
         error: function(error){
             console.error(error);
